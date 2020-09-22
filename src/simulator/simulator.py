@@ -89,7 +89,6 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
         obj = Object(Decimal(x))
         objects.append(obj)
 
-    objects[0].d = Decimal(10)
     vstate0 = VehicleState(Decimal(0), Decimal(0))
 
     state = State(vstate0, objects)
