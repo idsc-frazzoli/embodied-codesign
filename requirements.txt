@@ -1,0 +1,7 @@
+# libraries
+numpy~=1.19
+dataclasses==0.7
+scipy~=1.5.2
+setuptools~=50.3.0
+wheel
+matplotlib~=3.3.2
