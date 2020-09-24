@@ -9,6 +9,7 @@ class SensingParameters:
     max_distance: Decimal  # meters
     n: int  # max_distance / ds
     list_of_ds: List[Decimal]
+    frequency: Decimal
 
 
 @dataclass

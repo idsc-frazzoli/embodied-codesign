@@ -5,24 +5,28 @@ from typing import List
 import scipy.stats
 from dataclasses import dataclass
 
+
 @dataclass
 class VehicleStats:
-    a_min: Decimal # m / s²
-    a_max: Decimal # m / s²
-    v_nominal: Decimal # m / s
+    a_min: Decimal  # m / s²
+    a_max: Decimal  # m / s²
+    v_nominal: Decimal  # m / s
     mass: Decimal  # kg
     length: Decimal  # m
     width: Decimal  # m
+
 
 @dataclass
 class Object:
     # distance relative to car
     d: Decimal
 
+
 @dataclass
 class VehicleState:
     x: Decimal
     v: Decimal
+
 
 @dataclass
 class State:
@@ -31,6 +35,17 @@ class State:
     vstate: VehicleState
     # list of obstacles with distance
     objects: List[Object]
+
+
+@dataclass
+class DelayedStates:
+    states: List[State]
+    latency: Decimal
+    l: int
+
+    def update(self, state: State):
+        self.states[0:(self.l - 1)] = self.states[1:]
+        self.states[-1] = state
 
 
 @dataclass

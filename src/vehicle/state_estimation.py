@@ -40,8 +40,8 @@ def compute_observations(sp: SensingPerformance, sparam: SensingParameters, prio
             continue
 
         false_negatives = sp.false_negative_at(o.d)
-        p_detect = 1.0 - float(false_negatives)
-        if toss_biased_coin(Decimal(p_detect)):
+        p_detect = 1 - false_negatives
+        if toss_biased_coin(p_detect):
             # great we see it
             # with what variance?
             stdev = sp.lsd_at(o.d)
