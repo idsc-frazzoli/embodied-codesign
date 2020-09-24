@@ -16,7 +16,7 @@ if __name__ == '__main__':
     n = int(round(max_distance / ds))
     list_of_ds = [ds * Decimal(i) for i in range(n)]
     sens_param = SensingParameters(ds=ds, max_distance=max_distance, n=n,
-                                   list_of_ds=list_of_ds, frequency=1*dt)
+                                   list_of_ds=list_of_ds, frequency=1*dt, latency= 1*dt)
     prior = Prior(density=Decimal('0.01'))
     fn = [Decimal(str((ds*i/(max_distance*2))**4)) for i in range(n)]
     fp = [Decimal(str((ds * i / (max_distance * 3/2)) ** 4)) for i in range(n)]
@@ -30,6 +30,6 @@ if __name__ == '__main__':
 
     sp = SimParameters(nsims=1, road_length=Decimal('500.0'), prior=prior, controller=controller,
                        sens_perf=sens_perf, dt=dt, sens_param=sens_param, vs=vs, seed=0,
-                       wt=Decimal('1.0'), latency= 1*dt)
+                       wt=Decimal('1.0'))
     simulate(sp)
 

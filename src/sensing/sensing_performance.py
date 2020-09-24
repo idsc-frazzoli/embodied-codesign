@@ -10,6 +10,7 @@ class SensingParameters:
     n: int  # max_distance / ds
     list_of_ds: List[Decimal]
     frequency: Decimal
+    latency: Decimal
 
 
 @dataclass

@@ -8,8 +8,7 @@ import matplotlib.pyplot as plt
 from controller.controller import Action, Controller
 from sensing.sensing_performance import SensingPerformance, SensingParameters
 from simulator.performance import PerformanceMetrics, CollisionStats, OneSimPerformanceMetrics, StoppedStats
-from vehicle.state_estimation import Prior, Belief, compute_observations, prediction_model, observation_model, \
-    Observations
+from vehicle.state_estimation import Prior, Belief, compute_observations, prediction_model, observation_model
 from vehicle.vehicle import State, VehicleState, VehicleStats, Object, DelayedStates
 
 
@@ -42,7 +41,6 @@ class SimParameters:
     vs: VehicleStats
     seed: int
     wt: Decimal # waiting time in front of obstacle until obstacle disappears
-    latency: Decimal
 
 
 def simulate(sp: SimParameters) -> PerformanceMetrics:
@@ -117,9 +115,9 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
     control_effort = 0
     t = Decimal(0.0)
     stop_stats = StoppedStats(wt=Decimal(0.0), stop=False, d_stop=sp.controller.d_stop)
-    delays = [state for i in range(int(sp.latency/sp.dt))]
+    delays = [state for i in range(int(sp.sens_param.latency/sp.dt))]
     l = len(delays)
-    delayed_st = DelayedStates(states=delays, latency=sp.latency, l=l)
+    delayed_st = DelayedStates(states=delays, latency=sp.sens_param.latency, l=l)
 
     while state.vstate.x <= sp.road_length:
         t += sp.dt
