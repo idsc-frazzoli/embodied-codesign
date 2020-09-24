@@ -16,6 +16,14 @@
 
 ## Paremeters to set:
 
+## Simulation
+- `nsims`: number of simulations
+- `road_length`: the total length of the road.
+- `prior`: the prior wich is a poisson process and needs the appearance rate of obstacles
+- `controller`: which controller to use for braking
+- `seed`: seed for random number generation
+- `ws`: the waiting time for the stopped vehicle in front of obstacle until obstacle disappears and the vehicle can move on.
+
 ### Vehicle
 - `a_min`: minimum acceleration or maximum breaking
 - `a_max`: maximum acceleration
@@ -30,7 +38,10 @@
 - `fn`: the false negative rate curves need to be set or given
 - `fp`: the false positive rate curves need to be set or given
 - `lsd`: the distance standard deviation for the object detection
+- `frequency`: the frequency of the sensing
+- `latency`: the latency of the sensing
 
 ### Controller
 - `prob_treshold`: the probability treshold when to brake
-- `d_critical`: It is the criticical distance when the vehicle needs to start to break. It dependents on the vehicle's velocity but also on tolerance and reaction.
+- `d_stop`: the distance to the obstacle we want the vehicle to stop or the additional distance to our braking distance
+- `t_react`: the reaction time of the actuators
