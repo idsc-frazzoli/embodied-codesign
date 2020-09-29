@@ -65,6 +65,7 @@ if __name__ == '__main__':
     ax6.plot(list_of_ds, fp_flea, color="blue", label="FLIR")
     ax6.legend(loc="lower right")
     ax6.set(xlabel='Distance in [m]', ylabel='FPR')
+    plt.tight_layout()
     plt.savefig('Camera-Performance.png')
     plt.show()
 
