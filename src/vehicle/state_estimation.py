@@ -83,7 +83,7 @@ def prediction_model(b0: Belief, u: Action, s: State, dt: Decimal, ds: Decimal, 
     # (keep in mind conversion in cells)
     # for the new part, apply prior
 
-    # easy: just transalte by integer
+    # easy: just translate by integer
     vstate_prev = get_previos_state(s, u, dt)
     delta = s.vstate.x - vstate_prev.x
     delta_idx = int(delta / ds)

@@ -1,6 +1,6 @@
 # libraries
 numpy~=1.19
-dataclasses==0.7
+dataclasses==0.6
 scipy~=1.5.2
 setuptools~=50.3.0
 wheel

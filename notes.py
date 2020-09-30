@@ -83,6 +83,7 @@ def compute_observations(sp: SensingPerformance, state: State) -> Observations:
         # do we detect it?
         # depends on the false negatives
         false_negatives = sp.false_negative_at(o.d)
+        # Probability of detecting an obstacle given that we have an obstacle (true positive)
         p_detect = 1 - false_negatives
         if toss_biased_coin(p_detect):
             # great we see it
