@@ -51,18 +51,18 @@ def compute_observations(sp: SensingPerformance, sparam: SensingParameters, prio
             detection = Detection(Decimal(d_detect), stdev)
             detections.append(detection)
 
-        density = prior.density * sparam.max_distance
-        n_objects = np.random.poisson(lam=float(density))
-        for o in range(0, n_objects):
-            d = Decimal(round(random.uniform(0.0, float(sparam.max_distance)), 1))
-            false_positive = sp.false_positive_at(d)
-            if toss_biased_coin(false_positive):
-                stdev = sp.lsd_at(d)
+    density = prior.density * sparam.max_distance
+    n_objects = np.random.poisson(lam=float(density))
+    for o in range(0, n_objects):
+        d = Decimal(round(random.uniform(0.0, float(sparam.max_distance)), 1))
+        false_positive = sp.false_positive_at(d)
+        if toss_biased_coin(false_positive):
+            stdev = sp.lsd_at(d)
 
-                d_detect = random.gauss(float(d), float(stdev))
+            d_detect = random.gauss(float(d), float(stdev))
 
-                detection = Detection(Decimal(d_detect), stdev)
-                detections.append(detection)
+            detection = Detection(Decimal(d_detect), stdev)
+            detections.append(detection)
 
     # now sample false positives
     # according to a poisson with variable intensity given by sp.fn

@@ -5,6 +5,7 @@ import numpy as np
 from dataclasses import dataclass
 import matplotlib.pyplot as plt
 
+from controller.basic_controller import BasicController
 from controller.controller import Action, Controller
 from sensing.sensing_performance import SensingPerformance, SensingParameters
 from simulator.performance import PerformanceMetrics, CollisionStats, OneSimPerformanceMetrics, StoppedStats
@@ -43,12 +44,28 @@ class SimParameters:
     wt: Decimal # waiting time in front of obstacle until obstacle disappears
 
 
-def simulate(sp: SimParameters) -> PerformanceMetrics:
+def simulate(sp: SimParameters, dyn_perf, sens, s, env, cont) -> PerformanceMetrics:
     """  nsims: number of simulations"""
     n_collisions = 0
     discomfort = Decimal('0')
     average_velocity = Decimal('0')
     average_collision_momentum = Decimal('0')
+
+    ds = Decimal('0.5')
+    max_distance = Decimal('50.0')
+    n = int(round(max_distance / ds))
+    list_of_ds = [ds * Decimal(i) for i in range(n)]
+    freq = Decimal(str(sens["frequency"]))
+    ts_sens = 1/freq
+    n_ts_sens = round(ts_sens/sp.dt)
+    sens_param = SensingParameters(ds=ds, max_distance=max_distance, n=n,
+                                   list_of_ds=list_of_ds, frequency=n_ts_sens * sp.dt, latency=1 * sp.dt)
+
+    vs = VehicleStats(a_min=Decimal(str(dyn_perf["a_min"])), a_max=Decimal(str(dyn_perf["a_max"])), v_nominal=Decimal(str(s / 3.6)),
+                      mass=Decimal(str(dyn_perf["mass"])))
+    prior = Prior(density=Decimal(str(env["density"])))
+    controller = BasicController(prob_threshold=Decimal(str(cont["prob_threshold"])), vs=vs, sp=sens_param,
+                                 d_stop=Decimal(str(cont["d_stop"])), t_react=Decimal(str(cont["t_react"])))
     for i in range(sp.nsims):
         sp.seed = i
         pm = simulate_one(sp)

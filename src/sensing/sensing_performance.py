@@ -73,7 +73,7 @@ class CameraSpecification:
         return list(vfov)
 
     def get_vertical_resolution(self, fov: List[Decimal]) -> List[Decimal]:
-        resolution_v = [Decimal(min(float(self.n_pixel_height), float(self.n_pixel_height/max(0.0001, float(fov[i])))))
+        resolution_v = [Decimal(min(float(self.n_pixel_height), float(self.n_pixel_height*1.70/max(0.0001, float(fov[i])))))
                         for i in range(len(fov))]
 
         return resolution_v

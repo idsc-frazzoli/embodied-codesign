@@ -1,0 +1,46 @@
+# Catalogue of vehicles with their dynamic perfomrmance
+
+sedan_s:
+  a_max: 3.12
+  a_min: -9.91
+  mass: 1429
+
+sedan_m:
+  a_max: 4.62
+  a_min: -9.83
+  mass: 1610
+
+sedan_l:
+  a_max: 4.47
+  a_min: -9.66
+  mass: 1875
+
+suv_s:
+  a_max: 4
+  a_min: -9.36
+  mass: 1618
+
+suv_m:
+  a_max: 7.72
+  a_min: -7.02
+  mass: 2430
+
+minivan:
+  a_max: 3.19
+  a_min: -8.89
+  mass: 2155
+
+shuttle:
+  a_max: 3.04
+  a_min: -4.92
+  mass: 2700
+
+hybrid:
+  a_max: 2.65
+  a_min: -8.99
+  mass: 1425
+
+bev:
+  a_max: 2.71
+  a_min: -9.75
+  mass: 1685

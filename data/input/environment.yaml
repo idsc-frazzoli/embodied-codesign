@@ -1,0 +1,89 @@
+# Environment catalogue
+
+05day_env:
+  density: 5
+  scenario: day
+
+06day_env:
+  density: 6
+  scenario: day
+
+07day_env:
+  density: 7
+  scenario: day
+
+08day_env:
+  density: 8
+  scenario: day
+
+09day_env:
+  density: 9
+  scenario: day
+
+10day_env:
+  density: 10
+  scenario: day
+
+11day_env:
+  density: 11
+  scenario: day
+
+12day_env:
+  density: 12
+  scenario: day
+
+13day_env:
+  density: 13
+  scenario: day
+
+14day_env:
+  density: 14
+  scenario: day
+
+15day_env:
+  density: 15
+  scenario: day
+
+05night_env:
+  density: 5
+  scenario: night
+
+06night_env:
+  density: 6
+  scenario: night
+
+07night_env:
+  density: 7
+  scenario: night
+
+08night_env:
+  density: 8
+  scenario: night
+
+09night_env:
+  density: 9
+  scenario: night
+
+10night_env:
+  density: 10
+  scenario: night
+
+11night_env:
+  density: 11
+  scenario: night
+
+12night_env:
+  density: 12
+  scenario: night
+
+13night_env:
+  density: 13
+  scenario: night
+
+14night_env:
+  density: 14
+  scenario: night
+
+15night_env:
+  density: 15
+  scenario: night

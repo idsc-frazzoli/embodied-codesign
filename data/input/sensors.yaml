@@ -1,0 +1,109 @@
+# Sensor catalogue
+# camera:
+    # power: [W]
+    # mass: [kg]
+    # size: [mm, mm]
+    # cost: [CHF]
+    # resolution: [px in H, px in V]
+    # frequency: [fps]
+    # lens: [mm]
+# lidar:
+    # range: [m]
+    # power: [W]
+    # mass: [kg]
+    # cost: [CHF]
+    # resolution: [degree in H, degree in V]
+    # frequency: [Hz]
+    # accuracy: [cm, cm]
+
+camera:
+  ace_251gm:
+    sens_perf: ace_251gm_faster_rcnn96
+    power: 3.8
+    mass: 0.105
+    size: [6.6, 4.1]
+    cost: 550
+    resolution: [1920, 1200]
+    frequency: 51
+    lens: 12
+
+  ace_2160um:
+    sens_perf: ace_2160um_faster_rcnn96
+    power: 4.3
+    mass: 0.09
+    size: [6.6, 4.1]
+    cost: 550
+    resolution: [1920, 1200]
+    frequency: 160
+    lens: 12
+
+  ace_222gm:
+    sens_perf: ace_222gm_faster_rcnn96f
+    power: 3.1
+    mass: 0.105
+    size: [5.2, 3.9]
+    cost: 500
+    resolution: [2592, 1944]
+    frequency: 22
+    lens: 12
+
+  ace_213gm:
+    sens_perf: ace_213gm_faster_rcnn96
+    power: 3.1
+    mass: 0.105
+    size: [7.7, 4.3]
+    cost: 530
+    resolution: [3840, 2160]
+    frequency: 13
+    lens: 12
+
+  ace_27gm:
+    sens_perf: ace_27gm_faster_rcnn96
+    power: 3.6
+    mass: 0.105
+    size: [14.6, 8.3]
+    cost: 1800
+    resolution: [5320, 3032]
+    frequency: 7
+    lens: 12
+
+  ace_25gm:
+    sens_perf: ace_25gmfaster_rcnn96
+    power: 3.6
+    mass: 0.105
+    size: [12.3, 12.3]
+    cost: 2220
+    resolution: [4504, 4504]
+    frequency: 5
+    lens: 12
+
+  ace_21um:
+    sens_perf: ace_21um_faster_rcnn96
+    power: 3.6
+    mass: 0.09
+    size: [14.6, 12.6]
+    cost: 2630
+    resolution: [5328, 4608]
+    frequency: 15
+    lens: 12
+
+  pointgrey:
+    sens_perf: pointgrey_faster_rcnn96
+    power: 2.5
+    mass: 0.058
+    size: [7.6, 6.2]
+    cost: 350
+    resolution: [1384, 1032]
+    frequency: 15
+    lens: 8
+
+lidar:
+  puck:
+    sens_perf: puck_perf
+    range: 100
+    power: 8
+    mass: 0.83
+    cost: 4000
+    resolution: [0.2, 2]
+    frequency: 5
+    accuracy: [-3,3]

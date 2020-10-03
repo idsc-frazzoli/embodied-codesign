@@ -12,8 +12,6 @@ class VehicleStats:
     a_max: Decimal  # m / s²
     v_nominal: Decimal  # m / s
     mass: Decimal  # kg
-    length: Decimal  # m
-    width: Decimal  # m
 
 
 @dataclass
