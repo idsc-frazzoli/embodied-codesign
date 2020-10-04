@@ -25,7 +25,7 @@ def update_state(s: State, action: Action, dt: Decimal) -> State:
     for i in range(len(s.objects)):
         s.objects[i].d = s.objects[i].d - x + s.vstate.x
 
-    vstate = VehicleState(x=x, v=v)
+    vstate = VehicleState(x=x, v=v, x_prev=s.vstate.x, v_prev=s.vstate.v)
 
     return State(vstate, s.objects)
 
@@ -43,8 +43,15 @@ class SimParameters:
     seed: int
     wt: Decimal # waiting time in front of obstacle until obstacle disappears
 
+    def __init__(self, nsims: int, road_length: Decimal, dt: Decimal, seed: int, wt: Decimal) -> None:
+        self.nsims = nsims
+        self.road_length = road_length
+        self.dt = dt
+        self.seed = seed
+        self.wt = wt
 
-def simulate(sp: SimParameters, dyn_perf, sens, s, env, cont) -> PerformanceMetrics:
+
+def simulate(sp: SimParameters, dyn_perf, sens, sens_curves, s, env, cont) -> PerformanceMetrics:
     """  nsims: number of simulations"""
     n_collisions = 0
     discomfort = Decimal('0')
@@ -63,9 +70,24 @@ def simulate(sp: SimParameters, dyn_perf, sens, s, env, cont) -> PerformanceMetr
 
     vs = VehicleStats(a_min=Decimal(str(dyn_perf["a_min"])), a_max=Decimal(str(dyn_perf["a_max"])), v_nominal=Decimal(str(s / 3.6)),
                       mass=Decimal(str(dyn_perf["mass"])))
-    prior = Prior(density=Decimal(str(env["density"])))
+    density = Decimal(str(env["density"]))/Decimal(str(1000))
+    prior = Prior(density=density)
     controller = BasicController(prob_threshold=Decimal(str(cont["prob_threshold"])), vs=vs, sp=sens_param,
                                  d_stop=Decimal(str(cont["d_stop"])), t_react=Decimal(str(cont["t_react"])))
+    sens_perf = SensingPerformance(sp=sens_param)
+    fn = sens_curves["fn"]
+    sens_perf.fn = [Decimal(p) for p in fn]
+    fp = sens_curves["fp"]
+    sens_perf.fp = [Decimal(p) for p in fp]
+    sens_perf.lsd = [Decimal(str(ds * i * Decimal(str(0.05)) + Decimal(0.5))) for i in range(n)]
+
+    sp.sens_param = sens_param
+    sp.vs = vs
+    sp.prior = prior
+    sp.controller = controller
+    sp.sens_perf = sens_perf
+
+
     for i in range(sp.nsims):
         sp.seed = i
         pm = simulate_one(sp)
@@ -79,9 +101,9 @@ def simulate(sp: SimParameters, dyn_perf, sens, s, env, cont) -> PerformanceMetr
     p_collision = Decimal(str(n_collisions / sp.nsims))
     average_velocity = average_velocity / sp.nsims
     average_collision_momentum = average_collision_momentum / sp.nsims
+    danger = average_collision_momentum*p_collision
 
-    return PerformanceMetrics(p_collision=p_collision, discomfort=discomfort, average_velocity=average_velocity,
-                              average_collision_momentum=average_collision_momentum)
+    return PerformanceMetrics(danger=danger, discomfort=discomfort, average_velocity=average_velocity)
 
 
 def collided(s: State, vs: VehicleStats) -> CollisionStats:
@@ -91,10 +113,11 @@ def collided(s: State, vs: VehicleStats) -> CollisionStats:
     #         momentum = s.vstate.v * vs.mass
     #         cs = CollisionStats(momentum=momentum)
     #         return cs
-    if s.objects[0].d <= 0:
-        momentum = s.vstate.v * vs.mass
-        cs = CollisionStats(momentum=momentum)
-        return cs
+    if s.objects:
+        if s.objects[0].d <= 0:
+            momentum = s.vstate.v * vs.mass
+            cs = CollisionStats(momentum=momentum)
+            return cs
 
 
 def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
@@ -119,10 +142,9 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
 
     objects.sort(key=lambda o: o.d, reverse=False) # sorting objects
 
-    vstate0 = VehicleState(Decimal('0.0'), Decimal('0.0'))
+    vstate0 = VehicleState(Decimal('0.0'), Decimal('0.0'), Decimal('0.0'), Decimal('0.0'))
 
     state = State(vstate0, objects)
-    action = Action(Decimal('0.0'))
     density_belief = sp.prior.density * sp.sens_param.max_distance
     pp = density_belief * Decimal(np.exp(-float(density_belief)))
     po = [Decimal(pp / n) for _ in range(n)]
@@ -135,6 +157,7 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
     delays = [state for i in range(int(sp.sens_param.latency/sp.dt))]
     l = len(delays)
     delayed_st = DelayedStates(states=delays, latency=sp.sens_param.latency, l=l)
+    delta_sum = Decimal(str(0))
 
     while state.vstate.x <= sp.road_length:
         t += sp.dt
@@ -143,15 +166,23 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
         else:
             observations = None
 
-        belief1 = prediction_model(b0=belief, u=action, s=state, dt=sp.dt, ds=ds, prior=sp.prior)
+        delta = state.vstate.x - state.vstate.x_prev
+        delta_sum = delta_sum + delta
+
+        if delta_sum >= ds:
+            delta_idx = int(delta_sum / ds)
+            belief1 = prediction_model(b0=belief, delta_idx=delta_idx, delta=delta, prior=sp.prior)
+            delta_sum = Decimal(str(0))
+        else:
+            belief1 = belief
 
         if observations is None:
             belief = belief1
         else:
             belief = observation_model(belief1, observations, sp.sens_param.list_of_ds, sp.sens_perf)
 
-        if plot_belief:
-            plt.plot(belief.po)
+        if plot_belief and float(t % Decimal(str(0.1))) == 0.0:
+            plt.plot(sp.sens_param.list_of_ds, belief.po)
             plt.ylabel('Belief')
             plt.xlabel('d [m]')
             plt.show()

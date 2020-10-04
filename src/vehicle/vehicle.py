@@ -24,6 +24,8 @@ class Object:
 class VehicleState:
     x: Decimal
     v: Decimal
+    x_prev: Decimal
+    v_prev: Decimal
 
 
 @dataclass
@@ -56,6 +58,6 @@ class Detection:
         # return gaussian distribution density at  (x-d_mean)/d_std
         # std = fn + fp
         std = self.d_std
-        p = Decimal(scipy.stats.norm(float(x), float(std)).pdf(float(self.d_mean)))
+        p = Decimal(scipy.stats.norm(float(self.d_mean), float(std)).pdf(float(x)))
 
         return p

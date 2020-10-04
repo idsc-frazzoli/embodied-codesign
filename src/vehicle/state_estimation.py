@@ -48,6 +48,9 @@ def compute_observations(sp: SensingPerformance, sparam: SensingParameters, prio
 
             d_detect = random.gauss(float(o.d), float(stdev))
 
+            if d_detect < 0:
+                d_detect = -1*d_detect
+
             detection = Detection(Decimal(d_detect), stdev)
             detections.append(detection)
 
@@ -60,6 +63,9 @@ def compute_observations(sp: SensingPerformance, sparam: SensingParameters, prio
             stdev = sp.lsd_at(d)
 
             d_detect = random.gauss(float(d), float(stdev))
+
+            if d_detect < 0:
+                d_detect = -1*d_detect
 
             detection = Detection(Decimal(d_detect), stdev)
             detections.append(detection)
@@ -78,15 +84,12 @@ class Belief:
     po: List[Decimal]  # of length n
 
 
-def prediction_model(b0: Belief, u: Action, s: State, dt: Decimal, ds: Decimal, prior: Prior) -> Belief:
+def prediction_model(b0: Belief, delta_idx: int, delta: Decimal, prior: Prior) -> Belief:
     # translate everything by v
     # (keep in mind conversion in cells)
     # for the new part, apply prior
 
     # easy: just transalte by integer
-    vstate_prev = get_previos_state(s, u, dt)
-    delta = s.vstate.x - vstate_prev.x
-    delta_idx = int(delta / ds)
     density = prior.density * delta
     pp_delta = density * Decimal(np.exp(-float(density)))
     if delta_idx != 0:
@@ -130,10 +133,3 @@ def observation_model(b0: Belief, obs: Observations, list_of_ds: List[Decimal], 
         po1 = norm * po1
 
     return Belief(list(po1))
-
-
-def get_previos_state(s: State, a: Action, dt: Decimal) -> VehicleState:
-    v_prev = s.vstate.v - a.accel * dt
-    x_prev = s.vstate.x - Decimal(0.5) * a.accel * dt ** 2 - v_prev * dt
-
-    return VehicleState(x_prev, v_prev)
