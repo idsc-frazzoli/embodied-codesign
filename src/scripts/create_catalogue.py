@@ -50,6 +50,6 @@ if __name__ == '__main__':
                         id += 1
 
     timestr = time.strftime("%Y%m%d-%H%M%S")
-    with open(parent_directory + '/data/output/ad-performance-' + timestr + '.yaml', 'w') as file:
+    with open('data/output/ad-performance-' + timestr + '.yaml', 'w') as file:
         documents = yaml.dump(ad_perf, file, default_flow_style=False)
 
