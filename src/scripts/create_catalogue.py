@@ -1,4 +1,3 @@
-import os
 from decimal import Decimal
 import time
 
@@ -30,7 +29,7 @@ if __name__ == '__main__':
     camera = cameras = sensors["camera"]
     speed = cruise_speeds["speeds"]
 
-    sp = SimParameters(nsims=50, road_length=Decimal('500.0'), dt=Decimal(str(0.01)), seed=0, wt=Decimal('1.0'))
+    sp = SimParameters(nsims=1, road_length=Decimal('500.0'), dt=Decimal(str(0.01)), seed=0, wt=Decimal('1.0'))
 
     ad_perf = {}
     id = 1

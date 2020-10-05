@@ -1,4 +1,3 @@
-import random
 from decimal import Decimal
 from typing import List
 
@@ -30,10 +29,7 @@ class VehicleState:
 
 @dataclass
 class State:
-    # vehicle state
-
     vstate: VehicleState
-    # list of obstacles with distance
     objects: List[Object]
 
 
@@ -53,11 +49,9 @@ class Detection:
     d_mean: Decimal
     d_std: Decimal
 
-    def at_distance(self, x: Decimal, fn: Decimal, fp: Decimal) -> Decimal:
+    def at_distance(self, x: Decimal) -> Decimal:
         """ Returns the likeilhood of something at x given this detection"""
-        # return gaussian distribution density at  (x-d_mean)/d_std
-        # std = fn + fp
-        std = self.d_std
-        p = Decimal(scipy.stats.norm(float(self.d_mean), float(std)).pdf(float(x)))
+        p = Decimal(scipy.stats.norm(float(self.d_mean), float(self.d_std)).pdf(float(x)))
+        g = scipy.stats.norm(float(self.d_mean), float(self.d_std))
 
         return p
