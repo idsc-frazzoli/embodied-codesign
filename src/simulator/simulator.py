@@ -5,20 +5,27 @@ import numpy as np
 from dataclasses import dataclass
 import matplotlib.pyplot as plt
 
+from controller.basic_controller import BasicController
 from controller.controller import Action, Controller
 from sensing.sensing_performance import SensingPerformance, SensingParameters
-from simulator.performance import PerformanceMetrics, CollisionStats, OneSimPerformanceMetrics
+from simulator.performance import PerformanceMetrics, CollisionStats, OneSimPerformanceMetrics, StoppedStats
 from vehicle.state_estimation import Prior, Belief, compute_observations, prediction_model, observation_model
-from vehicle.vehicle import State, VehicleState, VehicleStats, Object
+from vehicle.vehicle import State, VehicleState, VehicleStats, Object, DelayedStates
 
 
 def update_state(s: State, action: Action, dt: Decimal) -> State:
-    x = Decimal(0.5) * action.accel * dt**2 + s.vstate.v * dt + s.vstate.x
+    x = Decimal('0.5') * action.accel * dt**2 + s.vstate.v * dt + s.vstate.x
+    if (x-s.vstate.x) < 0:
+        x = s.vstate.x # no backward driving
+
     v = action.accel * dt + s.vstate.v
+    if v < 0:
+        v = Decimal('0.0') # no backwards driving
+
     for i in range(len(s.objects)):
         s.objects[i].d = s.objects[i].d - x + s.vstate.x
 
-    vstate = VehicleState(x=x, v=v)
+    vstate = VehicleState(x=x, v=v, x_prev=s.vstate.x, v_prev=s.vstate.v)
 
     return State(vstate, s.objects)
 
@@ -34,14 +41,53 @@ class SimParameters:
     sens_param: SensingParameters
     vs: VehicleStats
     seed: int
+    wt: Decimal # waiting time in front of obstacle until obstacle disappears
+
+    def __init__(self, nsims: int, road_length: Decimal, dt: Decimal, seed: int, wt: Decimal) -> None:
+        self.nsims = nsims
+        self.road_length = road_length
+        self.dt = dt
+        self.seed = seed
+        self.wt = wt
 
 
-def simulate(sp: SimParameters) -> PerformanceMetrics:
+def simulate(sp: SimParameters, dyn_perf, sens, sens_curves, s, env, cont) -> PerformanceMetrics:
     """  nsims: number of simulations"""
     n_collisions = 0
-    discomfort = Decimal(0)
-    average_velocity = Decimal(0)
-    average_collision_momentum = Decimal(0)
+    discomfort = Decimal('0')
+    average_velocity = Decimal('0')
+    average_collision_momentum = Decimal('0')
+
+    ds = Decimal('0.5')
+    max_distance = Decimal('50.0')
+    n = int(round(max_distance / ds))
+    list_of_ds = [ds * Decimal(i) for i in range(n)]
+    freq = Decimal(str(sens["frequency"]))
+    ts_sens = 1/freq
+    n_ts_sens = round(ts_sens/sp.dt)
+    sens_param = SensingParameters(ds=ds, max_distance=max_distance, n=n,
+                                   list_of_ds=list_of_ds, frequency=n_ts_sens * sp.dt, latency=1 * sp.dt)
+
+    vs = VehicleStats(a_min=Decimal(str(dyn_perf["a_min"])), a_max=Decimal(str(dyn_perf["a_max"])), v_nominal=Decimal(str(s / 3.6)),
+                      mass=Decimal(str(dyn_perf["mass"])))
+    density = Decimal(str(env["density"]))/Decimal(str(1000))
+    prior = Prior(density=density)
+    controller = BasicController(prob_threshold=Decimal(str(cont["prob_threshold"])), vs=vs, sp=sens_param,
+                                 d_stop=Decimal(str(cont["d_stop"])), t_react=Decimal(str(cont["t_react"])))
+    sens_perf = SensingPerformance(sp=sens_param)
+    fn = sens_curves["fn"]
+    sens_perf.fn = [Decimal(p) for p in fn]
+    fp = sens_curves["fp"]
+    sens_perf.fp = [Decimal(p) for p in fp]
+    sens_perf.lsd = [Decimal(str(ds * i * Decimal(str(0.05)) + Decimal(0.5))) for i in range(n)]
+
+    sp.sens_param = sens_param
+    sp.vs = vs
+    sp.prior = prior
+    sp.controller = controller
+    sp.sens_perf = sens_perf
+
+
     for i in range(sp.nsims):
         sp.seed = i
         pm = simulate_one(sp)
@@ -51,19 +97,24 @@ def simulate(sp: SimParameters) -> PerformanceMetrics:
         discomfort += pm.control_effort
         average_velocity += pm.average_velocity
 
-    discomfort = Decimal(discomfort / sp.nsims)
-    p_collision = Decimal(n_collisions / sp.nsims)
-    average_velocity = Decimal(average_velocity / sp.nsims)
-    average_collision_momentum = Decimal(average_collision_momentum / sp.nsims)
+    discomfort = discomfort / sp.nsims
+    p_collision = Decimal(str(n_collisions / sp.nsims))
+    average_velocity = average_velocity / sp.nsims
+    average_collision_momentum = average_collision_momentum / sp.nsims
+    danger = average_collision_momentum*p_collision
 
-    return PerformanceMetrics(p_collision=p_collision, discomfort=discomfort, average_velocity=average_velocity,
-                              average_collision_momentum=average_collision_momentum)
+    return PerformanceMetrics(danger=danger, discomfort=discomfort, average_velocity=average_velocity)
 
 
 def collided(s: State, vs: VehicleStats) -> CollisionStats:
     # check if collided
-    for obj in s.objects:
-        if obj.d <= 0:
+    # for obj in s.objects:
+    #     if obj.d <= 0:
+    #         momentum = s.vstate.v * vs.mass
+    #         cs = CollisionStats(momentum=momentum)
+    #         return cs
+    if s.objects:
+        if s.objects[0].d <= 0:
             momentum = s.vstate.v * vs.mass
             cs = CollisionStats(momentum=momentum)
             return cs
@@ -86,13 +137,14 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
     for o in range(0, n_objects):
         x = round(random.uniform(0.0, float(sp.road_length)), 1)
         print(x)
-        obj = Object(Decimal(x))
+        obj = Object(Decimal(str(x)))
         objects.append(obj)
 
-    vstate0 = VehicleState(Decimal(0), Decimal(0))
+    objects.sort(key=lambda o: o.d, reverse=False) # sorting objects
+
+    vstate0 = VehicleState(Decimal('0.0'), Decimal('0.0'), Decimal('0.0'), Decimal('0.0'))
 
     state = State(vstate0, objects)
-    action = Action(Decimal(0))
     density_belief = sp.prior.density * sp.sens_param.max_distance
     pp = density_belief * Decimal(np.exp(-float(density_belief)))
     po = [Decimal(pp / n) for _ in range(n)]
@@ -100,32 +152,64 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
 
     plot_belief = False
     control_effort = 0
-    t = 0
+    t = Decimal(0.0)
+    stop_stats = StoppedStats(wt=Decimal(0.0), stop=False, d_stop=sp.controller.d_stop)
+    delays = [state for i in range(int(sp.sens_param.latency/sp.dt))]
+    l = len(delays)
+    delayed_st = DelayedStates(states=delays, latency=sp.sens_param.latency, l=l)
+    delta_sum = Decimal(str(0))
+
     while state.vstate.x <= sp.road_length:
         t += sp.dt
-        observations = compute_observations(sp.sens_perf, sp.sens_param, sp.prior, state)
-        belief1 = prediction_model(b0=belief, u=action, s= state, dt=sp.dt, ds=ds, prior=sp.prior)
-        belief = observation_model(belief1, observations, sp.sens_param.list_of_ds, sp.sens_perf)
+        if float(t % sp.sens_param.frequency) == 0.0:
+            observations = compute_observations(sp.sens_perf, sp.sens_param, sp.prior, delayed_st.states[0])
+        else:
+            observations = None
 
-        if plot_belief:
-            plt.plot(belief.po)
+        delta = state.vstate.x - state.vstate.x_prev
+        delta_sum = delta_sum + delta
+
+        if delta_sum >= ds:
+            delta_idx = int(delta_sum / ds)
+            belief1 = prediction_model(b0=belief, delta_idx=delta_idx, delta=delta, prior=sp.prior)
+            delta_sum = Decimal(str(0))
+        else:
+            belief1 = belief
+
+        if observations is None:
+            belief = belief1
+        else:
+            belief = observation_model(belief1, observations, sp.sens_param.list_of_ds, sp.sens_perf)
+
+        if plot_belief and float(t % Decimal(str(0.1))) == 0.0:
+            plt.plot(sp.sens_param.list_of_ds, belief.po)
             plt.ylabel('Belief')
             plt.xlabel('d [m]')
             plt.show()
 
         action = sp.controller.get_action(state.vstate, belief)
         state = update_state(state, action, sp.dt)
-        print("Vehicle's current position [m]: ", round(state.vstate.x))
-        print("Vehicle's current velocity [m/s]: ", round(state.vstate.v))
+        delayed_st.update(state)
+        print('Time: ', t)
+        print("Vehicle's current position [m]: ", round(state.vstate.x, 2))
+        print("Vehicle's current velocity [m/s]: ", round(state.vstate.v, 2))
+
         control_effort += abs(action.accel) * sp.dt
 
         c = collided(state, sp.vs)
+        stop_stats.stopped(state, sp.dt)
 
         if c is not None:
             print("Vehicle crashed in object!!")
             avg_control_effort = control_effort / t
             average_velocity = state.vstate.x / t
             return OneSimPerformanceMetrics(c, Decimal(average_velocity), Decimal(avg_control_effort))
+
+        if stop_stats.stop:
+            if stop_stats.wt >= sp.wt:
+                print("Vehicle stopped safely in front of obstacle.")
+                state.objects = state.objects[1:]
+                stop_stats.wt = Decimal(0.0)
 
     avg_control_effort = control_effort / t
     average_velocity = state.vstate.x / t

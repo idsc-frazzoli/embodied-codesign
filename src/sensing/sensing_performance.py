@@ -1,6 +1,8 @@
+import numpy as np
 from dataclasses import dataclass
 from decimal import Decimal
-from typing import List
+from typing import List, Tuple
+from scipy.optimize import curve_fit
 
 
 @dataclass
@@ -9,6 +11,8 @@ class SensingParameters:
     max_distance: Decimal  # meters
     n: int  # max_distance / ds
     list_of_ds: List[Decimal]
+    frequency: Decimal
+    latency: Decimal
 
 
 @dataclass
@@ -27,23 +31,32 @@ class SensingPerformance:
         self.ds = sp.ds
 
     def false_negative_at(self, d: Decimal) -> Decimal:
-        try:
-            i = int(d / self.ds)
-            return self.fn[i]
-        except IndexError:
-            print("Index out of bound.")
+        i = int(d / self.ds)
+
+        if i > self.n:
+            raise IndexError("Index out of bound.")
+        elif i == self.n:
+            i = i - 1
+
+        return self.fn[i]
 
     def false_positive_at(self, d: Decimal) -> Decimal:
-        try:
-            i = int(d / self.ds)
-            return self.fp[i]
-        except IndexError:
-            print("Index out of bound.")
+        i = int(d / self.ds)
+
+        if i > self.n:
+            raise IndexError("Index out of bound.")
+        elif i == self.n:
+            i = i - 1
+
+        return self.fp[i]
 
     def lsd_at(self, d: Decimal) -> Decimal:
-        try:
-            i = int(d / self.ds)
-            return self.lsd[i]
-        except IndexError:
-            print("Index out of bound.")
+        i = int(d / self.ds)
+
+        if i > self.n:
+            raise IndexError("Index out of bound.")
+        elif i == self.n:
+            i = i - 1
+
+        return self.lsd[i]
 

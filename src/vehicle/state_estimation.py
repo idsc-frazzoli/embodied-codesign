@@ -40,29 +40,35 @@ def compute_observations(sp: SensingPerformance, sparam: SensingParameters, prio
             continue
 
         false_negatives = sp.false_negative_at(o.d)
-        p_detect = 1.0 - float(false_negatives)
-        if toss_biased_coin(Decimal(p_detect)):
+        p_detect = 1 - false_negatives
+        if toss_biased_coin(p_detect):
             # great we see it
             # with what variance?
             stdev = sp.lsd_at(o.d)
 
             d_detect = random.gauss(float(o.d), float(stdev))
 
+            if d_detect < 0:
+                d_detect = -1*d_detect
+
             detection = Detection(Decimal(d_detect), stdev)
             detections.append(detection)
 
-        density = prior.density * sparam.max_distance
-        n_objects = np.random.poisson(lam=float(density))
-        for o in range(0, n_objects):
-            d = Decimal(round(random.uniform(0.0, float(sparam.max_distance)), 1))
-            false_positive = sp.false_positive_at(d)
-            if toss_biased_coin(false_positive):
-                stdev = sp.lsd_at(d)
+    density = prior.density * sparam.max_distance
+    n_objects = np.random.poisson(lam=float(density))
+    for o in range(0, n_objects):
+        d = Decimal(round(random.uniform(0.0, float(sparam.max_distance)), 1))
+        false_positive = sp.false_positive_at(d)
+        if toss_biased_coin(false_positive):
+            stdev = sp.lsd_at(d)
 
-                d_detect = random.gauss(float(d), float(stdev))
+            d_detect = random.gauss(float(d), float(stdev))
 
-                detection = Detection(Decimal(d_detect), stdev)
-                detections.append(detection)
+            if d_detect < 0:
+                d_detect = -1*d_detect
+
+            detection = Detection(Decimal(d_detect), stdev)
+            detections.append(detection)
 
     # now sample false positives
     # according to a poisson with variable intensity given by sp.fn
@@ -78,15 +84,19 @@ class Belief:
     po: List[Decimal]  # of length n
 
 
-def prediction_model(b0: Belief, u: Action, s: State, dt: Decimal, ds: Decimal, prior: Prior) -> Belief:
+def prediction_model(b0: Belief, delta_idx: int, delta: Decimal, prior: Prior) -> Belief:
     # translate everything by v
     # (keep in mind conversion in cells)
     # for the new part, apply prior
 
+<<<<<<< HEAD
     # easy: just translate by integer
     vstate_prev = get_previos_state(s, u, dt)
     delta = s.vstate.x - vstate_prev.x
     delta_idx = int(delta / ds)
+=======
+    # easy: just transalte by integer
+>>>>>>> c9d65a6b6ea3af006f1690f5af20f37b1631903e
     density = prior.density * delta
     pp_delta = density * Decimal(np.exp(-float(density)))
     if delta_idx != 0:
@@ -130,10 +140,3 @@ def observation_model(b0: Belief, obs: Observations, list_of_ds: List[Decimal], 
         po1 = norm * po1
 
     return Belief(list(po1))
-
-
-def get_previos_state(s: State, a: Action, dt: Decimal) -> VehicleState:
-    v_prev = s.vstate.v - a.accel * dt
-    x_prev = s.vstate.x - Decimal(0.5) * a.accel * dt ** 2 - v_prev * dt
-
-    return VehicleState(x_prev, v_prev)
