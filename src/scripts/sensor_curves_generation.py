@@ -45,14 +45,11 @@ if __name__ == '__main__':
     max_distance = Decimal('50.0')
     n = int(round(max_distance / ds))
     list_of_ds = [ds * Decimal(i) for i in range(n)]
-    current_directory = os.path.dirname(__file__)
-    parent_directory = os.path.split(current_directory)[0]
-    parent_directory = os.path.split(parent_directory)[0]
 
-    with open(parent_directory + '/data/input/sensors.yaml') as file:
+    with open('data/input/sensors.yaml') as file:
         sensors = yaml.load(file, Loader=yaml.FullLoader)
 
-    with open(parent_directory + '/data/input/object_detection.yaml') as file:
+    with open('data/input/object_detection.yaml') as file:
         algorithms = yaml.load(file, Loader=yaml.FullLoader)
 
     cameras = sensors["camera"]
@@ -78,10 +75,10 @@ if __name__ == '__main__':
             fn_fp = {"fn": fn, "fp": fp}
             sens_pef[cam_key + "_" + alg_key] = fn_fp
 
-    with open(parent_directory + '/data/input/curves.yaml', 'w') as file:
+    with open('data/input/curves.yaml', 'w') as file:
         documents = yaml.dump(sens_pef, file, default_flow_style=False)
 
-    with open(parent_directory + '/data/input/curves.yaml') as file:
+    with open('data/input/curves.yaml') as file:
         curves = yaml.load(file, Loader=yaml.FullLoader)
 
     fn = curves["ace_251gm_faster_rcnn96"]["fn"]

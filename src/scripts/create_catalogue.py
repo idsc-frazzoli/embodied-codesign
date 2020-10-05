@@ -7,26 +7,23 @@ import yaml
 from simulator.simulator import SimParameters, simulate
 
 if __name__ == '__main__':
-    current_directory = os.path.dirname(__file__)
-    parent_directory = os.path.split(current_directory)[0]
-    parent_directory = os.path.split(parent_directory)[0]
 
-    with open(parent_directory + '/data/input/sensors.yaml') as file:
+    with open('data/input/sensors.yaml') as file:
         sensors = yaml.load(file, Loader=yaml.FullLoader)
 
-    with open(parent_directory + '/data/input/dyn_perf.yaml') as file:
+    with open('data/input/dyn_perf.yaml') as file:
         vehicles = yaml.load(file, Loader=yaml.FullLoader)
 
-    with open(parent_directory + '/data/input/environment.yaml') as file:
+    with open('data/input/environment.yaml') as file:
         environment = yaml.load(file, Loader=yaml.FullLoader)
 
-    with open(parent_directory + '/data/input/speeds.yaml') as file:
+    with open('data/input/speeds.yaml') as file:
         cruise_speeds = yaml.load(file, Loader=yaml.FullLoader)
 
-    with open(parent_directory + '/data/input/control_param.yaml') as file:
+    with open('data/input/control_param.yaml') as file:
         control_param = yaml.load(file, Loader=yaml.FullLoader)
 
-    with open(parent_directory + '/data/input/curves.yaml') as file:
+    with open('data/input/curves.yaml') as file:
         curves = yaml.load(file, Loader=yaml.FullLoader)
 
 
@@ -53,6 +50,6 @@ if __name__ == '__main__':
                         id += 1
 
     timestr = time.strftime("%Y%m%d-%H%M%S")
-    with open(parent_directory + '/data/output/ad-performance-' + timestr + '.yaml', 'w') as file:
+    with open('data/output/ad-performance-' + timestr + '.yaml', 'w') as file:
         documents = yaml.dump(ad_perf, file, default_flow_style=False)
 
