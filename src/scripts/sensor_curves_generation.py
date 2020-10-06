@@ -80,11 +80,24 @@ if __name__ == '__main__':
     with open('data/input/curves.yaml') as file:
         curves = yaml.load(file, Loader=yaml.FullLoader)
 
-    fn = curves["ace_251gm_faster_rcnn96"]["fn"]
-    fn = [Decimal(s) for s in fn]
+    for c_key, c in curves.items():
+        fn = c["fn"]
+        fn = [Decimal(s) for s in fn]
+        plt.plot(list_of_ds, fn, label=c_key)
+        plt.ylabel('FNR')
+        plt.xlabel('d in [m]')
+        plt.legend(loc="upper left")
 
-    plt.plot(list_of_ds, fn, label='Basler')
-    plt.ylabel('FN')
-    plt.xlabel('d')
-    plt.legend(loc="upper right")
-    plt.show()
+    plt.savefig('data/output/fn.png')
+    plt.close()
+
+    for c_key, c in curves.items():
+        fp = c["fp"]
+        fp = [Decimal(s) for s in fp]
+        plt.plot(list_of_ds, fp, label=c_key)
+        plt.ylabel('FPR')
+        plt.xlabel('d in [m]')
+        plt.legend(loc="upper left")
+
+    plt.savefig('data/output/fp.png')
+    plt.close()

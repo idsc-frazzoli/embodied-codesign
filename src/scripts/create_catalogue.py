@@ -25,11 +25,17 @@ if __name__ == '__main__':
     with open('data/input/curves.yaml') as file:
         curves = yaml.load(file, Loader=yaml.FullLoader)
 
-
-    camera = cameras = sensors["camera"]
+    camera = sensors["camera"]
     speed = cruise_speeds["speeds"]
 
-    sp = SimParameters(nsims=1, road_length=Decimal('500.0'), dt=Decimal(str(0.01)), seed=0, wt=Decimal('1.0'))
+    e = 0.1 / 100
+    p = 0.01 / 100
+    z = 1.96
+
+    nsims = int(z ** 2 * (1 - p) * p / e ** 2)
+
+    sp = SimParameters(nsims=nsims, road_length=Decimal('500.0'), dt=Decimal(str(0.01)), seed=0,
+                       wt=Decimal('1.0'), do_animation=False)
 
     ad_perf = {}
     id = 1
@@ -51,4 +57,3 @@ if __name__ == '__main__':
     timestr = time.strftime("%Y%m%d-%H%M%S")
     with open('data/output/ad-performance-' + timestr + '.yaml', 'w') as file:
         documents = yaml.dump(ad_perf, file, default_flow_style=False)
-

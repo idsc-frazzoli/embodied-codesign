@@ -1,5 +1,6 @@
 from decimal import Decimal
 import random
+from typing import Dict
 
 import numpy as np
 from dataclasses import dataclass
@@ -8,6 +9,7 @@ import matplotlib.pyplot as plt
 from controller.basic_controller import BasicController
 from controller.controller import Action, Controller
 from sensing.sensing_performance import SensingPerformance, SensingParameters
+from simulator.create_animation import create_animation
 from simulator.performance import PerformanceMetrics, CollisionStats, OneSimPerformanceMetrics, StoppedStats
 from vehicle.state_estimation import Prior, Belief, compute_observations, prediction_model, observation_model
 from vehicle.vehicle import State, VehicleState, VehicleStats, Object, DelayedStates
@@ -42,16 +44,20 @@ class SimParameters:
     vs: VehicleStats
     seed: int
     wt: Decimal  # waiting time in front of obstacle until obstacle disappears
+    do_animation: bool
 
-    def __init__(self, nsims: int, road_length: Decimal, dt: Decimal, seed: int, wt: Decimal) -> None:
+    def __init__(self, nsims: int, road_length: Decimal, dt: Decimal, seed: int, wt: Decimal,
+                 do_animation: bool) -> None:
         self.nsims = nsims
         self.road_length = road_length
         self.dt = dt
         self.seed = seed
         self.wt = wt
+        self.do_animation = do_animation
 
 
-def simulate(sp: SimParameters, dyn_perf, sens, sens_curves, s, env, cont) -> PerformanceMetrics:
+def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s: int,
+             env: Dict, cont: Dict) -> PerformanceMetrics:
     """  nsims: number of simulations"""
     n_collisions = 0
     discomfort = Decimal('0')
@@ -128,7 +134,6 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
         x = round(random.uniform(0.0, float(sp.road_length)), 1)
         obj = Object(Decimal(str(x)))
         objects.append(obj)
-    objects.append(Object(Decimal(str(10))))
     objects.sort(key=lambda o: o.d, reverse=False)  # sorting objects
 
     vstate0 = VehicleState(Decimal('0.0'), Decimal('0.0'), Decimal('0.0'), Decimal('0.0'))
@@ -147,6 +152,9 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
     l = len(delays)
     delayed_st = DelayedStates(states=delays, latency=sp.sens_param.latency, l=l)
     delta_sum = Decimal(str(0))
+    vstates_list = []
+    belief_list = []
+    object_list = []
     print("Simulation running...")
     while state.vstate.x <= sp.road_length:
         t += sp.dt
@@ -179,19 +187,28 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
         action = sp.controller.get_action(state.vstate, belief)
         state = update_state(state, action, sp.dt)
         delayed_st.update(state)
-        print('Time: ', t)
-        print("Vehicle's current position [m]: ", round(state.vstate.x, 2))
-        print("Vehicle's current velocity [m/s]: ", round(state.vstate.v, 2))
+        # print('Time: ', t)
+        # print("Vehicle's current position [m]: ", round(state.vstate.x, 2))
+        # print("Vehicle's current velocity [m/s]: ", round(state.vstate.v, 2))
 
         control_effort += abs(action.accel) * sp.dt
 
         c = collided(state, sp.vs)
         stop_stats.stopped(state, sp.dt)
 
+        if sp.do_animation:
+            if float(t % Decimal(str(0.05))) == 0.0:
+                vstates_list.append(state.vstate)
+                belief_list.append(belief)
+                obj_a = [ob.d for ob in state.objects]
+                object_list.append(obj_a)
+
         if c is not None:
             print("Vehicle crashed in object!!")
             avg_control_effort = control_effort / t
             average_velocity = state.vstate.x / t
+            if sp.do_animation:
+                create_animation(vstates_list, belief_list, object_list, sp.sens_param.list_of_ds)
             return OneSimPerformanceMetrics(c, Decimal(average_velocity), Decimal(avg_control_effort))
 
         if stop_stats.stop:
@@ -202,4 +219,6 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
 
     avg_control_effort = control_effort / t
     average_velocity = state.vstate.x / t
+    if sp.do_animation:
+        create_animation(vstates_list, belief_list, object_list, sp.sens_param.list_of_ds)
     return OneSimPerformanceMetrics(None, Decimal(average_velocity), Decimal(avg_control_effort))
