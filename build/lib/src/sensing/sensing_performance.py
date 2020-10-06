@@ -1,6 +1,8 @@
+import numpy as np
 from dataclasses import dataclass
 from decimal import Decimal
-from typing import List
+from typing import List, Tuple
+from scipy.optimize import curve_fit
 
 
 @dataclass
@@ -15,8 +17,12 @@ class SensingParameters:
 
 @dataclass
 class SensingPerformance:
+    # false positives as a function of distance
+    # array of length n
     fp: List[Decimal]  # of length n
+    # false negatives
     fn: List[Decimal]  # of length n
+    # localization standard deviation
     lsd: List[Decimal]  # in meters
     sp: SensingParameters
 

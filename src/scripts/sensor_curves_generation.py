@@ -3,7 +3,6 @@ from typing import List, Tuple
 
 import numpy as np
 import yaml
-import os.path
 import matplotlib.pyplot as plt
 
 from scipy.interpolate import interp1d
@@ -72,7 +71,7 @@ if __name__ == '__main__':
             fp = list(1 - np.array(precision_d))
             fn = [str(p) for p in fn]
             fp = [str(p) for p in fp]
-            fn_fp = {"fn": fn, "fp": fp}
+            fn_fp = {"fn": fn, "fp": fp, "ds": str(ds), "max_distance": str(max_distance)}
             sens_pef[cam_key + "_" + alg_key] = fn_fp
 
     with open('data/input/curves.yaml', 'w') as file:

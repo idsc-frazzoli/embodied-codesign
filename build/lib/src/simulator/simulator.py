@@ -14,13 +14,13 @@ from vehicle.vehicle import State, VehicleState, VehicleStats, Object, DelayedSt
 
 
 def update_state(s: State, action: Action, dt: Decimal) -> State:
-    x = Decimal('0.5') * action.accel * dt ** 2 + s.vstate.v * dt + s.vstate.x
-    if (x - s.vstate.x) < 0:
-        x = s.vstate.x  # no backward driving
+    x = Decimal('0.5') * action.accel * dt**2 + s.vstate.v * dt + s.vstate.x
+    if (x-s.vstate.x) < 0:
+        x = s.vstate.x # no backward driving
 
     v = action.accel * dt + s.vstate.v
     if v < 0:
-        v = Decimal('0.0')  # no backwards driving
+        v = Decimal('0.0') # no backwards driving
 
     for i in range(len(s.objects)):
         s.objects[i].d = s.objects[i].d - x + s.vstate.x
@@ -41,7 +41,7 @@ class SimParameters:
     sens_param: SensingParameters
     vs: VehicleStats
     seed: int
-    wt: Decimal  # waiting time in front of obstacle until obstacle disappears
+    wt: Decimal # waiting time in front of obstacle until obstacle disappears
 
     def __init__(self, nsims: int, road_length: Decimal, dt: Decimal, seed: int, wt: Decimal) -> None:
         self.nsims = nsims
@@ -58,20 +58,19 @@ def simulate(sp: SimParameters, dyn_perf, sens, sens_curves, s, env, cont) -> Pe
     average_velocity = Decimal('0')
     average_collision_momentum = Decimal('0')
 
-    ds = Decimal(sens_curves["ds"])
-    max_distance = Decimal(sens_curves["max_distance"])
+    ds = Decimal('0.5')
+    max_distance = Decimal('50.0')
     n = int(round(max_distance / ds))
     list_of_ds = [ds * Decimal(i) for i in range(n)]
     freq = Decimal(str(sens["frequency"]))
-    ts_sens = 1 / freq
-    n_ts_sens = round(ts_sens / sp.dt)
+    ts_sens = 1/freq
+    n_ts_sens = round(ts_sens/sp.dt)
     sens_param = SensingParameters(ds=ds, max_distance=max_distance, n=n,
                                    list_of_ds=list_of_ds, frequency=n_ts_sens * sp.dt, latency=1 * sp.dt)
 
-    vs = VehicleStats(a_min=Decimal(str(dyn_perf["a_min"])), a_max=Decimal(str(dyn_perf["a_max"])),
-                      v_nominal=Decimal(str(s / 3.6)),
+    vs = VehicleStats(a_min=Decimal(str(dyn_perf["a_min"])), a_max=Decimal(str(dyn_perf["a_max"])), v_nominal=Decimal(str(s / 3.6)),
                       mass=Decimal(str(dyn_perf["mass"])))
-    density = Decimal(str(env["density"])) / Decimal(str(1000))
+    density = Decimal(str(env["density"]))/Decimal(str(1000))
     prior = Prior(density=density)
     controller = BasicController(prob_threshold=Decimal(str(cont["prob_threshold"])), vs=vs, sp=sens_param,
                                  d_stop=Decimal(str(cont["d_stop"])), t_react=Decimal(str(cont["t_react"])))
@@ -88,6 +87,7 @@ def simulate(sp: SimParameters, dyn_perf, sens, sens_curves, s, env, cont) -> Pe
     sp.controller = controller
     sp.sens_perf = sens_perf
 
+
     for i in range(sp.nsims):
         sp.seed = i
         pm = simulate_one(sp)
@@ -101,12 +101,18 @@ def simulate(sp: SimParameters, dyn_perf, sens, sens_curves, s, env, cont) -> Pe
     p_collision = Decimal(str(n_collisions / sp.nsims))
     average_velocity = average_velocity / sp.nsims
     average_collision_momentum = average_collision_momentum / sp.nsims
-    danger = average_collision_momentum * p_collision
+    danger = average_collision_momentum*p_collision
 
     return PerformanceMetrics(danger=danger, discomfort=discomfort, average_velocity=average_velocity)
 
 
 def collided(s: State, vs: VehicleStats) -> CollisionStats:
+    # check if collided
+    # for obj in s.objects:
+    #     if obj.d <= 0:
+    #         momentum = s.vstate.v * vs.mass
+    #         cs = CollisionStats(momentum=momentum)
+    #         return cs
     if s.objects:
         if s.objects[0].d <= 0:
             momentum = s.vstate.v * vs.mass
@@ -120,16 +126,21 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
     np.random.seed(sp.seed)
     random.seed(sp.seed)
 
+    # first, create the state
+    # static obstacles
+
     density = sp.prior.density * sp.road_length
     n_objects = np.random.poisson(lam=float(density))
     print("Number of objects at track: ", n_objects)
     objects = []  # sample from poisson with intensity sp.prior.density
+    print("Objects at following positions: ")
     for o in range(0, n_objects):
         x = round(random.uniform(0.0, float(sp.road_length)), 1)
+        print(x)
         obj = Object(Decimal(str(x)))
         objects.append(obj)
-    objects.append(Object(Decimal(str(10))))
-    objects.sort(key=lambda o: o.d, reverse=False)  # sorting objects
+
+    objects.sort(key=lambda o: o.d, reverse=False) # sorting objects
 
     vstate0 = VehicleState(Decimal('0.0'), Decimal('0.0'), Decimal('0.0'), Decimal('0.0'))
 
@@ -139,15 +150,15 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
     po = [Decimal(pp / n) for _ in range(n)]
     belief = Belief(po)
 
-    # plot_belief = False
+    plot_belief = False
     control_effort = 0
     t = Decimal(0.0)
     stop_stats = StoppedStats(wt=Decimal(0.0), stop=False, d_stop=sp.controller.d_stop)
-    delays = [state for i in range(int(sp.sens_param.latency / sp.dt))]
+    delays = [state for i in range(int(sp.sens_param.latency/sp.dt))]
     l = len(delays)
     delayed_st = DelayedStates(states=delays, latency=sp.sens_param.latency, l=l)
     delta_sum = Decimal(str(0))
-    print("Simulation running...")
+
     while state.vstate.x <= sp.road_length:
         t += sp.dt
         if float(t % sp.sens_param.frequency) == 0.0:
@@ -168,13 +179,13 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
         if observations is None:
             belief = belief1
         else:
-            belief = observation_model(belief1, observations, sp.sens_param.list_of_ds)
+            belief = observation_model(belief1, observations, sp.sens_param.list_of_ds, sp.sens_perf)
 
-        # if plot_belief and float(t % Decimal(str(0.1))) == 0.0:
-        #     plt.plot(sp.sens_param.list_of_ds, belief.po)
-        #     plt.ylabel('Belief')
-        #     plt.xlabel('d [m]')
-        #     plt.show()
+        if plot_belief and float(t % Decimal(str(0.1))) == 0.0:
+            plt.plot(sp.sens_param.list_of_ds, belief.po)
+            plt.ylabel('Belief')
+            plt.xlabel('d [m]')
+            plt.show()
 
         action = sp.controller.get_action(state.vstate, belief)
         state = update_state(state, action, sp.dt)
