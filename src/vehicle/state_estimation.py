@@ -51,26 +51,10 @@ def compute_observations(sp: SensingPerformance, sparam: SensingParameters, prio
             detection = Detection(Decimal(d_detect), stdev)
             detections.append(detection)
 
-    # density = prior.density * sparam.max_distance
-    # n_objects = np.random.poisson(lam=float(density))
-    # for o in range(n_objects):
-    #     d = Decimal(round(random.uniform(0.0, float(sparam.max_distance)), 1))
-    #     false_positive = sp.false_positive_at(d)
-    #     if toss_biased_coin(false_positive):
-    #         stdev = sp.lsd_at(d)
-    #
-    #         d_detect = random.gauss(float(d), float(stdev))
-    #
-    #         if d_detect < 0:
-    #             d_detect = -1 * d_detect
-    #
-    #         detection = Detection(Decimal(d_detect), stdev)
-    #         detections.append(detection)
-
     for i in range(sp.n):
         # distance
-        d = i * sp.ds
-        p_false_positives = sp.false_positive_at(d) * sp.ds
+        d = sparam.list_of_ds[i]
+        p_false_positives = sp.fp[i] * sp.ds
         if toss_biased_coin(p_false_positives):
             stdev = sp.lsd_at(d)
 
@@ -106,7 +90,7 @@ def prediction_model(b0: Belief, delta_idx: int, delta: Decimal, prior: Prior) -
     return Belief(list(po1))
 
 
-def observation_model(b0: Belief, obs: Observations, list_of_ds: List[Decimal]) -> Belief:
+def observation_model(b0: Belief, obs: Observations, list_of_ds: List[Decimal], sp: SensingPerformance) -> Belief:
     like = np.zeros(len(list_of_ds))
 
     ds_list_f = np.array([float(ds) for ds in list_of_ds])
@@ -115,10 +99,12 @@ def observation_model(b0: Belief, obs: Observations, list_of_ds: List[Decimal]) 
         prob = gauss_dist.pdf(ds_list_f)
         like += prob
 
-    like += false_negatives
-    po1 = np.array(b0.po) * like
+    like += np.asarray(sp.fn, dtype=float)
+    po1 = np.asarray(b0.po, dtype=float) * like
 
     norm = 1 / np.sum(po1)
     po1 = norm * po1
+
+    po1 = [Decimal(p) for p in po1]
 
     return Belief(list(po1))

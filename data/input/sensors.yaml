@@ -38,7 +38,7 @@ camera:
     lens: 12
 
   ace_222gm:
-    sens_perf: ace_222gm_faster_rcnn96f
+    sens_perf: ace_222gm_faster_rcnn96
     power: 3.1
     mass: 0.105
     size: [5.2, 3.9]
@@ -67,15 +67,15 @@ camera:
     frequency: 7
     lens: 12
 
-  ace_25gm:
-    sens_perf: ace_25gmfaster_rcnn96
-    power: 3.6
-    mass: 0.105
-    size: [12.3, 12.3]
-    cost: 2220
-    resolution: [4504, 4504]
-    frequency: 5
-    lens: 12
+#  ace_25gm:
+#    sens_perf: ace_25gmfaster_rcnn96
+#    power: 3.6
+#    mass: 0.105
+#    size: [12.3, 12.3]
+#    cost: 2220
+#    resolution: [4504, 4504]
+#    frequency: 5
+#    lens: 12
 
   ace_21um:
     sens_perf: ace_21um_faster_rcnn96

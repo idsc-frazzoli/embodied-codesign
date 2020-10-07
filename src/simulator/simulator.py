@@ -6,16 +6,18 @@ from typing import Dict
 
 import numpy as np
 import yaml
+import scipy.stats
 
 from controller.basic_controller import BasicController
 from controller.controller import Action, Controller
 from sensing.sensing_performance import SensingParameters, SensingPerformance
 from simulator.create_animation import create_animation
-from simulator.performance import CollisionStats, OneSimPerformanceMetrics, PerformanceMetrics
+from simulator.performance import CollisionStats, OneSimPerformanceMetrics, PerformanceMetrics, Statistics
 from vehicle.state_estimation import Belief, compute_observations, observation_model, prediction_model, Prior
 from vehicle.vehicle import DelayedStates, Object, State, VehicleState, VehicleStats
 
 from . import logger
+
 
 def update_state(s: State, action: Action, dt: Decimal) -> State:
     x = Decimal('0.5') * action.accel * dt ** 2 + s.vstate.v * dt + s.vstate.x
@@ -45,26 +47,22 @@ class SimParameters:
     sens_param: SensingParameters
     vs: VehicleStats
     seed: int
-    wt: Decimal  # waiting time in front of obstacle until obstacle disappears
     do_animation: bool
 
-    def __init__(self, nsims: int, road_length: Decimal, dt: Decimal, seed: int, wt: Decimal,
-                 do_animation: bool) -> None:
+    def __init__(self, nsims: int, road_length: Decimal, dt: Decimal, seed: int, do_animation: bool) -> None:
         self.nsims = nsims
         self.road_length = road_length
         self.dt = dt
         self.seed = seed
-        self.wt = wt
         self.do_animation = do_animation
 
 
 def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s: int,
              env: Dict, cont: Dict, experiment_key: str) -> PerformanceMetrics:
-    """  nsims: number of simulations"""
-    n_collisions = 0
-    discomfort = Decimal('0')
-    average_velocity = Decimal('0')
-    average_collision_momentum = Decimal('0')
+    discomfort = np.zeros(sp.nsims)
+    average_velocity = np.zeros(sp.nsims)
+    average_collision_momentum = np.zeros(sp.nsims)
+    collision = np.zeros(sp.nsims)
 
     ds = Decimal(sens_curves["ds"])
     max_distance = Decimal(sens_curves["max_distance"])
@@ -101,28 +99,68 @@ def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s
         if not os.path.exists(fn):
             sp.seed = i
             pm = simulate_one(sp)
-            data = {'collided': pm.collided}  # and so on
+            if pm.collided is None:
+                momentum = pm.collided
+            else:
+                momentum = pm.collided.momentum
+
+            data = {'collided': str(momentum),
+                    'average_velocity': str(pm.average_velocity),
+                    'control_effort': str(pm.control_effort)}
             with open(fn, 'w') as f:
                 yaml.dump(data, f)
 
         with open(fn, 'r') as f:
             data = yaml.load(f)
-        collided = data['collided']
-        # ...
 
-        if collided is not None:
-            n_collisions += 1
-            average_collision_momentum += pm.collided.momentum
-        discomfort += pm.control_effort
-        average_velocity += pm.average_velocity
+        collided_mom = data['collided']
+        if collided_mom == str(None):
+            collided_mom = None
+        else:
+            collided_mom = Decimal(collided_mom)
+        av_vel = Decimal(data['average_velocity'])
+        cont_eff = Decimal(data['control_effort'])
 
-    discomfort = discomfort / sp.nsims
-    p_collision = Decimal(str(n_collisions / sp.nsims))
-    average_velocity = average_velocity / sp.nsims
-    average_collision_momentum = average_collision_momentum / sp.nsims
+        if collided_mom is not None:
+            collision[i] = 1
+            average_collision_momentum[i] = collided_mom
+        discomfort[i] = cont_eff
+        average_velocity[i] = av_vel
+
+    confidence_level = 0.95
+    degrees_freedom = sp.nsims - 1
+    discomfort_mean = np.mean(discomfort)
+    discomfort_var = np.var(discomfort)
+    discomfort_standard_error = scipy.stats.sem(discomfort)
+    discomfort_confidence_interval = scipy.stats.t.interval(confidence_level, degrees_freedom,
+                                                            discomfort_mean, discomfort_standard_error)
+    p_collision = np.mean(collision)
     danger = average_collision_momentum * p_collision
+    danger_mean = np.mean(danger)
+    danger_var = np.var(danger)
+    danger_standard_error = scipy.stats.sem(danger)
+    danger_confidence_interval = scipy.stats.t.interval(confidence_level, degrees_freedom,
+                                                        danger_mean, danger_standard_error)
+    average_velocity_mean = np.mean(average_velocity)
+    average_velocity_var = np.var(average_velocity)
+    average_velocity_standard_error = scipy.stats.sem(average_velocity)
+    average_velocity_confidence_interval = scipy.stats.t.interval(confidence_level, degrees_freedom,
+                                                                  average_velocity_mean,
+                                                                  average_velocity_standard_error)
 
-    return PerformanceMetrics(danger=danger, discomfort=discomfort, average_velocity=average_velocity)
+    # not sure what u95 is
+    discomfort_stat = Statistics(mean=Decimal(np.asscalar(discomfort_mean)), var=Decimal(np.asscalar(discomfort_var)),
+                                 u95=Decimal(np.asscalar(discomfort_standard_error)),
+                                 l95=Decimal(np.asscalar(discomfort_confidence_interval)))
+    danger_stat = Statistics(mean=Decimal(np.asscalar(danger_mean)), var=Decimal(np.asscalar(danger_var)),
+                             u95=Decimal(np.asscalar(danger_standard_error)),
+                             l95=Decimal(np.asscalar(danger_confidence_interval)))
+    average_velocity_stat = Statistics(mean=Decimal(np.asscalar(average_velocity_mean)),
+                                       var=Decimal(np.asscalar(average_velocity_var)),
+                                       u95=Decimal(np.asscalar(average_velocity_standard_error)),
+                                       l95=Decimal(np.asscalar(average_velocity_confidence_interval)))
+
+    return PerformanceMetrics(danger=danger_stat, discomfort=discomfort_stat, average_velocity=average_velocity_stat)
 
 
 def collided(s: State, vs: VehicleStats) -> CollisionStats:
@@ -167,10 +205,9 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
 
     control_effort = 0
     t = Decimal(0.0)
-    l= int(sp.sens_param.latency / sp.dt)
-    delays = [state]*l
+    l = int(sp.sens_param.latency / sp.dt)
+    delays = [state] * l
     delayed_st = DelayedStates(states=delays, latency=sp.sens_param.latency, l=l)
-    delta_sum = Decimal(str(0))
     vstates_list = []
     belief_list = []
     object_list = []
@@ -179,7 +216,7 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
     sensing_interval = int(sp.sens_param.frequency / sp.dt)
     logger.info(f'sensing_interval {sensing_interval}')
     while state.vstate.x <= sp.road_length:
-        i +=1
+        i += 1
         t = i * sp.dt
 
         if i % sensing_interval == 0:
@@ -188,19 +225,13 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
             observations = None
 
         delta = state.vstate.x - state.vstate.x_prev
-        delta_sum = delta_sum + delta
-
-        if delta_sum >= ds:
-            delta_idx = int(delta_sum / ds)
-            belief1 = prediction_model(b0=belief, delta_idx=delta_idx, delta=delta, prior=sp.prior)
-            delta_sum = Decimal(str(0))
-        else:
-            belief1 = belief
+        delta_idx = int(delta / ds)
+        belief1 = prediction_model(b0=belief, delta_idx=delta_idx, delta=delta, prior=sp.prior)
 
         if observations is None:
             belief = belief1
         else:
-            belief = observation_model(belief1, observations, sp.sens_param.list_of_ds)
+            belief = observation_model(belief1, observations, sp.sens_param.list_of_ds, sp.sens_perf)
 
         action = sp.controller.get_action(state.vstate, belief)
         state = update_state(state, action, sp.dt)
@@ -229,7 +260,6 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
         if is_stopped:
             print("Vehicle stopped safely in front of obstacle.")
             state.objects = state.objects[1:]
-            belief = Belief(po)
 
     avg_control_effort = control_effort / t
     average_velocity = state.vstate.x / t

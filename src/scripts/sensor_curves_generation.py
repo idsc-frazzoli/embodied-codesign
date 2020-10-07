@@ -40,7 +40,7 @@ def get_recall_precision(alg, n) -> Tuple[List[Decimal], List[Decimal]]:
 
 
 if __name__ == '__main__':
-    ds = Decimal('0.5')
+    ds = Decimal('0.1')
     max_distance = Decimal('50.0')
     n = int(round(max_distance / ds))
     list_of_ds = [ds * Decimal(i) for i in range(n)]
@@ -77,27 +77,27 @@ if __name__ == '__main__':
     with open('data/input/curves.yaml', 'w') as file:
         documents = yaml.dump(sens_pef, file, default_flow_style=False)
 
-    with open('data/input/curves.yaml') as file:
-        curves = yaml.load(file, Loader=yaml.FullLoader)
-
-    for c_key, c in curves.items():
-        fn = c["fn"]
-        fn = [Decimal(s) for s in fn]
-        plt.plot(list_of_ds, fn, label=c_key)
-        plt.ylabel('FNR')
-        plt.xlabel('d in [m]')
-        plt.legend(loc="upper left")
-
-    plt.savefig('data/output/fn.png')
-    plt.close()
-
-    for c_key, c in curves.items():
-        fp = c["fp"]
-        fp = [Decimal(s) for s in fp]
-        plt.plot(list_of_ds, fp, label=c_key)
-        plt.ylabel('FPR')
-        plt.xlabel('d in [m]')
-        plt.legend(loc="upper left")
-
-    plt.savefig('data/output/fp.png')
-    plt.close()
+    # with open('data/input/curves.yaml') as file:
+    #     curves = yaml.load(file, Loader=yaml.FullLoader)
+    #
+    # for c_key, c in curves.items():
+    #     fn = c["fn"]
+    #     fn = [Decimal(s) for s in fn]
+    #     plt.plot(list_of_ds, fn, label=c_key)
+    #     plt.ylabel('FNR')
+    #     plt.xlabel('d in [m]')
+    #     plt.legend(loc="upper left")
+    #
+    # plt.savefig('data/output/fn.png')
+    # plt.close()
+    #
+    # for c_key, c in curves.items():
+    #     fp = c["fp"]
+    #     fp = [Decimal(s) for s in fp]
+    #     plt.plot(list_of_ds, fp, label=c_key)
+    #     plt.ylabel('FPR')
+    #     plt.xlabel('d in [m]')
+    #     plt.legend(loc="upper left")
+    #
+    # plt.savefig('data/output/fp.png')
+    # plt.close()

@@ -29,7 +29,7 @@ if __name__ == '__main__':
     speed = cruise_speeds["speeds"]
 
     sp = SimParameters(nsims=1, road_length=Decimal('500.0'), dt=Decimal(str(0.01)),
-                       seed=0, wt=Decimal('1.0'), do_animation=True)
+                       seed=0, do_animation=True)
 
     dyn_perf = vehicles["sedan_s"]
     sens = camera["ace_251gm"]
@@ -37,6 +37,6 @@ if __name__ == '__main__':
     s = speed[2]
     env = environment["07day_env"]
     cont = control_param["cont4"]
-    performance = simulate(sp, dyn_perf, sens, sens_curves, s, env, cont)
+    performance = simulate(sp, dyn_perf, sens, sens_curves, s, env, cont, experiment_key="test")
 
 
