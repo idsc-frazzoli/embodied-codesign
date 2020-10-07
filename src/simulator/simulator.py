@@ -1,18 +1,21 @@
-from decimal import Decimal
+import os
 import random
+from dataclasses import dataclass
+from decimal import Decimal
 from typing import Dict
 
 import numpy as np
-from dataclasses import dataclass
+import yaml
 
 from controller.basic_controller import BasicController
 from controller.controller import Action, Controller
-from sensing.sensing_performance import SensingPerformance, SensingParameters
+from sensing.sensing_performance import SensingParameters, SensingPerformance
 from simulator.create_animation import create_animation
-from simulator.performance import PerformanceMetrics, CollisionStats, OneSimPerformanceMetrics
-from vehicle.state_estimation import Prior, Belief, compute_observations, prediction_model, observation_model
-from vehicle.vehicle import State, VehicleState, VehicleStats, Object, DelayedStates
+from simulator.performance import CollisionStats, OneSimPerformanceMetrics, PerformanceMetrics
+from vehicle.state_estimation import Belief, compute_observations, observation_model, prediction_model, Prior
+from vehicle.vehicle import DelayedStates, Object, State, VehicleState, VehicleStats
 
+from . import logger
 
 def update_state(s: State, action: Action, dt: Decimal) -> State:
     x = Decimal('0.5') * action.accel * dt ** 2 + s.vstate.v * dt + s.vstate.x
@@ -56,7 +59,7 @@ class SimParameters:
 
 
 def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s: int,
-             env: Dict, cont: Dict) -> PerformanceMetrics:
+             env: Dict, cont: Dict, experiment_key: str) -> PerformanceMetrics:
     """  nsims: number of simulations"""
     n_collisions = 0
     discomfort = Decimal('0')
@@ -94,9 +97,20 @@ def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s
     sp.sens_perf = sens_perf
 
     for i in range(sp.nsims):
-        sp.seed = i
-        pm = simulate_one(sp)
-        if pm.collided is not None:
+        fn = f'output/{experiment_key}-{i}.yaml'
+        if not os.path.exists(fn):
+            sp.seed = i
+            pm = simulate_one(sp)
+            data = {'collided': pm.collided}  # and so on
+            with open(fn, 'w') as f:
+                yaml.dump(data, f)
+
+        with open(fn, 'r') as f:
+            data = yaml.load(f)
+        collided = data['collided']
+        # ...
+
+        if collided is not None:
             n_collisions += 1
             average_collision_momentum += pm.collided.momentum
         discomfort += pm.control_effort
@@ -153,17 +167,22 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
 
     control_effort = 0
     t = Decimal(0.0)
-    delays = [state for i in range(int(sp.sens_param.latency / sp.dt))]
-    l = len(delays)
+    l= int(sp.sens_param.latency / sp.dt)
+    delays = [state]*l
     delayed_st = DelayedStates(states=delays, latency=sp.sens_param.latency, l=l)
     delta_sum = Decimal(str(0))
     vstates_list = []
     belief_list = []
     object_list = []
     print("Simulation running...")
+    i = 0
+    sensing_interval = int(sp.sens_param.frequency / sp.dt)
+    logger.info(f'sensing_interval {sensing_interval}')
     while state.vstate.x <= sp.road_length:
-        t += sp.dt
-        if float(t % sp.sens_param.frequency) == 0.0:
+        i +=1
+        t = i * sp.dt
+
+        if i % sensing_interval == 0:
             observations = compute_observations(sp.sens_perf, sp.sens_param, sp.prior, delayed_st.states[0])
         else:
             observations = None

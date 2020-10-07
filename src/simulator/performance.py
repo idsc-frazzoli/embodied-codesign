@@ -1,16 +1,21 @@
+from dataclasses import dataclass
 from decimal import Decimal
 from typing import Optional
 
-from dataclasses import dataclass
 
-from vehicle.vehicle import State
+@dataclass
+class Statistics:
+    mean: Decimal
+    var: Decimal
+    u95: Decimal
+    l95: Decimal
 
 
 @dataclass
 class PerformanceMetrics:
-    danger: Decimal
-    discomfort: Decimal
-    average_velocity: Decimal
+    danger: Statistics
+    discomfort: Statistics
+    average_velocity: Statistics
 
 
 @dataclass
