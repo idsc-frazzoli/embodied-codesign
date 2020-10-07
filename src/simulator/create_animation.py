@@ -73,8 +73,8 @@ def create_animation(vstates_list, belief_list, object_list, list_of_ds) -> None
     print("Creating Animation.")
     anim = FuncAnimation(fig, ud, frames=np.arange(frames), init_func=ud.init,
                          interval=20, blit=True)
-    # plt.show()
-    timestr = time.strftime("%Y%m%d-%H%M%S")
-    rcParams['animation.convert_path'] = r'/usr/bin/ffmpeg'
-    writervideo = FFMpegWriter(fps=20)
-    anim.save("data/output/" + timestr +"animation.mp4", writer=writervideo)
+    plt.show()
+    # timestr = time.strftime("%Y%m%d-%H%M%S")
+    # rcParams['animation.convert_path'] = r'/usr/bin/ffmpeg'
+    # writervideo = FFMpegWriter(fps=20)
+    # anim.save("data/output/" + timestr +"animation.mp4", writer=writervideo)

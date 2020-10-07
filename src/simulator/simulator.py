@@ -4,13 +4,12 @@ from typing import Dict
 
 import numpy as np
 from dataclasses import dataclass
-import matplotlib.pyplot as plt
 
 from controller.basic_controller import BasicController
 from controller.controller import Action, Controller
 from sensing.sensing_performance import SensingPerformance, SensingParameters
 from simulator.create_animation import create_animation
-from simulator.performance import PerformanceMetrics, CollisionStats, OneSimPerformanceMetrics, StoppedStats
+from simulator.performance import PerformanceMetrics, CollisionStats, OneSimPerformanceMetrics
 from vehicle.state_estimation import Prior, Belief, compute_observations, prediction_model, observation_model
 from vehicle.vehicle import State, VehicleState, VehicleStats, Object, DelayedStates
 
@@ -120,6 +119,14 @@ def collided(s: State, vs: VehicleStats) -> CollisionStats:
             return cs
 
 
+def stopped(s: State) -> bool:
+    if s.objects:
+        if round(s.vstate.v, 2) == 0.0 and s.objects[0].d <= 5:
+            return True
+
+    return False
+
+
 def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
     ds = sp.sens_param.ds
     n = sp.sens_param.n
@@ -144,10 +151,8 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
     po = [Decimal(pp / n) for _ in range(n)]
     belief = Belief(po)
 
-    # plot_belief = False
     control_effort = 0
     t = Decimal(0.0)
-    stop_stats = StoppedStats(wt=Decimal(0.0), stop=False, d_stop=sp.controller.d_stop)
     delays = [state for i in range(int(sp.sens_param.latency / sp.dt))]
     l = len(delays)
     delayed_st = DelayedStates(states=delays, latency=sp.sens_param.latency, l=l)
@@ -178,23 +183,14 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
         else:
             belief = observation_model(belief1, observations, sp.sens_param.list_of_ds)
 
-        # if plot_belief and float(t % Decimal(str(0.1))) == 0.0:
-        #     plt.plot(sp.sens_param.list_of_ds, belief.po)
-        #     plt.ylabel('Belief')
-        #     plt.xlabel('d [m]')
-        #     plt.show()
-
         action = sp.controller.get_action(state.vstate, belief)
         state = update_state(state, action, sp.dt)
         delayed_st.update(state)
-        # print('Time: ', t)
-        # print("Vehicle's current position [m]: ", round(state.vstate.x, 2))
-        # print("Vehicle's current velocity [m/s]: ", round(state.vstate.v, 2))
 
         control_effort += abs(action.accel) * sp.dt
 
         c = collided(state, sp.vs)
-        stop_stats.stopped(state, sp.dt)
+        is_stopped = stopped(state)
 
         if sp.do_animation:
             if float(t % Decimal(str(0.05))) == 0.0:
@@ -211,11 +207,10 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
                 create_animation(vstates_list, belief_list, object_list, sp.sens_param.list_of_ds)
             return OneSimPerformanceMetrics(c, Decimal(average_velocity), Decimal(avg_control_effort))
 
-        if stop_stats.stop:
-            if stop_stats.wt >= sp.wt:
-                print("Vehicle stopped safely in front of obstacle.")
-                state.objects = state.objects[1:]
-                stop_stats.wt = Decimal(0.0)
+        if is_stopped:
+            print("Vehicle stopped safely in front of obstacle.")
+            state.objects = state.objects[1:]
+            belief = Belief(po)
 
     avg_control_effort = control_effort / t
     average_velocity = state.vstate.x / t
