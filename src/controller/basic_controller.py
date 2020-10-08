@@ -17,13 +17,14 @@ class BasicController(Controller):
         self.t_react = t_react
 
     def get_action(self, vstate: VehicleState, belief: Belief) -> Action:
-        d_critical = vstate.v / (abs(self.vs.a_min)) + self.t_react*vstate.v + self.d_stop
+        d_critical = vstate.v ** 2 / (2*abs(self.vs.a_min)) + self.t_react*vstate.v + self.d_stop
         i = int(d_critical / self.sp.ds)
         p_obstacle_less_than_critical = sum(belief.po[:i])
         if float(p_obstacle_less_than_critical) > float(self.prob_threshold):
             a = self.vs.a_min
         elif vstate.v < self.vs.v_nominal:
-            a = self.vs.a_max
+            # Choose scaling factors
+            a = self.vs.a_max*Decimal('0.5')
         else:
             a = 0
 

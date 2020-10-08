@@ -85,5 +85,5 @@
   scenario: night
 
 15night_env:
-  density: 15
+  density: 30
   scenario: night

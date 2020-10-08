@@ -40,7 +40,7 @@ def get_recall_precision(alg, n) -> Tuple[List[Decimal], List[Decimal]]:
 
 
 if __name__ == '__main__':
-    ds = Decimal('0.1')
+    ds = Decimal('0.01')
     max_distance = Decimal('50.0')
     n = int(round(max_distance / ds))
     list_of_ds = [ds * Decimal(i) for i in range(n)]

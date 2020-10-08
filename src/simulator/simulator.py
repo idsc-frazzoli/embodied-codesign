@@ -259,6 +259,7 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
 
         if is_stopped:
             print("Vehicle stopped safely in front of obstacle.")
+            # Adjust distance between objects
             state.objects = state.objects[1:]
 
     avg_control_effort = control_effort / t
