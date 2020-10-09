@@ -17,7 +17,7 @@
     # accuracy: [cm, cm]
 
 camera:
-  ace_251gm:
+  Ace251gm:
     sens_perf: ace_251gm_faster_rcnn96
     power: 3.8
     mass: 0.105
@@ -27,7 +27,7 @@ camera:
     frequency: 51
     lens: 12
 
-  ace_2160um:
+  Ace2160um:
     sens_perf: ace_2160um_faster_rcnn96
     power: 4.3
     mass: 0.09
@@ -37,7 +37,7 @@ camera:
     frequency: 160
     lens: 12
 
-  ace_222gm:
+  Ace222gm:
     sens_perf: ace_222gm_faster_rcnn96
     power: 3.1
     mass: 0.105
@@ -47,7 +47,7 @@ camera:
     frequency: 22
     lens: 12
 
-  ace_213gm:
+  Ace13gm:
     sens_perf: ace_213gm_faster_rcnn96
     power: 3.1
     mass: 0.105
@@ -57,7 +57,7 @@ camera:
     frequency: 13
     lens: 12
 
-  ace_27gm:
+  Ace7gm:
     sens_perf: ace_27gm_faster_rcnn96
     power: 3.6
     mass: 0.105
@@ -67,17 +67,17 @@ camera:
     frequency: 7
     lens: 12
 
-#  ace_25gm:
-#    sens_perf: ace_25gmfaster_rcnn96
-#    power: 3.6
-#    mass: 0.105
-#    size: [12.3, 12.3]
-#    cost: 2220
-#    resolution: [4504, 4504]
-#    frequency: 5
-#    lens: 12
+  Ace5gm:
+    sens_perf: ace_25gmfaster_rcnn96
+    power: 3.6
+    mass: 0.105
+    size: [12.3, 12.3]
+    cost: 2220
+    resolution: [4504, 4504]
+    frequency: 5
+    lens: 12
 
-  ace_21um:
+  Ace15um:
     sens_perf: ace_21um_faster_rcnn96
     power: 3.6
     mass: 0.09
@@ -87,7 +87,7 @@ camera:
     frequency: 15
     lens: 12
 
-  pointgrey:
+  Pointgrey:
     sens_perf: pointgrey_faster_rcnn96
     power: 2.5
     mass: 0.058
@@ -104,6 +104,73 @@ lidar:
     power: 8
     mass: 0.83
     cost: 4000
-    resolution: [0.2, 2]
+    resolution: [0.3, 2]
     frequency: 5
     accuracy: [-3,3]
+    channels: 16
+
+  hdl64:
+    sens_perf: hdl-64e
+    range: 120
+    power: 60
+    mass: 17.7
+    cost: 75000
+    resolution: [0.2, 0.4]
+    frequency: 5
+    accuracy: [-2, 2]
+    channels: 64
+
+  hdl32:
+    sens_perf: hdl-32e
+    range: 100
+    power: 12
+    mass: 12.7
+    cost: 30000
+    resolution: [ 0.3, 1.33 ]
+    frequency: 5
+    accuracy: [ -2, 2 ]
+    channels: 32
+
+  pandar40:
+    sens_perf: pandar40
+    range: 200
+    power: 15
+    mass: 1.43
+    cost: 30000
+    resolution: [ 3, 0.4 ]
+    frequency: 10
+    accuracy: [ -2, 2 ]
+    channels: 40
+
+  pandar40P:
+    sens_perf: pandar40p
+    range: 200
+    power: 18
+    mass: 1.52
+    cost: 30000
+    resolution: [ 0.4, 0.4 ]
+    frequency: 10
+    accuracy: [ -2, 2 ]
+    channels: 40
+
+  pandar64:
+    sens_perf: pandar64
+    range: 200
+    power: 22
+    mass: 1.43
+    cost: 30000
+    resolution: [ 0.4, 0.167 ]
+    frequency: 10
+    accuracy: [ -2, 2 ]
+    channels: 64
+
+  pandar128:
+    sens_perf: pandar128
+    range: 200
+    power: 25
+    mass: 1.63
+    cost: 30000
+    resolution: [ 0.2, 0.125 ]
+    frequency: 10
+    accuracy: [ -2, 2 ]
+    channels: 40

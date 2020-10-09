@@ -39,6 +39,17 @@ def get_recall_precision(alg, n) -> Tuple[List[Decimal], List[Decimal]]:
     return recall, precision
 
 
+def get_accuracy(cam, list_of_ds: List[Decimal]):
+    width = Decimal(cam["size"][0])
+    f = Decimal(cam["lens"])
+    n_pixel_width = cam["resolution"][0]
+
+    focal_pixel = (f/width) * n_pixel_width
+
+    accuracy = [str(ds**2/(focal_pixel*Decimal('0.1'))*Decimal('0.4')) for ds in list_of_ds]
+
+    return accuracy
+
 if __name__ == '__main__':
     ds = Decimal('0.01')
     max_distance = Decimal('50.0')
@@ -59,35 +70,39 @@ if __name__ == '__main__':
         cam = cameras[cam_key]
         resolution_v = get_vertical_resolution(list_of_ds, cam)
         height_px = int(cam["resolution"][1])
-        for alg_key in obj_detect:
-            alg = obj_detect[alg_key]
+        accuracy = get_accuracy(cam, list_of_ds)
+        for env_key, env in obj_detect.items():
+            for alg_key in env:
+                alg = env[alg_key]
 
-            recall, precision = get_recall_precision(alg, height_px+1)
-            f_recall = interp1d(range(height_px+1), recall)
-            f_precision = interp1d(range(height_px+1), precision)
-            recall_d = [f_recall(float(resolution_v[i])) for i in range(len(resolution_v))]
-            precision_d = [f_precision(float(resolution_v[i])) for i in range(len(resolution_v))]
-            fn = list(1 - np.array(recall_d))
-            fp = list(1 - np.array(precision_d))
-            fn = [str(p) for p in fn]
-            fp = [str(p) for p in fp]
-            fn_fp = {"fn": fn, "fp": fp, "ds": str(ds), "max_distance": str(max_distance)}
-            sens_pef[cam_key + "_" + alg_key] = fn_fp
+                recall, precision = get_recall_precision(alg, height_px + 1)
+                f_recall = interp1d(range(height_px + 1), recall)
+                f_precision = interp1d(range(height_px + 1), precision)
+                recall_d = [f_recall(float(resolution_v[i])) for i in range(len(resolution_v))]
+                precision_d = [f_precision(float(resolution_v[i])) for i in range(len(resolution_v))]
+                fn = list(1 - np.array(recall_d))
+                fp = list(1 - np.array(precision_d))
+                fn = [str(p) for p in fn]
+                fp = [str(p) for p in fp]
+                fn_fp = {"fn": fn, "fp": fp, "accuracy": accuracy, "ds": str(ds), "max_distance": str(max_distance)}
+                sens_pef[cam_key + "_" + env_key + "_" + alg_key] = fn_fp
 
-    with open('data/input/curves.yaml', 'w') as file:
+    with open('data/input/camera_curves.yaml', 'w') as file:
         documents = yaml.dump(sens_pef, file, default_flow_style=False)
 
     # with open('data/input/curves.yaml') as file:
     #     curves = yaml.load(file, Loader=yaml.FullLoader)
     #
     # for c_key, c in curves.items():
-    #     fn = c["fn"]
-    #     fn = [Decimal(s) for s in fn]
-    #     plt.plot(list_of_ds, fn, label=c_key)
-    #     plt.ylabel('FNR')
+    #     data = c["fn"]
+    #     data = [Decimal(s) for s in data]
+    #     plt.plot(list_of_ds, data, label=c_key)
+    #     plt.ylabel('fn')
     #     plt.xlabel('d in [m]')
     #     plt.legend(loc="upper left")
     #
+    # plt.show()
+
     # plt.savefig('data/output/fn.png')
     # plt.close()
     #
