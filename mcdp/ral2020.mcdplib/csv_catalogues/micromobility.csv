@@ -1,0 +1,5 @@
+,miles/hour,$,$/mile,1/years,kg/mile
+modelbike,10,8860,1.58,0.143,0.033
+modelscooter,15,550,0.79,11.77,0.101
+modelmoped,15,1000,2.05,0.1,0.158
+modelfcmoped,15,3000,1.20,0.1,0.033

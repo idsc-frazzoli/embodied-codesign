@@ -1,0 +1,28 @@
+mcdp {
+   provides speed_max [m/s]
+   provides acc_max [m/s^2]
+   provides acc_min [m/s^2]
+   provides capacity [pax/car]
+   provides driving_range [m]
+   provides extra_mass [g]
+   provides extra_power [W]
+   requires cost_fix_veh [CHF]
+   requires cost_op_veh [CHF/m]
+   requires energy_externalities [g/m]
+   requires system_noise [dimensionless]
+
+   provided speed_max <= 40 m/s
+   provided acc_max <= 2.71 m/s^2
+   provided acc_min <= 9.75 m/s^2
+   provided capacity <= 1 pax/car
+   range_nominal = 240000.0 m
+   power_used = 150000.0 W
+   mass_car = 1685.0 kg
+   lost_range_mass = range_nominal * provided extra_mass / mass_car
+   lost_range_power = range_nominal * provided extra_power / power_used
+   provided driving_range + lost_range_mass + lost_range_power <= range_nominal
+   required cost_fix_veh >=  29000.0 CHF
+   required cost_op_veh >= 0.264 CHF/km
+   required energy_externalities >= 80.0 g/km
+   required system_noise >= 1.0
+}

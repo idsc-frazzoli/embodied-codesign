@@ -1,0 +1,10 @@
+,pixel/steradian,Hz,`timeday,CHF,g,W
+modelAce251gm,2300000.0,51.0,"day",550.0,105.0,3.8
+modelAce160um,2300000.0,160.0,"day",550.0,90.0,4.3
+modelAce22gm,5000000.0,22.0,"day",500.0,105.0,3.1
+modelAce13gm,8300000.0,13.0,day,530.0,105.0,3.1
+modelAce7gm,16100000.0,7.0,day,1800.0,105.0,3.6
+modelAce5gm,20200000.0,5.0,day,2220.0,105.0,3.6
+modelAce15um,24400000.0,15.0,day,2630.0,90.0,3.6
+modelPointgrey,1400000.0,15.0,day,350.0,58.0,2.5
+

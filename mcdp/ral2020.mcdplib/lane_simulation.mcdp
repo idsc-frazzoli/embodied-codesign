@@ -1,0 +1,40 @@
+mcdp {
+
+# Importing the models
+lane_control_model = instance` lane_control
+lane_cameras_model = instance` lane_cameras
+feature_model = instance` feature
+implementation_lane_model = instance` implementation_lane
+implementation_feature_model = instance` implementation_feature
+
+# Functionalities
+provides time_day [`timeday]
+provides system_noise [dimensionless]
+# Resources
+requires cost [CHF]
+requires power [W]
+requires mass [g]
+requires computation [op/s]
+requires tracking_error [dimensionless]
+requires control_effort [dimensionless]
+
+# Constraints
+## Implementations
+implement_feature_at_delta required by feature_model <= implement_feature_at_delta provided by implementation_feature_model
+implement_lane_keeping_at_delta required by lane_control_model <= implement_lane_keeping_at_delta provided by implementation_lane_model
+observe_at_delta required by lane_control_model <= observe_at_delta provided by feature_model
+## Feature and Cameras
+resolution required by feature_model <= resolution provided by lane_cameras_model
+frequency required by feature_model <= frequency provided by lane_cameras_model
+## Feature and Lane Keeping
+observation_noise required by lane_control_model <= precision provided by feature_model
+## System level
+provided time_day <= time_day provided by lane_cameras_model
+provided system_noise <= system_noise provided by lane_control_model
+required cost >= cost required by lane_cameras_model
+required power >= power required by lane_cameras_model
+required mass >= mass required by lane_cameras_model
+required computation >= computation required by implementation_lane_model + computation required by implementation_feature_model
+required tracking_error >= tracking_error required by lane_control_model
+required control_effort >= control_effort required by lane_control_model
+}

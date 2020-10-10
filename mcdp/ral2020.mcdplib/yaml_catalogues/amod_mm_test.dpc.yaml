@@ -1,0 +1,25 @@
+F:
+  - "dimensionless"
+R:
+  - "Nat"
+  - "Nat"
+  - "miles/hour"
+  - "miles/hour"
+  - "s"
+  - "meter/s"
+  - "meter/s"
+  - "Nat"
+
+implementations:
+  model1:
+    f_max:
+    - "Top dimensionless"
+    r_min:
+    - "Bottom Nat"
+    - "Bottom Nat"
+    - "Bottom miles/hour"
+    - "Bottom miles/hour"
+    - "Bottom s"
+    - "Bottom meter/s"
+    - "Bottom meter/s"
+    - "Bottom Nat"

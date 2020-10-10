@@ -1,0 +1,4 @@
+product (
+   time_day: `timeday,
+   people_street: Nat
+)

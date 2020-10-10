@@ -1,0 +1,49 @@
+mcdp {
+# Import the DPs
+brake_control_model = instance` brake_control
+long_sensing_model = instance` long_sensing
+implementation_brake_model = instance` implementation_brake
+# Functionalities
+provides speed_cruise [m/s]
+provides time_day [`timeday]
+provides people_street using brake_control_model
+# Resources
+requires v_max [m/s]
+requires acc_max [m/s^2]
+requires acc_min [m/s^2]
+requires cost [CHF]
+requires power [W]
+requires mass [g]
+requires computation [op/s]
+requires danger [kg*m/s]
+#requires risk [dimensionless]
+#requires hazard [kg*m/s]
+requires discomfort_brake [dimensionless]
+
+# Setup constraints
+## Sensing and Control
+#false_positives required by brake_control_model <= false_positives provided by long_sensing_model
+#false_negatives required by brake_control_model <= false_negatives provided by long_sensing_model
+#accuracy required by brake_control_model <= accuracy provided by long_sensing_model
+sen_performance required by brake_control_model <= sen_performance provided by long_sensing_model
+frequency required by brake_control_model <= frequency provided by long_sensing_model
+latency required by long_sensing_model <= latency provided by brake_control_model
+## Control and Implementation
+implement_brake_control required by brake_control_model <= implement_brake_control provided by implementation_brake_model
+## General fun/res
+provided speed_cruise <= speed_cruise provided by brake_control_model
+provided time_day <= time_day provided by long_sensing_model
+provided time_day <= time_day provided by brake_control_model
+required computation >= computation required by implementation_brake_model
+#required risk >= risk required by brake_control_model
+#required hazard >= hazard required by brake_control_model
+required danger >= danger required by brake_control_model
+required mass >= mass required by long_sensing_model
+required cost >= cost required by long_sensing_model
+required power >= power required by long_sensing_model
+required discomfort_brake >= discomfort_brake required by brake_control_model
+required v_max >= speed_max required by brake_control_model
+required acc_max >= acc_max required by brake_control_model
+required acc_min >= acc_min required by brake_control_model
+#required dyn_perf >= dynamic_performance required by brake_control_model
+}

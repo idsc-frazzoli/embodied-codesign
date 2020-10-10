@@ -1,0 +1,1210 @@
+F:
+  - "`sen_prod"
+  - "Hz"
+  - "`timeday"
+R:
+  - "CHF"
+  - "g"
+  - "W"
+  - "us"
+implementations:
+  modelPuckDay1:
+    f_max:
+    - "`sen_prod: puck_day_stm_kde"
+    - "5.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "4000.0 CHF"
+    - "830.0 g"
+    - "8.0 W"
+    - "Bottom s"
+  modelPuckDay2:
+    f_max:
+    - "`sen_prod: puck_day_kde_based"
+    - "5.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "4000.0 CHF"
+    - "830.0 g"
+    - "8.0 W"
+    - "Bottom s"
+  modelPuckDay3:
+    f_max:
+    - "`sen_prod: puck_day_stm_rbnn"
+    - "5.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "4000.0 CHF"
+    - "830.0 g"
+    - "8.0 W"
+    - "Bottom s"
+  modelPuckNight1:
+    f_max:
+    - "`sen_prod: puck_day_stm_kde"
+    - "5.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "4000.0 CHF"
+    - "830.0 g"
+    - "8.0 W"
+    - "Bottom s"
+  modelPuckNight2:
+    f_max:
+    - "`sen_prod: puck_day_kde_based"
+    - "5.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "4000.0 CHF"
+    - "830.0 g"
+    - "8.0 W"
+    - "Bottom s"
+  modelPuckNight3:
+    f_max:
+    - "`sen_prod: puck_day_stm_rbnn"
+    - "5.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "4000.0 CHF"
+    - "830.0 g"
+    - "8.0 W"
+    - "Bottom s"
+  modelHDL32Day1:
+    f_max:
+    - "`sen_prod: hdl32_day_kde_based"
+    - "5.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "30000.0 CHF"
+    - "1300.0 g"
+    - "12.0 W"
+    - "Bottom s"
+  modelHDL32Day2:
+    f_max:
+    - "`sen_prod: hdl32_day_stm_kde"
+    - "5.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "30000.0 CHF"
+    - "1300.0 g"
+    - "12.0 W"
+    - "Bottom s"
+  modelHDL32Day3:
+    f_max:
+    - "`sen_prod: hdl32_day_stm_rbnn"
+    - "5.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "30000.0 CHF"
+    - "1300.0 g"
+    - "12.0 W"
+    - "Bottom s"
+  modelHDL32Night1:
+    f_max:
+    - "`sen_prod: hdl32_day_kde_based"
+    - "5.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "30000.0 CHF"
+    - "1300.0 g"
+    - "12.0 W"
+    - "Bottom s"
+  modelHDL32Night2:
+    f_max:
+    - "`sen_prod: hdl32_day_stm_kde"
+    - "5.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "30000.0 CHF"
+    - "1300.0 g"
+    - "12.0 W"
+    - "Bottom s"
+  modelHDL32Night3:
+    f_max:
+    - "`sen_prod: hdl32_day_stm_rbnn"
+    - "5.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "30000.0 CHF"
+    - "1300.0 g"
+    - "12.0 W"
+    - "Bottom s"
+  modelHDL64Day1:
+    f_max:
+    - "`sen_prod: hdl64_day_kde_based"
+    - "5.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "75000.0 CHF"
+    - "12700.0 g"
+    - "60.0 W"
+    - "Bottom s"
+  modelHDL64Day2:
+    f_max:
+    - "`sen_prod: hdl64_day_stm_kde"
+    - "5.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "75000.0 CHF"
+    - "12700.0 g"
+    - "60.0 W"
+    - "Bottom s"
+  modelHDL64Day3:
+    f_max:
+    - "`sen_prod: hdl64_day_stm_rbnn"
+    - "5.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "75000.0 CHF"
+    - "12700.0 g"
+    - "60.0 W"
+    - "Bottom s"
+  modelHDL64Night1:
+    f_max:
+    - "`sen_prod: hdl64_day_kde_based"
+    - "5.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "75000.0 CHF"
+    - "12700.0 g"
+    - "60.0 W"
+    - "Bottom s"
+  modelHDL64Night2:
+    f_max:
+    - "`sen_prod: hdl64_day_stm_kde"
+    - "5.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "75000.0 CHF"
+    - "12700.0 g"
+    - "60.0 W"
+    - "Bottom s"
+  modelHDL64Night3:
+    f_max:
+    - "`sen_prod: hdl64_day_stm_rbnn"
+    - "5.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "75000.0 CHF"
+    - "12700.0 g"
+    - "60.0 W"
+    - "Bottom s"
+  modelPandar40Day1:
+    f_max:
+    - "`sen_prod: pandar40_day_kde_based"
+    - "10.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "Bottom CHF"
+    - "1430.0 g"
+    - "15.0 W"
+    - "Bottom s"
+  modelPandar40Day2:
+    f_max:
+    - "`sen_prod: pandar40_day_stm_kde"
+    - "10.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "Bottom CHF"
+    - "1430.0 g"
+    - "15.0 W"
+    - "Bottom s"
+  modelPandar40Day3:
+    f_max:
+    - "`sen_prod: pandar40_day_stm_rbnn"
+    - "10.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "Bottom CHF"
+    - "1430.0 g"
+    - "15.0 W"
+    - "Bottom s"
+  modelPandar40Night1:
+    f_max:
+    - "`sen_prod: pandar40_day_kde_based"
+    - "10.0 Hz"
+    - "`timeday: night"
+    r_min:
+    - "Bottom CHF"
+    - "1430.0 g"
+    - "15.0 W"
+    - "Bottom s"
+  modelPandar40Night2:
+    f_max:
+    - "`sen_prod: pandar40_day_stm_kde"
+    - "10.0 Hz"
+    - "`timeday: night"
+    r_min:
+    - "Bottom CHF"
+    - "1430.0 g"
+    - "15.0 W"
+    - "Bottom s"
+  modelPandar40Night3:
+    f_max:
+    - "`sen_prod: pandar40_day_stm_rbnn"
+    - "10.0 Hz"
+    - "`timeday: night"
+    r_min:
+    - "Bottom CHF"
+    - "1430.0 g"
+    - "15.0 W"
+    - "Bottom s"
+  modelPandar40PDay1:
+    f_max:
+    - "`sen_prod: pandar40P_day_kde_based"
+    - "10.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "Bottom CHF"
+    - "1520.0 g"
+    - "18.0 W"
+    - "Bottom s"
+  modelPandar40PDay2:
+    f_max:
+    - "`sen_prod: pandar40P_day_stm_kde"
+    - "10.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "Bottom CHF"
+    - "1520.0 g"
+    - "18.0 W"
+    - "Bottom s"
+  modelPandar40PDay3:
+    f_max:
+    - "`sen_prod: pandar40P_day_stm_rbnn"
+    - "10.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "Bottom CHF"
+    - "1520.0 g"
+    - "18.0 W"
+    - "Bottom s"
+  modelPandar40PNight1:
+    f_max:
+    - "`sen_prod: pandar40P_day_kde_based"
+    - "10.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "Bottom CHF"
+    - "1520.0 g"
+    - "18.0 W"
+    - "Bottom s"
+  modelPandar40PNight2:
+    f_max:
+    - "`sen_prod: pandar40P_day_stm_kde"
+    - "10.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "Bottom CHF"
+    - "1520.0 g"
+    - "18.0 W"
+    - "Bottom s"
+  modelPandar40PNight3:
+    f_max:
+    - "`sen_prod: pandar40P_day_stm_rbnn"
+    - "10.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "Bottom CHF"
+    - "1520.0 g"
+    - "18.0 W"
+    - "Bottom s"
+  modelPandar64Day1:
+    f_max:
+    - "`sen_prod: pandar64_day_kde_based"
+    - "10.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "Bottom CHF"
+    - "1520.0 g"
+    - "22.0 W"
+    - "Bottom s"
+  modelPandar64Day2:
+    f_max:
+    - "`sen_prod: pandar64_day_stm_kde"
+    - "10.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "Bottom CHF"
+    - "1520.0 g"
+    - "22.0 W"
+    - "Bottom s"
+  modelPandar64Day3:
+    f_max:
+    - "`sen_prod: pandar64_day_stm_rbnn"
+    - "10.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "Bottom CHF"
+    - "1520.0 g"
+    - "22.0 W"
+    - "Bottom s"
+  modelPandar64Night1:
+    f_max:
+    - "`sen_prod: pandar64_day_kde_based"
+    - "10.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "Bottom CHF"
+    - "1520.0 g"
+    - "22.0 W"
+    - "Bottom s"
+  modelPandar64Night2:
+    f_max:
+    - "`sen_prod: pandar64_day_stm_kde"
+    - "10.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "Bottom CHF"
+    - "1520.0 g"
+    - "22.0 W"
+    - "Bottom s"
+  modelPandar64Night3:
+    f_max:
+    - "`sen_prod: pandar64_day_stm_rbnn"
+    - "10.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "Bottom CHF"
+    - "1520.0 g"
+    - "22.0 W"
+    - "Bottom s"
+  modelPandar128Day1:
+    f_max:
+    - "`sen_prod: pandar128_day_kde_based"
+    - "10.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "Bottom CHF"
+    - "1630.0 g"
+    - "25.0 W"
+    - "Bottom s"
+  modelPandar128Day2:
+    f_max:
+      - "`sen_prod: pandar128_day_stm_kde"
+      - "10.0 Hz"
+      - "`timeday:day"
+    r_min:
+      - "Bottom CHF"
+      - "1630.0 g"
+      - "25.0 W"
+      - "Bottom s"
+  modelPandar128Day3:
+    f_max:
+    - "`sen_prod: pandar128_day_stm_rbnn"
+    - "10.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "Bottom CHF"
+    - "1630.0 g"
+    - "25.0 W"
+    - "Bottom s"
+  modelPandar128Night1:
+    f_max:
+    - "`sen_prod: pandar128_day_kde_based"
+    - "10.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "Bottom CHF"
+    - "1630.0 g"
+    - "25.0 W"
+    - "Bottom s"
+  modelPandar128Night2:
+    f_max:
+      - "`sen_prod: pandar128_day_stm_kde"
+      - "10.0 Hz"
+      - "`timeday:night"
+    r_min:
+      - "Bottom CHF"
+      - "1630.0 g"
+      - "25.0 W"
+      - "Bottom s"
+  modelPandar128Night3:
+    f_max:
+    - "`sen_prod: pandar128_day_stm_rbnn"
+    - "10.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "Bottom CHF"
+    - "1630.0 g"
+    - "25.0 W"
+    - "Bottom s"
+  modelOS032Day1:
+    f_max:
+    - "`sen_prod: OS032_day_kde_based"
+    - "10.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "6000.0 CHF"
+    - "445.0 g"
+    - "17.0 W"
+    - "Bottom s"
+  modelOS032Day2:
+    f_max:
+    - "`sen_prod: OS032_day_stm_kde"
+    - "10.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "6000.0 CHF"
+    - "445.0 g"
+    - "17.0 W"
+    - "Bottom s"
+  modelOS032Day3:
+    f_max:
+    - "`sen_prod: OS032_day_stm_rbnn"
+    - "10.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "6000.0 CHF"
+    - "445.0 g"
+    - "17.0 W"
+    - "Bottom s"
+  modelOS032Night1:
+    f_max:
+    - "`sen_prod: OS032_day_kde_based"
+    - "10.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "6000.0 CHF"
+    - "445.0 g"
+    - "17.0 W"
+    - "Bottom s"
+  modelOS032Night2:
+    f_max:
+    - "`sen_prod: OS032_day_stm_kde"
+    - "10.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "6000.0 CHF"
+    - "445.0 g"
+    - "17.0 W"
+    - "Bottom s"
+  modelOS032Night3:
+    f_max:
+    - "`sen_prod: OS032_day_stm_rbnn"
+    - "10.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "6000.0 CHF"
+    - "445.0 g"
+    - "17.0 W"
+    - "Bottom s"
+  modelOS064Day1:
+    f_max:
+    - "`sen_prod: OS064_day_kde_based"
+    - "10.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "7900.0 CHF"
+    - "445.0 g"
+    - "17.0 W"
+    - "Bottom s"
+  modelOS064Day2:
+    f_max:
+    - "`sen_prod: OS064_day_stm_kde"
+    - "10.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "7900.0 CHF"
+    - "445.0 g"
+    - "17.0 W"
+    - "Bottom s"
+  modelOS064Day3:
+    f_max:
+    - "`sen_prod: OS064_day_stm_rbnn"
+    - "10.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "7900.0 CHF"
+    - "445.0 g"
+    - "17.0 W"
+    - "Bottom s"
+  modelOS064Night1:
+    f_max:
+    - "`sen_prod: OS064_day_kde_based"
+    - "10.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "7900.0 CHF"
+    - "445.0 g"
+    - "17.0 W"
+    - "Bottom s"
+  modelOS064Night2:
+    f_max:
+    - "`sen_prod: OS064_day_stm_kde"
+    - "10.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "7900.0 CHF"
+    - "445.0 g"
+    - "17.0 W"
+    - "Bottom s"
+  modelOS064Night3:
+    f_max:
+    - "`sen_prod: OS064_day_stm_rbnn"
+    - "10.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "7900.0 CHF"
+    - "445.0 g"
+    - "17.0 W"
+    - "Bottom s"
+  modelOS0128Day1:
+    f_max:
+    - "`sen_prod: OS0128_day_kde_based"
+    - "10.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "11800.0 CHF"
+    - "445.0 g"
+    - "17.0 W"
+    - "Bottom s"
+  modelOS0128Day2:
+    f_max:
+    - "`sen_prod: OS0128_day_stm_kde"
+    - "10.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "11800.0 CHF"
+    - "445.0 g"
+    - "17.0 W"
+    - "Bottom s"
+  modelOS0128Day3:
+    f_max:
+    - "`sen_prod: OS0128_day_stm_rbnn"
+    - "10.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "11800.0 CHF"
+    - "445.0 g"
+    - "17.0 W"
+    - "Bottom s"
+  modelOS0128Night1:
+    f_max:
+    - "`sen_prod: OS0128_day_kde_based"
+    - "10.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "11800.0 CHF"
+    - "445.0 g"
+    - "17.0 W"
+    - "Bottom s"
+  modelOS0128Night2:
+    f_max:
+    - "`sen_prod: OS0128_day_stm_kde"
+    - "10.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "11800.0 CHF"
+    - "445.0 g"
+    - "17.0 W"
+    - "Bottom s"
+  modelOS0128Night3:
+    f_max:
+    - "`sen_prod: OS0128_day_stm_rbnn"
+    - "10.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "11800.0 CHF"
+    - "445.0 g"
+    - "17.0 W"
+    - "Bottom s"
+  modelOS132Day1:
+    f_max:
+    - "`sen_prod: OS132_day_kde_based"
+    - "10.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "8000.0 CHF"
+    - "455.0 g"
+    - "17.0 W"
+    - "Bottom s"
+  modelOS132Day2:
+    f_max:
+    - "`sen_prod: OS132_day_stm_kde"
+    - "10.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "8000.0 CHF"
+    - "455.0 g"
+    - "17.0 W"
+    - "Bottom s"
+  modelOS132Day3:
+    f_max:
+    - "`sen_prod: OS132_day_stm_rbnn"
+    - "10.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "8000.0 CHF"
+    - "455.0 g"
+    - "17.0 W"
+    - "Bottom s"
+  modelOS132Night1:
+    f_max:
+    - "`sen_prod: OS132_day_kde_based"
+    - "10.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "8000.0 CHF"
+    - "455.0 g"
+    - "17.0 W"
+    - "Bottom s"
+  modelOS132Night2:
+    f_max:
+    - "`sen_prod: OS132_day_stm_kde"
+    - "10.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "8000.0 CHF"
+    - "455.0 g"
+    - "17.0 W"
+    - "Bottom s"
+  modelOS132Night3:
+    f_max:
+    - "`sen_prod: OS132_day_stm_rbnn"
+    - "10.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "8000.0 CHF"
+    - "455.0 g"
+    - "17.0 W"
+    - "Bottom s"
+  modelOS164Day1:
+    f_max:
+    - "`sen_prod: OS164_day_kde_based"
+    - "10.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "11800.0 CHF"
+    - "455.0 g"
+    - "17.0 W"
+    - "Bottom s"
+  modelOS164Day2:
+    f_max:
+    - "`sen_prod: OS164_day_stm_kde"
+    - "10.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "11800.0 CHF"
+    - "455.0 g"
+    - "17.0 W"
+    - "Bottom s"
+  modelOS164Day3:
+    f_max:
+    - "`sen_prod: OS164_day_stm_rbnn"
+    - "10.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "11800.0 CHF"
+    - "455.0 g"
+    - "17.0 W"
+    - "Bottom s"
+  modelOS164Night1:
+    f_max:
+    - "`sen_prod: OS164_day_kde_based"
+    - "10.0 Hz"
+    - "`timeday: night"
+    r_min:
+    - "11800.0 CHF"
+    - "455.0 g"
+    - "17.0 W"
+    - "Bottom s"
+  modelOS164Night2:
+    f_max:
+    - "`sen_prod: OS164_day_stm_kde"
+    - "10.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "11800.0 CHF"
+    - "455.0 g"
+    - "17.0 W"
+    - "Bottom s"
+  modelOS164Night3:
+    f_max:
+    - "`sen_prod: OS164_day_stm_rbnn"
+    - "10.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "11800.0 CHF"
+    - "455.0 g"
+    - "17.0 W"
+    - "Bottom s"
+  modelOS1128Day1:
+    f_max:
+    - "`sen_prod: OS1128_day_kde_based"
+    - "10.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "17600.0 CHF"
+    - "455.0 g"
+    - "17.0 W"
+    - "Bottom s"
+  modelOS1128Day2:
+    f_max:
+    - "`sen_prod: OS1128_day_stm_kde"
+    - "10.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "17600.0 CHF"
+    - "455.0 g"
+    - "17.0 W"
+    - "Bottom s"
+  modelOS1128Day3:
+    f_max:
+    - "`sen_prod: OS1128_day_stm_rbnn"
+    - "10.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "17600.0 CHF"
+    - "455.0 g"
+    - "17.0 W"
+    - "Bottom s"
+  modelOS1128Night1:
+    f_max:
+    - "`sen_prod: OS1128_day_kde_based"
+    - "10.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "17600.0 CHF"
+    - "455.0 g"
+    - "17.0 W"
+    - "Bottom s"
+  modelOS1128Night2:
+    f_max:
+    - "`sen_prod: OS1128_day_stm_kde"
+    - "10.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "17600.0 CHF"
+    - "455.0 g"
+    - "17.0 W"
+    - "Bottom s"
+  modelOS1128Night3:
+    f_max:
+    - "`sen_prod: OS1128_day_stm_rbnn"
+    - "10.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "17600.0 CHF"
+    - "455.0 g"
+    - "17.0 W"
+    - "Bottom s"
+  modelOS232Day1:
+    f_max:
+    - "`sen_prod: OS232_day_kde_based"
+    - "10.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "16000.0 CHF"
+    - "930.0 g"
+    - "21.0 W"
+    - "Bottom s"
+  modelOS232Day2:
+    f_max:
+    - "`sen_prod: OS232_day_stm_kde"
+    - "10.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "16000.0 CHF"
+    - "930.0 g"
+    - "21.0 W"
+    - "Bottom s"
+  modelOS232Day3:
+    f_max:
+    - "`sen_prod: OS232_day_stm_rbnn"
+    - "10.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "16000.0 CHF"
+    - "930.0 g"
+    - "21.0 W"
+    - "Bottom s"
+  modelOS232Night1:
+    f_max:
+    - "`sen_prod: OS232_day_kde_based"
+    - "10.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "16000.0 CHF"
+    - "930.0 g"
+    - "21.0 W"
+    - "Bottom s"
+  modelOS232Night2:
+    f_max:
+    - "`sen_prod: OS232_day_stm_kde"
+    - "10.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "16000.0 CHF"
+    - "930.0 g"
+    - "21.0 W"
+    - "Bottom s"
+  modelOS232Night3:
+    f_max:
+    - "`sen_prod: OS232_day_stm_rbnn"
+    - "10.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "16000.0 CHF"
+    - "930.0 g"
+    - "21.0 W"
+    - "Bottom s"
+  modelOS264Day1:
+    f_max:
+    - "`sen_prod: OS264_day_kde_based"
+    - "10.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "19700.0 CHF"
+    - "930.0 g"
+    - "21.0 W"
+    - "Bottom s"
+  modelOS264Day2:
+    f_max:
+    - "`sen_prod: OS264_day_stm_kde"
+    - "10.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "19700.0 CHF"
+    - "930.0 g"
+    - "21.0 W"
+    - "Bottom s"
+  modelOS264Day3:
+    f_max:
+    - "`sen_prod: OS264_day_stm_rbnn"
+    - "10.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "19700.0 CHF"
+    - "930.0 g"
+    - "21.0 W"
+    - "Bottom s"
+  modelOS264Night1:
+    f_max:
+    - "`sen_prod: OS264_day_kde_based"
+    - "10.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "19700.0 CHF"
+    - "930.0 g"
+    - "21.0 W"
+    - "Bottom s"
+  modelOS264Night2:
+    f_max:
+    - "`sen_prod: OS264_day_stm_kde"
+    - "10.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "19700.0 CHF"
+    - "930.0 g"
+    - "21.0 W"
+    - "Bottom s"
+  modelOS264Night3:
+    f_max:
+    - "`sen_prod: OS264_day_stm_rbnn"
+    - "10.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "19700.0 CHF"
+    - "930.0 g"
+    - "21.0 W"
+    - "Bottom s"
+  modelOS2128Day1:
+    f_max:
+    - "`sen_prod: OS2128_day_kde_based"
+    - "10.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "23700.0 CHF"
+    - "930.0 g"
+    - "21.0 W"
+    - "Bottom s"
+  modelOS2128Day2:
+    f_max:
+    - "`sen_prod: OS2128_day_stm_kde"
+    - "10.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "23700.0 CHF"
+    - "930.0 g"
+    - "21.0 W"
+    - "Bottom s"
+  modelOS2128Day3:
+    f_max:
+    - "`sen_prod: OS2128_day_stm_rbnn"
+    - "10.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "23700.0 CHF"
+    - "930.0 g"
+    - "21.0 W"
+    - "Bottom s"
+  modelOS2128Night1:
+    f_max:
+    - "`sen_prod: OS2128_day_kde_based"
+    - "10.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "23700.0 CHF"
+    - "930.0 g"
+    - "21.0 W"
+    - "Bottom s"
+  modelOS2128Night2:
+    f_max:
+    - "`sen_prod: OS2128_day_stm_kde"
+    - "10.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "23700.0 CHF"
+    - "930.0 g"
+    - "21.0 W"
+    - "Bottom s"
+  modelOS2128Night3:
+    f_max:
+    - "`sen_prod: OS2128_day_stm_rbnn"
+    - "10.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "23700.0 CHF"
+    - "930.0 g"
+    - "21.0 W"
+    - "Bottom s"
+  modelAce251gmDayRcnn1:
+    f_max:
+    - "`sen_prod: Ace251gm_day_faster_rcnn1"
+    - "51.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "550.0 CHF"
+    - "105.0 g"
+    - "3.8 W"
+    - "19 us"
+  modelAce251gmDayRcnn3:
+    f_max:
+    - "`sen_prod: Ace251gm_day_faster_rcnn3"
+    - "51.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "550.0 CHF"
+    - "105.0 g"
+    - "3.8 W"
+    - "19 us"
+  modelAce251gmNight:
+    f_max:
+    - "`sen_prod: Ace251gm_night_faster_rcnn3"
+    - "51.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "550.0 CHF"
+    - "105.0 g"
+    - "3.8 W"
+    - "19 us"
+  modelAce160umDayRcnn1:
+    f_max:
+    - "`sen_prod: Ace2160um_day_faster_rcnn1"
+    - "160.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "550.0 CHF"
+    - "90.0 g"
+    - "4.3 W"
+    - "19 us"
+  modelAce160umDayRcnn3:
+    f_max:
+    - "`sen_prod: Ace2160um_day_faster_rcnn3"
+    - "160.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "550.0 CHF"
+    - "90.0 g"
+    - "4.3 W"
+    - "19 us"
+  modelAce160umNight:
+    f_max:
+    - "`sen_prod: Ace2160um_night_faster_rcnn3"
+    - "160.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "550.0 CHF"
+    - "90.0 g"
+    - "4.3 W"
+    - "19 us"
+  modelAce22gmDayRcnn1:
+    f_max:
+    - "`sen_prod: Ace222gm_day_faster_rcnn1"
+    - "22.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "500.0 CHF"
+    - "105.0 g"
+    - "3.1 W"
+    - "10 us"
+  modelAce22gmDayRcnn3:
+    f_max:
+    - "`sen_prod: Ace222gm_day_faster_rcnn3"
+    - "22.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "500.0 CHF"
+    - "105.0 g"
+    - "3.1 W"
+    - "10 us"
+  modelAce22gmNight:
+    f_max:
+    - "`sen_prod: Ace222gm_night_faster_rcnn3"
+    - "22.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "500.0 CHF"
+    - "105.0 g"
+    - "3.1 W"
+    - "10 us"
+  modelAce13gmDayRcnn1:
+    f_max:
+    - "`sen_prod: Ace13gm_day_faster_rcnn1"
+    - "13.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "530.0 CHF"
+    - "105.0 g"
+    - "3.1 W"
+    - "12 us"
+  modelAce13gmDayRcnn3:
+    f_max:
+    - "`sen_prod: Ace13gm_day_faster_rcnn3"
+    - "13.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "530.0 CHF"
+    - "105.0 g"
+    - "3.1 W"
+    - "12 us"
+  modelAce13gmNight:
+    f_max:
+    - "`sen_prod: Ace13gm_night_faster_rcnn3"
+    - "13.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "530.0 CHF"
+    - "105.0 g"
+    - "3.1 W"
+    - "12 us"
+  modelAce7gmDayRcnn1:
+    f_max:
+    - "`sen_prod: Ace7gm_day_faster_rcnn1"
+    - "7.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "1800.0 CHF"
+    - "105.0 g"
+    - "3.6 W"
+    - "16 us"
+  modelAce7gmDayRcnn3:
+    f_max:
+    - "`sen_prod: Ace7gm_day_faster_rcnn3"
+    - "7.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "1800.0 CHF"
+    - "105.0 g"
+    - "3.6 W"
+    - "16 us"
+  modelAce7gmNight:
+    f_max:
+    - "`sen_prod: Ace7gm_night_faster_rcnn3"
+    - "7.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "1800.0 CHF"
+    - "105.0 g"
+    - "3.6 W"
+    - "16 us"
+  modelAce5gmDayRcnn1:
+    f_max:
+    - "`sen_prod: Ace5gm_day_faster_rcnn1"
+    - "5.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "2220.0 CHF"
+    - "105.0 g"
+    - "3.6 W"
+    - "16 us"
+  modelAce5gmDayRcnn3:
+    f_max:
+    - "`sen_prod: Ace5gm_day_faster_rcnn3"
+    - "5.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "2220.0 CHF"
+    - "105.0 g"
+    - "3.6 W"
+    - "16 us"
+  modelAce5gmNight:
+    f_max:
+    - "`sen_prod: Ace5gm_night_faster_rcnn3"
+    - "5.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "2220.0 CHF"
+    - "105.0 g"
+    - "3.6 W"
+    - "16 us"
+  modelAce15umDayRcnn1:
+    f_max:
+    - "`sen_prod: Ace15um_day_faster_rcnn1"
+    - "15.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "2630.0 CHF"
+    - "90.0 g"
+    - "3.6 W"
+    - "15 us"
+  modelAce15umDayRcnn3:
+    f_max:
+    - "`sen_prod: Ace15um_day_faster_rcnn3"
+    - "15.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "2630.0 CHF"
+    - "90.0 g"
+    - "3.6 W"
+    - "15 us"
+  modelAce15umNight:
+    f_max:
+    - "`sen_prod: Ace15um_night_faster_rcnn3"
+    - "15.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "2630.0 CHF"
+    - "90.0 g"
+    - "3.6 W"
+    - "15 us"
+  modelPointgreyDayRcnn1:
+    f_max:
+    - "`sen_prod: Pointgrey_day_faster_rcnn1"
+    - "15.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "350.0 CHF"
+    - "58.0 g"
+    - "2.5 W"
+    - "20 us"
+  modelPointgreyDayRcnn3:
+    f_max:
+    - "`sen_prod: Pointgrey_day_faster_rcnn3"
+    - "15.0 Hz"
+    - "`timeday:day"
+    r_min:
+    - "350.0 CHF"
+    - "58.0 g"
+    - "2.5 W"
+    - "20 us"
+  modelPointgreyNight:
+    f_max:
+    - "`sen_prod: Pointgrey_night_faster_rcnn3"
+    - "15.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "350.0 CHF"
+    - "58.0 g"
+    - "2.5 W"
+    - "20 us"

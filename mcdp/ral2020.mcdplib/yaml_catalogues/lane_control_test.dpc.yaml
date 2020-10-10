@@ -1,0 +1,18 @@
+F:
+  - "dimensionless"
+R:
+  - "dimensionless"
+  - "dimensionless"
+  - "Hz"
+  - "dimensionless"
+  - "Hz"
+implementations:
+  model1:
+    f_max:
+    - "Top dimensionless"
+    r_min:
+    - "Bottom dimensionless"
+    - "Bottom dimensionless"
+    - "Bottom Hz"
+    - "Bottom dimensionless"
+    - "Bottom Hz"

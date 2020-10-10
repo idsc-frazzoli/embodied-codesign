@@ -1,0 +1,9 @@
+mcdp {
+
+provides control_effort [dimensionless]
+provides brake_discomfort [dimensionless]
+requires discomfort [dimensionless]
+
+required discomfort >= provided control_effort + provided brake_discomfort
+
+}

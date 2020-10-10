@@ -1,0 +1,21 @@
+F:
+  - "op/s"
+R:
+  - "CHF"
+  - "g"
+  - "W"
+implementations:
+  modelXavier:
+    f_max:
+      - "30000000000000.0 op/s"
+    r_min:
+      - "2500.0 CHF"
+      - "1548.0 g"
+      - "30.0 W"
+  modelDrivePX:
+    f_max:
+      - "320000000000000.0 op/s"
+    r_min:
+      - "15000.0 CHF"
+      - " Bottom kg"
+      - "40.0 W"

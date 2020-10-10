@@ -1,0 +1,22 @@
+dp {
+	# The demand is a fixed parameter/s for our cases of NYC and Berlin, we consider it here varying
+	provides total_requests [dimensionless]
+	# Bought vehicles
+	requires number_veh_available [Nat]
+	# Bought e-scooters
+	requires number_mm_available [Nat]
+	# Achievable velocity AVs
+	requires velocity_av [miles/hour]
+	# Achievable velocity e-scooter
+	requires velocity_mm [miles/hour]
+	# Average travel time (metric of I-AMoD)
+	requires time_travel [s]
+	# Total Distance driven by AVs in one second
+	requires d_road_av [meter/s]
+	# Total Distance driven by E-scooters in one second
+	requires d_road_mm [meter/s]
+	# Number of Subways
+	requires number_subway [Nat]
+
+    #implemented-by code mcdp_importers.read_yaml(fn="ral2020.mcdplib/yaml_catalogues/amod_micromobility.dpc.yaml")}
+    implemented-by code mcdp_importers.read_yaml(fn="ral2020.mcdplib/yaml_catalogues/amod_mm_test.dpc.yaml")}

@@ -1,0 +1,61 @@
+mcdp {
+
+# Import the models
+long_simulation_model = instance` longitudinal_simulation
+lane_simulation_model = instance` lane_simulation
+vehicle_model = instance` vehicle_models
+computing_model = instance` computing
+discomfort_model = instance` discomfort
+
+# Functionalities
+provides speed_cruise [m/s]
+provides time_day [`timeday]
+provides people_street [pax/km]
+# Resources
+requires fixed_cost [CHF]
+requires operational_cost [CHF/mile]
+requires danger [kg*m/s]
+requires energy_externalities [g/mile]
+requires discomfort [dimensionless]
+
+
+## Vehicle and Longitudinal Simulation Model
+v_max required by long_simulation_model <= speed_max provided by vehicle_model
+acc_max required by long_simulation_model <= acc_max provided by vehicle_model
+acc_min required by long_simulation_model <= acc_min provided by vehicle_model
+## Vehicle and Lane Control Model
+system_noise required by vehicle_model <= system_noise provided by lane_simulation_model
+## Lane control and discomfort
+control_effort required by lane_simulation_model <= control_effort provided by discomfort_model
+discomfort_brake required by long_simulation_model <= brake_discomfort provided by discomfort_model
+## Bounds
+track_err_bound = 10
+tracking_error required by lane_simulation_model <= track_err_bound
+
+## Sums
+### Computation
+computation_total = computation required by long_simulation_model + computation required by lane_simulation_model
+computation_total <= computation provided by computing_model
+### Costs
+cost_total = cost required by long_simulation_model + cost required by lane_simulation_model + cost_fix_veh required by vehicle_model + cost required by computing_model
+### Powers
+power_total = power required by long_simulation_model + power required by lane_simulation_model + power required by computing_model
+extra_power provided by vehicle_model >= power_total
+### Masses
+mass_total = mass required by long_simulation_model + mass required by lane_simulation_model + mass required by computing_model
+extra_mass provided by vehicle_model >= mass_total
+
+# System properties
+required fixed_cost >= cost_total
+provided speed_cruise <= speed_cruise provided by long_simulation_model
+provided time_day <= time_day provided by long_simulation_model
+provided people_street <= people_street provided by long_simulation_model
+provided time_day <= time_day provided by lane_simulation_model
+required danger >= danger required by long_simulation_model
+required operational_cost >= cost_op_veh required by vehicle_model
+required energy_externalities >= energy_externalities required by vehicle_model
+required discomfort >= discomfort required by discomfort_model
+
+1 pax/car <= capacity provided by vehicle_model
+ignore driving_range provided by vehicle_model
+}

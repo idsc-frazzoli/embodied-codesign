@@ -1,0 +1,14 @@
+dp {
+        # Velocity at which the micromobility solution is able to drive
+        provides velocity [miles/hour]
+        # Fixed costs
+        requires fixed_cost [$]
+        # Operational costs
+        requires operational_cost_mm [$/mile]
+        # Life
+        requires life_factor [1/years]
+        # Emissions per mile
+        requires emissions [kg/mile]
+
+        implemented-by code mcdp_importers.read_yaml(fn="ral2020.mcdplib/yaml_catalogues/micromobility.dpc.yaml")
+}

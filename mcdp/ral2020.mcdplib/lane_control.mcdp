@@ -1,0 +1,11 @@
+dp {
+   provides system_noise [dimensionless]
+   requires tracking_error [dimensionless]
+   requires observation_noise [dimensionless]
+   requires implement_lane_keeping_at_delta [Hz]
+   requires control_effort [dimensionless]
+   requires observe_at_delta [Hz]
+
+   implemented-by code mcdp_importers.read_yaml(fn="ral2020.mcdplib/yaml_catalogues/lane_control.dpc.yaml")
+   #implemented-by code mcdp_importers.read_yaml(fn="ral2020.mcdplib/yaml_catalogues/lane_control_test.dpc.yaml")
+}

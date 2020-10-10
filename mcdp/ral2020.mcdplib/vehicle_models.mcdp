@@ -1,0 +1,12 @@
+
+choose(
+         SedanS: (load Car_SedanS),
+         SedanM: (load Car_SedanM),
+         SedanL: (load Car_SedanL),
+         SUVS: (load Car_SuvS),
+         SUVM: (load Car_SuvM),
+         Minivan: (load Car_Minivan),
+         Shuttle: (load Car_Shuttle),
+         Hybrid: (load Car_Hybrid),
+         BEV: (load Car_BEV)
+)

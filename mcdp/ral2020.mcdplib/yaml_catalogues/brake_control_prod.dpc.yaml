@@ -1,0 +1,31 @@
+F:
+  - "m/s"
+  - "`timeday"
+  - "pax/km"
+  - "s"
+R:
+  - "m/s"
+  - "m/s^2"
+  - "m/s^2"
+  - "`sen_prod"
+  - "Hz"
+  - "Hz"
+  - "kg*m/s"
+  - "dimensionless"
+
+implementations:
+  model1:
+    f_max:
+      - "Top m/s"
+      - "`timeday: day"
+      - "Top pax/km"
+      - "Top s"
+    r_min:
+      - "Bottom m/s"
+      - "Bottom m/s^2"
+      - "Bottom m/s^2"
+      - "`sen_prod: puck_day_kde_based"
+      - "Bottom Hz"
+      - "Bottom Hz"
+      - "Bottom kg*m/s"
+      - "Bottom dimensionless"

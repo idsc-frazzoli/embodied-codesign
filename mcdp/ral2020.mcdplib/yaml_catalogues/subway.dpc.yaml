@@ -1,0 +1,25 @@
+F:
+  - "Nat"
+R:
+  - "$"
+  - "$/year"
+
+implementations:
+  modelsub1:
+    f_max:
+    - "Nat: 0"
+    r_min:
+    - "14500000 $"
+    - "148000000 $/year"
+  modelsub2:
+    f_max:
+    - "Nat: 56"
+    r_min:
+    - "145000000 $"
+    - "222000000 $/year"
+  modelsub2:
+    f_max:
+    - "Nat: 112"
+    r_min:
+    - "145000000 $"
+    - "295000000 $/year"

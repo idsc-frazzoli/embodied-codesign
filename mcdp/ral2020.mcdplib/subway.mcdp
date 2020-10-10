@@ -1,0 +1,11 @@
+dp {
+    # How much does it cost to have more subways
+    requires fixed_cost [$]
+    # Operational cost of the subway
+    requires operational_cost_sub [$/year]
+    # No functionality
+    provides number_subway [Nat]
+
+    implemented-by code mcdp_importers.read_yaml(fn="ral2020.mcdplib/yaml_catalogues/subway.dpc.yaml")
+
+}

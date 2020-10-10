@@ -1,0 +1,83 @@
+F:
+  - "pixel/steradian"
+  - "Hz"
+  - "`timeday"
+
+R:
+  - "CHF"
+  - "g"
+  - "W"
+
+implementations:
+  modelAce251gm:
+    f_max:
+    - "2300000.0 pixel/steradian"
+    - "51.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "550.0 CHF"
+    - "105.0 g"
+    - "3.8 W"
+  modelAce160um:
+    f_max:
+      - "2300000.0 pixel/steradian"
+      - "160.0 Hz"
+      - "`timeday: day"
+    r_min:
+      - "500.0 CHF"
+      - "90.0 g"
+      - "4.3 W"
+  modelAce22gm:
+    f_max:
+      - "5000000.0 pixel/steradian"
+      - "22.0 Hz"
+      - "`timeday: day"
+    r_min:
+      - "500.0 CHF"
+      - "105.0 g"
+      - "3.1 W"
+  modelAce13gm:
+    f_max:
+      - "8300000.0 pixel/steradian"
+      - "13.0 Hz"
+      - "`timeday: day"
+    r_min:
+      - "530.0 CHF"
+      - "105.0 g"
+      - "3.1 W"
+    modelAce7gm:
+      f_max:
+        - "16100000.0 pixel/steradian"
+        - "7.0 Hz"
+        - "`timeday: day"
+      r_min:
+        - "1800.0 CHF"
+        - "105.0 g"
+        - "3.6 W"
+    modelAce5gm:
+      f_max:
+        - "20200000.0 pixel/steradian"
+        - "5.0 Hz"
+        - "`timeday: day"
+      r_min:
+        - "2220.0 CHF"
+        - "105.0 g"
+        - "3.6 W"
+    modelAce15um:
+      f_max:
+        - "24400000.0 pixel/steradian"
+        - "15.0 Hz"
+        - "`timeday: day"
+      r_min:
+        - "2630.0 CHF"
+        - "90.0 g"
+        - "3.6 W"
+    pointgrey:
+      f_max:
+        - "1400000.0 pixel/steradian"
+        - "15.0 Hz"
+        - "`timeday: day"
+      r_min:
+        - "350.0 CHF"
+        - "58.0 g"
+        - "3.5 W"

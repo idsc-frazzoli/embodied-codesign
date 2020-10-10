@@ -1,0 +1,41 @@
+F:
+  - "miles/hour"
+R:
+  - "$"
+  - "$/km"
+  - "1/years"
+  - "kg/mile"
+
+implementations:
+  modelbike:
+    f_max:
+      - "10.0 miles/hour"
+    r_min:
+      - "8860.0 $"
+      - "1.58 $/mile"
+      - "0.143 1/years"
+      - "0.033 kg/mile"
+  modelscooter:
+    f_max:
+      - "15.0 miles/hour"
+    r_min:
+      - "550.0 $"
+      - "0.79 $/mile"
+      - "11.77 1/years"
+      - "0.101 kg/mile"
+  modelmoped:
+    f_max:
+      - "15.0 miles/hour"
+    r_min:
+      - "1000.0 $"
+      - "2.05 $/mile"
+      - "0.1 1/years"
+      - "0.158 kg/mile"
+  modelfcmoped:
+    f_max:
+      - "15.0 miles/hour"
+    r_min:
+      - "3000.0 $"
+      - "1.20 $/mile"
+      - "0.1 1/years"
+      - "0.033 kg/mile"

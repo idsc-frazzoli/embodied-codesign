@@ -31,12 +31,12 @@ if __name__ == '__main__':
     sp = SimParameters(nsims=1, road_length=Decimal('500.0'), dt=Decimal(str(0.01)),
                        seed=0, do_animation=True)
 
-    dyn_perf = vehicles["suv_m"]
+    dyn_perf = vehicles["sedan_s"]
     sens = camera["ace_251gm"]
     sens_curves = curves[sens["sens_perf"]]
     s = speed[6]
     s = 40.0
-    env = environment["15night_env"]
+    env = environment["07night_env"]
     cont = control_param["cont4"]
     performance = simulate(sp, dyn_perf, sens, sens_curves, s, env, cont, experiment_key="test")
 

@@ -1,0 +1,9 @@
+dp {
+   provides observe_at_delta [Hz]
+   provides precision [dimensionless]
+   requires implement_feature_at_delta [Hz]
+   requires resolution [pixel/steradian]
+   requires frequency [Hz]
+
+   implemented-by code mcdp_importers.read_yaml(fn="ral2020.mcdplib/yaml_catalogues/feature.dpc.yaml")
+}

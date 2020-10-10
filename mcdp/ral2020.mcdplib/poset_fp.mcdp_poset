@@ -1,0 +1,32 @@
+add_bottom poset {
+ace_213gm_faster_rcnn96 ace_2160um_faster_rcnn96 ace_21um_faster_rcnn96 ace_222gm_faster_rcnn96 ace_251gm_faster_rcnn96 ace_25gm_faster_rcnn96 ace_27gm_faster_rcnn96 pointgrey_faster_rcnn96 
+ace_213gm_faster_rcnn96 <= ace_2160um_faster_rcnn96
+ace_213gm_faster_rcnn96 <= ace_21um_faster_rcnn96
+ace_213gm_faster_rcnn96 <= ace_222gm_faster_rcnn96
+ace_213gm_faster_rcnn96 <= ace_251gm_faster_rcnn96
+ace_213gm_faster_rcnn96 <= ace_25gm_faster_rcnn96
+ace_213gm_faster_rcnn96 <= ace_27gm_faster_rcnn96
+ace_213gm_faster_rcnn96 <= pointgrey_faster_rcnn96
+ace_2160um_faster_rcnn96 <= ace_251gm_faster_rcnn96
+ace_2160um_faster_rcnn96 <= pointgrey_faster_rcnn96
+ace_21um_faster_rcnn96 <= ace_2160um_faster_rcnn96
+ace_21um_faster_rcnn96 <= ace_251gm_faster_rcnn96
+ace_21um_faster_rcnn96 <= ace_27gm_faster_rcnn96
+ace_21um_faster_rcnn96 <= pointgrey_faster_rcnn96
+ace_222gm_faster_rcnn96 <= ace_2160um_faster_rcnn96
+ace_222gm_faster_rcnn96 <= ace_21um_faster_rcnn96
+ace_222gm_faster_rcnn96 <= ace_251gm_faster_rcnn96
+ace_222gm_faster_rcnn96 <= ace_25gm_faster_rcnn96
+ace_222gm_faster_rcnn96 <= ace_27gm_faster_rcnn96
+ace_222gm_faster_rcnn96 <= pointgrey_faster_rcnn96
+ace_251gm_faster_rcnn96 <= ace_2160um_faster_rcnn96
+ace_251gm_faster_rcnn96 <= pointgrey_faster_rcnn96
+ace_25gm_faster_rcnn96 <= ace_2160um_faster_rcnn96
+ace_25gm_faster_rcnn96 <= ace_21um_faster_rcnn96
+ace_25gm_faster_rcnn96 <= ace_251gm_faster_rcnn96
+ace_25gm_faster_rcnn96 <= ace_27gm_faster_rcnn96
+ace_25gm_faster_rcnn96 <= pointgrey_faster_rcnn96
+ace_27gm_faster_rcnn96 <= ace_2160um_faster_rcnn96
+ace_27gm_faster_rcnn96 <= ace_251gm_faster_rcnn96
+ace_27gm_faster_rcnn96 <= pointgrey_faster_rcnn96
+}

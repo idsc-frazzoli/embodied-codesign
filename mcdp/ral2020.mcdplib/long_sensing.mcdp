@@ -1,0 +1,15 @@
+dp {
+   #provides false_positives [`poset_fp]
+   #provides false_negatives [`poset_fn]
+   #provides accuracy [`poset_acc]
+   provides sen_performance [`sen_prod]
+   provides frequency [Hz]
+   provides time_day [`timeday]
+   requires cost [CHF]
+   requires mass [g]
+   requires power [W]
+   requires latency [us]
+
+   #implemented-by code mcdp_importers.read_yaml(fn="ral2020.mcdplib/yaml_catalogues/long_sensing.dpc.yaml")
+   implemented-by code mcdp_importers.read_yaml(fn="ral2020.mcdplib/yaml_catalogues/long_sensing_prod.dpc.yaml")
+   }

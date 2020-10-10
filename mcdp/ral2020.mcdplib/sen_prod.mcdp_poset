@@ -1,0 +1,5 @@
+product(
+       fp: `poset_fp,
+       fn: `poset_fn,
+      acc: `poset_acc
+)

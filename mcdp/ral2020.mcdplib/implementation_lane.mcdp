@@ -1,0 +1,7 @@
+dp {
+
+provides implement_lane_keeping_at_delta [Hz]
+requires computation [op/s]
+
+implemented-by code mcdp_importers.read_yaml(fn="ral2020.mcdplib/yaml_catalogues/implementation_lane_keeping.dpc.yaml")
+}

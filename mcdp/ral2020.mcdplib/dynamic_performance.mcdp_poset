@@ -1,0 +1,5 @@
+product(
+       speed_max: m/s,
+       acc_max: m/s^2,
+       acc_min: m/s^2
+)

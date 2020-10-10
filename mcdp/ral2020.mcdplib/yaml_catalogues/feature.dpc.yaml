@@ -1,0 +1,17 @@
+F:
+  - "Hz"
+  - "dimensionless"
+R:
+  - "Hz"
+  - "pixel/steradian"
+  - "Hz"
+
+implementations:
+  model1:
+    f_max:
+    - "Top Hz"
+    - "Top dimensionless"
+    r_min:
+    - "Bottom Hz"
+    - "Bottom pixel/steradian"
+    - "Bottom Hz"

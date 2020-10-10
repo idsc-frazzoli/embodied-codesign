@@ -1,0 +1,11 @@
+dp {
+   provides resolution [pixel/steradian]
+   provides frequency [Hz]
+   provides time_day [`timeday]
+   requires cost [CHF]
+   requires mass [g]
+   requires power [W]
+
+
+   implemented-by code mcdp_importers.read_yaml(fn="ral2020.mcdplib/yaml_catalogues/lane_cameras.dpc.yaml")
+}
