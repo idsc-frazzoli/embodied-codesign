@@ -1,275 +1,413 @@
-# Sensor catalogue
-# camera:
-    # power: [W]
-    # mass: [kg]
-    # size: [mm, mm]
-    # cost: [CHF]
-    # resolution: [px in H, px in V]
-    # frequency: [fps]
-    # lens: [mm]
-# lidar:
-    # range: [m]
-    # power: [W]
-    # mass: [kg]
-    # cost: [CHF]
-    # resolution: [degree in H, degree in V]
-    # frequency: [Hz]
-    # accuracy: [cm, cm]
-
 camera:
-  Ace251gm:
-    sens_perf: ace_251gm_faster_rcnn96
-    power: 3.8
-    mass: 0.105
-    size: [6.6, 4.1]
-    cost: 550
-    resolution: [1920, 1200]
-    frequency: 51
-    lens: 12
-
-  Ace2160um:
-    sens_perf: ace_2160um_faster_rcnn96
-    power: 4.3
-    mass: 0.09
-    size: [6.6, 4.1]
-    cost: 550
-    resolution: [1920, 1200]
-    frequency: 160
-    lens: 12
-
-  Ace222gm:
-    sens_perf: ace_222gm_faster_rcnn96
-    power: 3.1
-    mass: 0.105
-    size: [5.2, 3.9]
-    cost: 500
-    resolution: [2592, 1944]
-    frequency: 22
-    lens: 12
-
   Ace13gm:
-    sens_perf: ace_213gm_faster_rcnn96
-    power: 3.1
-    mass: 0.105
-    size: [7.7, 4.3]
     cost: 530
-    resolution: [3840, 2160]
     frequency: 13
     lens: 12
-
-  Ace7gm:
-    sens_perf: ace_27gm_faster_rcnn96
-    power: 3.6
     mass: 0.105
-    size: [14.6, 8.3]
+    power: 3.1
+    resolution:
+    - 3840
+    - 2160
+    sens_perf:
+    - Ace13gm_day_faster_rcnn1
+    - Ace13gm_day_faster_rcnn3
+    - Ace13gm_night_faster_rcnn1
+    - Ace13gm_night_faster_rcnn3
+    size:
+    - 7.7
+    - 4.3
+  Ace15um:
+    cost: 2630
+    frequency: 15
+    lens: 12
+    mass: 0.09
+    power: 3.6
+    resolution:
+    - 5328
+    - 4608
+    sens_perf:
+    - Ace15um_day_faster_rcnn1
+    - Ace15um_day_faster_rcnn3
+    - Ace15um_night_faster_rcnn1
+    - Ace15um_night_faster_rcnn3
+    size:
+    - 14.6
+    - 12.6
+  Ace2160um:
+    cost: 550
+    frequency: 160
+    lens: 12
+    mass: 0.09
+    power: 4.3
+    resolution:
+    - 1920
+    - 1200
+    sens_perf:
+    - Ace2160um_day_faster_rcnn1
+    - Ace2160um_day_faster_rcnn3
+    - Ace2160um_night_faster_rcnn1
+    - Ace2160um_night_faster_rcnn3
+    size:
+    - 6.6
+    - 4.1
+  Ace222gm:
+    cost: 500
+    frequency: 22
+    lens: 12
+    mass: 0.105
+    power: 3.1
+    resolution:
+    - 2592
+    - 1944
+    sens_perf:
+    - Ace222gm_day_faster_rcnn1
+    - Ace222gm_day_faster_rcnn3
+    - Ace222gm_night_faster_rcnn1
+    - Ace222gm_night_faster_rcnn3
+    size:
+    - 5.2
+    - 3.9
+  Ace251gm:
+    cost: 550
+    frequency: 51
+    lens: 12
+    mass: 0.105
+    power: 3.8
+    resolution:
+    - 1920
+    - 1200
+    sens_perf:
+    - Ace251gm_day_faster_rcnn1
+    - Ace251gm_day_faster_rcnn3
+    - Ace251gm_night_faster_rcnn1
+    - Ace251gm_night_faster_rcnn3
+    size:
+    - 6.6
+    - 4.1
+  Ace5gm:
+    cost: 2220
+    frequency: 5
+    lens: 12
+    mass: 0.105
+    power: 3.6
+    resolution:
+    - 4504
+    - 4504
+    sens_perf:
+    - Ace5gm_day_faster_rcnn1
+    - Ace5gm_day_faster_rcnn3
+    - Ace5gm_night_faster_rcnn1
+    - Ace5gm_night_faster_rcnn3
+    size:
+    - 12.3
+    - 12.3
+  Ace7gm:
     cost: 1800
-    resolution: [5320, 3032]
     frequency: 7
     lens: 12
-
-  Ace5gm:
-    sens_perf: ace_25gmfaster_rcnn96
-    power: 3.6
     mass: 0.105
-    size: [12.3, 12.3]
-    cost: 2220
-    resolution: [4504, 4504]
-    frequency: 5
-    lens: 12
-
-  Ace15um:
-    sens_perf: ace_21um_faster_rcnn96
     power: 3.6
-    mass: 0.09
-    size: [14.6, 12.6]
-    cost: 2630
-    resolution: [5328, 4608]
-    frequency: 15
-    lens: 12
-
+    resolution:
+    - 5320
+    - 3032
+    sens_perf:
+    - Ace7gm_day_faster_rcnn1
+    - Ace7gm_day_faster_rcnn3
+    - Ace7gm_night_faster_rcnn1
+    - Ace7gm_night_faster_rcnn3
+    size:
+    - 14.6
+    - 8.3
   Pointgrey:
-    sens_perf: pointgrey_faster_rcnn96
-    power: 2.5
-    mass: 0.058
-    size: [7.6, 6.2]
     cost: 350
-    resolution: [1384, 1032]
     frequency: 15
     lens: 8
-
+    mass: 0.058
+    power: 2.5
+    resolution:
+    - 1384
+    - 1032
+    sens_perf:
+    - Pointgrey_day_faster_rcnn1
+    - Pointgrey_day_faster_rcnn3
+    - Pointgrey_night_faster_rcnn1
+    - Pointgrey_night_faster_rcnn3
+    size:
+    - 7.6
+    - 6.2
 lidar:
-  puck:
-    sens_perf: puck_perf
-    range: 100
-    power: 8
-    mass: 0.83
-    cost: 4000
-    resolution: [0.3, 2]
-    frequency: 5
-    accuracy: [-3,3]
-    channels: 16
-
-  hdl64:
-    sens_perf: hdl-64e
-    range: 120
-    power: 60
-    mass: 17.7
-    cost: 75000
-    resolution: [0.2, 0.4]
-    frequency: 5
-    accuracy: [-2, 2]
-    channels: 64
-
-  hdl32:
-    sens_perf: hdl-32e
-    range: 100
-    power: 12
-    mass: 12.7
-    cost: 30000
-    resolution: [ 0.3, 1.33 ]
-    frequency: 5
-    accuracy: [ -2, 2 ]
-    channels: 32
-
-  pandar40:
-    sens_perf: pandar40
-    range: 200
-    power: 15
-    mass: 1.43
-    cost: 30000
-    resolution: [ 3, 0.4 ]
-    frequency: 10
-    accuracy: [ -2, 2 ]
-    channels: 40
-
-  pandar40P:
-    sens_perf: pandar40p
-    range: 200
-    power: 18
-    mass: 1.52
-    cost: 30000
-    resolution: [ 0.4, 0.4 ]
-    frequency: 10
-    accuracy: [ -2, 2 ]
-    channels: 40
-
-  pandar64:
-    sens_perf: pandar64
-    range: 200
-    power: 22
-    mass: 1.43
-    cost: 30000
-    resolution: [ 0.4, 0.167 ]
-    frequency: 10
-    accuracy: [ -2, 2 ]
-    channels: 64
-
-  pandar128:
-    sens_perf: pandar128
-    range: 200
-    power: 25
-    mass: 1.63
-    cost: 30000
-    resolution: [ 0.2, 0.125 ]
-    frequency: 10
-    accuracy: [ -2, 2 ]
-    channels: 40
-
-  OS032:
-    sens_perf: OS0132
-    range: 55
-    power: 20
-    mass: 0.445
-    cost: 6000
-    resolution: [0.2, 0.7]
-    frequency: 10
-    accuracy: [-2, 2 ]
-    channels: 32
-
-  OS064:
-    sens_perf: OS064
-    range: 55
-    power: 20
-    mass: 0.445
-    cost: 7900
-    resolution: [0.2, 0.7]
-    frequency: 10
-    accuracy: [ -2, 2 ]
-    channels: 64
-
   OS0128:
-    sens_perf: OS0128
+    accuracy:
+    - -2
+    - 2
+    channels: 128
+    cost: 11800
+    frequency: 10
+    mass: 0.445
+    power: 20
     range: 55
-    power: 20
-    mass: 0.445
-    cost: 11800
-    resolution: [ 0.2, 0.7 ]
-    frequency: 10
-    accuracy: [ -2, 2 ]
-    channels: 128
-
-  OS132:
-    sens_perf: OS132
-    range: 120
-    power: 20
-    mass: 0.445
-    cost: 8000
-    resolution: [ 0.2, 0.35 ]
-    frequency: 10
-    accuracy: [ -2, 2 ]
+    resolution:
+    - 0.2
+    - 0.7
+    sens_perf:
+    - OS0128_day_kde_based
+    - OS0128_day_stm_kde
+    - OS0128_day_stm_rbnn
+  OS032:
+    accuracy:
+    - -2
+    - 2
     channels: 32
-
-  OS164:
-    sens_perf: OS164
-    range: 120
-    power: 20
-    mass: 0.445
-    cost: 11800
-    resolution: [ 0.2, 0.35 ]
+    cost: 6000
     frequency: 10
-    accuracy: [ -2, 2 ]
+    mass: 0.445
+    power: 20
+    range: 55
+    resolution:
+    - 0.2
+    - 0.7
+    sens_perf:
+    - OS032_day_kde_based
+    - OS032_day_stm_kde
+    - OS032_day_stm_rbnn
+  OS064:
+    accuracy:
+    - -2
+    - 2
     channels: 64
-
+    cost: 7900
+    frequency: 10
+    mass: 0.445
+    power: 20
+    range: 55
+    resolution:
+    - 0.2
+    - 0.7
+    sens_perf:
+    - OS064_day_kde_based
+    - OS064_day_stm_kde
+    - OS064_day_stm_rbnn
   OS1128:
-    sens_perf: OS1128
-    range: 120
-    power: 20
-    mass: 0.445
+    accuracy:
+    - -2
+    - 2
+    channels: 128
     cost: 17600
-    resolution: [ 0.2, 0.35 ]
     frequency: 10
-    accuracy: [ -2, 2 ]
-    channels: 128
-
-  OS232:
-    sens_perf: OS232
-    range: 240
-    power: 24
-    mass: 0.93
-    cost: 16000
-    resolution: [ 0.2, 0.18 ]
-    frequency: 10
-    accuracy: [ -2, 2 ]
+    mass: 0.445
+    power: 20
+    range: 120
+    resolution:
+    - 0.2
+    - 0.35
+    sens_perf:
+    - OS1128_day_kde_based
+    - OS1128_day_stm_kde
+    - OS1128_day_stm_rbnn
+  OS132:
+    accuracy:
+    - -2
+    - 2
     channels: 32
-
-  OS264:
-    sens_perf: OS264
-    range: 240
-    power: 24
-    mass: 0.93
-    cost: 19700
-    resolution: [ 0.2, 0.18 ]
+    cost: 8000
     frequency: 10
-    accuracy: [ -2, 2 ]
+    mass: 0.445
+    power: 20
+    range: 120
+    resolution:
+    - 0.2
+    - 0.35
+    sens_perf:
+    - OS132_day_kde_based
+    - OS132_day_stm_kde
+    - OS132_day_stm_rbnn
+  OS164:
+    accuracy:
+    - -2
+    - 2
     channels: 64
-
-  OS2128:
-    sens_perf: OS2128
-    range: 240
-    power: 24
-    mass: 0.93
-    cost: 19700
-    resolution: [ 0.2, 0.18 ]
+    cost: 11800
     frequency: 10
-    accuracy: [ -2, 2 ]
+    mass: 0.445
+    power: 20
+    range: 120
+    resolution:
+    - 0.2
+    - 0.35
+    sens_perf:
+    - OS164_day_kde_based
+    - OS164_day_stm_kde
+    - OS164_day_stm_rbnn
+  OS2128:
+    accuracy:
+    - -2
+    - 2
     channels: 128
+    cost: 19700
+    frequency: 10
+    mass: 0.93
+    power: 24
+    range: 240
+    resolution:
+    - 0.2
+    - 0.18
+    sens_perf:
+    - OS2128_day_kde_based
+    - OS2128_day_stm_kde
+    - OS2128_day_stm_rbnn
+  OS232:
+    accuracy:
+    - -2
+    - 2
+    channels: 32
+    cost: 16000
+    frequency: 10
+    mass: 0.93
+    power: 24
+    range: 240
+    resolution:
+    - 0.2
+    - 0.18
+    sens_perf:
+    - OS232_day_kde_based
+    - OS232_day_stm_kde
+    - OS232_day_stm_rbnn
+  OS264:
+    accuracy:
+    - -2
+    - 2
+    channels: 64
+    cost: 19700
+    frequency: 10
+    mass: 0.93
+    power: 24
+    range: 240
+    resolution:
+    - 0.2
+    - 0.18
+    sens_perf:
+    - OS264_day_kde_based
+    - OS264_day_stm_kde
+    - OS264_day_stm_rbnn
+  hdl32:
+    accuracy:
+    - -2
+    - 2
+    channels: 32
+    cost: 30000
+    frequency: 5
+    mass: 12.7
+    power: 12
+    range: 100
+    resolution:
+    - 0.3
+    - 1.33
+    sens_perf:
+    - hdl32_day_kde_based
+    - hdl32_day_stm_kde
+    - hdl32_day_stm_rbnn
+  hdl64:
+    accuracy:
+    - -2
+    - 2
+    channels: 64
+    cost: 75000
+    frequency: 5
+    mass: 17.7
+    power: 60
+    range: 120
+    resolution:
+    - 0.2
+    - 0.4
+    sens_perf:
+    - hdl64_day_kde_based
+    - hdl64_day_stm_kde
+    - hdl64_day_stm_rbnn
+  pandar128:
+    accuracy:
+    - -2
+    - 2
+    channels: 40
+    cost: 30000
+    frequency: 10
+    mass: 1.63
+    power: 25
+    range: 200
+    resolution:
+    - 0.2
+    - 0.125
+    sens_perf:
+    - pandar128_day_kde_based
+    - pandar128_day_stm_kde
+    - pandar128_day_stm_rbnn
+  pandar40:
+    accuracy:
+    - -2
+    - 2
+    channels: 40
+    cost: 30000
+    frequency: 10
+    mass: 1.43
+    power: 15
+    range: 200
+    resolution:
+    - 3
+    - 0.4
+    sens_perf:
+    - pandar40P_day_kde_based
+    - pandar40P_day_stm_kde
+    - pandar40P_day_stm_rbnn
+    - pandar40_day_kde_based
+    - pandar40_day_stm_kde
+    - pandar40_day_stm_rbnn
+  pandar40P:
+    accuracy:
+    - -2
+    - 2
+    channels: 40
+    cost: 30000
+    frequency: 10
+    mass: 1.52
+    power: 18
+    range: 200
+    resolution:
+    - 0.4
+    - 0.4
+    sens_perf:
+    - pandar40P_day_kde_based
+    - pandar40P_day_stm_kde
+    - pandar40P_day_stm_rbnn
+  pandar64:
+    accuracy:
+    - -2
+    - 2
+    channels: 64
+    cost: 30000
+    frequency: 10
+    mass: 1.43
+    power: 22
+    range: 200
+    resolution:
+    - 0.4
+    - 0.167
+    sens_perf:
+    - pandar64_day_kde_based
+    - pandar64_day_stm_kde
+    - pandar64_day_stm_rbnn
+  puck:
+    accuracy:
+    - -3
+    - 3
+    channels: 16
+    cost: 4000
+    frequency: 5
+    mass: 0.83
+    power: 8
+    range: 100
+    resolution:
+    - 0.3
+    - 2
+    sens_perf:
+    - puck_day_kde_based
+    - puck_day_stm_kde
+    - puck_day_stm_rbnn

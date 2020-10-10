@@ -111,7 +111,7 @@ def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s
                 yaml.dump(data, f)
 
         with open(fn, 'r') as f:
-            data = yaml.load(f)
+            data = yaml.load(f, Loader=yaml.FullLoader)
 
         collided_mom = data['collided']
         if collided_mom == str(None):

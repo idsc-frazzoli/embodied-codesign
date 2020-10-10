@@ -91,8 +91,8 @@ if __name__ == '__main__':
     with open('data/input/camera_curves.yaml', 'w') as file:
         documents = yaml.dump(sens_pef, file, default_flow_style=False)
 
-    # with open('data/input/camera_curves.yaml') as file:
-    #     curves = yaml.load(file, Loader=yaml.FullLoader)
+    with open('data/input/camera_curves.yaml') as file:
+        curves = yaml.load(file, Loader=yaml.FullLoader)
 
     # for c_key, c in curves.items():
         # data = c["accuracy"]
@@ -108,12 +108,28 @@ if __name__ == '__main__':
     # plt.close()
     #
     # for c_key, c in curves.items():
-    #     fp = c["fp"]
-    #     fp = [Decimal(s) for s in fp]
-    #     plt.plot(list_of_ds, fp, label=c_key)
-    #     plt.ylabel('FPR')
-    #     plt.xlabel('d in [m]')
-    #     plt.legend(loc="upper left")
+    #     if "day" in c_key:
+    #         fp = c["fp"]
+    #         fp = [Decimal(s) for s in fp]
+    #         plt.plot(list_of_ds, fp, label=c_key)
+    #         plt.ylabel('FPR')
+    #         plt.xlabel('d in [m]')
+    #         plt.legend(loc="upper left")
     #
+    # plt.show()
     # plt.savefig('data/output/fp.png')
     # plt.close()
+
+    for cam_key in cameras:
+        list_id = []
+        for c_key in curves:
+            if cam_key in c_key:
+                list_id.append(c_key)
+
+        cameras[cam_key]["sens_perf"] = list_id
+
+    sensors["camera"] = cameras
+
+    with open('data/input/sensors.yaml', 'w') as file:
+        yaml.dump(sensors, file, default_flow_style=False)
+

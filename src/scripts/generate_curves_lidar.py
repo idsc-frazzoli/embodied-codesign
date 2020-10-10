@@ -95,9 +95,9 @@ if __name__ == '__main__':
     with open('data/input/lidar_curves.yaml', 'w') as file:
         documents = yaml.dump(sens_pef, file, default_flow_style=False)
 
-    # with open('data/input/lidar_curves.yaml') as file:
-    #     curves = yaml.load(file, Loader=yaml.FullLoader)
-    #
+    with open('data/input/lidar_curves.yaml') as file:
+        curves = yaml.load(file, Loader=yaml.FullLoader)
+
     # for c_key, c in curves.items():
     #     data = c["fn"]
     #     data = [Decimal(s) for s in data]
@@ -117,4 +117,17 @@ if __name__ == '__main__':
     #     plt.legend(loc="upper left")
 
 
-    plt.show()
+    # plt.show()
+
+    for lidar_key in lidar:
+        list_id = []
+        for c_key in curves:
+            if lidar_key in c_key:
+                list_id.append(c_key)
+
+        lidar[lidar_key]["sens_perf"] = list_id
+
+    sensors["lidar"] = lidar
+
+    with open('data/input/sensors.yaml', 'w') as file:
+        yaml.dump(sensors, file, default_flow_style=False)

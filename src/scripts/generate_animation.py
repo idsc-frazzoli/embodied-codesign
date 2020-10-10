@@ -21,8 +21,8 @@ if __name__ == '__main__':
     with open('data/input/control_param.yaml') as file:
         control_param = yaml.load(file, Loader=yaml.FullLoader)
 
-    with open('data/input/curves.yaml') as file:
-        curves = yaml.load(file, Loader=yaml.FullLoader)
+    with open('data/input/camera_curves.yaml') as file:
+        camera_curves = yaml.load(file, Loader=yaml.FullLoader)
 
 
     camera = sensors["camera"]
@@ -31,13 +31,14 @@ if __name__ == '__main__':
     sp = SimParameters(nsims=1, road_length=Decimal('500.0'), dt=Decimal(str(0.01)),
                        seed=0, do_animation=True)
 
-    dyn_perf = vehicles["sedan_s"]
-    sens = camera["ace_251gm"]
-    sens_curves = curves[sens["sens_perf"]]
+    dyn_perf = vehicles["suv_m"]
+    sens = camera["Ace13gm"]
+    sens_perf = sens["sens_perf"][0]
+    sens_curves = camera_curves[sens_perf]
     s = speed[6]
-    s = 40.0
-    env = environment["07night_env"]
+    s = 80
+    env = environment["07day_env"]
     cont = control_param["cont4"]
-    performance = simulate(sp, dyn_perf, sens, sens_curves, s, env, cont, experiment_key="test")
+    performance = simulate(sp, dyn_perf, sens, sens_curves, s, env, cont, experiment_key="test2")
 
 
