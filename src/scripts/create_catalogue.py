@@ -58,7 +58,7 @@ def generate(basedir: str):
                         for s in speed:
                             for cont_key, cont in control_param.items():
                                 experiment_key = f'{veh_key}-{env_key}-{sens_type_key}-{sens_key}-{s_perf}-{s}-{cont_key}'
-                                fn = os.path.join(basedir, f'{experiment_key}.experiment.yaml')
+                                fn = os.path.join(basedir, f'output/{experiment_key}.experiment.yaml')
                                 if not os.path.exists(fn):
                                     params = sp, dyn_perf, sens, sens_curves, s, env, cont, experiment_key, fn, sens_key, s_perf, veh_key, env_key, cont_key
                                     to_run.append(params)

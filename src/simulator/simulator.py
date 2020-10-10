@@ -75,7 +75,7 @@ def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s
                                    list_of_ds=list_of_ds, frequency=n_ts_sens * sp.dt, latency=1 * sp.dt)
 
     vs = VehicleStats(a_min=Decimal(str(dyn_perf["a_min"])), a_max=Decimal(str(dyn_perf["a_max"])),
-                      v_nominal=Decimal(str(s / 3.6)),
+                      v_nominal=Decimal(str(Decimal(str(s)) / Decimal('0.44704'))),
                       mass=Decimal(str(dyn_perf["mass"])))
     density = Decimal(str(env["density"])) / Decimal(str(1000))
     prior = Prior(density=density)
