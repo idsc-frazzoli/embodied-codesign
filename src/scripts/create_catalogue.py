@@ -1,4 +1,5 @@
 import os
+import random
 from decimal import Decimal
 from glob import glob
 from multiprocessing import Pool, cpu_count
@@ -52,6 +53,7 @@ def generate(basedir: str):
                             params = sp, dyn_perf, sens, sens_curves, s, env, cont, experiment_key, fn, cam_key, veh_key, env_key, cont_key
                             to_run.append(params)
 
+    random.shuffle(to_run)
     nprocesses = 10
     with Pool(processes=nprocesses) as pool:
         pool.map(simulate_and_write, to_run)
