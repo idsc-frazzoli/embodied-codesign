@@ -77,11 +77,11 @@ if __name__ == '__main__':
         total = np.array(n_horizontal)*np.array(n_vertical)
         total_log = [max(math.log(t, 1.2),0) for t in total]
         for alg_key, alg in obj_detect.items():
-            n80 = int(round(Decimal('80') / ds))
-            list_of_ds_80 = [float(ds * Decimal(i)) for i in range(n80)]
-            recall_hdl64e, precision__hdl64e = get_recall_precision(alg, list_of_ds_80, total_hdl64e_log)
-            f_recall = interp1d(list_of_ds_80, recall_hdl64e)
-            f_precision = interp1d(list_of_ds_80, precision__hdl64e)
+            n85 = int(round(Decimal('85') / ds))
+            list_of_ds_85 = [float(ds * Decimal(i)) for i in range(n85)]
+            recall_hdl64e, precision__hdl64e = get_recall_precision(alg, list_of_ds_85, total_hdl64e_log)
+            f_recall = interp1d(list_of_ds_85, recall_hdl64e)
+            f_precision = interp1d(list_of_ds_85, precision__hdl64e)
             recall = [f_recall(float(d)) for d in total_log]
             precision = [f_precision(float(d)) for d in total_log]
             accuracy_list = [str(accuracy) for ds in list_of_ds]
@@ -95,11 +95,9 @@ if __name__ == '__main__':
     with open('data/input/lidar_curves.yaml', 'w') as file:
         documents = yaml.dump(sens_pef, file, default_flow_style=False)
 
-    # with open('data/input/curves.yaml') as file:
+    # with open('data/input/lidar_curves.yaml') as file:
     #     curves = yaml.load(file, Loader=yaml.FullLoader)
-
-
-    # curves_lidar = curves["lidar"]
+    #
     # for c_key, c in curves.items():
     #     data = c["fn"]
     #     data = [Decimal(s) for s in data]
@@ -117,6 +115,6 @@ if __name__ == '__main__':
     #     plt.ylabel('fp')
     #     plt.xlabel('d in [m]')
     #     plt.legend(loc="upper left")
-    #
-    #
-    # plt.show()
+
+
+    plt.show()

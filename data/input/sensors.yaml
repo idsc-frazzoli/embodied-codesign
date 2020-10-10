@@ -174,3 +174,102 @@ lidar:
     frequency: 10
     accuracy: [ -2, 2 ]
     channels: 40
+
+  OS032:
+    sens_perf: OS0132
+    range: 55
+    power: 20
+    mass: 0.445
+    cost: 6000
+    resolution: [0.2, 0.7]
+    frequency: 10
+    accuracy: [-2, 2 ]
+    channels: 32
+
+  OS064:
+    sens_perf: OS064
+    range: 55
+    power: 20
+    mass: 0.445
+    cost: 7900
+    resolution: [0.2, 0.7]
+    frequency: 10
+    accuracy: [ -2, 2 ]
+    channels: 64
+
+  OS0128:
+    sens_perf: OS0128
+    range: 55
+    power: 20
+    mass: 0.445
+    cost: 11800
+    resolution: [ 0.2, 0.7 ]
+    frequency: 10
+    accuracy: [ -2, 2 ]
+    channels: 128
+
+  OS132:
+    sens_perf: OS132
+    range: 120
+    power: 20
+    mass: 0.445
+    cost: 8000
+    resolution: [ 0.2, 0.35 ]
+    frequency: 10
+    accuracy: [ -2, 2 ]
+    channels: 32
+
+  OS164:
+    sens_perf: OS164
+    range: 120
+    power: 20
+    mass: 0.445
+    cost: 11800
+    resolution: [ 0.2, 0.35 ]
+    frequency: 10
+    accuracy: [ -2, 2 ]
+    channels: 64
+
+  OS1128:
+    sens_perf: OS1128
+    range: 120
+    power: 20
+    mass: 0.445
+    cost: 17600
+    resolution: [ 0.2, 0.35 ]
+    frequency: 10
+    accuracy: [ -2, 2 ]
+    channels: 128
+
+  OS232:
+    sens_perf: OS232
+    range: 240
+    power: 24
+    mass: 0.93
+    cost: 16000
+    resolution: [ 0.2, 0.18 ]
+    frequency: 10
+    accuracy: [ -2, 2 ]
+    channels: 32
+
+  OS264:
+    sens_perf: OS264
+    range: 240
+    power: 24
+    mass: 0.93
+    cost: 19700
+    resolution: [ 0.2, 0.18 ]
+    frequency: 10
+    accuracy: [ -2, 2 ]
+    channels: 64
+
+  OS2128:
+    sens_perf: OS2128
+    range: 240
+    power: 24
+    mass: 0.93
+    cost: 19700
+    resolution: [ 0.2, 0.18 ]
+    frequency: 10
+    accuracy: [ -2, 2 ]
+    channels: 128
