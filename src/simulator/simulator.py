@@ -266,6 +266,9 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
 
             state.objects = state.objects[i:]
 
+            # try this instead
+            # state.objects = [_ for _ in state.objects if _.d > 10]
+
     avg_control_effort = control_effort / t
     average_velocity = state.vstate.x / t
     if sp.do_animation:
