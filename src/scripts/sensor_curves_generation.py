@@ -46,7 +46,7 @@ def get_accuracy(cam, list_of_ds: List[Decimal]):
 
     focal_pixel = (f/width) * n_pixel_width
 
-    accuracy = [str(ds**2/(focal_pixel*Decimal('0.1'))*Decimal('0.4')) for ds in list_of_ds]
+    accuracy = [Decimal(max(0, ds**2/(focal_pixel*Decimal('0.1'))*Decimal('0.4'))) for ds in list_of_ds]
 
     return accuracy
 
@@ -84,23 +84,24 @@ if __name__ == '__main__':
                 fp = list(1 - np.array(precision_d))
                 fn = [str(p) for p in fn]
                 fp = [str(p) for p in fp]
+                accuracy = [str(a) for a in accuracy]
                 fn_fp = {"fn": fn, "fp": fp, "accuracy": accuracy, "ds": str(ds), "max_distance": str(max_distance)}
                 sens_pef[cam_key + "_" + env_key + "_" + alg_key] = fn_fp
 
     with open('data/input/camera_curves.yaml', 'w') as file:
         documents = yaml.dump(sens_pef, file, default_flow_style=False)
 
-    # with open('data/input/curves.yaml') as file:
+    # with open('data/input/camera_curves.yaml') as file:
     #     curves = yaml.load(file, Loader=yaml.FullLoader)
-    #
+
     # for c_key, c in curves.items():
-    #     data = c["fn"]
-    #     data = [Decimal(s) for s in data]
-    #     plt.plot(list_of_ds, data, label=c_key)
-    #     plt.ylabel('fn')
-    #     plt.xlabel('d in [m]')
-    #     plt.legend(loc="upper left")
-    #
+        # data = c["accuracy"]
+        # data = [Decimal(s) for s in data]
+        # plt.plot(list_of_ds, data, label=c_key)
+        # plt.ylabel('fn')
+        # plt.xlabel('d in [m]')
+        # plt.legend(loc="upper left")
+
     # plt.show()
 
     # plt.savefig('data/output/fn.png')
