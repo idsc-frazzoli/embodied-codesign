@@ -148,17 +148,16 @@ def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s
                                                                   average_velocity_mean,
                                                                   average_velocity_standard_error)
 
-    # not sure what u95 is
     discomfort_stat = Statistics(mean=Decimal(np.asscalar(discomfort_mean)), var=Decimal(np.asscalar(discomfort_var)),
-                                 u95=Decimal(np.asscalar(discomfort_standard_error)),
-                                 l95=Decimal(np.asscalar(discomfort_confidence_interval)))
+                                 u95=Decimal(np.asscalar(discomfort_confidence_interval[0])),
+                                 l95=Decimal(np.asscalar(discomfort_confidence_interval[1])))
     danger_stat = Statistics(mean=Decimal(np.asscalar(danger_mean)), var=Decimal(np.asscalar(danger_var)),
-                             u95=Decimal(np.asscalar(danger_standard_error)),
-                             l95=Decimal(np.asscalar(danger_confidence_interval)))
+                             u95=Decimal(np.asscalar(danger_confidence_interval[0])),
+                             l95=Decimal(np.asscalar(danger_confidence_interval[1])))
     average_velocity_stat = Statistics(mean=Decimal(np.asscalar(average_velocity_mean)),
                                        var=Decimal(np.asscalar(average_velocity_var)),
-                                       u95=Decimal(np.asscalar(average_velocity_standard_error)),
-                                       l95=Decimal(np.asscalar(average_velocity_confidence_interval)))
+                                       u95=Decimal(np.asscalar(average_velocity_confidence_interval[0])),
+                                       l95=Decimal(np.asscalar(average_velocity_confidence_interval[1])))
 
     return PerformanceMetrics(danger=danger_stat, discomfort=discomfort_stat, average_velocity=average_velocity_stat)
 
@@ -260,7 +259,12 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
         if is_stopped:
             print("Vehicle stopped safely in front of obstacle.")
             # Adjust distance between objects
-            state.objects = state.objects[1:]
+            i = 0
+            for obj in state.objects:
+                if obj.d < 10:
+                    i += 1
+
+            state.objects = state.objects[i:]
 
     avg_control_effort = control_effort / t
     average_velocity = state.vstate.x / t
