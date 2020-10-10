@@ -69,6 +69,7 @@ if __name__ == '__main__':
 
     for lidar_key in lidar:
         lid = lidar[lidar_key]
+        accuracy = Decimal(lid["accuracy"][1])*Decimal('0.01')
         n_vertical = [get_number_points_vertical(h_ped, d, Decimal(lid["resolution"][1]),
                                                  int(lid["channels"])) for d in list_of_ds]
         n_horizontal = [get_number_points_horizontal(w_ped, d,
@@ -83,11 +84,12 @@ if __name__ == '__main__':
             f_precision = interp1d(list_of_ds_80, precision__hdl64e)
             recall = [f_recall(float(d)) for d in total_log]
             precision = [f_precision(float(d)) for d in total_log]
+            accuracy_list = [str(accuracy) for ds in list_of_ds]
             fn = list(1 - np.array(recall))
             fp = list(1 - np.array(precision))
             fn = [str(p) for p in fn]
             fp = [str(p) for p in fp]
-            fn_fp = {"fn": fn, "fp": fp, "ds": str(ds), "max_distance": str(max_distance)}
+            fn_fp = {"fn": fn, "fp": fp, "accuracy": accuracy_list, "ds": str(ds), "max_distance": str(max_distance)}
             sens_pef[lidar_key + "_day_" + alg_key] = fn_fp
 
     with open('data/input/lidar_curves.yaml', 'w') as file:
