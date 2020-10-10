@@ -9,12 +9,13 @@ from vehicle.vehicle import VehicleStats, VehicleState
 class BasicController(Controller):
 
     def __init__(self, prob_threshold: Decimal, vs: VehicleStats, sp: SensingParameters,
-                 d_stop: Decimal, t_react: Decimal):
+                 d_stop: Decimal, t_react: Decimal, frequency: Decimal):
         self.prob_threshold = prob_threshold
         self.vs = vs
         self.sp = sp
         self.d_stop = d_stop
         self.t_react = t_react
+        self.frequency = frequency
 
     def get_action(self, vstate: VehicleState, belief: Belief) -> Action:
         d_critical = vstate.v ** 2 / (2*abs(self.vs.a_min)) + self.t_react*vstate.v + self.d_stop

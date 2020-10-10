@@ -80,7 +80,8 @@ def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s
     density = Decimal(str(env["density"])) / Decimal(str(1000))
     prior = Prior(density=density)
     controller = BasicController(prob_threshold=Decimal(str(cont["prob_threshold"])), vs=vs, sp=sens_param,
-                                 d_stop=Decimal(str(cont["d_stop"])), t_react=Decimal(str(cont["t_react"])))
+                                 d_stop=Decimal(str(cont["d_stop"])), t_react=Decimal(str(cont["t_react"])),
+                                 frequency=Decimal(str(cont["frequency"])))
     sens_perf = SensingPerformance(sp=sens_param)
     fn = sens_curves["fn"]
     sens_perf.fn = [Decimal(p) for p in fn]
@@ -201,7 +202,10 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
     pp = density_belief * Decimal(np.exp(-float(density_belief)))
     po = [Decimal(pp / n) for _ in range(n)]
     belief = Belief(po)
+    action = Action(accel=Decimal('0'))
 
+    control_interval = int(sp.controller.frequency / sp.dt)
+    logger.info(f'control_interval {control_interval}')
     control_effort = 0
     t = Decimal(0.0)
     l = int(sp.sens_param.latency / sp.dt)
@@ -214,6 +218,7 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
     i = 0
     sensing_interval = int(sp.sens_param.frequency / sp.dt)
     logger.info(f'sensing_interval {sensing_interval}')
+
     while state.vstate.x <= sp.road_length:
         i += 1
         t = i * sp.dt
@@ -232,7 +237,11 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
         else:
             belief = observation_model(belief1, observations, sp.sens_param.list_of_ds, sp.sens_perf)
 
-        action = sp.controller.get_action(state.vstate, belief)
+        if i % control_interval == 0:
+            action = sp.controller.get_action(state.vstate, belief)
+        else:
+            action = action
+
         state = update_state(state, action, sp.dt)
         delayed_st.update(state)
 

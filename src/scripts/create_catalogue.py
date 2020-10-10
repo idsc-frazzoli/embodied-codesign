@@ -63,7 +63,7 @@ def generate(basedir: str):
                                     params = sp, dyn_perf, sens, sens_curves, s, env, cont, experiment_key, fn, sens_key, s_perf, veh_key, env_key, cont_key
                                     to_run.append(params)
 
-    nprocesses = 10
+    nprocesses = 1
     with Pool(processes=nprocesses) as pool:
         pool.map(simulate_and_write, to_run)
 

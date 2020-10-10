@@ -38,7 +38,7 @@ if __name__ == '__main__':
     s = speed[6]
     s = 80
     env = environment["07day_env"]
-    cont = control_param["cont4"]
+    cont = control_param["cont-treshold-0.1-d_stop-1.5-t_react-0.1-freq-0.01"]
     performance = simulate(sp, dyn_perf, sens, sens_curves, s, env, cont, experiment_key="test2")
 
 
