@@ -4,39 +4,9 @@ from multiprocessing import Pool
 
 import yaml
 
-from simulator.simulator import SimParameters, simulate
-
-def simulate_and_write(params):
-    sp = params[0]
-    dyn_perf = params[1]
-    sens = params[2]
-    sens_curves = params[3]
-    s = params[4]
-    env = params[5]
-    cont = params[6]
-    experiment_key = params[7]
-    fn = params[8]
-    sens_key = params[9]
-    s_perf = params[10]
-    veh_key = params[11]
-    env_key = params[12]
-    cont_key = params[13]
-    performance = simulate(sp, dyn_perf, sens, sens_curves, s, env, cont, experiment_key)
-    danger = {"mean": str(performance.danger.mean), "var": str(performance.danger.var),
-              "u95": str(performance.danger.u95),
-              "l95": str(performance.danger.l95)}
-    discomfort = {"mean": str(performance.discomfort.mean), "var": str(performance.discomfort.var),
-                  "u95": str(performance.discomfort.u95), "l95": str(performance.discomfort.l95)}
-    ad_perf = {
-        "danger": danger,
-        "discomfort": discomfort,
-        "speed": s, "sensor": sens_key, "sens_perf": s_perf, "dyn_perf": veh_key,
-        "environment": env_key,
-        "controller": cont_key,
-    }
-    with open(fn, 'w') as f:
-        yaml.dump(ad_perf, f, default_flow_style=False)
-    print("Finished Experiment: ", fn)
+from scripts.create_catalogue import simulate_and_write
+from simulator.simulator import SimParameters
+from utils.yaml_file_generation import read_results, write_bc_dpc
 
 if __name__ == '__main__':
 
@@ -77,11 +47,11 @@ if __name__ == '__main__':
     basedir = 'output'
     to_run = []  # list of parameters
 
-    cont_key = "cont-th-0.1-ds-1.5-tr-0.1-f-0.01"
+    cont_key = "cont-th-0.1-ds-2.0-tr-0.1-f-100.0"
     cont = control_param[cont_key]
     experiment_key = f'{veh_key}-{env_key}-{sens_type_key}-{sens_key}-{s_perf}-{s}-{cont_key}'
     fn = os.path.join(basedir, f'{experiment_key}.experiment.yaml')
-    params = sp, dyn_perf, sens, sens_curves, s, env, cont, experiment_key, fn, sens_key, s_perf, veh_key, env_key, cont_key
+    params = sp, dyn_perf, sens, sens_curves, s, env, cont, experiment_key, fn, sens_key, s_perf, veh_key, env_key, cont_key, sens_type_key,
     to_run.append(params)
 
     # for cont_key, cont in control_param.items():
@@ -94,5 +64,6 @@ if __name__ == '__main__':
     with Pool(processes=nprocesses) as pool:
         pool.map(simulate_and_write, to_run)
 
-
-
+    basedir = "output"
+    read_results(basedir, "output/test_controller.results.yaml")
+    write_bc_dpc(basedir, "output/brake_control_models.yaml")

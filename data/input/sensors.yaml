@@ -1,7 +1,7 @@
 camera:
   Ace13gm:
     cost: 530
-    frequency: 13
+    frequency: 13.0
     lens: 12
     mass: 0.105
     power: 3.1
@@ -16,9 +16,10 @@ camera:
     size:
     - 7.7
     - 4.3
+    latency: 0.012
   Ace15um:
     cost: 2630
-    frequency: 15
+    frequency: 15.0
     lens: 12
     mass: 0.09
     power: 3.6
@@ -33,9 +34,10 @@ camera:
     size:
     - 14.6
     - 12.6
+    latency: 0.015
   Ace2160um:
     cost: 550
-    frequency: 160
+    frequency: 160.0
     lens: 12
     mass: 0.09
     power: 4.3
@@ -50,9 +52,10 @@ camera:
     size:
     - 6.6
     - 4.1
+    latency: 0.019
   Ace222gm:
     cost: 500
-    frequency: 22
+    frequency: 22.0
     lens: 12
     mass: 0.105
     power: 3.1
@@ -67,9 +70,10 @@ camera:
     size:
     - 5.2
     - 3.9
+    latency: 0.01
   Ace251gm:
     cost: 550
-    frequency: 51
+    frequency: 51.0
     lens: 12
     mass: 0.105
     power: 3.8
@@ -84,9 +88,10 @@ camera:
     size:
     - 6.6
     - 4.1
+    latency: 0.019
   Ace5gm:
     cost: 2220
-    frequency: 5
+    frequency: 5.0
     lens: 12
     mass: 0.105
     power: 3.6
@@ -101,9 +106,10 @@ camera:
     size:
     - 12.3
     - 12.3
+    latency: 0.016
   Ace7gm:
     cost: 1800
-    frequency: 7
+    frequency: 7.0
     lens: 12
     mass: 0.105
     power: 3.6
@@ -118,9 +124,10 @@ camera:
     size:
     - 14.6
     - 8.3
+    latency: 0.016
   Pointgrey:
     cost: 350
-    frequency: 15
+    frequency: 15.0
     lens: 8
     mass: 0.058
     power: 2.5
@@ -135,14 +142,15 @@ camera:
     size:
     - 7.6
     - 6.2
+    latency: 0.02
 lidar:
   OS0128:
     accuracy:
-    - -2
-    - 2
+    - -2.0
+    - 2.0
     channels: 128
     cost: 11800
-    frequency: 10
+    frequency: 10.0
     mass: 0.445
     power: 20
     range: 55
@@ -153,13 +161,14 @@ lidar:
     - OS0128_day_kde_based
     - OS0128_day_stm_kde
     - OS0128_day_stm_rbnn
+    latency: 0.01
   OS032:
     accuracy:
-    - -2
-    - 2
+    - -2.0
+    - 2.0
     channels: 32
     cost: 6000
-    frequency: 10
+    frequency: 10.0
     mass: 0.445
     power: 20
     range: 55
@@ -170,13 +179,14 @@ lidar:
     - OS032_day_kde_based
     - OS032_day_stm_kde
     - OS032_day_stm_rbnn
+    latency: 0.01
   OS064:
     accuracy:
-    - -2
-    - 2
+    - -2.0
+    - 2.0
     channels: 64
     cost: 7900
-    frequency: 10
+    frequency: 10.0
     mass: 0.445
     power: 20
     range: 55
@@ -187,13 +197,14 @@ lidar:
     - OS064_day_kde_based
     - OS064_day_stm_kde
     - OS064_day_stm_rbnn
+    latency: 0.01
   OS1128:
     accuracy:
-    - -2
-    - 2
+    - -2.0
+    - 2.0
     channels: 128
     cost: 17600
-    frequency: 10
+    frequency: 10.0
     mass: 0.445
     power: 20
     range: 120
@@ -204,13 +215,14 @@ lidar:
     - OS1128_day_kde_based
     - OS1128_day_stm_kde
     - OS1128_day_stm_rbnn
+    latency: 0.01
   OS132:
     accuracy:
-    - -2
-    - 2
+    - -2.0
+    - 2.0
     channels: 32
     cost: 8000
-    frequency: 10
+    frequency: 10.0
     mass: 0.445
     power: 20
     range: 120
@@ -221,13 +233,14 @@ lidar:
     - OS132_day_kde_based
     - OS132_day_stm_kde
     - OS132_day_stm_rbnn
+    latency: 0.01
   OS164:
     accuracy:
-    - -2
-    - 2
+    - -2.0
+    - 2.0
     channels: 64
     cost: 11800
-    frequency: 10
+    frequency: 10.0
     mass: 0.445
     power: 20
     range: 120
@@ -238,13 +251,14 @@ lidar:
     - OS164_day_kde_based
     - OS164_day_stm_kde
     - OS164_day_stm_rbnn
+    latency: 0.01
   OS2128:
     accuracy:
-    - -2
-    - 2
+    - -2.0
+    - 2.0
     channels: 128
     cost: 19700
-    frequency: 10
+    frequency: 10.0
     mass: 0.93
     power: 24
     range: 240
@@ -255,13 +269,14 @@ lidar:
     - OS2128_day_kde_based
     - OS2128_day_stm_kde
     - OS2128_day_stm_rbnn
+    latency: 0.01
   OS232:
     accuracy:
-    - -2
-    - 2
+    - -2.0
+    - 2.0
     channels: 32
     cost: 16000
-    frequency: 10
+    frequency: 10.0
     mass: 0.93
     power: 24
     range: 240
@@ -272,13 +287,14 @@ lidar:
     - OS232_day_kde_based
     - OS232_day_stm_kde
     - OS232_day_stm_rbnn
+    latency: 0.01
   OS264:
     accuracy:
-    - -2
-    - 2
+    - -2.0
+    - 2.0
     channels: 64
     cost: 19700
-    frequency: 10
+    frequency: 10.0
     mass: 0.93
     power: 24
     range: 240
@@ -289,13 +305,14 @@ lidar:
     - OS264_day_kde_based
     - OS264_day_stm_kde
     - OS264_day_stm_rbnn
+    latency: 0.01
   hdl32:
     accuracy:
-    - -2
-    - 2
+    - -2.0
+    - 2.0
     channels: 32
     cost: 30000
-    frequency: 5
+    frequency: 5.0
     mass: 12.7
     power: 12
     range: 100
@@ -306,13 +323,14 @@ lidar:
     - hdl32_day_kde_based
     - hdl32_day_stm_kde
     - hdl32_day_stm_rbnn
+    latency: 0.01
   hdl64:
     accuracy:
-    - -2
-    - 2
+    - -2.0
+    - 2.0
     channels: 64
     cost: 75000
-    frequency: 5
+    frequency: 5.0
     mass: 17.7
     power: 60
     range: 120
@@ -323,13 +341,14 @@ lidar:
     - hdl64_day_kde_based
     - hdl64_day_stm_kde
     - hdl64_day_stm_rbnn
+    latency: 0.01
   pandar128:
     accuracy:
-    - -2
-    - 2
+    - -2.0
+    - 2.0
     channels: 40
     cost: 30000
-    frequency: 10
+    frequency: 10.0
     mass: 1.63
     power: 25
     range: 200
@@ -340,13 +359,14 @@ lidar:
     - pandar128_day_kde_based
     - pandar128_day_stm_kde
     - pandar128_day_stm_rbnn
+    latency: 0.01
   pandar40:
     accuracy:
-    - -2
-    - 2
+    - -2.0
+    - 2.0
     channels: 40
     cost: 30000
-    frequency: 10
+    frequency: 10.0
     mass: 1.43
     power: 15
     range: 200
@@ -354,19 +374,17 @@ lidar:
     - 3
     - 0.4
     sens_perf:
-    - pandar40P_day_kde_based
-    - pandar40P_day_stm_kde
-    - pandar40P_day_stm_rbnn
     - pandar40_day_kde_based
     - pandar40_day_stm_kde
     - pandar40_day_stm_rbnn
+    latency: 0.01
   pandar40P:
     accuracy:
-    - -2
-    - 2
+    - -2.0
+    - 2.0
     channels: 40
     cost: 30000
-    frequency: 10
+    frequency: 10.0
     mass: 1.52
     power: 18
     range: 200
@@ -377,13 +395,14 @@ lidar:
     - pandar40P_day_kde_based
     - pandar40P_day_stm_kde
     - pandar40P_day_stm_rbnn
+    latency: 0.01
   pandar64:
     accuracy:
-    - -2
-    - 2
+    - -2.0
+    - 2.0
     channels: 64
     cost: 30000
-    frequency: 10
+    frequency: 10.0
     mass: 1.43
     power: 22
     range: 200
@@ -394,13 +413,14 @@ lidar:
     - pandar64_day_kde_based
     - pandar64_day_stm_kde
     - pandar64_day_stm_rbnn
+    latency: 0.01
   puck:
     accuracy:
-    - -3
-    - 3
+    - -3.0
+    - 3.0
     channels: 16
     cost: 4000
-    frequency: 5
+    frequency: 5.0
     mass: 0.83
     power: 8
     range: 100
@@ -411,3 +431,4 @@ lidar:
     - puck_day_kde_based
     - puck_day_stm_kde
     - puck_day_stm_rbnn
+    latency: 0.01

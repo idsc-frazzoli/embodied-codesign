@@ -1,7 +1,6 @@
 from decimal import Decimal
 from typing import List
 
-import scipy.stats
 from dataclasses import dataclass
 
 
@@ -47,10 +46,3 @@ class DelayedStates:
 class Detection:
     d_mean: Decimal
     d_std: Decimal
-    #
-    # def at_distance(self, x: Decimal) -> Decimal:
-    #     """ Returns the likeilhood of something at x given this detection"""
-    #     p = Decimal(scipy.stats.norm(float(self.d_mean), float(self.d_std)).pdf(float(x)))
-    #     g = scipy.stats.norm(float(self.d_mean), float(self.d_std))
-    #
-    #     return p
