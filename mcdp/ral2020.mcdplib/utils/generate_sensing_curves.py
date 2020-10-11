@@ -119,9 +119,8 @@ def produce_prod_poset(fp_order, fn_order, acc_order,array_curves):
 curves_here = get_curves('all_curves.yaml')
 fn, fp, acc = compare_curves(curves_here)
 produce_prod_poset(fp,fn,acc,curves_here)
-#produce_poset_fn(fn, curves_here)
-#produce_poset_fp(fp, curves_here)
-#produce_poset_acc(acc, curves_here)
+produce_poset_fn(fn, curves_here)
+produce_poset_fp(fp, curves_here)
+produce_poset_acc(acc, curves_here)
 
-#produce_poset_acc(acc, curves_here)
 

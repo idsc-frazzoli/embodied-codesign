@@ -988,7 +988,17 @@ implementations:
     - "105.0 g"
     - "3.8 W"
     - "19 us"
-  modelAce251gmNight:
+  modelAce251gmNight1:
+    f_max:
+    - "`sen_prod: Ace251gm_night_faster_rcnn1"
+    - "51.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "550.0 CHF"
+    - "105.0 g"
+    - "3.8 W"
+    - "19 us"
+  modelAce251gmNight2:
     f_max:
     - "`sen_prod: Ace251gm_night_faster_rcnn3"
     - "51.0 Hz"
@@ -1000,7 +1010,7 @@ implementations:
     - "19 us"
   modelAce160umDayRcnn1:
     f_max:
-    - "`sen_prod: Ace2160um_day_faster_rcnn1"
+    - "`sen_prod: Ace2160um_day_faster_rcnn3"
     - "160.0 Hz"
     - "`timeday:day"
     r_min:
@@ -1018,7 +1028,17 @@ implementations:
     - "90.0 g"
     - "4.3 W"
     - "19 us"
-  modelAce160umNight:
+  modelAce160umNight1:
+    f_max:
+    - "`sen_prod: Ace2160um_night_faster_rcnn1"
+    - "160.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "550.0 CHF"
+    - "90.0 g"
+    - "4.3 W"
+    - "19 us"
+  modelAce160umNight2:
     f_max:
     - "`sen_prod: Ace2160um_night_faster_rcnn3"
     - "160.0 Hz"
@@ -1048,7 +1068,17 @@ implementations:
     - "105.0 g"
     - "3.1 W"
     - "10 us"
-  modelAce22gmNight:
+  modelAce22gmNight1:
+    f_max:
+    - "`sen_prod: Ace222gm_night_faster_rcnn1"
+    - "22.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "500.0 CHF"
+    - "105.0 g"
+    - "3.1 W"
+    - "10 us"
+  modelAce22gmNight2:
     f_max:
     - "`sen_prod: Ace222gm_night_faster_rcnn3"
     - "22.0 Hz"
@@ -1078,7 +1108,17 @@ implementations:
     - "105.0 g"
     - "3.1 W"
     - "12 us"
-  modelAce13gmNight:
+  modelAce13gmNight1:
+    f_max:
+    - "`sen_prod: Ace13gm_night_faster_rcnn1"
+    - "13.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "530.0 CHF"
+    - "105.0 g"
+    - "3.1 W"
+    - "12 us"
+  modelAce13gmNight2:
     f_max:
     - "`sen_prod: Ace13gm_night_faster_rcnn3"
     - "13.0 Hz"
@@ -1108,7 +1148,17 @@ implementations:
     - "105.0 g"
     - "3.6 W"
     - "16 us"
-  modelAce7gmNight:
+  modelAce7gmNight1:
+    f_max:
+    - "`sen_prod: Ace7gm_night_faster_rcnn1"
+    - "7.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "1800.0 CHF"
+    - "105.0 g"
+    - "3.6 W"
+    - "16 us"
+  modelAce7gmNight2:
     f_max:
     - "`sen_prod: Ace7gm_night_faster_rcnn3"
     - "7.0 Hz"
@@ -1138,7 +1188,17 @@ implementations:
     - "105.0 g"
     - "3.6 W"
     - "16 us"
-  modelAce5gmNight:
+  modelAce5gmNight1:
+    f_max:
+    - "`sen_prod: Ace5gm_night_faster_rcnn1"
+    - "5.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "2220.0 CHF"
+    - "105.0 g"
+    - "3.6 W"
+    - "16 us"
+  modelAce5gmNight2:
     f_max:
     - "`sen_prod: Ace5gm_night_faster_rcnn3"
     - "5.0 Hz"
@@ -1168,7 +1228,17 @@ implementations:
     - "90.0 g"
     - "3.6 W"
     - "15 us"
-  modelAce15umNight:
+  modelAce15umNight1:
+    f_max:
+    - "`sen_prod: Ace15um_night_faster_rcnn1"
+    - "15.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "2630.0 CHF"
+    - "90.0 g"
+    - "3.6 W"
+    - "15 us"
+  modelAce15umNight2:
     f_max:
     - "`sen_prod: Ace15um_night_faster_rcnn3"
     - "15.0 Hz"
@@ -1198,7 +1268,17 @@ implementations:
     - "58.0 g"
     - "2.5 W"
     - "20 us"
-  modelPointgreyNight:
+  modelPointgreyNight1:
+    f_max:
+    - "`sen_prod: Pointgrey_night_faster_rcnn1"
+    - "15.0 Hz"
+    - "`timeday:night"
+    r_min:
+    - "350.0 CHF"
+    - "58.0 g"
+    - "2.5 W"
+    - "20 us"
+  modelPointgreyNight2:
     f_max:
     - "`sen_prod: Pointgrey_night_faster_rcnn3"
     - "15.0 Hz"
