@@ -36,9 +36,8 @@ if __name__ == '__main__':
     sens_perf = sens["sens_perf"][0]
     sens_curves = camera_curves[sens_perf]
     s = speed[6]
-    s = 80
     env = environment["07day_env"]
-    cont = control_param["cont-treshold-0.1-d_stop-1.5-t_react-0.1-freq-0.01"]
+    cont = control_param["cont-th-0.1-ds-2.0-tr-0.1-f-100.0"]
     performance = simulate(sp, dyn_perf, sens, sens_curves, s, env, cont, experiment_key="test2")
 
 

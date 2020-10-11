@@ -1,11 +1,12 @@
 import os
+import time
 from decimal import Decimal
-from glob import glob
-from multiprocessing import Pool, cpu_count
+from multiprocessing import Pool
 
 import yaml
 
 from simulator.simulator import SimParameters, simulate
+from utils.yaml_file_generation import read_results, write_bc_dpc
 
 
 def generate(basedir: str):
@@ -60,10 +61,9 @@ def generate(basedir: str):
                                 experiment_key = f'{veh_key}-{env_key}-{sens_type_key}-{sens_key}-{s_perf}-{s}-{cont_key}'
                                 fn = os.path.join(basedir, f'{experiment_key}.experiment.yaml')
                                 if not os.path.exists(fn):
-                                    params = sp, dyn_perf, sens, sens_curves, s, env, cont, experiment_key, fn, sens_key, s_perf, veh_key, env_key, cont_key
+                                    params = sp, dyn_perf, sens, sens_curves, s, env, cont, experiment_key, fn, sens_key, s_perf, veh_key, env_key, cont_key, sens_type_key,
                                     to_run.append(params)
-
-    nprocesses = 1
+    nprocesses = 4
     with Pool(processes=nprocesses) as pool:
         pool.map(simulate_and_write, to_run)
 
@@ -83,6 +83,7 @@ def simulate_and_write(params):
     veh_key = params[11]
     env_key = params[12]
     cont_key = params[13]
+    sens_type_key = params[14]
     performance = simulate(sp, dyn_perf, sens, sens_curves, s, env, cont, experiment_key)
     danger = {"mean": str(performance.danger.mean), "var": str(performance.danger.var),
               "u95": str(performance.danger.u95),
@@ -95,24 +96,18 @@ def simulate_and_write(params):
         "speed": s, "sensor": sens_key, "sens_perf": s_perf, "dyn_perf": veh_key,
         "environment": env_key,
         "controller": cont_key,
+        "sens_type": sens_type_key,
     }
     with open(fn, 'w') as f:
         yaml.dump(ad_perf, f, default_flow_style=False)
     print("Finished Experiment: ", fn)
 
-
-def read_results(basedir: str, result: str):
-    filenames = list(glob(os.path.join(basedir, '*.experiment.yaml'), recursive=True))
-    results = {}
-    for fn in filenames:
-        with open(fn) as f:
-            data = yaml.load(f.read())
-        experiment_key = os.path.basename(fn).replace('.experiment.yaml', '')
-        results[experiment_key] = data
-    with open(result, 'w') as f:
-        yaml.dump(results, f)
-
-
 if __name__ == '__main__':
-    basedir = os.getcwd()
+    basedir = 'output'
     generate(basedir)
+    # TODO: make prper filenames for results and dpc models
+    timestr = time.strftime("%Y%m%d-%H%M%S")
+    fn_results = os.path.join(basedir, f'{timestr}.results.yaml')
+    read_results(basedir, fn_results)
+    fn_dpc_models = os.path.join(basedir, f'{timestr}_brake_control_models.yaml')
+    write_bc_dpc(basedir, fn_dpc_models)
