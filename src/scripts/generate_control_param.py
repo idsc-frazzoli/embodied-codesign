@@ -11,7 +11,7 @@ if __name__ == '__main__':
         for d_stop in d_stop_list:
             for freq in frequency_list:
                 param = {"prob_threshold": p_treshold, "d_stop": d_stop, "t_react": t_react, "frequency": freq}
-                cont_key = f'cont-treshold-{p_treshold}-d_stop-{d_stop}-t_react-{t_react}-freq-{freq}'
+                cont_key = f'cont-th-{p_treshold}-ds-{d_stop}-tr-{t_react}-f-{freq}'
                 control_param[cont_key] = param
 
     with open('data/input/control_param.yaml', 'w') as file:

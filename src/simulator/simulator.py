@@ -75,7 +75,7 @@ def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s
                                    list_of_ds=list_of_ds, frequency=n_ts_sens * sp.dt, latency=1 * sp.dt)
 
     vs = VehicleStats(a_min=Decimal(str(dyn_perf["a_min"])), a_max=Decimal(str(dyn_perf["a_max"])),
-                      v_nominal=Decimal(str(s / 3.6)),
+                      v_nominal=Decimal(str(Decimal(str(s)) / Decimal('0.44704'))),
                       mass=Decimal(str(dyn_perf["mass"])))
     density = Decimal(str(env["density"])) / Decimal(str(1000))
     prior = Prior(density=density)
@@ -150,15 +150,15 @@ def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s
                                                                   average_velocity_standard_error)
 
     discomfort_stat = Statistics(mean=Decimal(np.asscalar(discomfort_mean)), var=Decimal(np.asscalar(discomfort_var)),
-                                 u95=Decimal(np.asscalar(discomfort_confidence_interval[0])),
-                                 l95=Decimal(np.asscalar(discomfort_confidence_interval[1])))
+                                 u95=Decimal(np.asscalar(discomfort_confidence_interval[1])),
+                                 l95=Decimal(np.asscalar(discomfort_confidence_interval[0])))
     danger_stat = Statistics(mean=Decimal(np.asscalar(danger_mean)), var=Decimal(np.asscalar(danger_var)),
-                             u95=Decimal(np.asscalar(danger_confidence_interval[0])),
-                             l95=Decimal(np.asscalar(danger_confidence_interval[1])))
+                             u95=Decimal(np.asscalar(danger_confidence_interval[1])),
+                             l95=Decimal(np.asscalar(danger_confidence_interval[0])))
     average_velocity_stat = Statistics(mean=Decimal(np.asscalar(average_velocity_mean)),
                                        var=Decimal(np.asscalar(average_velocity_var)),
-                                       u95=Decimal(np.asscalar(average_velocity_confidence_interval[0])),
-                                       l95=Decimal(np.asscalar(average_velocity_confidence_interval[1])))
+                                       u95=Decimal(np.asscalar(average_velocity_confidence_interval[1])),
+                                       l95=Decimal(np.asscalar(average_velocity_confidence_interval[0])))
 
     return PerformanceMetrics(danger=danger_stat, discomfort=discomfort_stat, average_velocity=average_velocity_stat)
 

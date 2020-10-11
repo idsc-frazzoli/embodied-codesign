@@ -78,20 +78,27 @@ def simulate_and_write(params):
     cont = params[6]
     experiment_key = params[7]
     fn = params[8]
-    sens_key = [9]
-    s_perf = [10]
+    sens_key = params[9]
+    s_perf = params[10]
     veh_key = params[11]
     env_key = params[12]
     cont_key = params[13]
     performance = simulate(sp, dyn_perf, sens, sens_curves, s, env, cont, experiment_key)
+    danger = {"mean": str(performance.danger.mean), "var": str(performance.danger.var),
+              "u95": str(performance.danger.u95),
+              "l95": str(performance.danger.l95)}
+    discomfort = {"mean": str(performance.discomfort.mean), "var": str(performance.discomfort.var),
+                  "u95": str(performance.discomfort.u95), "l95": str(performance.discomfort.l95)}
     ad_perf = {
-        "danger": str(performance.danger),
-        "discomfort": str(performance.discomfort),
+        "danger": danger,
+        "discomfort": discomfort,
         "speed": s, "sensor": sens_key, "sens_perf": s_perf, "dyn_perf": veh_key,
         "environment": env_key,
         "controller": cont_key,
     }
-    yaml.dump(ad_perf, fn, default_flow_style=False)
+    with open(fn, 'w') as f:
+        yaml.dump(ad_perf, f, default_flow_style=False)
+    print("Finished Experiment: ", fn)
 
 
 def read_results(basedir: str, result: str):
