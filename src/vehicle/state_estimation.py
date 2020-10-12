@@ -96,14 +96,7 @@ def prediction_model(inf: Inference, delta_idx: int, delta: Decimal,
     return Inference(alpha)
 
 
-def observation_model(inf0: Inference, obs: Observations, cl_list: ConfLevelList, sens_param: SensingParameters, sp: SensingPerformance) -> Inference:
-    def integrate(conf_level: List[Decimal], x, sens_param: SensingParameters):
-        ucl_cell = int(min(sens_param.n, conf_level[1] / sens_param.ds))
-        lcl_cell = int(max(0.0, conf_level[0] / sens_param.ds))
-        x_ds = x*sens_param.ds
-        alpha = 1 / ((ucl_cell + lcl_cell) * sens_param.ds) * np.sum(x_ds)
-
-        return alpha
+def observation_model(inf0: Inference, obs: Observations, sens_param: SensingParameters, sp: SensingPerformance) -> Inference:
     ones = np.ones(sens_param.n)
     fp_ds = np.array(sp.fp)*sens_param.ds
     alpha_nodet = np.array(inf0.alpha)
@@ -127,14 +120,16 @@ def observation_model(inf0: Inference, obs: Observations, cl_list: ConfLevelList
             x_nodet[cell] = x_det[i]
             i += 1
 
-    x = x_nodet
+    x = [0.0 if idx == 0 else sum(x_nodet[:idx]) / sens_param.list_of_ds[idx] for idx in range(sens_param.n)]
+
+    cl_list = sp.cl_list
     idx_tresh = cl_list.treshold_idx
     list_cl = cl_list.list
 
     for i in range(idx_tresh, len(x)):
         x_sum = np.array([x[int(k)]*sens_param.ds for k in list_cl[i].conf_level])
-        sum = np.sum(x_sum)
-        x[i] = 1 / (len(list_cl[i].conf_level) * sens_param.ds) * sum
+        sum_x = np.sum(x_sum)
+        x[i] = 1 / (len(list_cl[i].conf_level) * sens_param.ds) * sum_x
 
     for i in range(idx_tresh):
         beta = list_cl[i].conf_level[1] - list_cl[i].conf_level[0]

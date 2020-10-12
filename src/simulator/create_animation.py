@@ -8,8 +8,8 @@ from matplotlib.animation import FuncAnimation, FFMpegWriter
 
 
 class UpdateDist(object):
-    def __init__(self, ax1, ax2, vstates_list, belief_list, object_list, list_of_ds):
-        self.belief_list = belief_list
+    def __init__(self, ax1, ax2, vstates_list, inference_list, object_list, list_of_ds):
+        self.inference_list = inference_list
         self.vstates_list = vstates_list
         self.object_list = object_list
         self.line1, = ax1.plot([], [], 'k-',color="green")
@@ -51,7 +51,7 @@ class UpdateDist(object):
         return self.line1, self.car, self.vline, self.line2
 
     def __call__(self, i):
-        y = self.belief_list[i].po
+        y = self.inference_list[i].alpha
         objects = self.object_list[i]
         self.line1.set_data(self.x, y)
         for d in objects:
@@ -66,9 +66,9 @@ class UpdateDist(object):
         return self.line1, self.car, self.vline, self.title, self.line2
 
 
-def create_animation(vstates_list, belief_list, object_list, list_of_ds) -> None:
+def create_animation(vstates_list, inference_list, object_list, list_of_ds) -> None:
     fig, (ax1, ax2) = plt.subplots(2,1)
-    ud = UpdateDist(ax1, ax2, vstates_list, belief_list, object_list, list_of_ds)
+    ud = UpdateDist(ax1, ax2, vstates_list, inference_list, object_list, list_of_ds)
     frames = len(vstates_list)
     print("Creating Animation.")
     anim = FuncAnimation(fig, ud, frames=np.arange(frames), init_func=ud.init,

@@ -14,8 +14,8 @@ from controller.controller import Action, Controller
 from sensing.sensing_performance import SensingParameters, SensingPerformance
 from simulator.create_animation import create_animation
 from simulator.performance import CollisionStats, OneSimPerformanceMetrics, PerformanceMetrics, Statistics
-from vehicle.state_estimation import Belief, compute_observations, observation_model, prediction_model, Prior, \
-    ConfLevel, ConfLevelList
+from vehicle.state_estimation import compute_observations, observation_model, prediction_model, Prior, \
+    ConfLevel, ConfLevelList, Inference
 from vehicle.vehicle import DelayedStates, Object, State, VehicleState, VehicleStats
 
 from . import logger
@@ -122,6 +122,7 @@ def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s
         list_cl.append(confidence_level)
 
     confidence_level_list = ConfLevelList(list_cl, tresh_idx)
+    sens_perf.cl_list = confidence_level_list
 
     sp.sens_param = sens_param
     sp.vs = vs
@@ -232,10 +233,10 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
     vstate0 = VehicleState(Decimal('0.0'), Decimal('0.0'), Decimal('0.0'), Decimal('0.0'))
 
     state = State(vstate0, objects)
-    density_belief = sp.prior.density * sp.sens_param.max_distance
-    pp = density_belief * Decimal(np.exp(-float(density_belief)))
-    po = [Decimal(pp / n) for _ in range(n)]
-    belief = Belief(po)
+
+    prior_dens = [sp.prior.density * ds for _ in range(n)]
+    alpha0 = [0.0 if idx == 0 else sum(prior_dens[:idx]) / sp.sens_param.list_of_ds[idx] for idx in range(n)]
+    inference = Inference(alpha=alpha0)
     action = Action(accel=Decimal('0'))
 
     control_interval = int(sp.controller.frequency / sp.dt)
@@ -246,13 +247,13 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
     delays = [state] * l
     delayed_st = DelayedStates(states=delays, latency=sp.sens_param.latency, l=l)
     vstates_list = []
-    belief_list = []
+    inference_list = []
     object_list = []
     print("Simulation running...")
     i = 0
     sensing_interval = int(sp.sens_param.frequency / sp.dt)
     logger.info(f'sensing_interval {sensing_interval}')
-
+    annimation_interval = int(Decimal('0.05') / sp.ds)
     while state.vstate.x <= sp.road_length:
         i += 1
         t = i * sp.dt
@@ -264,15 +265,16 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
 
         delta = state.vstate.x - state.vstate.x_prev
         delta_idx = int(delta / ds)
-        belief1 = prediction_model(b0=belief, delta_idx=delta_idx, delta=delta, prior=sp.prior)
+        inference1 = prediction_model(inf=inference, delta=delta, delta_idx=delta_idx, prior=sp.prior,
+                                   list_ds=sp.sens_param.list_of_ds, ds=ds)
 
         if observations is None:
-            belief = belief1
+            inference = inference1
         else:
-            belief = observation_model(belief1, observations, sp.sens_param.list_of_ds, sp.sens_perf)
+            inference = observation_model(inf0=inference1, obs=observations, sens_param=sp.sens_param, sp=sp.sens_perf)
 
         if i % control_interval == 0:
-            action = sp.controller.get_action(state.vstate, belief)
+            action = sp.controller.get_action(state.vstate, inference)
         else:
             action = action
 
@@ -285,9 +287,9 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
         is_stopped = stopped(state)
 
         if sp.do_animation:
-            if float(t % Decimal(str(0.05))) == 0.0:
+            if i % annimation_interval == 0:
                 vstates_list.append(state.vstate)
-                belief_list.append(belief)
+                inference_list.append(inference)
                 obj_a = [ob.d for ob in state.objects]
                 object_list.append(obj_a)
 
@@ -296,7 +298,7 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
             avg_control_effort = control_effort / t
             average_velocity = state.vstate.x / t
             if sp.do_animation:
-                create_animation(vstates_list, belief_list, object_list, sp.sens_param.list_of_ds)
+                create_animation(vstates_list, inference_list, object_list, sp.sens_param.list_of_ds)
             return OneSimPerformanceMetrics(c, Decimal(average_velocity), Decimal(avg_control_effort))
 
         if is_stopped:
@@ -315,5 +317,5 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
     avg_control_effort = control_effort / t
     average_velocity = state.vstate.x / t
     if sp.do_animation:
-        create_animation(vstates_list, belief_list, object_list, sp.sens_param.list_of_ds)
+        create_animation(vstates_list, inference_list, object_list, sp.sens_param.list_of_ds)
     return OneSimPerformanceMetrics(None, Decimal(average_velocity), Decimal(avg_control_effort))
