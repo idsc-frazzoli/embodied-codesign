@@ -2,7 +2,15 @@ from dataclasses import dataclass
 from decimal import Decimal
 from typing import List
 
-from vehicle.state_estimation import ConfLevelList
+
+@dataclass
+class ConfLevel:
+    conf_level: List[Decimal]
+
+@dataclass
+class ConfLevelList:
+    list: List[ConfLevel]
+    treshold_idx: int
 
 
 @dataclass

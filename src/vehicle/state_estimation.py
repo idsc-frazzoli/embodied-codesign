@@ -25,16 +25,6 @@ class Prior:
 class Observations:
     detections: List[Detection]
 
-@dataclass
-class ConfLevel:
-    conf_level: List[Decimal]
-
-
-@dataclass
-class ConfLevelList:
-    list: List[ConfLevel]
-    treshold_idx: int
-
 
 def toss_biased_coin(p_success: Decimal) -> bool:
     return random.uniform(0, 1) < p_success

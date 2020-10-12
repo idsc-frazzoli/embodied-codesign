@@ -11,11 +11,10 @@ import scipy.stats
 
 from controller.basic_controller import BasicController
 from controller.controller import Action, Controller
-from sensing.sensing_performance import SensingParameters, SensingPerformance
+from sensing.sensing_performance import SensingParameters, SensingPerformance, ConfLevel, ConfLevelList
 from simulator.create_animation import create_animation
 from simulator.performance import CollisionStats, OneSimPerformanceMetrics, PerformanceMetrics, Statistics
-from vehicle.state_estimation import compute_observations, observation_model, prediction_model, Prior, \
-    ConfLevel, ConfLevelList, Inference
+from vehicle.state_estimation import compute_observations, observation_model, prediction_model, Prior, Inference
 from vehicle.vehicle import DelayedStates, Object, State, VehicleState, VehicleStats
 
 from . import logger
@@ -86,7 +85,7 @@ def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s
     freq_con = Decimal(str(cont["frequency"]))
     ts_con = 1 / freq_con
     n_ts_con = round(ts_con / sp.dt)
-    controller = BasicController(prob_threshold=Decimal(str(cont["prob_threshold"])), vs=vs, sp=sens_param,
+    controller = BasicController(prob_threshold=Decimal(str(cont["prob_threshold"])), vs=vs,
                                  d_stop=Decimal(str(cont["d_stop"])), t_react=Decimal(str(cont["t_react"])),
                                  frequency=n_ts_con * sp.dt)
     sens_perf = SensingPerformance(sp=sens_param)
@@ -107,8 +106,8 @@ def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s
         cl = 0.95
         sigma = sens_perf.lsd[i]
         df = n - 1
-        mean = list_of_ds[i]
-        standard_error = sigma / math.sqrt(n)
+        mean = float(list_of_ds[i])
+        standard_error = float(sigma) / math.sqrt(n)
         cL_level = scipy.stats.t.interval(cl, df, mean, standard_error)
         if i < tresh_idx:
             clist_cell = [Decimal(str(cL_level[0])), Decimal(str(cL_level[1]))]
@@ -253,7 +252,7 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
     i = 0
     sensing_interval = int(sp.sens_param.frequency / sp.dt)
     logger.info(f'sensing_interval {sensing_interval}')
-    annimation_interval = int(Decimal('0.05') / sp.ds)
+    annimation_interval = int(Decimal('0.05') / sp.dt)
     while state.vstate.x <= sp.road_length:
         i += 1
         t = i * sp.dt
@@ -274,12 +273,14 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
             inference = observation_model(inf0=inference1, obs=observations, sens_param=sp.sens_param, sp=sp.sens_perf)
 
         if i % control_interval == 0:
-            action = sp.controller.get_action(state.vstate, inference)
+            action = sp.controller.get_action(state.vstate, inference, ds)
         else:
             action = action
 
         state = update_state(state, action, sp.dt)
         delayed_st.update(state)
+
+        print(state.vstate.v)
 
         control_effort += abs(action.accel) * sp.dt
 
