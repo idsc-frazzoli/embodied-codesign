@@ -77,7 +77,7 @@ def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s
                                    list_of_ds=list_of_ds, frequency=n_ts_sens * sp.dt, latency=n_ts_lat_sens * sp.dt)
 
     vs = VehicleStats(a_min=Decimal(str(dyn_perf["a_min"])), a_max=Decimal(str(dyn_perf["a_max"])),
-                      v_nominal=Decimal(str(Decimal(str(s)) / Decimal('0.44704'))),
+                      v_nominal=Decimal(str(Decimal(str(s)) * Decimal('0.44704'))),
                       mass=Decimal(str(dyn_perf["mass"])))
     density = Decimal(str(env["density"])) / Decimal(str(1000))
     prior = Prior(density=density)
@@ -86,13 +86,14 @@ def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s
     n_ts_con = round(ts_con / sp.dt)
     controller = BasicController(prob_threshold=Decimal(str(cont["prob_threshold"])), vs=vs, sp=sens_param,
                                  d_stop=Decimal(str(cont["d_stop"])), t_react=Decimal(str(cont["t_react"])),
-                                 frequency=n_ts_sens * sp.dt)
+                                 frequency=n_ts_con * sp.dt)
     sens_perf = SensingPerformance(sp=sens_param)
     fn = sens_curves["fn"]
     sens_perf.fn = [Decimal(p) for p in fn]
     fp = sens_curves["fp"]
     sens_perf.fp = [Decimal(p) for p in fp]
-    sens_perf.lsd = [Decimal(str(ds * i * Decimal(str(0.05)) + Decimal(0.5))) for i in range(n)]
+    lsd = sens_curves["accuracy"]
+    sens_perf.lsd = [Decimal(p) for p in lsd]
 
     sp.sens_param = sens_param
     sp.vs = vs
