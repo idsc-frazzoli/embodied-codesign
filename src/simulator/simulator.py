@@ -1,3 +1,4 @@
+import math
 import os
 import random
 from dataclasses import dataclass
@@ -13,7 +14,8 @@ from controller.controller import Action, Controller
 from sensing.sensing_performance import SensingParameters, SensingPerformance
 from simulator.create_animation import create_animation
 from simulator.performance import CollisionStats, OneSimPerformanceMetrics, PerformanceMetrics, Statistics
-from vehicle.state_estimation import Belief, compute_observations, observation_model, prediction_model, Prior
+from vehicle.state_estimation import Belief, compute_observations, observation_model, prediction_model, Prior, \
+    ConfLevel, ConfLevelList
 from vehicle.vehicle import DelayedStates, Object, State, VehicleState, VehicleStats
 
 from . import logger
@@ -86,13 +88,40 @@ def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s
     n_ts_con = round(ts_con / sp.dt)
     controller = BasicController(prob_threshold=Decimal(str(cont["prob_threshold"])), vs=vs, sp=sens_param,
                                  d_stop=Decimal(str(cont["d_stop"])), t_react=Decimal(str(cont["t_react"])),
-                                 frequency=n_ts_sens * sp.dt)
+                                 frequency=n_ts_con * sp.dt)
     sens_perf = SensingPerformance(sp=sens_param)
     fn = sens_curves["fn"]
     sens_perf.fn = [Decimal(p) for p in fn]
     fp = sens_curves["fp"]
     sens_perf.fp = [Decimal(p) for p in fp]
     sens_perf.lsd = [Decimal(str(ds * i * Decimal(str(0.05)) + Decimal(0.5))) for i in range(n)]
+    tresh_idx = 0
+    for i in range(n):
+        idx = int(sens_perf.lsd[i]/ds)
+        if idx >= 1:
+            tresh_idx = i
+            break
+
+    list_cl = []
+    for i in range(n):
+        cl = 0.95
+        sigma = sens_perf.lsd[i]
+        df = n - 1
+        mean = list_of_ds[i]
+        standard_error = sigma / math.sqrt(n)
+        cL_level = scipy.stats.t.interval(cl, df, mean, standard_error)
+        if i < tresh_idx:
+            clist_cell = [Decimal(str(cL_level[0])), Decimal(str(cL_level[1]))]
+            confidence_level = ConfLevel(clist_cell)
+        else:
+            ucl_cell = int(min(n, mean+cL_level[1] / ds))
+            lcl_cell = int(max(0.0, mean+cL_level[0] / ds))
+            clist_cell = [Decimal(str(i)) for i in range(lcl_cell, ucl_cell)]
+            confidence_level = ConfLevel(clist_cell)
+
+        list_cl.append(confidence_level)
+
+    confidence_level_list = ConfLevelList(list_cl, tresh_idx)
 
     sp.sens_param = sens_param
     sp.vs = vs

@@ -45,4 +45,3 @@ class DelayedStates:
 @dataclass
 class Detection:
     d_mean: Decimal
-    d_std: Decimal

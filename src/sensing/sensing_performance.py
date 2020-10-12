@@ -2,6 +2,8 @@ from dataclasses import dataclass
 from decimal import Decimal
 from typing import List
 
+from vehicle.state_estimation import ConfLevelList
+
 
 @dataclass
 class SensingParameters:
@@ -19,6 +21,7 @@ class SensingPerformance:
     fn: List[Decimal]  # of length n
     lsd: List[Decimal]  # in meters
     sp: SensingParameters
+    cl_list: ConfLevelList
 
     def __init__(self, sp: SensingParameters) -> None:
         self.n = sp.n

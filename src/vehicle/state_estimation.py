@@ -1,3 +1,4 @@
+import math
 import random
 from dataclasses import dataclass
 from decimal import Decimal
@@ -24,6 +25,16 @@ class Prior:
 class Observations:
     detections: List[Detection]
 
+@dataclass
+class ConfLevel:
+    conf_level: List[Decimal]
+
+
+@dataclass
+class ConfLevelList:
+    list: List[ConfLevel]
+    treshold_idx: int
+
 
 def toss_biased_coin(p_success: Decimal) -> bool:
     return random.uniform(0, 1) < p_success
@@ -43,68 +54,98 @@ def compute_observations(sp: SensingPerformance, sparam: SensingParameters, prio
         if toss_biased_coin(p_detect):
             stdev = sp.lsd_at(o.d)
 
-            d_detect = random.gauss(float(o.d), float(stdev))
+            d_detect = np.random.lognormal(float(o.d), float(stdev))
 
             if d_detect < 0:
                 d_detect = -1 * d_detect
 
-            detection = Detection(Decimal(d_detect), stdev)
+            detection = Detection(Decimal(d_detect))
             detections.append(detection)
 
     for i in range(sp.n):
-        # distance
         d = sparam.list_of_ds[i]
         p_false_positives = sp.fp[i] * sp.ds
         if toss_biased_coin(p_false_positives):
-            stdev = sp.lsd_at(d)
-
-            d_detect = random.gauss(float(d), float(stdev))
-
-            if d_detect < 0:
-                d_detect = -1 * d_detect
-
-            detection = Detection(Decimal(d_detect), stdev)
+            if d == 0:
+                d_detect = 0
+            else:
+                d_detect = np.random.uniform(float(d - sp.ds), float(d))
+            detection = Detection(Decimal(d_detect))
             detections.append(detection)
 
     return Observations(detections)
 
 
 @dataclass
-class Belief:
-    """ probability of obstacle at distance d """
-    po: List[Decimal]  # of length n
+class Inference:
+    """ density of obstacles up to distance d 1/m """
+    alpha: List[Decimal]  # of length n
 
 
-def prediction_model(b0: Belief, delta_idx: int, delta: Decimal, prior: Prior) -> Belief:
-    density = prior.density * delta
-    pp_delta = density * Decimal(np.exp(-float(density)))
+def prediction_model(inf: Inference, delta_idx: int, delta: Decimal,
+                     prior: Prior, list_ds: List[Decimal], ds: Decimal) -> Inference:
     if delta_idx != 0:
-        po_delta = [Decimal(pp_delta / delta_idx) for _ in range(delta_idx)]
+        alpha0 = inf.alpha[delta_idx:]
+        alpha0 = [0.0 if i == 0 else inf.alpha[i+delta_idx] * (1 + delta / list_ds[i]) for i in range(len(alpha0))]
+        alpha_new = [(alpha0[-1]*list_ds[len(alpha0)-1] + prior.density*ds)/list_ds[len(alpha0)+i]
+                     for i in range(delta_idx)]
+        alpha = alpha0 + alpha_new
     else:
-        po_delta = []
+        alpha = inf.alpha
 
-    po1 = b0.po[delta_idx:] + po_delta
-    norm = Decimal(1 / sum(po1))
-    po1 = norm * np.array(po1)
-
-    return Belief(list(po1))
+    return Inference(alpha)
 
 
-def observation_model(b0: Belief, obs: Observations, list_of_ds: List[Decimal], sp: SensingPerformance) -> Belief:
-    like = np.zeros(len(list_of_ds))
+def observation_model(inf0: Inference, obs: Observations, cl_list: ConfLevelList, sens_param: SensingParameters, sp: SensingPerformance) -> Inference:
+    def integrate(conf_level: List[Decimal], x, sens_param: SensingParameters):
+        ucl_cell = int(min(sens_param.n, conf_level[1] / sens_param.ds))
+        lcl_cell = int(max(0.0, conf_level[0] / sens_param.ds))
+        x_ds = x*sens_param.ds
+        alpha = 1 / ((ucl_cell + lcl_cell) * sens_param.ds) * np.sum(x_ds)
 
-    ds_list_f = np.array([float(ds) for ds in list_of_ds])
-    for detection in obs.detections:
-        gauss_dist = scipy.stats.norm(float(detection.d_mean), float(detection.d_std))
-        prob = gauss_dist.pdf(ds_list_f)
-        like += prob
+        return alpha
+    ones = np.ones(sens_param.n)
+    fp_ds = np.array(sp.fp)*sens_param.ds
+    alpha_nodet = np.array(inf0.alpha)
+    x_nodet_1 = np.array(sp.fn) * alpha_nodet * sens_param.ds
+    x_nodet_2 = (ones - fp_ds) * (ones - alpha_nodet*sens_param.ds)
+    x_nodet = x_nodet_1 + x_nodet_2
 
-    like += np.asarray(sp.fn, dtype=float)
-    po1 = np.asarray(b0.po, dtype=float) * like
+    if obs.detections:
+        detections_cell = [min(sens_param.n, int(det.d_mean / sens_param.ds)) for det in obs.detections]
+        alpha_det = np.array([inf0.alpha[cell] for cell in detections_cell])
+        ones_det = np.ones(len(detections_cell))
+        fp_det = [sp.fp[cell] for cell in detections_cell]
+        fp_det_ds = np.array(fp_det) * sens_param.ds
+        fn_det = np.array([sp.fn[cell] for cell in detections_cell])
+        x_det_1 = (ones_det - fn_det) * alpha_det * sens_param.ds
+        x_det_2 = fp_det_ds * (ones_det - alpha_det * sens_param.ds)
+        x_det = x_det_1 + x_det_2
 
-    norm = 1 / np.sum(po1)
-    po1 = norm * po1
+        i = 0
+        for cell in detections_cell:
+            x_nodet[cell] = x_det[i]
+            i += 1
 
-    po1 = [Decimal(p) for p in po1]
+    x = x_nodet
+    idx_tresh = cl_list.treshold_idx
+    list_cl = cl_list.list
 
-    return Belief(list(po1))
+    for i in range(idx_tresh, len(x)):
+        x_sum = np.array([x[int(k)]*sens_param.ds for k in list_cl[i].conf_level])
+        sum = np.sum(x_sum)
+        x[i] = 1 / (len(list_cl[i].conf_level) * sens_param.ds) * sum
+
+    for i in range(idx_tresh):
+        beta = list_cl[i].conf_level[1] - list_cl[i].conf_level[0]
+        f_big = 0.05
+        if sp.fp[i]*sens_param.ds > f_big or sp.fn[i] > f_big:
+            gamma = 0
+        else:
+            gamma = random.uniform(0, 1)
+
+        x[i] = (alpha_nodet[i] * beta + x[i]) / (beta + gamma)
+
+    alpha = x
+
+    return Inference(list(alpha))
