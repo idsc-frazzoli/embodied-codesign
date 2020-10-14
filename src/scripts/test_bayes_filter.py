@@ -113,6 +113,9 @@ if __name__ == '__main__':
     po = [Decimal(pp) for _ in range(n)]
     alpha0 = po
     inference = Inference(alpha=alpha0)
+    al = np.array([density for _ in range(n)])
+    beta = 1
+    gamma = 0.1
 
     x = Decimal('0.0')
     x_prev = x
@@ -133,6 +136,9 @@ if __name__ == '__main__':
 
         inference = observation_model(inf0=inference1, obs=observations, sens_param=sens_param, sp=sens_perf,
                                       density=po)
+
+        al = (beta * al + np.array(inference.alpha)) / (beta + gamma)
+        beta += beta + gamma
 
         print(x)
 
