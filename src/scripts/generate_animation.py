@@ -31,9 +31,9 @@ if __name__ == '__main__':
     sp = SimParameters(nsims=1, road_length=Decimal('500.0'), dt=Decimal(str(0.01)),
                        seed=0, do_animation=True)
 
-    dyn_perf = vehicles["suv_m"]
+    dyn_perf = vehicles["suv_s"]
     sens = camera["Ace13gm"]
-    sens_perf = sens["sens_perf"][0]
+    sens_perf = sens["sens_perf"][1]
     sens_curves = camera_curves[sens_perf]
     s = speed[6]
     env = environment["07day_env"]
