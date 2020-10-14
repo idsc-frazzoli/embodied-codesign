@@ -1,0 +1,17 @@
+cost: 530
+frequency: 13.0
+latency: 0.012
+lens: 12
+mass: 0.105
+power: 3.1
+resolution:
+- 3840
+- 2160
+sens_perf:
+- Ace13gm_day_faster_rcnn1
+- Ace13gm_day_faster_rcnn3
+- Ace13gm_night_faster_rcnn1
+- Ace13gm_night_faster_rcnn3
+size:
+- 7.7
+- 4.3

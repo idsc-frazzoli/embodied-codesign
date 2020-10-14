@@ -1,3 +1,4 @@
+import math
 from dataclasses import dataclass
 from decimal import Decimal
 from typing import List
@@ -7,10 +8,18 @@ from typing import List
 class ConfLevel:
     conf_level: List[Decimal]
 
+
 @dataclass
 class ConfLevelList:
     list: List[ConfLevel]
     treshold_idx: int
+
+
+@dataclass
+class ProbAccuracy:
+    a: Decimal
+    b: Decimal
+    p: Decimal
 
 
 @dataclass
@@ -30,6 +39,7 @@ class SensingPerformance:
     lsd: List[Decimal]  # in meters
     sp: SensingParameters
     cl_list: ConfLevelList
+    prob_accuracy: List[ProbAccuracy]
 
     def __init__(self, sp: SensingParameters) -> None:
         self.n = sp.n
@@ -65,3 +75,24 @@ class SensingPerformance:
 
         return self.lsd[i]
 
+    def prob_acc_at(self, d: Decimal) -> ProbAccuracy:
+        i = int(d / self.ds)
+
+        if i > self.n:
+            raise IndexError("Index out of bound.")
+        elif i == self.n:
+            i = i - 1
+
+        return self.prob_accuracy[i]
+
+
+def calc_unit_dist_a_b_prob(d: Decimal, ds: Decimal,  std: Decimal) -> ProbAccuracy:
+    mean = d + Decimal('0.5')*ds
+    a = mean - Decimal(str(math.sqrt(3))) * std
+    if std == Decimal('0.0'):
+        a = a - Decimal('0.5')*ds
+    a = Decimal('0.0') if a < Decimal('0.0') else a
+    b = mean + Decimal(str(math.sqrt(3))) * std
+    prob = 1 / (b - a)
+
+    return ProbAccuracy(Decimal(a), Decimal(b), Decimal(prob))

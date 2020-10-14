@@ -11,7 +11,8 @@ import scipy.stats
 
 from controller.basic_controller import BasicController
 from controller.controller import Action, Controller
-from sensing.sensing_performance import SensingParameters, SensingPerformance, ConfLevel, ConfLevelList
+from sensing.sensing_performance import SensingParameters, SensingPerformance, ConfLevel, ConfLevelList, \
+    calc_unit_dist_a_b_prob
 from simulator.create_animation import create_animation
 from simulator.performance import CollisionStats, OneSimPerformanceMetrics, PerformanceMetrics, Statistics
 from vehicle.state_estimation import compute_observations, observation_model, prediction_model, Prior, Inference
@@ -74,17 +75,20 @@ def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s
     n_ts_sens = round(ts_sens / sp.dt)
     latency_sens = Decimal(str(sens["latency"]))
     n_ts_lat_sens = round(latency_sens / sp.dt)
+    n_ts_lat_sens = 1
+    n_ts_sens = 1
     sens_param = SensingParameters(ds=ds, max_distance=max_distance, n=n,
                                    list_of_ds=list_of_ds, frequency=n_ts_sens * sp.dt, latency=n_ts_lat_sens * sp.dt)
 
     vs = VehicleStats(a_min=Decimal(str(dyn_perf["a_min"])), a_max=Decimal(str(dyn_perf["a_max"])),
-                      v_nominal=Decimal(str(Decimal(str(s)) / Decimal('0.44704'))),
+                      v_nominal=Decimal(str(Decimal(str(s)) * Decimal('0.44704'))),
                       mass=Decimal(str(dyn_perf["mass"])))
     density = Decimal(str(env["density"])) / Decimal(str(1000))
     prior = Prior(density=density)
     freq_con = Decimal(str(cont["frequency"]))
     ts_con = 1 / freq_con
     n_ts_con = round(ts_con / sp.dt)
+    n_ts_con = 1
     controller = BasicController(prob_threshold=Decimal(str(cont["prob_threshold"])), vs=vs,
                                  d_stop=Decimal(str(cont["d_stop"])), t_react=Decimal(str(cont["t_react"])),
                                  frequency=n_ts_con * sp.dt)
@@ -93,7 +97,10 @@ def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s
     sens_perf.fn = [Decimal(p) for p in fn]
     fp = sens_curves["fp"]
     sens_perf.fp = [Decimal(p) for p in fp]
-    sens_perf.lsd = [Decimal(str(ds * i * Decimal(str(0.05)) + Decimal(0.5))) for i in range(n)]
+    lsd = sens_curves["accuracy"]
+    sens_perf.lsd = [Decimal(p) for p in lsd]
+    list_prob_acc = [calc_unit_dist_a_b_prob(d=list_of_ds[i], ds=ds, std=sens_perf.lsd[i]) for i in range(n)]
+    sens_perf.prob_accuracy = list_prob_acc
     tresh_idx = 0
     for i in range(n):
         idx = int(sens_perf.lsd[i]/ds)
@@ -104,22 +111,33 @@ def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s
     list_cl = []
     for i in range(n):
         cl = 0.95
-        sigma = sens_perf.lsd[i]
+        sigma = float(sens_perf.lsd[i])
         df = n - 1
         mean = float(list_of_ds[i])
-        standard_error = float(sigma) / math.sqrt(n)
-        cL_level = scipy.stats.t.interval(cl, df, mean, standard_error)
+        standard_error = sigma / math.sqrt(n)
+        if mean < 0.1:
+            cL_level = [0.0, 0.0]
+        else:
+            cL_level = scipy.stats.t.interval(cl, df, mean, standard_error)
         if i < tresh_idx:
-            clist_cell = [Decimal(str(cL_level[0])), Decimal(str(cL_level[1]))]
+            if math.isnan(cL_level[0]) or math.isnan(cL_level[1]):
+                clist_cell = [Decimal(str(0.0)), Decimal(str(0.0))]
+            else:
+                clist_cell = [Decimal(str(cL_level[0])), Decimal(str(cL_level[1]))]
+
             confidence_level = ConfLevel(clist_cell)
         else:
-            ucl_cell = int(min(n, mean+cL_level[1] / ds))
-            lcl_cell = int(max(0.0, mean+cL_level[0] / ds))
-            clist_cell = [Decimal(str(i)) for i in range(lcl_cell, ucl_cell)]
+            ucl_cell = int(min(n, (cL_level[1]) / float(ds)))
+            lcl_cell = int(min(n, max(0.0, (cL_level[0]) / float(ds))))
+            if ucl_cell == lcl_cell:
+                clist_cell = [int(mean / float(ds))]
+            else:
+                clist_cell = [Decimal(str(i)) for i in range(lcl_cell, ucl_cell)]
             confidence_level = ConfLevel(clist_cell)
 
         list_cl.append(confidence_level)
 
+    logger.info('Fineshed conficence level initialization for accuracy.')
     confidence_level_list = ConfLevelList(list_cl, tresh_idx)
     sens_perf.cl_list = confidence_level_list
 
@@ -128,7 +146,7 @@ def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s
     sp.prior = prior
     sp.controller = controller
     sp.sens_perf = sens_perf
-
+    logger.info('Start level 0 simulations.')
     for i in range(sp.nsims):
         fn = f'output/{experiment_key}-{i}.yaml'
         if not os.path.exists(fn):
@@ -207,7 +225,8 @@ def collided(s: State, vs: VehicleStats) -> CollisionStats:
 
 def stopped(s: State) -> bool:
     if s.objects:
-        if round(s.vstate.v, 2) == 0.0 and s.objects[0].d <= 5:
+        if round(s.vstate.v, 1) == 0.0 and s.objects[0].d <= 10:
+            print("stopped True")
             return True
 
     return False
@@ -227,14 +246,17 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
         x = round(random.uniform(0.0, float(sp.road_length)), 1)
         obj = Object(Decimal(str(x)))
         objects.append(obj)
+    objects.append(Object(Decimal("25.0")))
     objects.sort(key=lambda o: o.d, reverse=False)  # sorting objects
 
     vstate0 = VehicleState(Decimal('0.0'), Decimal('0.0'), Decimal('0.0'), Decimal('0.0'))
 
     state = State(vstate0, objects)
-
-    prior_dens = [sp.prior.density * ds for _ in range(n)]
-    alpha0 = [0.0 if idx == 0 else sum(prior_dens[:idx]) / sp.sens_param.list_of_ds[idx] for idx in range(n)]
+    logger.info('State initialization.')
+    density_belief = sp.prior.density  * sp.sens_param.max_distance
+    pp = density_belief * Decimal(np.exp(-float(density_belief)))
+    po = [Decimal(pp) for _ in range(n)]
+    alpha0 = po
     inference = Inference(alpha=alpha0)
     action = Action(accel=Decimal('0'))
 
@@ -256,31 +278,30 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
     while state.vstate.x <= sp.road_length:
         i += 1
         t = i * sp.dt
-
+        print('time', t)
         if i % sensing_interval == 0:
             observations = compute_observations(sp.sens_perf, sp.sens_param, sp.prior, delayed_st.states[0])
         else:
             observations = None
-
         delta = state.vstate.x - state.vstate.x_prev
         delta_idx = int(delta / ds)
-        inference1 = prediction_model(inf=inference, delta=delta, delta_idx=delta_idx, prior=sp.prior,
-                                   list_ds=sp.sens_param.list_of_ds, ds=ds)
+        # inference1 = prediction_model(inf=inference, delta=delta, delta_idx=delta_idx, prior=sp.prior,
+        #                            list_ds=sp.sens_param.list_of_ds, ds=ds)
 
-        if observations is None:
-            inference = inference1
-        else:
-            inference = observation_model(inf0=inference1, obs=observations, sens_param=sp.sens_param, sp=sp.sens_perf)
+        inference1 = prediction_model(inf=inference, delta=delta, delta_idx=delta_idx, prior=alpha0[0],
+                                      list_ds=sp.sens_param.list_of_ds, ds=ds)
+        inference = observation_model(inf0=inference1, obs=observations, sens_param=sp.sens_param, sp=sp.sens_perf, density=sp.prior.density)
+        # if observations is None:
+        #     inference = inference1
+        # else:
+        #     inference = observation_model(inf0=inference1, obs=observations, sens_param=sp.sens_param, sp=sp.sens_perf)
 
         if i % control_interval == 0:
             action = sp.controller.get_action(state.vstate, inference, ds)
         else:
             action = action
-
         state = update_state(state, action, sp.dt)
         delayed_st.update(state)
-
-        print(state.vstate.v)
 
         control_effort += abs(action.accel) * sp.dt
 
