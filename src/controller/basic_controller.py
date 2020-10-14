@@ -11,7 +11,7 @@ class BasicController(Controller):
     def __init__(self, prob_threshold: Decimal, vs: VehicleStats,
                  d_stop: Decimal, t_react: Decimal, frequency: Decimal):
         self.prob_threshold = prob_threshold
-        self.prob_threshold = Decimal('50')
+        self.prob_threshold = Decimal('1')
         self.vs = vs
         self.d_stop = d_stop
         self.t_react = t_react

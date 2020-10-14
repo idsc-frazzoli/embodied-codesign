@@ -249,9 +249,9 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
 
     state = State(vstate0, objects)
     logger.info('State initialization.')
-    # density_belief = sp.prior.density * sp.sens_param.max_distance
-    # pp = density_belief * Decimal(np.exp(-float(density_belief)))
-    po = [sp.prior.density for _ in range(n)]
+    density_belief = sp.prior.density * sp.sens_param.max_distance
+    pp = density_belief * Decimal(np.exp(-float(density_belief)))
+    po = [pp for _ in range(n)]
     alpha0 = po
     inference = Inference(alpha=alpha0)
     action = Action(accel=Decimal('0'))
@@ -286,7 +286,7 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
         if observations is None:
             inference = inference1
         else:
-            inference = observation_model(inf0=inference1, obs=observations, sens_param=sp.sens_param, sp=sp.sens_perf, density=sp.prior.density)
+            inference = observation_model(inf0=inference1, obs=observations, sens_param=sp.sens_param, sp=sp.sens_perf, density=po)
 
         if i % control_interval == 0:
             action = sp.controller.get_action(state.vstate, inference, ds)

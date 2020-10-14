@@ -118,7 +118,7 @@ if __name__ == '__main__':
     x_prev = x
     # detec = []#[Detection(Decimal('20.0'))]
     # observations = Observations(detec)
-    objects = [Object(Decimal('20')), Object(Decimal("40.0"))]
+    objects = [Object(Decimal('100')), Object(Decimal("120.0"))]
     vehstate = VehicleState(x, x, x, x)
     state = State(vehstate, objects)
     # observations = None
@@ -132,11 +132,11 @@ if __name__ == '__main__':
         inference1 = prediction_model(inf=inference, delta_idx=delta_idx, prior=alpha0[0])
 
         inference = observation_model(inf0=inference1, obs=observations, sens_param=sens_param, sp=sens_perf,
-                                      density=alpha0[0])
+                                      density=po)
 
         print(x)
 
-        if x % Decimal('1.0') == 0.0:
+        if x % Decimal('10.0') == 0.0:
             plt.plot(list_of_ds, inference.alpha)
             plt.plot(list_of_ds, sens_perf.fn)
             plt.plot(list_of_ds, sens_perf.fp)
