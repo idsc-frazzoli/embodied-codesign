@@ -1,150 +1,125 @@
-cont-th-0.1-ds-4.5-tr-0.1-f-0.5:
-  d_stop: 4.5
+cont-th-0.1-ds-2.5-tr-0.1-f-0.5:
+  d_stop: 2.5
   frequency: 0.5
   prob_threshold: 0.1
   t_react: 0.1
-cont-th-0.1-ds-4.5-tr-0.1-f-1.0:
-  d_stop: 4.5
+cont-th-0.1-ds-2.5-tr-0.1-f-1.0:
+  d_stop: 2.5
   frequency: 1.0
   prob_threshold: 0.1
   t_react: 0.1
-cont-th-0.1-ds-4.5-tr-0.1-f-10.0:
-  d_stop: 4.5
+cont-th-0.1-ds-2.5-tr-0.1-f-10.0:
+  d_stop: 2.5
   frequency: 10.0
   prob_threshold: 0.1
   t_react: 0.1
-cont-th-0.1-ds-4.5-tr-0.1-f-100.0:
-  d_stop: 4.5
-  frequency: 100.0
-  prob_threshold: 0.1
-  t_react: 0.1
-cont-th-0.1-ds-4.5-tr-0.1-f-20.0:
-  d_stop: 4.5
+cont-th-0.1-ds-2.5-tr-0.1-f-20.0:
+  d_stop: 2.5
   frequency: 20.0
   prob_threshold: 0.1
   t_react: 0.1
-cont-th-0.1-ds-4.5-tr-0.1-f-5.0:
-  d_stop: 4.5
+cont-th-0.1-ds-2.5-tr-0.1-f-5.0:
+  d_stop: 2.5
   frequency: 5.0
   prob_threshold: 0.1
   t_react: 0.1
-cont-th-0.2-ds-4.5-tr-0.1-f-0.5:
-  d_stop: 4.5
+cont-th-0.2-ds-2.5-tr-0.1-f-0.5:
+  d_stop: 2.5
   frequency: 0.5
   prob_threshold: 0.2
   t_react: 0.1
-cont-th-0.2-ds-4.5-tr-0.1-f-1.0:
-  d_stop: 4.5
+cont-th-0.2-ds-2.5-tr-0.1-f-1.0:
+  d_stop: 2.5
   frequency: 1.0
   prob_threshold: 0.2
   t_react: 0.1
-cont-th-0.2-ds-4.5-tr-0.1-f-10.0:
-  d_stop: 4.5
+cont-th-0.2-ds-2.5-tr-0.1-f-10.0:
+  d_stop: 2.5
   frequency: 10.0
   prob_threshold: 0.2
   t_react: 0.1
-cont-th-0.2-ds-4.5-tr-0.1-f-100.0:
-  d_stop: 4.5
-  frequency: 100.0
-  prob_threshold: 0.2
-  t_react: 0.1
-cont-th-0.2-ds-4.5-tr-0.1-f-20.0:
-  d_stop: 4.5
+cont-th-0.2-ds-2.5-tr-0.1-f-20.0:
+  d_stop: 2.5
   frequency: 20.0
   prob_threshold: 0.2
   t_react: 0.1
-cont-th-0.2-ds-4.5-tr-0.1-f-5.0:
-  d_stop: 4.5
+cont-th-0.2-ds-2.5-tr-0.1-f-5.0:
+  d_stop: 2.5
   frequency: 5.0
   prob_threshold: 0.2
   t_react: 0.1
-cont-th-0.3-ds-4.5-tr-0.1-f-0.5:
-  d_stop: 4.5
+cont-th-0.3-ds-2.5-tr-0.1-f-0.5:
+  d_stop: 2.5
   frequency: 0.5
   prob_threshold: 0.3
   t_react: 0.1
-cont-th-0.3-ds-4.5-tr-0.1-f-1.0:
-  d_stop: 4.5
+cont-th-0.3-ds-2.5-tr-0.1-f-1.0:
+  d_stop: 2.5
   frequency: 1.0
   prob_threshold: 0.3
   t_react: 0.1
-cont-th-0.3-ds-4.5-tr-0.1-f-10.0:
-  d_stop: 4.5
+cont-th-0.3-ds-2.5-tr-0.1-f-10.0:
+  d_stop: 2.5
   frequency: 10.0
   prob_threshold: 0.3
   t_react: 0.1
-cont-th-0.3-ds-4.5-tr-0.1-f-100.0:
-  d_stop: 4.5
-  frequency: 100.0
-  prob_threshold: 0.3
-  t_react: 0.1
-cont-th-0.3-ds-4.5-tr-0.1-f-20.0:
-  d_stop: 4.5
+cont-th-0.3-ds-2.5-tr-0.1-f-20.0:
+  d_stop: 2.5
   frequency: 20.0
   prob_threshold: 0.3
   t_react: 0.1
-cont-th-0.3-ds-4.5-tr-0.1-f-5.0:
-  d_stop: 4.5
+cont-th-0.3-ds-2.5-tr-0.1-f-5.0:
+  d_stop: 2.5
   frequency: 5.0
   prob_threshold: 0.3
   t_react: 0.1
-cont-th-0.4-ds-4.5-tr-0.1-f-0.5:
-  d_stop: 4.5
+cont-th-0.4-ds-2.5-tr-0.1-f-0.5:
+  d_stop: 2.5
   frequency: 0.5
   prob_threshold: 0.4
   t_react: 0.1
-cont-th-0.4-ds-4.5-tr-0.1-f-1.0:
-  d_stop: 4.5
+cont-th-0.4-ds-2.5-tr-0.1-f-1.0:
+  d_stop: 2.5
   frequency: 1.0
   prob_threshold: 0.4
   t_react: 0.1
-cont-th-0.4-ds-4.5-tr-0.1-f-10.0:
-  d_stop: 4.5
+cont-th-0.4-ds-2.5-tr-0.1-f-10.0:
+  d_stop: 2.5
   frequency: 10.0
   prob_threshold: 0.4
   t_react: 0.1
-cont-th-0.4-ds-4.5-tr-0.1-f-100.0:
-  d_stop: 4.5
-  frequency: 100.0
-  prob_threshold: 0.4
-  t_react: 0.1
-cont-th-0.4-ds-4.5-tr-0.1-f-20.0:
-  d_stop: 4.5
+cont-th-0.4-ds-2.5-tr-0.1-f-20.0:
+  d_stop: 2.5
   frequency: 20.0
   prob_threshold: 0.4
   t_react: 0.1
-cont-th-0.4-ds-4.5-tr-0.1-f-5.0:
-  d_stop: 4.5
+cont-th-0.4-ds-2.5-tr-0.1-f-5.0:
+  d_stop: 2.5
   frequency: 5.0
   prob_threshold: 0.4
   t_react: 0.1
-cont-th-0.5-ds-4.5-tr-0.1-f-0.5:
-  d_stop: 4.5
+cont-th-0.5-ds-2.5-tr-0.1-f-0.5:
+  d_stop: 2.5
   frequency: 0.5
   prob_threshold: 0.5
   t_react: 0.1
-cont-th-0.5-ds-4.5-tr-0.1-f-1.0:
-  d_stop: 4.5
+cont-th-0.5-ds-2.5-tr-0.1-f-1.0:
+  d_stop: 2.5
   frequency: 1.0
   prob_threshold: 0.5
   t_react: 0.1
-cont-th-0.5-ds-4.5-tr-0.1-f-10.0:
-  d_stop: 4.5
+cont-th-0.5-ds-2.5-tr-0.1-f-10.0:
+  d_stop: 2.5
   frequency: 10.0
   prob_threshold: 0.5
   t_react: 0.1
-cont-th-0.5-ds-4.5-tr-0.1-f-100.0:
-  d_stop: 4.5
-  frequency: 100.0
-  prob_threshold: 0.5
-  t_react: 0.1
-cont-th-0.5-ds-4.5-tr-0.1-f-20.0:
-  d_stop: 4.5
+cont-th-0.5-ds-2.5-tr-0.1-f-20.0:
+  d_stop: 2.5
   frequency: 20.0
   prob_threshold: 0.5
   t_react: 0.1
-cont-th-0.5-ds-4.5-tr-0.1-f-5.0:
-  d_stop: 4.5
+cont-th-0.5-ds-2.5-tr-0.1-f-5.0:
+  d_stop: 2.5
   frequency: 5.0
   prob_threshold: 0.5
   t_react: 0.1

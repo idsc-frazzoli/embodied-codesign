@@ -1,5 +1,6 @@
 import os
 import random
+import time
 from dataclasses import dataclass
 from decimal import Decimal
 from typing import Dict
@@ -102,10 +103,17 @@ def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s
     sp.sens_perf = sens_perf
 
     for i in range(sp.nsims):
-        fn = f'output/{experiment_key}-{i}.yaml'
+        fn = f'DB/single-experiments/{experiment_key}/{i}.yaml'
         if not os.path.exists(fn):
+            dn = os.path.dirname(fn)
+            if not os.path.exists(dn):
+                os.makedirs(dn)
             sp.seed = i
+            t0 = time.process_time()
             pm = simulate_one(sp)
+            t1 = time.process_time()
+            dt = t1-t0
+            logger.info(f'{fn}  {dt:.2f} seconds')
             if pm.collided is None:
                 momentum = pm.collided
             else:
@@ -195,7 +203,7 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
     n_objects = np.random.poisson(lam=float(density))
     print("Number of objects at track: ", n_objects)
     objects = []  # sample from poisson with intensity sp.prior.density
-    for o in range(0, n_objects):
+    for o in range(n_objects):
         x = round(random.uniform(0.0, float(sp.road_length)), 1)
         obj = Object(Decimal(str(x)))
         objects.append(obj)
@@ -210,11 +218,16 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
     belief = Belief(po)
     action = Action(accel=Decimal('0'))
 
-    control_interval = int(sp.controller.frequency / sp.dt)
-    logger.info(f'control_interval {control_interval}')
+    logger.info(f'freq {sp.controller.frequency} dt {sp.dt}')
+    control_interval = int(np.ceil(1/(sp.controller.frequency * sp.dt)))
+
+
     control_effort = 0
     t = Decimal(0.0)
-    l = int(sp.sens_param.latency / sp.dt)
+    l = int(np.ceil(sp.sens_param.latency / sp.dt))
+    logger.info(f'control_interval {control_interval} dt {sp.dt} l {l}')
+
+    l = max(1, l)
     delays = [state] * l
     delayed_st = DelayedStates(states=delays, latency=sp.sens_param.latency, l=l)
     vstates_list = []
@@ -222,8 +235,8 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
     object_list = []
     print("Simulation running...")
     i = 0
-    sensing_interval = int(sp.sens_param.frequency / sp.dt)
-    logger.info(f'sensing_interval {sensing_interval}')
+    sensing_interval = int(np.ceil(1 / (sp.sens_param.frequency * sp.dt)))
+    logger.info(f'frequency {sp.sens_param.frequency} dt {sp.dt} sensing_interval {sensing_interval}')
 
     while state.vstate.x <= sp.road_length:
         i += 1

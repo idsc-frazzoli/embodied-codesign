@@ -16,6 +16,7 @@ class BasicController(Controller):
         self.d_stop = d_stop
         self.t_react = t_react
         self.frequency = frequency
+        assert frequency > 0, frequency
 
     def get_action(self, vstate: VehicleState, belief: Belief) -> Action:
         d_critical = vstate.v ** 2 / (2*abs(self.vs.a_min)) + self.t_react*vstate.v + self.d_stop
