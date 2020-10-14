@@ -118,12 +118,9 @@ def observation_model(inf0: Inference, obs: Observations, sens_param: SensingPar
         # p_z_p_tot = np.zeros(n)
         for det in obs.detections:
             det_idx = int(min(n-1, det.d_mean / sens_param.ds))
-            std = sp.lsd[det_idx]
-            gauss_dist = scipy.stats.norm(float(det.d_mean), float(std))
-            p_acc_det_giv_d_n = np.array([scipy.stats.norm(float(dn), float(sp.lsd_at(Decimal(dn)))).pdf(float(det.d_mean)) for dn in list_d])
-            p_dn_giv_cp = (ones - fn)*p_acc_det_giv_d_n
-            p_dd_giv_cp = (1 -fn[det_idx])*scipy.stats.norm(float(list_d[det_idx]), float(sp.lsd_at(Decimal(list_d[det_idx])))).pdf(float(det.d_mean))
-            sum_p_dk_giv_cp = np.array([(1 - fn[i]) * p_acc_det_giv_d_n[i] for i in range(n)])
+            # p_acc_det_giv_d_n = np.array([scipy.stats.norm(float(dn), float(sp.lsd_at(Decimal(dn)))).pdf(float(det.d_mean)) for dn in list_d])
+            p_acc_det_giv_d_n = np.array([0.0 if float(det.d_mean) < a_acc[i] or float(det.d_mean) > b_acc[i] else p_acc[i] for i in range(n)])
+            sum_p_dk_giv_cp = np.array([(1 - fn[i]) * p_acc_det_giv_d_n[i] * p_p[i] for i in range(n)])
             sum_p_dk = np.zeros(n)
             for i in range(n):
                 if i == 0:
@@ -132,8 +129,11 @@ def observation_model(inf0: Inference, obs: Observations, sens_param: SensingPar
                     sum_p_dk[i] = np.sum(sum_p_dk_giv_cp[:n-2])
                 else:
                     sum_p_dk[i] = np.sum(sum_p_dk_giv_cp[:(i-1)]) + np.sum(sum_p_dk_giv_cp[(i+1):])
-            p_dn_giv_cn = ones*fp[det_idx] + sum_p_dk_giv_cp
-            p_dd_giv_cn = fp[det_idx] + sum_p_dk_giv_cp[det_idx]
+            p_dn_giv_cp = (ones - fn)*p_acc_det_giv_d_n
+            # p_dd_giv_cp = (1 -fn[det_idx])*scipy.stats.norm(float(list_d[det_idx]), float(sp.lsd_at(Decimal(list_d[det_idx])))).pdf(float(det.d_mean))
+            p_dd_giv_cp = (1 - fn[det_idx]) + fp[det_idx] + sum_p_dk[det_idx]
+            p_dn_giv_cn = ones*fp[det_idx] + sum_p_dk
+            p_dd_giv_cn = fp[det_idx] + sum_p_dk[det_idx]
             p_z_giv_cp = p_dn_giv_cp
             p_z_giv_cp[det_idx] = p_dd_giv_cp
             p_z_giv_cn = p_dn_giv_cn

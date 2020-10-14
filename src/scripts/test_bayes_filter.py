@@ -136,11 +136,11 @@ if __name__ == '__main__':
 
         print(x)
 
-        # if True:
-        #     plt.plot(list_of_ds, inference.alpha)
-        #     plt.plot(list_of_ds, sens_perf.fn)
-        #     plt.plot(list_of_ds, sens_perf.fp)
-        #     plt.show()
+        if x % Decimal('1.0') == 0.0:
+            plt.plot(list_of_ds, inference.alpha)
+            plt.plot(list_of_ds, sens_perf.fn)
+            plt.plot(list_of_ds, sens_perf.fp)
+            plt.show()
 
         x_prev = x
 
