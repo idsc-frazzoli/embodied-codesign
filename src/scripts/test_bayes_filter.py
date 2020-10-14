@@ -129,17 +129,18 @@ if __name__ == '__main__':
 
         delta = x - x_prev
         delta_idx = int(delta / ds)
-        inference1 = prediction_model(inf=inference, delta=delta, delta_idx=delta_idx, prior=alpha0[0],
-                                      list_ds=sens_param.list_of_ds, ds=ds)
+        inference1 = prediction_model(inf=inference, delta_idx=delta_idx, prior=alpha0[0])
 
         inference = observation_model(inf0=inference1, obs=observations, sens_param=sens_param, sp=sens_perf,
                                       density=alpha0[0])
 
         print(x)
 
-        if x % Decimal('1.0') == 0:
-            plt.plot(list_of_ds, inference.alpha)
-            plt.show()
+        # if True:
+        #     plt.plot(list_of_ds, inference.alpha)
+        #     plt.plot(list_of_ds, sens_perf.fn)
+        #     plt.plot(list_of_ds, sens_perf.fp)
+        #     plt.show()
 
         x_prev = x
 
@@ -147,5 +148,9 @@ if __name__ == '__main__':
         objects[0].d = objects[0].d - dx
         objects[1].d = objects[1].d - dx
         state.objects = objects
+        i = int(Decimal('5')/ds)
+        alpha_ds = [a*ds for a in inference.alpha[:i]]
+        p_obstacle_less_than_critical = sum(alpha_ds)
+        print("kritical", p_obstacle_less_than_critical)
 
         # observations.detections[0].d_mean = observations.detections[0].d_mean - dx + Decimal(random.uniform(-0.1, 0.1))
