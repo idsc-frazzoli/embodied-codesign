@@ -282,7 +282,11 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
         delta = state.vstate.x - state.vstate.x_prev
         delta_idx = int(delta / ds)
         inference1 = prediction_model(inf=inference, delta_idx=delta_idx, prior=alpha0[0])
-        inference = observation_model(inf0=inference1, obs=observations, sens_param=sp.sens_param, sp=sp.sens_perf, density=sp.prior.density)
+
+        if observations is None:
+            inference = inference1
+        else:
+            inference = observation_model(inf0=inference1, obs=observations, sens_param=sp.sens_param, sp=sp.sens_perf, density=sp.prior.density)
 
         if i % control_interval == 0:
             action = sp.controller.get_action(state.vstate, inference, ds)
