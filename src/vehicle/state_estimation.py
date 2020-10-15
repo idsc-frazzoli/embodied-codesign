@@ -81,7 +81,6 @@ def prediction_model(inf: Inference, delta_idx: int, prior) -> Inference:
 
     return Inference(alpha)
 
-
 def observation_model(inf0: Inference, obs: Observations, sens_param: SensingParameters,
                       sp: SensingPerformance, density) -> Inference:
     ds = float(sens_param.ds)

@@ -13,7 +13,7 @@ class BasicController(Controller):
     def __init__(self, prob_threshold: Decimal, vs: VehicleStats,
                  d_stop: Decimal, t_react: Decimal, frequency: Decimal):
         self.prob_threshold = prob_threshold
-        self.prob_threshold = Decimal('0.15')
+        self.prob_threshold = Decimal('0.3')
         self.vs = vs
         self.d_stop = d_stop
         self.d_stop = Decimal('4.0')
@@ -25,6 +25,7 @@ class BasicController(Controller):
         i = max(1, min(len(inference.alpha) - 1, int(d_critical / ds)))
         alpha_ds = np.array([float(a) for a in inference.alpha])
         sum_alpha = np.sum(alpha_ds)
+        print('this is the sum', sum_alpha)
         alpha_ds = alpha_ds / sum_alpha
         # bl = int(Decimal(0.2)/ds)
         # bu = bl
@@ -32,7 +33,7 @@ class BasicController(Controller):
         #     bl = 0
         # sum_inf = inference.alpha[(i-bl):(i+bu)]
         p_obstacle_less_than_critical = sum(alpha_ds[:i])
-        print("kritical", p_obstacle_less_than_critical)
+        #print("kritical", p_obstacle_less_than_critical)
         if float(p_obstacle_less_than_critical) > float(self.prob_threshold):
             a = self.vs.a_min
         elif vstate.v < self.vs.v_nominal:
