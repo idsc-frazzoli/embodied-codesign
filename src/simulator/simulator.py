@@ -179,7 +179,7 @@ def collided(s: State, vs: VehicleStats) -> CollisionStats:
 
 def stopped(s: State) -> bool:
     if s.objects:
-        if round(s.vstate.v, 2) == 0.0 and s.objects[0].d <= 5:
+        if round(s.vstate.v, 2) == 0.0 and s.objects[0].d <= 10:
             return True
 
     return False

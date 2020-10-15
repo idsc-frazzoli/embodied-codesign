@@ -1,4 +1,5 @@
 import os
+import random
 import time
 from decimal import Decimal
 from multiprocessing import Pool
@@ -63,6 +64,8 @@ def generate(basedir: str):
                                 if not os.path.exists(fn):
                                     params = sp, dyn_perf, sens, sens_curves, s, env, cont, experiment_key, fn, sens_key, s_perf, veh_key, env_key, cont_key, sens_type_key,
                                     to_run.append(params)
+
+    random.shuffle(to_run)
     nprocesses = 4
     with Pool(processes=nprocesses) as pool:
         pool.map(simulate_and_write, to_run)
