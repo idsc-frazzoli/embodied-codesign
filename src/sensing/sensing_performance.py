@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from decimal import Decimal
 from typing import List
+from numpy import np
 
 
 @dataclass
@@ -28,7 +29,8 @@ class SensingPerformance:
         self.ds = sp.ds
 
     def false_negative_at(self, d: Decimal) -> Decimal:
-        i = int(d / self.ds)
+        # This is optimistic, shouldn't we put ceil as well? E.g. at 1.9 it thinks it is at 1
+        i = int(np.ceil(d / self.ds))
 
         if i > self.n:
             raise IndexError("Index out of bound.")
@@ -38,7 +40,8 @@ class SensingPerformance:
         return self.fn[i]
 
     def false_positive_at(self, d: Decimal) -> Decimal:
-        i = int(d / self.ds)
+        # This is optimistic, shouldn't we put ceil as well? E.g. at 1.9 it thinks it is at 1
+        i = int(np.ceil(d / self.ds))
 
         if i > self.n:
             raise IndexError("Index out of bound.")
@@ -48,7 +51,8 @@ class SensingPerformance:
         return self.fp[i]
 
     def lsd_at(self, d: Decimal) -> Decimal:
-        i = int(d / self.ds)
+        # This is optimistic, shouldn't we put ceil as well? E.g. at 1.9 it thinks it is at 1
+        i = int(np.ceil(d / self.ds))
 
         if i > self.n:
             raise IndexError("Index out of bound.")
