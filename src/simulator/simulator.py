@@ -193,21 +193,26 @@ def stopped(s: State) -> bool:
     return False
 
 
+def generate_objects(sp: SimParameters):
+    poisson_density = sp.prior.density*sp.road_length
+    number_objects = np.random.poisson(lam=float(poisson_density))
+    print("Number of objects at track: ", number_objects)
+    objects = []
+    for o in range(number_objects):
+        dist = round(random.uniform(0.0, float(sp.road_length)),1)
+        obj = Object(Decimal(str(dist)))
+        objects.append(obj)
+    objects.sort(key=lambda ob: ob.d, reverse=False)
+    return objects
+
+
 def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
     ds = sp.sens_param.ds
     n = sp.sens_param.n
     np.random.seed(sp.seed)
     random.seed(sp.seed)
 
-    density = sp.prior.density * sp.road_length
-    n_objects = np.random.poisson(lam=float(density))
-    print("Number of objects at track: ", n_objects)
-    objects = []  # sample from poisson with intensity sp.prior.density
-    for o in range(n_objects):
-        x = round(random.uniform(0.0, float(sp.road_length)), 1)
-        obj = Object(Decimal(str(x)))
-        objects.append(obj)
-    objects.sort(key=lambda o: o.d, reverse=False)  # sorting objects
+    objects = generate_objects(sp)
 
     vstate0 = VehicleState(Decimal('0.0'), Decimal('0.0'), Decimal('0.0'), Decimal('0.0'))
 

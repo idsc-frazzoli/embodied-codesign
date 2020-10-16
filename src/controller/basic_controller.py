@@ -1,4 +1,5 @@
 from decimal import Decimal
+import numpy as np
 
 from controller.controller import Controller
 from sensing.sensing_performance import SensingParameters
@@ -24,7 +25,7 @@ class BasicController(Controller):
 
     def get_action(self, vstate: VehicleState, belief: Belief) -> Action:
         d_critical = self.get_critical_distance(vstate.v)
-        i = int(d_critical / self.ds)
+        i = int(np.ceil(d_critical / self.ds))
         p_obstacle_less_than_critical = sum(belief.po[:i])
         if float(p_obstacle_less_than_critical) > float(self.prob_threshold):
             a = self.vs.a_min

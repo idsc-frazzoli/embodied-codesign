@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from decimal import Decimal
 from typing import List
+import numpy as np
 
 
 @dataclass
@@ -28,7 +29,7 @@ class SensingPerformance:
         self.ds = sp.ds
 
     def false_negative_at(self, d: Decimal) -> Decimal:
-        i = int(d / self.ds)
+        i = int(np.ceil(d / self.ds))
 
         if i > self.n:
             raise IndexError("Index out of bound.")
@@ -38,7 +39,7 @@ class SensingPerformance:
         return self.fn[i]
 
     def false_positive_at(self, d: Decimal) -> Decimal:
-        i = int(d / self.ds)
+        i = int(np.ceil(d / self.ds))
 
         if i > self.n:
             raise IndexError("Index out of bound.")
@@ -48,7 +49,7 @@ class SensingPerformance:
         return self.fp[i]
 
     def lsd_at(self, d: Decimal) -> Decimal:
-        i = int(d / self.ds)
+        i = int(np.ceil(d / self.ds))
 
         if i > self.n:
             raise IndexError("Index out of bound.")
