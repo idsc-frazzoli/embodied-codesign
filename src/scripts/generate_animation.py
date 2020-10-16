@@ -1,3 +1,4 @@
+import json
 from decimal import Decimal
 
 import yaml
@@ -21,24 +22,40 @@ if __name__ == '__main__':
     with open('data/input/control_param.yaml') as file:
         control_param = yaml.load(file, Loader=yaml.FullLoader)
 
-    with open('data/input/camera_curves.yaml') as file:
-        camera_curves = yaml.load(file, Loader=yaml.FullLoader)
+    with open('data/input/camera_curves.json') as file:
+        camera_curves = json.load(file)
+
+    with open('data/input/lidar_curves.json') as file:
+        lidar_curves = json.load(file)
 
 
     camera = sensors["camera"]
+    lidars = sensors['lidar']
     speed = cruise_speeds["speeds"]
 
-    sp = SimParameters(nsims=1, road_length=Decimal('500.0'), dt=Decimal(str(0.01)),
+    sp = SimParameters(nsims=1, road_length=Decimal('500.0'), dt=Decimal(str(0.1)),
                        seed=0, do_animation=True)
 
-    dyn_perf = vehicles["suv_m"]
+    dyn_perf = vehicles["sedan_s"]
     sens = camera["Ace13gm"]
-    sens_perf = sens["sens_perf"][0]
-    sens_curves = camera_curves[sens_perf]
+    sens = lidars['OS2128']
+    sens_perf = sens["sens_perf"][1]
+    # sens_curves = camera_curves[sens_perf]
+    sens_curves = lidar_curves[sens_perf]
     s = speed[6]
+<<<<<<< HEAD
     s = 25.0
     env = environment["07day_env"]
     cont = control_param["cont-th-0.1-ds-2.0-tr-0.1-f-100.0"]
     performance = simulate(sp, dyn_perf, sens, sens_curves, s, env, cont, experiment_key="test2")
+=======
+    env_key = list(environment)[0] #["07day_env"]
+    env = environment[env_key]
+    print(list(control_param))
+    k = 'cont-th-0.5-ds-2.5-tr-0.1-f-5.0'
+    cont = control_param[k]
+
+    performance = simulate(sp, dyn_perf, sens, sens_curves, s, env, cont, experiment_key="test6")
+>>>>>>> a929a893e609ea3f6f867b2762615bbd938d8dc2
 
 

@@ -1,3 +1,4 @@
+import json
 import math
 from decimal import Decimal
 from typing import Tuple, List
@@ -40,7 +41,7 @@ def get_recall_precision(alg, list_of_ds, total_hdl64e_log):
     return recall, precision
 
 if __name__ == '__main__':
-    ds = Decimal('0.01')
+    ds = Decimal('0.05')
     max_distance = Decimal('50.0')
     n = int(round(max_distance / ds))
     list_of_ds = [ds * Decimal(i) for i in range(n)]
@@ -94,6 +95,8 @@ if __name__ == '__main__':
 
     with open('data/input/lidar_curves.yaml', 'w') as file:
         documents = yaml.dump(sens_pef, file, default_flow_style=False)
+    with open('data/input/lidar_curves.json', 'w') as file:
+        json.dump(sens_pef, file, indent=2)
 
     with open('data/input/lidar_curves.yaml') as file:
         curves = yaml.load(file, Loader=yaml.FullLoader)

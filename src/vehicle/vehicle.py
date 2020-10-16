@@ -37,7 +37,9 @@ class DelayedStates:
     states: List[State]
     latency: Decimal
     l: int
-
+    def __post_init__(self):
+        assert self.l >= 1
+        assert len(self.states) == self.l
     def update(self, state: State):
         self.states =  self.states[:-1] + [state]
 

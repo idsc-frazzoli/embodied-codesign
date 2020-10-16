@@ -38,7 +38,7 @@ if __name__ == '__main__':
     veh_key = "suv_m"
     dyn_perf = vehicles[veh_key]
     env_key = "07day_env"
-    sens_key = "Ace13gm"
+    sens_key = "Ace2160um"
     sens = camera[sens_key]
     s_perf = sens["sens_perf"][0]
     sens_curves = camera_curves[s_perf]
@@ -47,7 +47,7 @@ if __name__ == '__main__':
     basedir = 'output'
     to_run = []  # list of parameters
 
-    cont_key = "cont-th-0.1-ds-2.0-tr-0.1-f-100.0"
+    cont_key = "cont-th-0.1-ds-4.5-tr-0.1-f-100.0"
     cont = control_param[cont_key]
     experiment_key = f'{veh_key}-{env_key}-{sens_type_key}-{sens_key}-{s_perf}-{s}-{cont_key}'
     fn = os.path.join(basedir, f'{experiment_key}.experiment.yaml')

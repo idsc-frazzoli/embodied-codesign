@@ -1,89 +1,89 @@
 # Environment catalogue
 
-05day_env:
-  density: 5.0
-  scenario: day
-
-06day_env:
-  density: 6.0
-  scenario: day
-
-07day_env:
-  density: 7.0
-  scenario: day
-
-08day_env:
-  density: 8.0
-  scenario: day
-
-09day_env:
-  density: 9.0
-  scenario: day
+#05day_env:
+#  density: 5.0
+#  scenario: day
+#
+#06day_env:
+#  density: 6.0
+#  scenario: day
+#
+#07day_env:
+#  density: 7.0
+#  scenario: day
+#
+#08day_env:
+#  density: 8.0
+#  scenario: day
+#
+#09day_env:
+#  density: 9.0
+#  scenario: day
 
 10day_env:
   density: 10.0
   scenario: day
-
-11day_env:
-  density: 11.0
-  scenario: day
-
-12day_env:
-  density: 12.0
-  scenario: day
-
-13day_env:
-  density: 13.0
-  scenario: day
-
-14day_env:
-  density: 14.0
-  scenario: day
-
-15day_env:
-  density: 15.0
-  scenario: day
-
-05night_env:
-  density: 5.0
-  scenario: night
-
-06night_env:
-  density: 6.0
-  scenario: night
-
-07night_env:
-  density: 7.0
-  scenario: night
-
-08night_env:
-  density: 8.0
-  scenario: night
-
-09night_env:
-  density: 9.0
-  scenario: night
-
-10night_env:
-  density: 10.0
-  scenario: night
-
-11night_env:
-  density: 11.0
-  scenario: night
-
-12night_env:
-  density: 12.0
-  scenario: night
-
-13night_env:
-  density: 13.0
-  scenario: night
-
-14night_env:
-  density: 14.0
-  scenario: night
-
-15night_env:
-  density: 30.0
-  scenario: night
+#
+#11day_env:
+#  density: 11.0
+#  scenario: day
+#
+#12day_env:
+#  density: 12.0
+#  scenario: day
+#
+#13day_env:
+#  density: 13.0
+#  scenario: day
+#
+#14day_env:
+#  density: 14.0
+#  scenario: day
+#
+#15day_env:
+#  density: 15.0
+#  scenario: day
+#
+#05night_env:
+#  density: 5.0
+#  scenario: night
+#
+#06night_env:
+#  density: 6.0
+#  scenario: night
+#
+#07night_env:
+#  density: 7.0
+#  scenario: night
+#
+#08night_env:
+#  density: 8.0
+#  scenario: night
+#
+#09night_env:
+#  density: 9.0
+#  scenario: night
+#
+#10night_env:
+#  density: 10.0
+#  scenario: night
+#
+#11night_env:
+#  density: 11.0
+#  scenario: night
+#
+#12night_env:
+#  density: 12.0
+#  scenario: night
+#
+#13night_env:
+#  density: 13.0
+#  scenario: night
+#
+#14night_env:
+#  density: 14.0
+#  scenario: night
+#
+#15night_env:
+#  density: 30.0
+#  scenario: night

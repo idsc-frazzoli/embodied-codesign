@@ -1,6 +1,7 @@
 import math
 import os
 import random
+import time
 from dataclasses import dataclass
 from decimal import Decimal
 from typing import Dict
@@ -96,6 +97,7 @@ def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s
     sens_perf.fp = [Decimal(p) for p in fp]
     lsd = sens_curves["accuracy"]
     sens_perf.lsd = [Decimal(p) for p in lsd]
+<<<<<<< HEAD
     list_prob_acc = [calc_unit_dist_a_b_prob(d=list_of_ds[i], ds=ds, std=sens_perf.lsd[i]) for i in range(n)]
     sens_perf.prob_accuracy = list_prob_acc
     tresh_idx = 0
@@ -137,6 +139,8 @@ def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s
     logger.info('Fineshed conficence level initialization for accuracy.')
     confidence_level_list = ConfLevelList(list_cl, tresh_idx)
     sens_perf.cl_list = confidence_level_list
+=======
+>>>>>>> a929a893e609ea3f6f867b2762615bbd938d8dc2
 
     sp.sens_param = sens_param
     sp.vs = vs
@@ -145,10 +149,17 @@ def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s
     sp.sens_perf = sens_perf
     logger.info('Start level 0 simulations.')
     for i in range(sp.nsims):
-        fn = f'output/{experiment_key}-{i}.yaml'
+        fn = f'DB/single-experiments/{experiment_key}/{i}.yaml'
         if not os.path.exists(fn):
+            dn = os.path.dirname(fn)
+            if not os.path.exists(dn):
+                os.makedirs(dn)
             sp.seed = i
+            t0 = time.process_time()
             pm = simulate_one(sp)
+            t1 = time.process_time()
+            dt = t1-t0
+            logger.info(f'{fn}  {dt:.2f} seconds')
             if pm.collided is None:
                 momentum = pm.collided
             else:
@@ -222,8 +233,12 @@ def collided(s: State, vs: VehicleStats) -> CollisionStats:
 
 def stopped(s: State) -> bool:
     if s.objects:
+<<<<<<< HEAD
         if round(s.vstate.v, 1) == 0.0 and s.objects[0].d <= Decimal('10'):
             print("stopped True")
+=======
+        if round(s.vstate.v, 2) == 0.0 and s.objects[0].d <= 10:
+>>>>>>> a929a893e609ea3f6f867b2762615bbd938d8dc2
             return True
 
     return False
@@ -239,7 +254,7 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
     n_objects = np.random.poisson(lam=float(density))
     print("Number of objects at track: ", n_objects)
     objects = []  # sample from poisson with intensity sp.prior.density
-    for o in range(0, n_objects):
+    for o in range(n_objects):
         x = round(random.uniform(0.0, float(sp.road_length)), 1)
         obj = Object(Decimal(str(x)))
         objects.append(obj)
@@ -256,11 +271,16 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
     inference = Inference(alpha=alpha0)
     action = Action(accel=Decimal('0'))
 
-    control_interval = int(sp.controller.frequency / sp.dt)
-    logger.info(f'control_interval {control_interval}')
+    logger.info(f'freq {sp.controller.frequency} dt {sp.dt}')
+    control_interval = int(np.ceil(1/(sp.controller.frequency * sp.dt)))
+
+
     control_effort = 0
     t = Decimal(0.0)
-    l = int(sp.sens_param.latency / sp.dt)
+    l = int(np.ceil(sp.sens_param.latency / sp.dt))
+    logger.info(f'control_interval {control_interval} dt {sp.dt} l {l}')
+
+    l = max(1, l)
     delays = [state] * l
     delayed_st = DelayedStates(states=delays, latency=sp.sens_param.latency, l=l)
     vstates_list = []
@@ -268,9 +288,15 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
     object_list = []
     print("Simulation running...")
     i = 0
+<<<<<<< HEAD
     sensing_interval = int(sp.sens_param.frequency / sp.dt)
     logger.info(f'sensing_interval {sensing_interval}')
     annimation_interval = int(Decimal('0.05') / sp.dt)
+=======
+    sensing_interval = int(np.ceil(1 / (sp.sens_param.frequency * sp.dt)))
+    logger.info(f'frequency {sp.sens_param.frequency} dt {sp.dt} sensing_interval {sensing_interval}')
+
+>>>>>>> a929a893e609ea3f6f867b2762615bbd938d8dc2
     while state.vstate.x <= sp.road_length:
         i += 1
         t = i * sp.dt

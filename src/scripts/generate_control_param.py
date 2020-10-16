@@ -1,10 +1,10 @@
 import yaml
 
 if __name__ == '__main__':
-    p_treshold_list = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
-    d_stop_list = [1.5, 2.0, 2.5] #2.5, 3]
+    p_treshold_list = [0.1, 0.2, 0.3, 0.4, 0.5]
+    d_stop_list = [2.5] #2.5, 3]
     t_react = 0.1
-    frequency_list = [100.0, 50.0, 20.0, 10.0, 5.0, 2.0, 1.0]
+    frequency_list = [20.0, 10.0, 5.0, 1.0, 0.5]
 
     control_param = {}
     for p_treshold in p_treshold_list:
