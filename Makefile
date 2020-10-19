@@ -1,5 +1,5 @@
+
 out=out
-coverage_dir=$(out)/coverage
 tr=$(out)/test-results
 
 tag=embodied_codesign
@@ -7,9 +7,7 @@ tag=embodied_codesign
 test_packages=controller_tests,embodied_scripts_tests,sensing_tests,simulator_tests,vehicle_tests,utils_tests
 
 parallel=--processes=8 --process-timeout=1000 --process-restartworker
-coverage=--cover-html --cover-html-dir=$(coverage_dir) --cover-tests --with-coverage --cover-package=$(cover_packages)
 
-xunitmp=--with-xunitmp --xunitmp-file=$(xunit_output)
 extra=--rednose --immediate
 
 DS=0.1
@@ -28,7 +26,7 @@ clean:
 
 test: clean
 	mkdir -p  $(tr)
-	DISABLE_CONTRACTS=1 nosetests $(extra) $(coverage)  src  -v --nologcapture $(xunitmp)
+	DISABLE_CONTRACTS=1 nosetests $(extra)  src  -v --nologcapture
 
 
 test-parallel: clean

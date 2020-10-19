@@ -3,9 +3,8 @@ from decimal import Decimal
 from nose.tools import assert_equal
 
 from controller.basic_controller import BasicController
-from notes import VehicleState
 from vehicle.state_estimation import Belief, Action
-from vehicle.vehicle import VehicleStats
+from vehicle.vehicle import VehicleStats, VehicleState
 
 prob_treshold = Decimal('0.1')
 a_min_m_s2 = Decimal('-5.0')
@@ -31,7 +30,7 @@ def critical_distance_test1() -> None:
 
 def get_action_test1() -> None:
     v_test_m_s = Decimal('5.0')
-    v_state = VehicleState(x=x_test_m, v=v_test_m_s)
+    v_state = VehicleState(x=x_test_m, v=v_test_m_s, x_prev=x_test_m, v_prev=v_test_m_s)
     po_test1 = [Decimal(i * 0.01) for i in range(10)]
     belief_test1 = Belief(po=po_test1)
     action_test1_expect = Action(a_min_m_s2)
@@ -41,7 +40,7 @@ def get_action_test1() -> None:
 
 def get_action_test2() -> None:
     v_test_m_s = Decimal('5.0')
-    v_state = VehicleState(x=x_test_m, v=v_test_m_s)
+    v_state = VehicleState(x=x_test_m, v=v_test_m_s, x_prev=x_test_m, v_prev=v_test_m_s)
     po_test2 = [Decimal(0.005) for _ in range(10)]
     belief_test2 = Belief(po=po_test2)
     action_test2_expect = Action(Decimal('2.5'))
@@ -51,7 +50,7 @@ def get_action_test2() -> None:
 
 def get_action_test3() -> None:
     v_test3_m_s = v_nominal_m_s
-    v_state_3 = VehicleState(x=x_test_m, v=v_test3_m_s)
+    v_state_3 = VehicleState(x=x_test_m, v=v_test3_m_s, x_prev=x_test_m, v_prev=v_test3_m_s)
     po_test3 = [Decimal(0.005) for _ in range(10)]
     belief_test3 = Belief(po=po_test3)
     action = controller.get_action(vstate=v_state_3, belief=belief_test3)
