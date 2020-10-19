@@ -45,7 +45,6 @@ if __name__ == '__main__':
     s = speed[6]
     env_key = list(environment)[0] #["07day_env"]
     env = environment[env_key]
-    print(list(control_param))
     k = 'cont-th-0.5-ds-2.5-tr-0.1-f-5.0'
     cont = control_param[k]
 

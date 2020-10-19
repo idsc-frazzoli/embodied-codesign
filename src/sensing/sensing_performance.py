@@ -13,6 +13,7 @@ class SensingParameters:
     list_of_ds: List[Decimal]
     frequency: Decimal
     latency: Decimal
+
     def __post_init__(self):
         assert self.frequency > 0, self.frequency
         assert self.n >= 0

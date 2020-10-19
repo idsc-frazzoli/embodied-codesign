@@ -7,7 +7,8 @@ from typing import Dict
 
 import numpy as np
 import yaml
-import scipy.stats
+#import scipy.stats
+import scipy
 
 from controller.basic_controller import BasicController
 from controller.controller import Action, Controller
@@ -137,7 +138,6 @@ def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s
     sens_param = initialize_sensing_parameters(sens_curves=sens_curves, sens=sens, sp=sp)
     # Initializing controller
     controller = initialize_controller(cont=cont, s=s, dyn_perf=dyn_perf, sens_param=sens_param, sp=sp)
-
     # In ppl/m
     density = Decimal(str(env["density"])) / Decimal(str(1000))
     prior = Prior(density=density)
@@ -191,6 +191,7 @@ def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s
     # We need to put this outside!
     confidence_level = 0.95
     degrees_freedom = max(1, sp.nsims - 1)
+    print(discomfort)
     discomfort_mean = np.mean(discomfort)
     discomfort_var = np.var(discomfort)
     discomfort_standard_error = scipy.stats.sem(discomfort)
