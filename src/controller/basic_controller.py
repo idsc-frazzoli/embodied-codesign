@@ -16,6 +16,7 @@ class BasicController(Controller):
         self.ds = ds
         self.d_stop = d_stop
         self.frequency = frequency
+        self.p_a_max = Decimal('0.5')
         assert frequency > 0, frequency
 
     def get_critical_distance(self, v: Decimal) -> Decimal:
@@ -31,7 +32,7 @@ class BasicController(Controller):
             a = self.vs.a_min
         elif vstate.v < self.vs.v_nominal:
             # Choose scaling factors
-            a = self.vs.a_max*Decimal('0.5')
+            a = self.vs.a_max*self.p_a_max
         else:
             a = 0
 
