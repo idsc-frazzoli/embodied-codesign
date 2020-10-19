@@ -181,7 +181,7 @@ def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s
         average_velocity[i] = av_vel
     # We need to put this outside!
     confidence_level = 0.95
-    degrees_freedom = sp.nsims - 1
+    degrees_freedom = max(1, sp.nsims - 1)
     discomfort_mean = np.mean(discomfort)
     discomfort_var = np.var(discomfort)
     discomfort_standard_error = scipy.stats.sem(discomfort)
