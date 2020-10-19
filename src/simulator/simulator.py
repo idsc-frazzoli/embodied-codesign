@@ -212,30 +212,34 @@ def generate_objects(sp: SimParameters):
     return objects
 
 
+def initialize_state(objects):
+    initial_state = VehicleState(Decimal('0.0'), Decimal('0.0'), Decimal('0.0'), Decimal('0.0'))
+    state = State(initial_state, objects)
+    return state
+
+def initialize_belief(sp: SimParameters):
+    # for Dejan: note that density is in 1/m and distance in m
+    belief_density = sp.prior.density * sp.sens_param.max_distance
+    n = sp.sens_param.n
+    temp_prob = np.exp(-float(belief_density))
+    pp = belief_density * Decimal(temp_prob)
+    po = [Decimal(pp / n) for _ in range(n)]
+    initialized_belief = Belief(po)
+    return initialized_belief
+
 def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
     ds = sp.sens_param.ds
-    n = sp.sens_param.n
     np.random.seed(sp.seed)
     random.seed(sp.seed)
-<<<<<<< HEAD
-    # I moved out the generation so that we can generate specific cases and to keep simulation clear
-=======
 
->>>>>>> 70c8a8ff601a5d5f16175ef9b4bcd646e7da899d
     objects = generate_objects(sp)
+    state = initialize_state(objects)
 
-    vstate0 = VehicleState(Decimal('0.0'), Decimal('0.0'), Decimal('0.0'), Decimal('0.0'))
-
-    state = State(vstate0, objects)
-    density_belief = sp.prior.density * sp.sens_param.max_distance
-    pp = density_belief * Decimal(np.exp(-float(density_belief)))
-    po = [Decimal(pp / n) for _ in range(n)]
-    belief = Belief(po)
+    belief = initialize_belief(sp)
     action = Action(accel=Decimal('0'))
 
     logger.info(f'freq {sp.controller.frequency} dt {sp.dt}')
     control_interval = int(np.ceil(1/(sp.controller.frequency * sp.dt)))
-
 
     control_effort = 0
     t = Decimal(0.0)
