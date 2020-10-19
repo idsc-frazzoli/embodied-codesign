@@ -1,11 +1,8 @@
 from dataclasses import dataclass
 from decimal import Decimal
 from typing import List
-<<<<<<< HEAD
-from numpy import np
-=======
 import numpy as np
->>>>>>> 70c8a8ff601a5d5f16175ef9b4bcd646e7da899d
+
 
 
 @dataclass
@@ -33,10 +30,6 @@ class SensingPerformance:
         self.ds = sp.ds
 
     def false_negative_at(self, d: Decimal) -> Decimal:
-<<<<<<< HEAD
-        # This is optimistic, shouldn't we put ceil as well? E.g. at 1.9 it thinks it is at 1
-=======
->>>>>>> 70c8a8ff601a5d5f16175ef9b4bcd646e7da899d
         i = int(np.ceil(d / self.ds))
 
         if i > self.n:
@@ -47,10 +40,6 @@ class SensingPerformance:
         return self.fn[i]
 
     def false_positive_at(self, d: Decimal) -> Decimal:
-<<<<<<< HEAD
-        # This is optimistic, shouldn't we put ceil as well? E.g. at 1.9 it thinks it is at 1
-=======
->>>>>>> 70c8a8ff601a5d5f16175ef9b4bcd646e7da899d
         i = int(np.ceil(d / self.ds))
 
         if i > self.n:
@@ -61,10 +50,6 @@ class SensingPerformance:
         return self.fp[i]
 
     def lsd_at(self, d: Decimal) -> Decimal:
-<<<<<<< HEAD
-        # This is optimistic, shouldn't we put ceil as well? E.g. at 1.9 it thinks it is at 1
-=======
->>>>>>> 70c8a8ff601a5d5f16175ef9b4bcd646e7da899d
         i = int(np.ceil(d / self.ds))
 
         if i > self.n:

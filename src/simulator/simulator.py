@@ -58,6 +58,13 @@ class SimParameters:
         self.do_animation = do_animation
 
 
+def initialize_veh_stats(s: int, dyn_perf: Dict):
+    vs = VehicleStats(a_min=Decimal(str(dyn_perf["a_min"])), a_max=Decimal(str(dyn_perf["a_max"])),
+                      v_nominal=Decimal(str(Decimal(str(s)) * Decimal('0.44704'))),
+                      mass=Decimal(str(dyn_perf["mass"])))
+    return vs
+
+
 def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s: int,
              env: Dict, cont: Dict, experiment_key: str) -> PerformanceMetrics:
     # Initializing metrics
@@ -80,10 +87,7 @@ def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s
     n_ts_lat_sens = round(latency_sens / sp.dt)
     sens_param = SensingParameters(ds=ds, max_distance=max_distance, n=n,
                                    list_of_ds=list_of_ds, frequency=n_ts_sens * sp.dt, latency=n_ts_lat_sens * sp.dt)
-    # The speed is in m/s, need to take this into account already in the file with speeds
-    vs = VehicleStats(a_min=Decimal(str(dyn_perf["a_min"])), a_max=Decimal(str(dyn_perf["a_max"])),
-                      v_nominal=Decimal(str(Decimal(str(s)) * Decimal('0.44704'))),
-                      mass=Decimal(str(dyn_perf["mass"])))
+    vs = initialize_veh_stats(s,dyn_perf)
     # Same idea for the density, which should already be transformed in ppl/m
     density = Decimal(str(env["density"])) / Decimal(str(1000))
     prior = Prior(density=density)
