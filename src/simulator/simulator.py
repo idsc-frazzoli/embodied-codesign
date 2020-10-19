@@ -7,7 +7,8 @@ from typing import Dict
 
 import numpy as np
 import yaml
-import scipy.stats
+#import scipy.stats
+import scipy
 
 from controller.basic_controller import BasicController
 from controller.controller import Action, Controller
@@ -32,15 +33,15 @@ def update_state(s: State, action: Action, dt: Decimal) -> State:
     for i in range(len(s.objects)):
         s.objects[i].d = s.objects[i].d - x + s.vstate.x
 
-    vstate = VehicleState(x=x, v=v, x_prev=s.vstate.x, v_prev=s.vstate.v)
+    vehicle_state = VehicleState(x=x, v=v, x_prev=s.vstate.x, v_prev=s.vstate.v)
 
-    return State(vstate, s.objects)
+    return State(vehicle_state, s.objects)
 
 
 @dataclass
 class SimParameters:
     nsims: int
-    road_length: Decimal
+    road_length: Decimal # IN METERS
     prior: Prior
     controller: Controller
     sens_perf: SensingPerformance
@@ -58,36 +59,67 @@ class SimParameters:
         self.do_animation = do_animation
 
 
-def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s: int,
-             env: Dict, cont: Dict, experiment_key: str) -> PerformanceMetrics:
+def initialize_metrics(sp: SimParameters):
     discomfort = np.zeros(sp.nsims)
     average_velocity = np.zeros(sp.nsims)
     average_collision_momentum = np.zeros(sp.nsims)
     collision = np.zeros(sp.nsims)
+    return discomfort, average_velocity, average_collision_momentum, collision
 
-    ds = Decimal(sens_curves["ds"])
-    max_distance = Decimal(sens_curves["max_distance"])
-    n = int(round(max_distance / ds))
-    list_of_ds = [ds * Decimal(i) for i in range(n)]
-    freq = Decimal(str(sens["frequency"]))
-    ts_sens = 1 / freq
-    n_ts_sens = round(ts_sens / sp.dt)
-    latency_sens = Decimal(str(sens["latency"]))
-    n_ts_lat_sens = round(latency_sens / sp.dt)
-    sens_param = SensingParameters(ds=ds, max_distance=max_distance, n=n,
-                                   list_of_ds=list_of_ds, frequency=n_ts_sens * sp.dt, latency=n_ts_lat_sens * sp.dt)
 
+def initialize_veh_stats(s: int, dyn_perf: Dict):
     vs = VehicleStats(a_min=Decimal(str(dyn_perf["a_min"])), a_max=Decimal(str(dyn_perf["a_max"])),
                       v_nominal=Decimal(str(Decimal(str(s)) * Decimal('0.44704'))),
                       mass=Decimal(str(dyn_perf["mass"])))
-    density = Decimal(str(env["density"])) / Decimal(str(1000))
-    prior = Prior(density=density)
+    return vs
+
+
+def read_params_from_curves(sens_curves: Dict, sens: Dict):
+    ds = Decimal(sens_curves["ds"])
+    max_distance = Decimal(sens_curves["max_distance"])
+    freq_sens = Decimal(str(sens["frequency"]))
+    lat_sens = Decimal(str(sens["latency"]))
+    return ds, max_distance, freq_sens, lat_sens
+
+
+def initialize_sensing_parameters(sens_curves: Dict, sens: Dict, sp: SimParameters):
+    # Reading them out
+    ds, max_distance, freq, latency_sens = read_params_from_curves(sens_curves=sens_curves, sens=sens)
+    # First, we compute the number of steps in the space discretization up to max_distance
+    n = int(round(max_distance / ds))
+    # and we list the different steps
+    list_of_ds = [ds * Decimal(i) for i in range(n)]
+    # Computing the sampling period
+    ts_sens = 1 / freq
+    # Computing the number of steps in the time discretization
+    n_ts_sens = round(ts_sens / sp.dt)
+    # Same with latency
+    n_ts_lat_sens = round(latency_sens / sp.dt)
+    # Initializing sensing parameters
+    sens_param = SensingParameters(ds=ds, max_distance=max_distance, n=n,
+                                   list_of_ds=list_of_ds, frequency=n_ts_sens * sp.dt, latency=n_ts_lat_sens * sp.dt)
+    return sens_param
+
+
+def initialize_controller(cont: Dict, s: int, dyn_perf: Dict, sens_param: SensingParameters, sp: SimParameters):
+    # Reading out control frequency
     freq_con = Decimal(str(cont["frequency"]))
+    # Reading out probability threshold
+    prob_threshold = Decimal(str(cont["prob_threshold"]))
+    # Computing control period
     ts_con = 1 / freq_con
+    # Computing number of time discretization steps for control
     n_ts_con = round(ts_con / sp.dt)
-    controller = BasicController(prob_threshold=Decimal(str(cont["prob_threshold"])), vs=vs, sp=sens_param,
-                                 d_stop=Decimal(str(cont["d_stop"])), t_react=Decimal(str(cont["t_react"])),
+    # Initialize vehicle statistics
+    vs = initialize_veh_stats(s=s, dyn_perf=dyn_perf)
+    # Initialize controller
+    controller = BasicController(prob_threshold=prob_threshold, vs=vs, ds=sens_param.ds,
+                                 d_stop=Decimal(str(cont["d_stop"])),
                                  frequency=n_ts_con * sp.dt)
+    return controller
+
+
+def load_sensing_performance(sens_curves: Dict, sens_param: SensingParameters):
     sens_perf = SensingPerformance(sp=sens_param)
     fn = sens_curves["fn"]
     sens_perf.fn = [Decimal(p) for p in fn]
@@ -95,13 +127,28 @@ def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s
     sens_perf.fp = [Decimal(p) for p in fp]
     lsd = sens_curves["accuracy"]
     sens_perf.lsd = [Decimal(p) for p in lsd]
+    return sens_perf
+
+
+def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s: int,
+             env: Dict, cont: Dict, experiment_key: str) -> PerformanceMetrics:
+    # Initializing metrics
+    discomfort, average_velocity, average_collision_momentum, collision = initialize_metrics(sp=sp)
+    # Initializing sensing parameters
+    sens_param = initialize_sensing_parameters(sens_curves=sens_curves, sens=sens, sp=sp)
+    # Initializing controller
+    controller = initialize_controller(cont=cont, s=s, dyn_perf=dyn_perf, sens_param=sens_param, sp=sp)
+    # In ppl/m
+    density = Decimal(str(env["density"])) / Decimal(str(1000))
+    prior = Prior(density=density)
+
+    sens_perf = load_sensing_performance(sens_curves=sens_curves, sens_param=sens_param)
 
     sp.sens_param = sens_param
-    sp.vs = vs
+    sp.vs = controller.vs
     sp.prior = prior
     sp.controller = controller
     sp.sens_perf = sens_perf
-
     for i in range(sp.nsims):
         fn = f'DB/single-experiments/{experiment_key}/{i}.yaml'
         if not os.path.exists(fn):
@@ -141,9 +188,9 @@ def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s
             average_collision_momentum[i] = collided_mom
         discomfort[i] = cont_eff
         average_velocity[i] = av_vel
-
+    # We need to put this outside!
     confidence_level = 0.95
-    degrees_freedom = sp.nsims - 1
+    degrees_freedom = max(1, sp.nsims - 1)
     discomfort_mean = np.mean(discomfort)
     discomfort_var = np.var(discomfort)
     discomfort_standard_error = scipy.stats.sem(discomfort)
@@ -206,26 +253,36 @@ def generate_objects(sp: SimParameters):
     return objects
 
 
+def initialize_state(objects):
+    initial_state = VehicleState(Decimal('0.0'), Decimal('0.0'), Decimal('0.0'), Decimal('0.0'))
+    state = State(initial_state, objects)
+    return state
+
+
+def initialize_belief(sp: SimParameters):
+    # for Dejan: note that density is in 1/m and distance in m
+    belief_density = sp.prior.density * sp.sens_param.max_distance
+    n = sp.sens_param.n
+    temp_prob = np.exp(-float(belief_density))
+    pp = belief_density * Decimal(temp_prob)
+    po = [Decimal(pp / n) for _ in range(n)]
+    initialized_belief = Belief(po)
+    return initialized_belief
+
+
 def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
     ds = sp.sens_param.ds
-    n = sp.sens_param.n
     np.random.seed(sp.seed)
     random.seed(sp.seed)
 
     objects = generate_objects(sp)
+    state = initialize_state(objects)
 
-    vstate0 = VehicleState(Decimal('0.0'), Decimal('0.0'), Decimal('0.0'), Decimal('0.0'))
-
-    state = State(vstate0, objects)
-    density_belief = sp.prior.density * sp.sens_param.max_distance
-    pp = density_belief * Decimal(np.exp(-float(density_belief)))
-    po = [Decimal(pp / n) for _ in range(n)]
-    belief = Belief(po)
+    belief = initialize_belief(sp)
     action = Action(accel=Decimal('0'))
 
     logger.info(f'freq {sp.controller.frequency} dt {sp.dt}')
     control_interval = int(np.ceil(1/(sp.controller.frequency * sp.dt)))
-
 
     control_effort = 0
     t = Decimal(0.0)
