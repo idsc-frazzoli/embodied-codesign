@@ -1,56 +1,56 @@
 # Catalogue of vehicles with their dynamic perfomrmance
 
 sedan_s:
-  a_max: 3.12
-  a_min: -9.91
-  mass: 1429
-  v_max: 180.0
-#
-#sedan_m:
-#  a_max: 4.62
-#  a_min: -9.83
-#  mass: 1610
-#  v_max: 220.0
-#
-#sedan_l:
-#  a_max: 4.47
-#  a_min: -9.66
-#  mass: 1875
-#  v_max: 210.0
-#
-#suv_s:
-#  a_max: 4
-#  a_min: -9.36
-#  mass: 1618
-#  v_max: 210.0
-#
-#suv_m:
-#  a_max: 7.72
-#  a_min: -7.02
-#  mass: 2430
-#  v_max: 290.0
-#
-#minivan:
-#  a_max: 3.19
-#  a_min: -8.89
-#  mass: 2155
-#  v_max: 182.0
-#
-#shuttle:
-#  a_max: 3.04
-#  a_min: -4.92
-#  mass: 2700
-#  v_max: 200.0
-#
-#hybrid:
-#  a_max: 2.65
-#  a_min: -8.99
-#  mass: 1425
-#  v_max: 162.0
-#
-#
-#bev:
-#  a_max: 2.71
-#  a_min: -9.75
-#  mass: 1685
-#  v_max: 144.0
+  a_max_m_s2: 3.12
+  a_min_m_s2: -9.91
+  mass_g: 1429000.0
+  v_max_m_s: 50.0
+
+sedan_m:
+  a_max_m_s2: 4.62
+  a_min_m_s2: -9.83
+  mass_g: 1610000.0
+  v_max_m_s: 61.1
+
+sedan_l:
+  a_max_m_s2: 4.47
+  a_min_m_s2: -9.66
+  mass_g: 1875000.0
+  v_max_m_s: 58.33
+
+suv_s:
+  a_max_m_s2: 4.0
+  a_min_m_s2: -9.36
+  mass_g: 1618000.0
+  v_max_m_s: 58.3
+
+suv_m:
+  a_max_m_s2: 7.72
+  a_min_m_s2: -7.02
+  mass_g: 2430000.0
+  v_max_m_s: 80.6
+
+minivan:
+  a_max_m_s2: 3.19
+  a_min_m_s2: -8.89
+  mass_g: 2155000.0
+  v_max_m_s: 55.6
+
+shuttle:
+  a_max_m_s2: 3.04
+  a_min_m_s2: -4.92
+  mass_g: 2700000.0
+  v_max_m_s: 55.6
+
+hybrid:
+  a_max_m_s2: 2.65
+  a_min_m_s2: -8.99
+  mass_g: 1425000.0
+  v_max_m_s: 45.0
+
+
+bev:
+  a_max_m_s2: 2.71
+  a_min_m_s2: -9.75
+  mass_g: 1685000.0
+  v_max_m_s: 40.0

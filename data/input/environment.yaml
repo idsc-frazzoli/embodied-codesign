@@ -21,8 +21,8 @@
 #  scenario: day
 
 10day_env:
-  density: 10.0
-  scenario: day
+  density_ped_km: 10.0
+  scenario_day_night: day
 #
 #11day_env:
 #  density: 11.0

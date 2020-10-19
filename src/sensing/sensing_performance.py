@@ -11,11 +11,11 @@ class SensingParameters:
     max_distance: Decimal  # meters
     n: int  # max_distance / ds
     list_of_ds: List[Decimal]
-    frequency: Decimal
-    latency: Decimal
+    sens_sampl_time_s: Decimal
+    latency_s: Decimal
 
     def __post_init__(self):
-        assert self.frequency > 0, self.frequency
+        assert self.sens_sampl_time_s > 0, self.sens_sampl_time_s
         assert self.n >= 0
         assert len(self.list_of_ds) == self.n, (len(self.list_of_ds), self.n)
 
