@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 
 def plot_all():
-    with open('data/input/camera_curves.json') as file:
+    with open('data/input/sensing_performance_curves.json') as file:
         curves = json.load(file)
 
     ds = Decimal(curves["Ace13gm_day_faster_rcnn1"]["ds"])
@@ -52,7 +52,7 @@ def plot_all():
     plt.close()
 
 def plot_one(name: str):
-    with open('data/input/camera_curves.json') as file:
+    with open('data/input/sensing_performance_curves.json') as file:
         curves = json.load(file)
 
     curve = curves[name]

@@ -180,7 +180,7 @@ def generate_sens_curves(ds: Decimal, max_distance: Decimal, h_ped: Decimal, w_p
                 fn_fp_acc = {"fn": fn, "fp": fp, "accuracy": accuracy, "ds": str(ds), "max_distance": str(max_distance)}
                 sens_pef[sens_key + "_" + al_name] = fn_fp_acc
 
-    with open('data/input/camera_curves.json', 'w') as file:
+    with open('data/input/sensing_performance_curves.json', 'w') as file:
         json.dump(sens_pef, file, indent=2)
 
 
