@@ -25,10 +25,11 @@ def transformationAmod(fileName):
 def transformationLQG(fileName):
     with open(fileName) as f:
         reader = csv.reader(f, delimiter=',')
-        target_file = open("lane_control.dpc.yaml", 'w')
+        target_file = open("lane_control_2k.dpc.yaml", 'w')
         data = list(reader)
         target_file.write("implementations:\n")
         for index in range(len(data)):
+
                 target_file.write("  "+data[index][0]+": \n")
                 target_file.write("    f_max:\n")
                 target_file.write("    " + "- " + "\""+ data[index][1] + " dimensionless\" \n")
@@ -36,11 +37,10 @@ def transformationLQG(fileName):
                 target_file.write("    " + "- " + "\"" + data[index][2] + " dimensionless\" \n")
                 obs_info = 1.0 / float(data[index][3])
                 target_file.write("    " + "- " + "\"" + str(obs_info) + " dimensionless\" \n")
-                freq = 1.0 / float(data[index][4])
-                target_file.write("    " + "- " + "\"" + str(freq) + " Hz\" \n")
+                target_file.write("    " + "- " + "\"" + data[index][4] + " Hz\" \n")
                 target_file.write("    " + "- " + "\"" + data[index][5] + " dimensionless\" \n")
-                target_file.write("    " + "- " + "\"" + str(freq) + " Hz\" \n")
+                target_file.write("    " + "- " + "\"" + data[index][4] + " Hz\" \n")
 
 
 #transformationAmod("amod.csv")
-transformationLQG("cat_lqg.csv")
+transformationLQG("cat_lqg_2k.csv")

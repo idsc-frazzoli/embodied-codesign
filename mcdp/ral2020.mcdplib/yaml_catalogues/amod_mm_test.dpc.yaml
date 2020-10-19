@@ -15,11 +15,11 @@ implementations:
     f_max:
     - "Top dimensionless"
     r_min:
-    - "Bottom Nat"
-    - "Bottom Nat"
-    - "Bottom miles/hour"
+    - "13333"
+    - "12222"
+    - "11.33 miles/hour"
     - "Bottom miles/hour"
     - "Bottom s"
     - "Bottom meter/s"
     - "Bottom meter/s"
-    - "Bottom Nat"
+    - "111"

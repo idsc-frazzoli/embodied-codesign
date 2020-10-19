@@ -1,0 +1,91 @@
+mcdp {
+    # Import the DPs
+    av_model = instance` avmodel
+    micromobility_model = instance` micromobility
+    subway_model  = instance` subway
+    amod_model    = instance` amod_mm
+
+    # Functionality
+    provides total_requests using amod_model
+    provides time_day using av_model
+    provides people_street using av_model
+    provides range using av_model
+    # Resources
+    # Total cost of having and operating the DC transportation system
+    requires cost_operation [$/hour]
+    # Average travel time for the passengers
+    requires time [s]
+    # Danger
+    requires danger [kg*m/s]
+    # Discomfort
+    requires discomfort [dimensionless]
+
+    # Defining the costs (operational and fixed) for AVs, ESs, and Subway
+    # Operational costs and their sums
+    operational_cost_veh  = operational_cost required by av_model · d_road_av required by amod_model
+    operational_cost_mm  = operational_cost_mm required by micromobility_model * d_road_mm required by amod_model
+    operational_cost_sub  = operational_cost_sub required by subway_model
+    operational_cost_time = operational_cost_veh + operational_cost_mm + operational_cost_sub
+
+    # Fixed costs
+    fixed_cost_veh       = fixed_cost required by av_model * number_veh_available required by amod_model
+    fixed_cost_mm        = fixed_cost required by micromobility_model * number_mm_available required by amod_model
+    fixed_cost_sub       = fixed_cost required by subway_model * number_subway required by amod_model
+
+    # Time horizon for the costs
+    # Years of life
+    life_veh_years       = 5.0 years
+    life_factor_mm       = life_factor required by micromobility_model
+    life_sub_years       = 30 years
+
+    # Costs averaged over time horizon
+    fixed_cost_veh_time   = fixed_cost_veh / life_veh_years
+    fixed_cost_mm_time    = fixed_cost_mm * life_factor_mm
+    fixed_cost_sub_time   = fixed_cost_sub / life_sub_years
+
+    # Total fixed costs over time
+    fixed_cost_time       = fixed_cost_veh_time + fixed_cost_mm_time + fixed_cost_sub_time
+    # Total cost over time
+    total_cost_time       = operational_cost_time + fixed_cost_time
+
+    # Emissions
+    # for AVs
+    CO2_road_av = energy_externalities required by av_model * d_road_av required by amod_model
+    # for ESs
+    CO2_road_mm_meter      = emissions required by micromobility_model
+    CO2_road_mm            = CO2_road_mm_meter * d_road_mm required by amod_model
+    # for Subway
+    # 360'000 tons in a year, with 226 trains in total
+    CO2_subway_train_sec   = 0.063 kg/s
+    number_subway_baseline = 112
+    CO2_subway             = CO2_subway_train_sec * (number_subway_baseline + number_subway required by amod_model)
+    CO2_sum                = CO2_road_av + CO2_road_mm + CO2_subway
+
+    # Cost of CO2 per ton
+    CO2_ton                = 0.04 USD/kg
+    cost_CO2               = CO2_sum * CO2_ton
+
+    # Constraints
+    # Structural ones
+    # connecting Subway DP with AMoD DP
+    number_subway required by amod_model <= number_subway provided by subway_model
+    # connecting AVs DP with AMoD DP
+    velocity_av required by amod_model ≼ speed_cruise provided by av_model
+    # connecting ESs DP with AMoD DP
+    velocity_mm required by amod_model <= velocity provided by micromobility_model
+
+    # Constraints on global resources
+    # on costs
+    required cost_operation >= total_cost_time + cost_CO2
+    # on travel time
+    required time >= time_travel required by amod_model
+
+
+    # General things
+    provided time_day <= `timeday: day
+    provided people_street <= 100 pax/km
+    required danger >= danger required by av_model
+    required danger >= 1 kg*m/s
+    required discomfort >= discomfort required by av_model
+    required discomfort >= 1.0
+}
