@@ -217,7 +217,11 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
     n = sp.sens_param.n
     np.random.seed(sp.seed)
     random.seed(sp.seed)
+<<<<<<< HEAD
     # I moved out the generation so that we can generate specific cases and to keep simulation clear
+=======
+
+>>>>>>> 70c8a8ff601a5d5f16175ef9b4bcd646e7da899d
     objects = generate_objects(sp)
 
     vstate0 = VehicleState(Decimal('0.0'), Decimal('0.0'), Decimal('0.0'), Decimal('0.0'))
