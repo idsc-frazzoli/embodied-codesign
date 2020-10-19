@@ -78,7 +78,6 @@ def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s
     n_ts_sens = round(ts_sens / sp.dt)
     latency_sens = Decimal(str(sens["latency"]))
     n_ts_lat_sens = round(latency_sens / sp.dt)
-    # Why aren't freq and latency directly a function of freq, latency?
     sens_param = SensingParameters(ds=ds, max_distance=max_distance, n=n,
                                    list_of_ds=list_of_ds, frequency=n_ts_sens * sp.dt, latency=n_ts_lat_sens * sp.dt)
     # The speed is in m/s, need to take this into account already in the file with speeds
@@ -217,6 +216,7 @@ def initialize_state(objects):
     state = State(initial_state, objects)
     return state
 
+
 def initialize_belief(sp: SimParameters):
     # for Dejan: note that density is in 1/m and distance in m
     belief_density = sp.prior.density * sp.sens_param.max_distance
@@ -226,6 +226,7 @@ def initialize_belief(sp: SimParameters):
     po = [Decimal(pp / n) for _ in range(n)]
     initialized_belief = Belief(po)
     return initialized_belief
+
 
 def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
     ds = sp.sens_param.ds
