@@ -58,6 +58,14 @@ class SimParameters:
         self.do_animation = do_animation
 
 
+def initialize_metrics(sp: SimParameters):
+    discomfort = np.zeros(sp.nsims)
+    average_velocity = np.zeros(sp.nsims)
+    average_collision_momentum = np.zeros(sp.nsims)
+    collision = np.zeros(sp.nsims)
+    return discomfort, average_velocity, average_collision_momentum, collision
+
+
 def initialize_veh_stats(s: int, dyn_perf: Dict):
     vs = VehicleStats(a_min=Decimal(str(dyn_perf["a_min"])), a_max=Decimal(str(dyn_perf["a_max"])),
                       v_nominal=Decimal(str(Decimal(str(s)) * Decimal('0.44704'))),
@@ -110,22 +118,7 @@ def initialize_controller(cont: Dict, s: int, dyn_perf: Dict, sens_param: Sensin
     return controller
 
 
-def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s: int,
-             env: Dict, cont: Dict, experiment_key: str) -> PerformanceMetrics:
-    # Initializing metrics
-    discomfort = np.zeros(sp.nsims)
-    average_velocity = np.zeros(sp.nsims)
-    average_collision_momentum = np.zeros(sp.nsims)
-    collision = np.zeros(sp.nsims)
-
-    sens_param = initialize_sensing_parameters(sens_curves=sens_curves, sens=sens, sp=sp)
-
-    controller = initialize_controller(cont=cont, s=s, dyn_perf=dyn_perf, sens_param=sens_param, sp=sp)
-
-    # In ppl/m
-    density = Decimal(str(env["density"])) / Decimal(str(1000))
-    prior = Prior(density=density)
-
+def load_sensing_performance(sens_curves: Dict, sens_param: SensingParameters):
     sens_perf = SensingPerformance(sp=sens_param)
     fn = sens_curves["fn"]
     sens_perf.fn = [Decimal(p) for p in fn]
@@ -133,13 +126,29 @@ def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s
     sens_perf.fp = [Decimal(p) for p in fp]
     lsd = sens_curves["accuracy"]
     sens_perf.lsd = [Decimal(p) for p in lsd]
+    return sens_perf
+
+
+def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s: int,
+             env: Dict, cont: Dict, experiment_key: str) -> PerformanceMetrics:
+    # Initializing metrics
+    discomfort, average_velocity, average_collision_momentum, collision = initialize_metrics(sp=sp)
+    # Initializing sensing parameters
+    sens_param = initialize_sensing_parameters(sens_curves=sens_curves, sens=sens, sp=sp)
+    # Initializing controller
+    controller = initialize_controller(cont=cont, s=s, dyn_perf=dyn_perf, sens_param=sens_param, sp=sp)
+
+    # In ppl/m
+    density = Decimal(str(env["density"])) / Decimal(str(1000))
+    prior = Prior(density=density)
+
+    sens_perf = load_sensing_performance(sens_curves=sens_curves, sens_param=sens_param)
 
     sp.sens_param = sens_param
     sp.vs = controller.vs
     sp.prior = prior
     sp.controller = controller
     sp.sens_perf = sens_perf
-
     for i in range(sp.nsims):
         fn = f'DB/single-experiments/{experiment_key}/{i}.yaml'
         if not os.path.exists(fn):
