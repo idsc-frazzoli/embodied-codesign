@@ -32,9 +32,9 @@ def update_state(s: State, action: Action, dt: Decimal) -> State:
     for i in range(len(s.objects)):
         s.objects[i].d = s.objects[i].d - x + s.vstate.x
 
-    vstate = VehicleState(x=x, v=v, x_prev=s.vstate.x, v_prev=s.vstate.v)
+    vehicle_state = VehicleState(x=x, v=v, x_prev=s.vstate.x, v_prev=s.vstate.v)
 
-    return State(vstate, s.objects)
+    return State(vehicle_state, s.objects)
 
 
 @dataclass
@@ -65,6 +65,51 @@ def initialize_veh_stats(s: int, dyn_perf: Dict):
     return vs
 
 
+def read_params_from_curves(sens_curves: Dict, sens: Dict):
+    ds = Decimal(sens_curves["ds"])
+    max_distance = Decimal(sens_curves["max_distance"])
+    freq_sens = Decimal(str(sens["frequency"]))
+    lat_sens = Decimal(str(sens["latency"]))
+    return ds, max_distance, freq_sens, lat_sens
+
+
+def initialize_sensing_parameters(sens_curves: Dict, sens: Dict, sp: SimParameters):
+    # Reading them out
+    ds, max_distance, freq, latency_sens = read_params_from_curves(sens_curves=sens_curves, sens=sens)
+    # First, we compute the number of steps in the space discretization up to max_distance
+    n = int(round(max_distance / ds))
+    # and we list the different steps
+    list_of_ds = [ds * Decimal(i) for i in range(n)]
+    # Computing the sampling period
+    ts_sens = 1 / freq
+    # Computing the number of steps in the time discretization
+    n_ts_sens = round(ts_sens / sp.dt)
+    # Same with latency
+    n_ts_lat_sens = round(latency_sens / sp.dt)
+    # Initializing sensing parameters
+    sens_param = SensingParameters(ds=ds, max_distance=max_distance, n=n,
+                                   list_of_ds=list_of_ds, frequency=n_ts_sens * sp.dt, latency=n_ts_lat_sens * sp.dt)
+    return sens_param
+
+
+def initialize_controller(cont: Dict, s: int, dyn_perf: Dict, sens_param: SensingParameters, sp: SimParameters):
+    # Reading out control frequency
+    freq_con = Decimal(str(cont["frequency"]))
+    # Reading out probability threshold
+    prob_threshold = Decimal(str(cont["prob_threshold"]))
+    # Computing control period
+    ts_con = 1 / freq_con
+    # Computing number of time discretization steps for control
+    n_ts_con = round(ts_con / sp.dt)
+    # Initialize vehicle statistics
+    vs = initialize_veh_stats(s=s, dyn_perf=dyn_perf)
+    # Initialize controller
+    controller = BasicController(prob_threshold=prob_threshold, vs=vs, ds=sens_param.ds,
+                                 d_stop=Decimal(str(cont["d_stop"])),
+                                 frequency=n_ts_con * sp.dt)
+    return controller
+
+
 def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s: int,
              env: Dict, cont: Dict, experiment_key: str) -> PerformanceMetrics:
     # Initializing metrics
@@ -73,30 +118,14 @@ def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s
     average_collision_momentum = np.zeros(sp.nsims)
     collision = np.zeros(sp.nsims)
 
-    # We read the current ds from the sensing curves
-    ds = Decimal(sens_curves["ds"])
-    # We need to be sure that this is ds isn't used somewhere else, everywhere the same...
-    # We read the maximum distance from the sensing curves
-    max_distance = Decimal(sens_curves["max_distance"])
-    n = int(round(max_distance / ds))
-    list_of_ds = [ds * Decimal(i) for i in range(n)]
-    freq = Decimal(str(sens["frequency"]))
-    ts_sens = 1 / freq
-    n_ts_sens = round(ts_sens / sp.dt)
-    latency_sens = Decimal(str(sens["latency"]))
-    n_ts_lat_sens = round(latency_sens / sp.dt)
-    sens_param = SensingParameters(ds=ds, max_distance=max_distance, n=n,
-                                   list_of_ds=list_of_ds, frequency=n_ts_sens * sp.dt, latency=n_ts_lat_sens * sp.dt)
-    vs = initialize_veh_stats(s,dyn_perf)
-    # Same idea for the density, which should already be transformed in ppl/m
+    sens_param = initialize_sensing_parameters(sens_curves=sens_curves, sens=sens, sp=sp)
+
+    controller = initialize_controller(cont=cont, s=s, dyn_perf=dyn_perf, sens_param=sens_param, sp=sp)
+
+    # In ppl/m
     density = Decimal(str(env["density"])) / Decimal(str(1000))
     prior = Prior(density=density)
-    freq_con = Decimal(str(cont["frequency"]))
-    ts_con = 1 / freq_con
-    n_ts_con = round(ts_con / sp.dt)
-    controller = BasicController(prob_threshold=Decimal(str(cont["prob_threshold"])), vs=vs, sp=sens_param,
-                                 d_stop=Decimal(str(cont["d_stop"])), t_react=Decimal(str(cont["t_react"])),
-                                 frequency=n_ts_con * sp.dt)
+
     sens_perf = SensingPerformance(sp=sens_param)
     fn = sens_curves["fn"]
     sens_perf.fn = [Decimal(p) for p in fn]
@@ -106,7 +135,7 @@ def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s
     sens_perf.lsd = [Decimal(p) for p in lsd]
 
     sp.sens_param = sens_param
-    sp.vs = vs
+    sp.vs = controller.vs
     sp.prior = prior
     sp.controller = controller
     sp.sens_perf = sens_perf
@@ -150,7 +179,7 @@ def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s
             average_collision_momentum[i] = collided_mom
         discomfort[i] = cont_eff
         average_velocity[i] = av_vel
-
+    # We need to put this outside!
     confidence_level = 0.95
     degrees_freedom = sp.nsims - 1
     discomfort_mean = np.mean(discomfort)
