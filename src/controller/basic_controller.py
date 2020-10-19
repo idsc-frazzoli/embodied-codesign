@@ -26,10 +26,8 @@ class BasicController(Controller):
 
     def get_action(self, vstate: VehicleState, belief: Belief) -> Action:
         d_critical = self.get_critical_distance(vstate.v)
-        print("d_critical ", d_critical)
         i = round((d_critical / self.ds))
         p_obstacle_less_than_critical = sum(belief.po[:i])
-        print("i ", p_obstacle_less_than_critical)
         if float(p_obstacle_less_than_critical) > float(self.prob_threshold):
             a = self.vs.a_min
         elif vstate.v < self.vs.v_nominal:

@@ -287,7 +287,7 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
     control_effort = 0
     t = Decimal(0.0)
     l = int(np.ceil(sp.sens_param.latency_s / sp.dt))
-    logger.info(f'control_interval {control_interval} dt {sp.dt} l {l}')
+    logger.info(f'latency interval {sp.sens_param.latency_s} dt {sp.dt} l {l}')
 
     l = max(1, l)
     delays = [state] * l
@@ -295,10 +295,10 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
     vstates_list = []
     belief_list = []
     object_list = []
-    print("Simulation running...")
     i = 0
     sensing_interval = int(np.ceil(sp.sens_param.sens_sampl_time_s/sp.dt))
     logger.info(f'Sampling time sensor (inverse frequency) {sp.sens_param.sens_sampl_time_s} dt {sp.dt} sensing_interval {sensing_interval}')
+    logger.info("Simulation running...")
 
     while state.vstate.x <= sp.road_length:
         i += 1
@@ -325,7 +325,6 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
 
         state = update_state(state, action, sp.dt)
         delayed_st.update(state)
-        print("speed ", state.vstate.v)
 
         control_effort += abs(action.accel) * sp.dt
 
