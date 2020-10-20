@@ -150,7 +150,7 @@ Pointgrey:
   cost_chf: 350.0
   frequency_hz: 15.0
   latency_s: 0.02
-  focal_length_m: 8
+  focal_length_m: 0.008
   mass_g: 58.0
   power_w: 2.5
   resolution_pxl:
