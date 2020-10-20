@@ -21,7 +21,7 @@ CONTROL_PARAM_TH=0.1 0.2 0.3 0.4 0.5
 CONTROL_PARAM_DSTOP=3.0
 
 # parameters for single fixed simulation
-NSIMS=10
+NSIMS=100
 DT=0.01
 ROADLENGTH=500.0
 DOANIMATION=True
@@ -35,10 +35,20 @@ ALGORITHM=faster_rcnn1
 SPEED=10.0
 CONTROLFREQ=20.0
 CONTROLTHRESHOLD=0.1
-CONTROLLER=cont_th_0.2_ds_2.5_f_20.0
+CONTROLLER=none
 BASEDIR=DB
 ADDOBJECTAT=none
 
+# create catalogue parameters
+ALL=--not_all
+SENSOR_KEY=none
+VEHICLE_KEY=none
+ENVIRONMENT_KEY=none
+CONTROL_KEY=none
+ALG_KEY=none
+SPEED_LIST=none
+DOANIMATION_CAT=False
+NPROCESSES=4
 
 all:
 	@echo "You can try:"
@@ -76,4 +86,11 @@ generate_animation:
 	--do_animation $(DOANIMATION) --seed $(SEEDSIM) --sensor $(SENSOR) --vehicle $(VEHICLE) --environment $(ENVIRONMENTSIM) \
 	--env_density $(ENVDENSITY) --env_day_night $(ENVDAYNIGHT) --algorithm $(ALGORITHM) --speed $(SPEED) --control_freq $(CONTROLFREQ) \
 	--control_treshold $(CONTROLTHRESHOLD) --controller $(CONTROLLER) --basedir $(BASEDIR) --add_object_at $(ADDOBJECTAT)
+
+create_catalogue:
+	PYTHONPATH=src python src/embodied_scripts/create_catalogue.py $(ALL) --sensor_key $(SENSOR_KEY) \
+	--vehicle_key $(VEHICLE_KEY) --environment_key $(ENVIRONMENT_KEY) --control_key $(CONTROL_KEY) \
+	 --alg_key $(ALG_KEY) --speed_list $(SPEED_LIST) --do_animation $(DOANIMATION_CAT) --seed $(SEEDSIM) \
+	 --nsims $(NSIMS) --dt $(DT) --road_length $(ROADLENGTH) --basedir $(BASEDIR) --nprocesses $(NPROCESSES)
+
 

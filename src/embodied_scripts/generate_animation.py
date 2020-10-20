@@ -59,16 +59,16 @@ def generate_animation(args):
     sp = SimParameters(nsims=args.nsims, road_length=Decimal(args.road_length), dt=Decimal(args.dt),
                        seed=args.seed, do_animation=args.do_animation, add_object_at=args.add_object_at)
     experiment_key = f'{args.vehicle}-{env_key}-{args.sensor}-{sens_perf_curv_key}-{str(speed)}-{cont_key}'
-    file_dir = os.path.join(args.basedir, str(args.vehicle), str(env_key), str(args.sensor),
-                      str(sens_perf_curv_key), str(speed), str(cont_key))
-    if not os.path.exists(file_dir):
-        os.makedirs(file_dir)
-    file_name = os.path.join(file_dir, f'{experiment_key}.experiment.yaml')
-    param_file_name = os.path.join(file_dir, f'{experiment_key}.parameters.yaml')
+    fn = os.path.join(args.basedir, str(args.vehicle), str(env_key), str(args.sensor),
+                      str(sens_perf_curv_key), str(speed), str(cont_key), f'{experiment_key}.experiment.yaml')
+    dn = os.path.dirname(fn)
+    if not os.path.exists(dn):
+        os.makedirs(dn)
+    param_file_name = os.path.join(dn, f'{experiment_key}.parameters.yaml')
     write_store_param_file(args, param_file_name, alg_sens_curv)
 
     performance = simulate(sp=sp, dyn_perf=dyn_perf, sens=sens, sens_curves=alg_sens_curv, s=speed,
-             env=env, cont=controller, experiment_key=experiment_key, file_directory=file_dir)
+             env=env, cont=controller, experiment_key=experiment_key, file_directory=dn)
 
     danger = {
         "mean": str(round(performance.danger.mean, 2)), "var": str(round(performance.danger.var, 2)),
@@ -85,7 +85,7 @@ def generate_animation(args):
         "speed": float(speed),
     }
 
-    with open(file_name, 'w') as f:
+    with open(fn, 'w') as f:
         yaml.dump(ad_perf, f, default_flow_style=False)
     print(f'Finished experiment: {experiment_key}')
 
