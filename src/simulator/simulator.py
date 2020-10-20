@@ -50,13 +50,15 @@ class SimParameters:
     vs: VehicleStats
     seed: int
     do_animation: bool
+    add_object_at: str
 
-    def __init__(self, nsims: int, road_length: Decimal, dt: Decimal, seed: int, do_animation: bool) -> None:
+    def __init__(self, nsims: int, road_length: Decimal, dt: Decimal, seed: int, do_animation: bool, add_object_at: str) -> None:
         self.nsims = nsims
         self.road_length = road_length
         self.dt = dt
         self.seed = seed
         self.do_animation = do_animation
+        self.add_object_at = add_object_at
 
 
 def initialize_metrics(sp: SimParameters):
@@ -131,7 +133,7 @@ def load_sensing_performance(sens_curves: Dict, sens_param: SensingParameters):
 
 
 def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s: Decimal,
-             env: Dict, cont: Dict, experiment_key: str) -> PerformanceMetrics:
+             env: Dict, cont: Dict, experiment_key: str, file_directory: str) -> PerformanceMetrics:
     # Initializing metrics
     discomfort, average_velocity, average_collision_momentum, collision = initialize_metrics(sp=sp)
     # Initializing sensing parameters
@@ -150,7 +152,7 @@ def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s
     sp.controller = controller
     sp.sens_perf = sens_perf
     for i in range(sp.nsims):
-        fn = f'DB/single-experiments/{experiment_key}/{i}.yaml'
+        fn = os.path.join(file_directory,'single_experiments', f'{experiment_key}.experiment.{i}.yaml')
         if not os.path.exists(fn):
             dn = os.path.dirname(fn)
             if not os.path.exists(dn):
@@ -227,7 +229,8 @@ def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s
 def collided(s: State, vs: VehicleStats) -> CollisionStats:
     if s.objects:
         if s.objects[0].d <= 0:
-            momentum = s.vstate.v * vs.mass
+            # transform mass to kg since units of momentum are N s = kg m/s
+            momentum = s.vstate.v * vs.mass/Decimal("1000.0")
             cs = CollisionStats(momentum=momentum)
             return cs
 
@@ -243,13 +246,15 @@ def stopped(s: State) -> bool:
 def generate_objects(sp: SimParameters):
     poisson_density = sp.prior.density*sp.road_length
     number_objects = np.random.poisson(lam=float(poisson_density))
-    print("Number of objects at track: ", number_objects)
     objects = []
     for o in range(number_objects):
         dist = round(random.uniform(0.0, float(sp.road_length)),1)
         obj = Object(Decimal(str(dist)))
         objects.append(obj)
+    if sp.add_object_at != "none":
+        objects.append(Object(Decimal(sp.add_object_at)))
     objects.sort(key=lambda ob: ob.d, reverse=False)
+    logger.info(f'Number of objects at track: {len(objects)}')
     return objects
 
 

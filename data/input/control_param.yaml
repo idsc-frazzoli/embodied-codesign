@@ -1,100 +1,100 @@
-cont-th-0.1-ds-2.5-f-0.5:
-  d_stop_m: 2.5
+cont_th_0.1_ds_3.0_f_0.5:
+  d_stop_m: 3.0
   frequency_hz: 0.5
   prob_threshold: 0.1
-cont-th-0.1-ds-2.5-f-1.0:
-  d_stop_m: 2.5
+cont_th_0.1_ds_3.0_f_1.0:
+  d_stop_m: 3.0
   frequency_hz: 1.0
   prob_threshold: 0.1
-cont-th-0.1-ds-2.5-f-10.0:
-  d_stop_m: 2.5
+cont_th_0.1_ds_3.0_f_10.0:
+  d_stop_m: 3.0
   frequency_hz: 10.0
   prob_threshold: 0.1
-cont-th-0.1-ds-2.5-f-20.0:
-  d_stop_m: 2.5
+cont_th_0.1_ds_3.0_f_20.0:
+  d_stop_m: 3.0
   frequency_hz: 20.0
   prob_threshold: 0.1
-cont-th-0.1-ds-2.5-f-5.0:
-  d_stop_m: 2.5
+cont_th_0.1_ds_3.0_f_5.0:
+  d_stop_m: 3.0
   frequency_hz: 5.0
   prob_threshold: 0.1
-cont-th-0.2-ds-2.5-f-0.5:
-  d_stop_m: 2.5
+cont_th_0.2_ds_3.0_f_0.5:
+  d_stop_m: 3.0
   frequency_hz: 0.5
   prob_threshold: 0.2
-cont-th-0.2-ds-2.5-f-1.0:
-  d_stop_m: 2.5
+cont_th_0.2_ds_3.0_f_1.0:
+  d_stop_m: 3.0
   frequency_hz: 1.0
   prob_threshold: 0.2
-cont-th-0.2-ds-2.5-f-10.0:
-  d_stop_m: 2.5
+cont_th_0.2_ds_3.0_f_10.0:
+  d_stop_m: 3.0
   frequency_hz: 10.0
   prob_threshold: 0.2
-cont-th-0.2-ds-2.5-f-20.0:
-  d_stop_m: 2.5
+cont_th_0.2_ds_3.0_f_20.0:
+  d_stop_m: 3.0
   frequency_hz: 20.0
   prob_threshold: 0.2
-cont-th-0.2-ds-2.5-f-5.0:
-  d_stop_m: 2.5
+cont_th_0.2_ds_3.0_f_5.0:
+  d_stop_m: 3.0
   frequency_hz: 5.0
   prob_threshold: 0.2
-cont-th-0.3-ds-2.5-f-0.5:
-  d_stop_m: 2.5
+cont_th_0.3_ds_3.0_f_0.5:
+  d_stop_m: 3.0
   frequency_hz: 0.5
   prob_threshold: 0.3
-cont-th-0.3-ds-2.5-f-1.0:
-  d_stop_m: 2.5
+cont_th_0.3_ds_3.0_f_1.0:
+  d_stop_m: 3.0
   frequency_hz: 1.0
   prob_threshold: 0.3
-cont-th-0.3-ds-2.5-f-10.0:
-  d_stop_m: 2.5
+cont_th_0.3_ds_3.0_f_10.0:
+  d_stop_m: 3.0
   frequency_hz: 10.0
   prob_threshold: 0.3
-cont-th-0.3-ds-2.5-f-20.0:
-  d_stop_m: 2.5
+cont_th_0.3_ds_3.0_f_20.0:
+  d_stop_m: 3.0
   frequency_hz: 20.0
   prob_threshold: 0.3
-cont-th-0.3-ds-2.5-f-5.0:
-  d_stop_m: 2.5
+cont_th_0.3_ds_3.0_f_5.0:
+  d_stop_m: 3.0
   frequency_hz: 5.0
   prob_threshold: 0.3
-cont-th-0.4-ds-2.5-f-0.5:
-  d_stop_m: 2.5
+cont_th_0.4_ds_3.0_f_0.5:
+  d_stop_m: 3.0
   frequency_hz: 0.5
   prob_threshold: 0.4
-cont-th-0.4-ds-2.5-f-1.0:
-  d_stop_m: 2.5
+cont_th_0.4_ds_3.0_f_1.0:
+  d_stop_m: 3.0
   frequency_hz: 1.0
   prob_threshold: 0.4
-cont-th-0.4-ds-2.5-f-10.0:
-  d_stop_m: 2.5
+cont_th_0.4_ds_3.0_f_10.0:
+  d_stop_m: 3.0
   frequency_hz: 10.0
   prob_threshold: 0.4
-cont-th-0.4-ds-2.5-f-20.0:
-  d_stop_m: 2.5
+cont_th_0.4_ds_3.0_f_20.0:
+  d_stop_m: 3.0
   frequency_hz: 20.0
   prob_threshold: 0.4
-cont-th-0.4-ds-2.5-f-5.0:
-  d_stop_m: 2.5
+cont_th_0.4_ds_3.0_f_5.0:
+  d_stop_m: 3.0
   frequency_hz: 5.0
   prob_threshold: 0.4
-cont-th-0.5-ds-2.5-f-0.5:
-  d_stop_m: 2.5
+cont_th_0.5_ds_3.0_f_0.5:
+  d_stop_m: 3.0
   frequency_hz: 0.5
   prob_threshold: 0.5
-cont-th-0.5-ds-2.5-f-1.0:
-  d_stop_m: 2.5
+cont_th_0.5_ds_3.0_f_1.0:
+  d_stop_m: 3.0
   frequency_hz: 1.0
   prob_threshold: 0.5
-cont-th-0.5-ds-2.5-f-10.0:
-  d_stop_m: 2.5
+cont_th_0.5_ds_3.0_f_10.0:
+  d_stop_m: 3.0
   frequency_hz: 10.0
   prob_threshold: 0.5
-cont-th-0.5-ds-2.5-f-20.0:
-  d_stop_m: 2.5
+cont_th_0.5_ds_3.0_f_20.0:
+  d_stop_m: 3.0
   frequency_hz: 20.0
   prob_threshold: 0.5
-cont-th-0.5-ds-2.5-f-5.0:
-  d_stop_m: 2.5
+cont_th_0.5_ds_3.0_f_5.0:
+  d_stop_m: 3.0
   frequency_hz: 5.0
   prob_threshold: 0.5
