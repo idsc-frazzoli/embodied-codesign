@@ -45,7 +45,7 @@ if __name__ == '__main__':
     s = speed[6]
     env_key = list(environment)[0] #["07day_env"]
     env = environment[env_key]
-    k = 'cont-th-0.5-ds-2.5-tr-0.1-f-5.0'
+    k = 'cont-th-0.1-ds-2.5-f-0.5'
     cont = control_param[k]
 
     performance = simulate(sp, dyn_perf, sens, sens_curves, s, env, cont, experiment_key="test6")
