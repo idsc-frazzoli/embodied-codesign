@@ -19,6 +19,7 @@ PLOTSENSCURVE=OS0128_day_kde_based
 CONTROL_PARAM_FREQ=20.0 10.0 5.0 1.0 0.5
 CONTROL_PARAM_TH=0.1 0.2 0.3 0.4 0.5
 CONTROL_PARAM_DSTOP=3.0
+CONTROL_PARAM_PAMAX=0.5
 
 # parameters for single fixed simulation
 NSIMS=100
@@ -78,14 +79,16 @@ plot_sens_curves:
 
 
 generate_control_param:
-	PYTHONPATH=src python src/embodied_scripts/generate_control_param.py --control_freq $(CONTROL_PARAM_FREQ)
+	PYTHONPATH=src python src/embodied_scripts/generate_control_param.py --control_freq $(CONTROL_PARAM_FREQ) \
+	--control_treshold $(CONTROL_PARAM_TH) --control_d_stop $(CONTROL_PARAM_DSTOP) --control_percentage_amax $(CONTROL_PARAM_PAMAX)
 
 
 generate_animation:
 	PYTHONPATH=src python src/embodied_scripts/generate_animation.py --nsims $(NSIMS) --dt $(DT) --road_length $(ROADLENGTH) \
 	--do_animation $(DOANIMATION) --seed $(SEEDSIM) --sensor $(SENSOR) --vehicle $(VEHICLE) --environment $(ENVIRONMENTSIM) \
 	--env_density $(ENVDENSITY) --env_day_night $(ENVDAYNIGHT) --algorithm $(ALGORITHM) --speed $(SPEED) --control_freq $(CONTROLFREQ) \
-	--control_treshold $(CONTROLTHRESHOLD) --controller $(CONTROLLER) --basedir $(BASEDIR) --add_object_at $(ADDOBJECTAT)
+	--control_treshold $(CONTROLTHRESHOLD) --controller $(CONTROLLER) --basedir $(BASEDIR) --add_object_at $(ADDOBJECTAT) \
+	--control_d_stop $(CONTROL_PARAM_DSTOP) --control_percentage_amax $(CONTROL_PARAM_PAMAX)
 
 create_catalogue:
 	PYTHONPATH=src python src/embodied_scripts/create_catalogue.py $(ALL) --sensor_key $(SENSOR_KEY) \

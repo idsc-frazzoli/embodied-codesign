@@ -114,10 +114,12 @@ def initialize_controller(cont: Dict, s: Decimal, dyn_perf: Dict, sens_param: Se
     n_ts_con = round(ts_con / sp.dt)
     # Initialize vehicle statistics
     vs = initialize_veh_stats(s=s, dyn_perf=dyn_perf)
+    # Initialize the procentage of a_max usage
+    p_a_max = Decimal(str(cont["percentage_amax"]))
     # Initialize controller
     controller = BasicController(prob_threshold=prob_threshold, vs=vs, ds=sens_param.ds,
                                  d_stop=Decimal(str(cont["d_stop_m"])),
-                                 cont_sampl_time_s=n_ts_con * sp.dt)
+                                 cont_sampl_time_s=n_ts_con * sp.dt, p_a_max=p_a_max)
     return controller
 
 

@@ -47,11 +47,13 @@ def generate_animation(args):
     speed = Decimal(args.speed)
 
     if args.controller == "none":
-        d_stop = Decimal('2.5')
+        d_stop = Decimal(str(args.control_d_stop))
+        p_a_max = Decimal(str(args.control_percentage_amax))
         p_treshold = Decimal(args.control_treshold)
         cont_freq = Decimal(args.control_freq)
-        controller = {"d_stop_m": float(d_stop), "frequency_hz": float(cont_freq), "prob_threshold": float(p_treshold)}
-        cont_key = f'cont-th-{str(p_treshold)}-ds-{str(d_stop)}-f-{str(cont_freq)}'
+        controller = {"d_stop_m": float(d_stop), "frequency_hz": float(cont_freq), "prob_threshold": float(p_treshold),
+                      "percentage_amax": p_a_max}
+        cont_key = f'cont_th_{p_treshold}_ds_{d_stop}_f_{cont_freq}_pamx_{p_a_max}'
     else:
         controller = control_param[args.controller]
         cont_key = args.controller
@@ -107,10 +109,13 @@ if __name__ == '__main__':
     parser.add_argument('--speed', type=str, default='10.0', help='Cruise speed in meter per seconds.')
     parser.add_argument('--control_freq', type=str, default='20.0', help='Controller frequency in Hz.')
     parser.add_argument('--control_treshold', type=str, default='0.1', help='Treshohld for controller.')
-    parser.add_argument('--controller', type=str, default='cont_th_0.2_ds_2.5_f_20.0', help='Controller name.')
+    parser.add_argument('--controller', type=str, default='cont_th_0.4_ds_3.0_f_20.0_pamx_0.5', help='Controller name.')
     parser.add_argument('--basedir', type=str, default='DB', help='Controller name.')
     parser.add_argument('--add_object_at', type=str, default='20.0', help='Add additional object at a specif '
                                                                           'distance for testing. If no additional write none.')
+    parser.add_argument('--control_d_stop', type=float, default=3.0, help='Additional distance to stop in front of object.')
+    parser.add_argument('--control_percentage_amax', type=float, default=0.5,
+                        help='The procentage of a_max usage.')
     args = parser.parse_args()
 
     generate_animation(args)
