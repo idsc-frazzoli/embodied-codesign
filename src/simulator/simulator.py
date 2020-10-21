@@ -12,7 +12,7 @@ import scipy
 
 from controller.basic_controller import BasicController
 from controller.controller import Action, Controller
-from sensing.sensing_performance import SensingParameters, SensingPerformance
+from sensing.sensing_performance import SensingParameters, SensingPerformance, calc_unit_dist_a_b_prob
 from simulator.create_animation import create_animation
 from simulator.performance import CollisionStats, OneSimPerformanceMetrics, PerformanceMetrics, Statistics
 from vehicle.state_estimation import Belief, compute_observations, observation_model, prediction_model, Prior
@@ -131,6 +131,9 @@ def load_sensing_performance(sens_curves: Dict, sens_param: SensingParameters):
     sens_perf.fp = [Decimal(p) for p in fp]
     lsd = sens_curves["accuracy"]
     sens_perf.lsd = [Decimal(p) for p in lsd]
+    list_prob_acc = [calc_unit_dist_a_b_prob(d=sens_param.list_of_ds[i], ds=sens_param.ds,
+                                             std=sens_perf.lsd[i]) for i in range(sens_param.n)]
+    sens_perf.prob_accuracy = list_prob_acc
     return sens_perf
 
 
@@ -263,11 +266,10 @@ def initialize_state(objects):
 
 def initialize_belief(sp: SimParameters):
     # for Dejan: note that density is in 1/m and distance in m
-    belief_density = sp.prior.density * sp.sens_param.max_distance
-    n = sp.sens_param.n
+    belief_density = sp.prior.density * sp.sens_param.ds
     temp_prob = np.exp(-float(belief_density))
     pp = belief_density * Decimal(temp_prob)
-    po = [Decimal(pp / n) for _ in range(n)]
+    po = [Decimal(pp) for _ in range(sp.sens_param.n)]
     initialized_belief = Belief(po)
     return initialized_belief
 
@@ -281,6 +283,7 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
     state = initialize_state(objects)
 
     belief = initialize_belief(sp)
+    prior_belief_prob_cell = belief.po[0]
     action = Action(accel=Decimal('0'))
 
     logger.info(f'Sampling time controller (inverse frequency) {sp.controller.cont_sampl_time_s} dt {sp.dt}')
@@ -309,18 +312,18 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
         t = i * sp.dt
 
         if i % sensing_interval == 0:
-            observations = compute_observations(sp.sens_perf, sp.sens_param, sp.prior, delayed_st.states[0])
+            observations = compute_observations(sp.sens_perf, sp.sens_param, delayed_st.states[0])
         else:
             observations = None
 
         delta = state.vstate.x - state.vstate.x_prev
         delta_idx = int(delta / ds)
-        belief1 = prediction_model(b0=belief, delta_idx=delta_idx, delta=delta, prior=sp.prior)
+        belief1 = prediction_model(b0=belief, delta_idx=delta_idx, prior=prior_belief_prob_cell)
 
         if observations is None:
             belief = belief1
         else:
-            belief = observation_model(belief1, observations, sp.sens_param.list_of_ds, sp.sens_perf)
+            belief = observation_model(belief1, observations, sp.sens_perf, sp.sens_param)
 
         if i % control_interval == 0:
             action = sp.controller.get_action(state.vstate, belief)
