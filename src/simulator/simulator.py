@@ -339,7 +339,7 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
         is_stopped = stopped(state)
 
         if sp.do_animation:
-            if float(t % Decimal(str(0.05))) == 0.0:
+            if float(t % Decimal(str(0.1))) == 0.0:
                 vstates_list.append(state.vstate)
                 belief_list.append(belief)
                 obj_a = [ob.d for ob in state.objects]
