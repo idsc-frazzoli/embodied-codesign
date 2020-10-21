@@ -12,10 +12,24 @@ implementations:
       - "2500.0 CHF"
       - "1548.0 g"
       - "30.0 W"
-  modelDrivePX:
+  modelAGX:
     f_max:
       - "320000000000000.0 op/s"
     r_min:
-      - "15000.0 CHF"
-      - " Bottom kg"
-      - "40.0 W"
+      - "1099.0 CHF"
+      - " 0.649 kg"
+      - "30.0 W"
+  modelNano:
+    f_max:
+      - "472000000000.0 op/s"
+    r_min:
+      - "130.0 CHF"
+      - " 0.250 kg"
+      - "5.0 W"
+  modelXavierNX:
+    f_max:
+      - "14000000000000.0 op/s"
+    r_min:
+      - "400.0 CHF"
+      - " 0.793 kg"
+      - "15.0 W"

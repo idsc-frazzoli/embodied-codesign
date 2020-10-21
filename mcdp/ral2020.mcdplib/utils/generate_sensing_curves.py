@@ -1,4 +1,5 @@
 import yaml
+import json
 import numpy as np
 
 class curve:
@@ -8,13 +9,17 @@ class curve:
         self.fp = []
         self.acc = []
 
+
 def get_curves(fileName):
     sensor_names = []
     all_curves = []
     with open(fileName) as f:
-        sensors_file = yaml.load(f, Loader=yaml.FullLoader)
+        sensors_file = json.load(f)
         for item, doc in sensors_file.items():
-            sensor_names.append(item)
+            #if "OS0" in item:
+            #    print('here it is')
+            if ("pandar" not in item):
+                sensor_names.append(item)
 
         for sensor in sensor_names:
             curves = sensors_file[sensor]
@@ -28,6 +33,7 @@ def get_curves(fileName):
             s.acc = acc
             all_curves.append(s)
     return all_curves
+
 
 def compare_arrays(a,b):
     " assuming same size"
@@ -48,6 +54,7 @@ def compare_arrays(a,b):
         ret = 0
     return ret
 
+
 def compare_curves(array_curves):
     fn_order = np.zeros((len(array_curves), len(array_curves)))
     fp_order = np.zeros((len(array_curves), len(array_curves)))
@@ -55,7 +62,7 @@ def compare_curves(array_curves):
 
     for id_s, s in enumerate(array_curves):
         for id_t, t in enumerate(array_curves):
-            if (id_s != id_t):
+            if id_s != id_t:
                 if compare_arrays(s.fn, t.fn):
                     fn_order[id_s][id_t] = 1
                 if compare_arrays(s.fp, t.fp):
@@ -63,6 +70,7 @@ def compare_curves(array_curves):
                 if compare_arrays(s.acc, t.acc):
                     acc_order[id_s][id_t] = 1
     return fn_order, fp_order, acc_order
+
 
 def produce_poset_fn(fn_order, array_curves):
     poset_fn = open("poset_fn.mcdp_poset", 'w')
@@ -116,11 +124,11 @@ def produce_prod_poset(fp_order, fn_order, acc_order,array_curves):
                     poset_prod.write(array_curves[i].sen + " <= " + array_curves[j].sen + "\n")
     poset_prod.write("}")
 
-curves_here = get_curves('all_curves.yaml')
+curves_here = get_curves('sensing_performance_curves.json')
 fn, fp, acc = compare_curves(curves_here)
 produce_prod_poset(fp,fn,acc,curves_here)
-produce_poset_fn(fn, curves_here)
-produce_poset_fp(fp, curves_here)
-produce_poset_acc(acc, curves_here)
+#produce_poset_fn(fn, curves_here)
+#produce_poset_fp(fp, curves_here)
+#produce_poset_acc(acc, curves_here)
 
 

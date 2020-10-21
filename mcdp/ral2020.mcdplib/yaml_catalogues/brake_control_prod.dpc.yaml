@@ -24,7 +24,7 @@ implementations:
       - "Bottom m/s"
       - "Bottom m/s^2"
       - "Bottom m/s^2"
-      - "`sen_prod: puck_day_kde_based"
+      - "`sen_prod: puck_day_stm_kde"
       - "Bottom Hz"
       - "Bottom Hz"
       - "Bottom kg*m/s"

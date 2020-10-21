@@ -1,0 +1,10 @@
+mcdp {
+   provides observe_at_delta [Hz]
+   provides precision [dimensionless]
+   requires implement_feature_at_delta [Hz]
+   requires resolution [pixel/steradian]
+   requires frequency [Hz]
+
+   required implement_feature_at_delta <= provided observe_at_delta
+
+}
