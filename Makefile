@@ -15,11 +15,15 @@ DS=0.1
 SENSE_RANGE=50.0
 PLOTSENSCURVE=OS0128_day_kde_based
 
-# parameters for curve generation and plotting
+# parameters for controller generation
 CONTROL_PARAM_FREQ=20.0 10.0 5.0 1.0 0.5
 CONTROL_PARAM_TH=0.1 0.2 0.3 0.4 0.5
 CONTROL_PARAM_DSTOP=3.0
 CONTROL_PARAM_PAMAX=0.5
+
+#parameters for environment generation
+ENV_SIM_DENSITY=1.0 5.0 10.0 25.0 50.0 100.0
+ENV_SIM_DAYNIGHT=day night
 
 # parameters for single fixed simulation
 NSIMS=100
@@ -29,7 +33,7 @@ DOANIMATION=True
 SEEDSIM=0
 SENSOR=Ace13gm
 VEHICLE=sedan_s
-ENVIRONMENTSIM=10day_env
+ENVIRONMENTSIM=env_d_5.0_day
 ENVDENSITY=7
 ENVDAYNIGHT=day
 ALGORITHM=faster_rcnn1
@@ -81,6 +85,11 @@ plot_sens_curves:
 generate_control_param:
 	PYTHONPATH=src python src/embodied_scripts/generate_control_param.py --control_freq $(CONTROL_PARAM_FREQ) \
 	--control_treshold $(CONTROL_PARAM_TH) --control_d_stop $(CONTROL_PARAM_DSTOP) --control_percentage_amax $(CONTROL_PARAM_PAMAX)
+
+
+generate_sim_environment:
+	PYTHONPATH=src python src/embodied_scripts/generate_sim_environment.py --env_density $(ENV_SIM_DENSITY) \
+	--env_scen_day_night $(ENV_SIM_DAYNIGHT)
 
 
 generate_animation:

@@ -1,4 +1,5 @@
 import argparse
+import os
 
 import yaml
 
@@ -15,7 +16,12 @@ def generate_control_param(args):
             cont_key = f'cont_th_{p_treshold}_ds_{d_stop}_f_{freq}_pamx_{percentage_amax}'
             control_param[cont_key] = param
 
-    with open('data/input/control_param.yaml', 'w') as file:
+    fn = os.path.join(f'data/input/control_param.yaml')
+    dn = os.path.dirname(fn)
+    if not os.path.exists(dn):
+        os.makedirs(dn)
+
+    with open(fn, 'w') as file:
         yaml.dump(control_param, file, default_flow_style=False)
 
 if __name__ == '__main__':
