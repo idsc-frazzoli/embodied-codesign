@@ -14,10 +14,11 @@ mass_g = Decimal('1000000.0')
 ds_m = Decimal('0.1')
 cont_sampl_time_s = Decimal('1')
 d_stop_m = Decimal('2.0')
+p_a_max = Decimal('0.5')
 vs = VehicleStats(a_min=a_min_m_s2, a_max=a_max_m_s2,
                   v_nominal=v_nominal_m_s, mass=mass_g)
 controller = BasicController(prob_threshold=prob_treshold, vs=vs, ds=ds_m,
-                             d_stop=d_stop_m, cont_sampl_time_s=cont_sampl_time_s)
+                             d_stop=d_stop_m, cont_sampl_time_s=cont_sampl_time_s, p_a_max=p_a_max)
 x_test_m = Decimal('0.0')
 d_critical_expect_m = Decimal('4.5')
 

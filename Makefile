@@ -29,7 +29,7 @@ ENV_SIM_DAYNIGHT=day night
 NSIMS=100
 DT=0.01
 ROADLENGTH=500.0
-DOANIMATION=True
+DOANIMATION=--do_animation
 SEEDSIM=0
 SENSOR=Ace13gm
 VEHICLE=sedan_s
@@ -94,7 +94,7 @@ generate_sim_environment:
 
 generate_animation:
 	PYTHONPATH=src python src/embodied_scripts/generate_animation.py --nsims $(NSIMS) --dt $(DT) --road_length $(ROADLENGTH) \
-	--do_animation $(DOANIMATION) --seed $(SEEDSIM) --sensor $(SENSOR) --vehicle $(VEHICLE) --environment $(ENVIRONMENTSIM) \
+	$(DOANIMATION) --seed $(SEEDSIM) --sensor $(SENSOR) --vehicle $(VEHICLE) --environment $(ENVIRONMENTSIM) \
 	--env_density $(ENVDENSITY) --env_day_night $(ENVDAYNIGHT) --algorithm $(ALGORITHM) --speed $(SPEED) --control_freq $(CONTROLFREQ) \
 	--control_treshold $(CONTROLTHRESHOLD) --controller $(CONTROLLER) --basedir $(BASEDIR) --add_object_at $(ADDOBJECTAT) \
 	--control_d_stop $(CONTROL_PARAM_DSTOP) --control_percentage_amax $(CONTROL_PARAM_PAMAX)

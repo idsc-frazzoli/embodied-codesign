@@ -134,6 +134,27 @@ def load_sensing_performance(sens_curves: Dict, sens_param: SensingParameters):
     return sens_perf
 
 
+def get_stats(performance_list, cl:float, df:int) -> Statistics:
+    confidence_level = cl
+    degrees_freedom = max(1, df - 1)
+    if len(performance_list) == 1:
+        performance_stat = Statistics(mean=Decimal(performance_list[0]), var=Decimal('0.0'),
+                                      u95=Decimal('0.0'), l95=Decimal('0.0'))
+    else:
+        performance_mean = np.mean(performance_list)
+        performance_var = np.var(performance_list)
+        performance_standard_error = scipy.stats.sem(performance_list)
+        if performance_standard_error == float('nan') or performance_standard_error == 0.0:
+            performance_standard_error = 0.00001
+        performance_confidence_interval = scipy.stats.t.interval(confidence_level, degrees_freedom,
+                                                                performance_mean, performance_standard_error)
+        performance_stat = Statistics(mean=Decimal(np.asscalar(performance_mean)), var=Decimal(np.asscalar(performance_var)),
+                                     u95=Decimal(np.asscalar(performance_confidence_interval[1])),
+                                     l95=Decimal(np.asscalar(performance_confidence_interval[0])))
+
+    return performance_stat
+
+
 def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s: Decimal,
              env: Dict, cont: Dict, experiment_key: str, file_directory: str) -> PerformanceMetrics:
     # Initializing metrics
@@ -192,38 +213,12 @@ def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s
             average_collision_momentum[i] = collided_mom
         discomfort[i] = cont_eff
         average_velocity[i] = av_vel
-    # We need to put this outside!
-    confidence_level = 0.95
-    degrees_freedom = max(1, sp.nsims - 1)
-    discomfort_mean = np.mean(discomfort)
-    discomfort_var = np.var(discomfort)
-    discomfort_standard_error = scipy.stats.sem(discomfort)
-    discomfort_confidence_interval = scipy.stats.t.interval(confidence_level, degrees_freedom,
-                                                            discomfort_mean, discomfort_standard_error)
+
+    discomfort_stat = get_stats(discomfort, cl=0.95, df=sp.nsims)
     p_collision = np.mean(collision)
     danger = average_collision_momentum * p_collision
-    danger_mean = np.mean(danger)
-    danger_var = np.var(danger)
-    danger_standard_error = scipy.stats.sem(danger)
-    danger_confidence_interval = scipy.stats.t.interval(confidence_level, degrees_freedom,
-                                                        danger_mean, danger_standard_error)
-    average_velocity_mean = np.mean(average_velocity)
-    average_velocity_var = np.var(average_velocity)
-    average_velocity_standard_error = scipy.stats.sem(average_velocity)
-    average_velocity_confidence_interval = scipy.stats.t.interval(confidence_level, degrees_freedom,
-                                                                  average_velocity_mean,
-                                                                  average_velocity_standard_error)
-
-    discomfort_stat = Statistics(mean=Decimal(np.asscalar(discomfort_mean)), var=Decimal(np.asscalar(discomfort_var)),
-                                 u95=Decimal(np.asscalar(discomfort_confidence_interval[1])),
-                                 l95=Decimal(np.asscalar(discomfort_confidence_interval[0])))
-    danger_stat = Statistics(mean=Decimal(np.asscalar(danger_mean)), var=Decimal(np.asscalar(danger_var)),
-                             u95=Decimal(np.asscalar(danger_confidence_interval[1])),
-                             l95=Decimal(np.asscalar(danger_confidence_interval[0])))
-    average_velocity_stat = Statistics(mean=Decimal(np.asscalar(average_velocity_mean)),
-                                       var=Decimal(np.asscalar(average_velocity_var)),
-                                       u95=Decimal(np.asscalar(average_velocity_confidence_interval[1])),
-                                       l95=Decimal(np.asscalar(average_velocity_confidence_interval[0])))
+    danger_stat = get_stats(danger, cl=0.95, df=sp.nsims)
+    average_velocity_stat = get_stats(average_velocity, cl=0.95, df=sp.nsims)
 
     return PerformanceMetrics(danger=danger_stat, discomfort=discomfort_stat, average_velocity=average_velocity_stat)
 
