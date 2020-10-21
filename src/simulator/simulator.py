@@ -299,6 +299,8 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
     object_list = []
     i = 0
     sensing_interval = int(np.ceil(sp.sens_param.sens_sampl_time_s/sp.dt))
+
+    animation_interval = int(np.ceil(Decimal("0.05")/sp.dt))
     logger.info(f'Sampling time sensor (inverse frequency) {sp.sens_param.sens_sampl_time_s} dt {sp.dt} sensing_interval {sensing_interval}')
     logger.info("Simulation running...")
 
@@ -334,7 +336,7 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
         is_stopped = stopped(state)
 
         if sp.do_animation:
-            if float(t % Decimal(str(0.05))) == 0.0:
+            if i % animation_interval == 0.0:
                 vstates_list.append(state.vstate)
                 belief_list.append(belief)
                 obj_a = [ob.d for ob in state.objects]
