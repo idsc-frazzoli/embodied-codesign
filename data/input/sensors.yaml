@@ -390,7 +390,7 @@ hdl32:
   channels: 32
   cost_chf: 30000.0
   frequency_hz: 5.0
-  latencys: 0.01
+  latency_s: 0.01
   mass_g: 1300.0
   power_w: 12.0
   range_m: 100.0
@@ -415,7 +415,7 @@ hdl64:
   cost_chf: 75000.0
   frequency_hz: 5.0
   latency_s: 0.01
-  mass: 12700
+  mass_g: 12700
   power_w: 60.0
   range_m: 120.0
   resolution_degree:
