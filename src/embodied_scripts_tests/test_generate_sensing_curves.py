@@ -2,8 +2,7 @@ from decimal import Decimal
 
 from nose.tools import assert_equal
 
-from embodied_scripts.generate_sensing_curves import get_vertical_resolution, get_recall_precision, get_accuracy
-
+from embodied_scripts.generate_sensing_curves import get_vertical_resolution, get_accuracy
 
 def get_vertical_resolution_test() -> None:
     res_pix_test = [1000, 1000]

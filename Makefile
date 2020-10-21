@@ -10,11 +10,19 @@ parallel=--processes=8 --process-timeout=1000 --process-restartworker
 
 extra=--rednose --immediate
 
+# parameters for curve generation and plotting
 DS=0.1
 SENSE_RANGE=50.0
 PLOTSENSCURVE=OS0128_day_kde_based
 
-NSIMS=10
+# parameters for curve generation and plotting
+CONTROL_PARAM_FREQ=20.0 10.0 5.0 1.0 0.5
+CONTROL_PARAM_TH=0.1 0.2 0.3 0.4 0.5
+CONTROL_PARAM_DSTOP=3.0
+CONTROL_PARAM_PAMAX=0.5
+
+# parameters for single fixed simulation
+NSIMS=100
 DT=0.01
 ROADLENGTH=500.0
 DOANIMATION=True
@@ -28,8 +36,20 @@ ALGORITHM=faster_rcnn1
 SPEED=10.0
 CONTROLFREQ=20.0
 CONTROLTHRESHOLD=0.1
-CONTROLLER=cont-th-0.2-ds-2.5-f-20.0
+CONTROLLER=none
+BASEDIR=DB
+ADDOBJECTAT=none
 
+# create catalogue parameters
+ALL=--not_all
+SENSOR_KEY=none
+VEHICLE_KEY=none
+ENVIRONMENT_KEY=none
+CONTROL_KEY=none
+ALG_KEY=none
+SPEED_LIST=none
+DOANIMATION_CAT=False
+NPROCESSES=4
 
 all:
 	@echo "You can try:"
@@ -58,9 +78,22 @@ plot_sens_curves:
 	PYTHONPATH=src python src/embodied_scripts/plot_sensing_curves.py --sens_alg $(PLOTSENSCURVE)
 
 
+generate_control_param:
+	PYTHONPATH=src python src/embodied_scripts/generate_control_param.py --control_freq $(CONTROL_PARAM_FREQ) \
+	--control_treshold $(CONTROL_PARAM_TH) --control_d_stop $(CONTROL_PARAM_DSTOP) --control_percentage_amax $(CONTROL_PARAM_PAMAX)
+
+
 generate_animation:
 	PYTHONPATH=src python src/embodied_scripts/generate_animation.py --nsims $(NSIMS) --dt $(DT) --road_length $(ROADLENGTH) \
 	--do_animation $(DOANIMATION) --seed $(SEEDSIM) --sensor $(SENSOR) --vehicle $(VEHICLE) --environment $(ENVIRONMENTSIM) \
 	--env_density $(ENVDENSITY) --env_day_night $(ENVDAYNIGHT) --algorithm $(ALGORITHM) --speed $(SPEED) --control_freq $(CONTROLFREQ) \
-	--control_treshold $(CONTROLTHRESHOLD) --controller $(CONTROLLER)
+	--control_treshold $(CONTROLTHRESHOLD) --controller $(CONTROLLER) --basedir $(BASEDIR) --add_object_at $(ADDOBJECTAT) \
+	--control_d_stop $(CONTROL_PARAM_DSTOP) --control_percentage_amax $(CONTROL_PARAM_PAMAX)
+
+create_catalogue:
+	PYTHONPATH=src python src/embodied_scripts/create_catalogue.py $(ALL) --sensor_key $(SENSOR_KEY) \
+	--vehicle_key $(VEHICLE_KEY) --environment_key $(ENVIRONMENT_KEY) --control_key $(CONTROL_KEY) \
+	 --alg_key $(ALG_KEY) --speed_list $(SPEED_LIST) --do_animation $(DOANIMATION_CAT) --seed $(SEEDSIM) \
+	 --nsims $(NSIMS) --dt $(DT) --road_length $(ROADLENGTH) --basedir $(BASEDIR) --nprocesses $(NPROCESSES)
+
 

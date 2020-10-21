@@ -10,13 +10,13 @@ from vehicle.vehicle import VehicleStats, VehicleState
 class BasicController(Controller):
 
     def __init__(self, prob_threshold: Decimal, vs: VehicleStats, ds: Decimal,
-                 d_stop: Decimal, cont_sampl_time_s: Decimal):
+                 d_stop: Decimal, cont_sampl_time_s: Decimal, p_a_max: Decimal):
         self.prob_threshold = prob_threshold
         self.vs = vs
         self.ds = ds
         self.d_stop = d_stop
         self.cont_sampl_time_s = cont_sampl_time_s
-        self.p_a_max = Decimal('0.5')
+        self.p_a_max = p_a_max
         assert cont_sampl_time_s > 0, cont_sampl_time_s
 
     def get_critical_distance(self, v: Decimal) -> Decimal:
