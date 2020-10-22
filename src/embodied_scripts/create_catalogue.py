@@ -81,7 +81,7 @@ def generate_all(args):
                     for s in speed:
                         for cont_key, cont in control_param.items():
                             experiment_key = f'{veh_key}-{env_key}-{sens_key}-{s_perf_curve_key}-{str(s)}-{cont_key}'
-                            fn = os.path.join(args.basedir, str(veh_key), str(env_key),
+                            fn = os.path.join(args.basedir, args.simversion, str(veh_key), str(env_key),
                                               str(sens_key), str(s_perf),
                                               str(s), str(cont_key), f'{experiment_key}.experiment.yaml')
                             dn = os.path.dirname(fn)
@@ -94,9 +94,18 @@ def generate_all(args):
 
                                 write_store_param_file(args, param_file_name, params)
                                 to_run.append(params)
+
+
     nprocesses = args.nprocesses
     n = len(to_run)
     print(f'Created {n} experiments to run')
+
+    params_f = vars(args)
+    params_f['number_experiments_to_run'] = n
+    param_file_name = os.path.join(args.basedir, args.simversion, f'{args.simversion}.parameters.yaml')
+    with open(param_file_name, 'w') as f:
+        yaml.dump(params_f, f, default_flow_style=False)
+
     random.shuffle(to_run)
 
     # to_run = to_run[:10]
@@ -118,6 +127,11 @@ def simulate_and_write(params):
     cont = params[6]
     experiment_key = params[7]
     fn = params[8]
+    sens_key = params[9]
+    s_perf_key = params[10]
+    veh_key = params[11]
+    env_key = params[12]
+    cont_key = params[13]
     dn = os.path.dirname(fn)
     performance = simulate(sp, dyn_perf, sens, sens_curves, s, env, cont, experiment_key, dn)
     danger = {
@@ -132,7 +146,9 @@ def simulate_and_write(params):
     ad_perf = {
         "danger": danger,
         "discomfort": discomfort,
-        "speed": float(s),
+        "speed": s, "sensor": sens_key, "sens_perf": s_perf_key, "dyn_perf": veh_key,
+        "environment": env_key,
+        "controller": cont_key,
     }
     with open(fn, 'w') as f:
         yaml.dump(ad_perf, f, default_flow_style=False)
@@ -214,6 +230,7 @@ def generate_specifc(args):
 
     # first see what needs to be run
     to_run = []  # list of parameters
+    sens_perf_key_list = []
     for veh_key in vehicle_key:
         dyn_perf = vehicles[veh_key]
         for env_key in environment_key:
@@ -228,12 +245,13 @@ def generate_specifc(args):
                     if s_perf not in alg_key:
                         continue
                     s_perf_curve_key = f'{sens_key}_{s_perf}'
+                    sens_perf_key_list.append(s_perf_curve_key)
                     s_perf_curve = sens_curves[s_perf_curve_key]
                     for s in speed_list:
                         for cont_key in control_key:
                             cont = control_param[cont_key]
                             experiment_key = f'{veh_key}-{env_key}-{sens_key}-{s_perf_curve_key}-{str(s)}-{cont_key}'
-                            fn = os.path.join(args.basedir, str(veh_key), str(env_key),
+                            fn = os.path.join(args.basedir, args.simversion, args.simversion, str(veh_key), str(env_key),
                                               str(sens_key), str(s_perf),
                                               str(s), str(cont_key), f'{experiment_key}.experiment.yaml')
                             dn = os.path.dirname(fn)
@@ -246,9 +264,23 @@ def generate_specifc(args):
 
                                 write_store_param_file(args, param_file_name, params)
                                 to_run.append(params)
+
     nprocesses = args.nprocesses
     n = len(to_run)
     print(f'Created {n} experiments to run')
+
+    params_f = vars(args)
+    params_f['vehicle_key'] = vehicle_key
+    params_f['environment_keys'] = environment_key
+    params_f['sensor_key'] = sensor_key
+    params_f['sens_perf_key'] = sens_perf_key_list
+    params_f['speed_list'] = speed_list
+    params_f['control_key'] = control_key
+    params_f['number_experiments_to_run'] = n
+    param_file_name = os.path.join(args.basedir, args.simversion, f'{args.simversion}.parameters.yaml')
+    with open(param_file_name, 'w') as f:
+        yaml.dump(params_f, f, default_flow_style=False)
+
     random.shuffle(to_run)
 
     # to_run = to_run[:10]
@@ -270,6 +302,7 @@ if __name__ == '__main__':
     parser.add_argument('--do_not_animation', default=True, action="store_true", help='Flag for creating an animation.')
     parser.add_argument('--seed', type=int, default=0, help='Seed for simulation.')
     parser.add_argument('--basedir', type=str, default='DB', help='Controller name.')
+    parser.add_argument('--simversion', type=str, default='simulation_v.1.0', help='Controller name.')
     parser.add_argument('--nprocesses', type=int, default=4, help='Number of paralles processes.')
     parser.add_argument("--all", default=False, action="store_true", help="Flag to simulate all parameters.")
     parser.add_argument("--not_all", default=False, action="store_true", help="Flag to simulate all parameters.")
@@ -280,14 +313,26 @@ if __name__ == '__main__':
     parser.add_argument('--alg_key', nargs='+', type=str, default=["none"], help='Algorithm keys.')
     parser.add_argument('--speed_list', nargs='+', type=str, default=["none"], help='Speed list.')
     args = parser.parse_args()
+
     if args.all:
         generate_all(args)
     else:
         generate_specifc(args)
 
-    # TODO: make prper filenames for results and dpc models
-    # timestr = time.strftime("%Y%m%d-%H%M%S")
-    # fn_results = os.path.join(basedir, f'{timestr}.results.yaml')
-    # read_results(basedir, fn_results)
-    # fn_dpc_models = os.path.join(basedir, f'{timestr}_brake_control_models.yaml')
-    # write_bc_dpc(basedir, fn_dpc_models)
+
+    fn_results = os.path.join(args.basedir, args.simversion, 'catalogue', f'{args.simversion}.results.yaml')
+    dn = os.path.dirname(fn_results)
+    if not os.path.exists(dn):
+        os.makedirs(dn)
+
+    if not os.path.exists(fn_results):
+        read_results(args.basedir, fn_results)
+        print(f'Finished results file of {args.simversion}.')
+
+    fn_dpc_models = os.path.join(args.basedir, args.simversion, 'catalogue', f'{args.simversion}.brake_control_models.yaml')
+
+    if not os.path.exists(fn_dpc_models):
+        write_bc_dpc(dn, fn_dpc_models)
+        print(f'Finished catalogue DPC file of {args.simversion}.')
+
+

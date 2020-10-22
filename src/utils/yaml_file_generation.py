@@ -1,6 +1,7 @@
 import os
 from decimal import Decimal
 from glob import glob
+from pathlib import Path
 
 import yaml
 import ruamel.yaml
@@ -31,28 +32,26 @@ def write_bc_dpc(basedir: str, models: str):
         for data_key, d in data.items():
             speed = round(Decimal(d["speed"]) / Decimal(3.6), 2)
             speed_string = dq(f"{speed} m/s")
-            env = environment[d["environment"]]["scenario"]
+            env = environment[d["environment"]]["scenario_day_night"]
             env = dq(f"`timeday: {env}")
-            density_p = environment[d["environment"]]["density"]
+            density_p = environment[d["environment"]]["density_ped_km"]
             density_p_string = dq(f"{density_p} pax/km")
             dyn_perf = d["dyn_perf"]
             veh = vehicles[dyn_perf]
-            a_max = veh["a_max"]
+            a_max = veh["a_max_m_s2"]
             a_max_string = dq(f"{a_max} m/s^2")
-            a_min = veh["a_min"]
+            a_min = veh["a_min_m_s2"]*-1
             a_min_string = dq(f"{a_min} m/s^2")
-            v_max = round(Decimal(veh["v_max"]) / Decimal(3.6), 2)
+            v_max = round(Decimal(veh["v_max_m_s"]) / Decimal(3.6), 2)
             v_max_string = dq(f"{v_max} m/s")
             sens_perf = d["sens_perf"]
             sens_per_string = dq(f"`sen_prod: {sens_perf}")
-            sens_type = d["sens_type"]
-            sens = sensors[sens_type]
-            sensor = sens[d["sensor"]]
-            freq_sensor = sensor["frequency"]
+            sens = sensors[d["sensor"]]
+            freq_sensor = sens["frequency_hz"]
             freq_sensor_string = dq(f"{freq_sensor} Hz")
-            lat_sens = sensor["latency"]
+            lat_sens = sens["latency_s"]
             lat_sens_string = dq(f"{lat_sens} s")
-            cont_f = control_param[d["controller"]]["frequency"]
+            cont_f = control_param[d["controller"]]["frequency_hz"]
             cont_f_string = dq(f"{cont_f} Hz")
             danger_mean = round(Decimal(d["danger"]["mean"]), 2)
             danger_mean_string = dq(f"{danger_mean} kg*m/s")
@@ -69,7 +68,7 @@ def write_bc_dpc(basedir: str, models: str):
 
 
 def read_results(basedir: str, result: str):
-    filenames = list(glob(os.path.join(basedir, '*.experiment.yaml'), recursive=True))
+    filenames = [path for path in Path(basedir).rglob('*.experiment.yaml')]
     results = {}
     for fn in filenames:
         with open(fn) as f:

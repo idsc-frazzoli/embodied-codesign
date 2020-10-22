@@ -80,21 +80,19 @@ def prediction_model(b0: Belief, delta_idx: int, prior: Decimal) -> Belief:
 
     return Belief(po1)
 
-
-
 def observation_model(b0: Belief, obs: Observations,
                       sp: SensingPerformance, sens_param: SensingParameters) -> Belief:
     ds = float(sens_param.ds)
     list_d = np.array([float(d) + ds for d in sens_param.list_of_ds])
     n = sens_param.n
-    fn_ds = np.array([float(p)*ds for p in sp.fn])
+    fn = np.array([float(p) for p in sp.fn])
     fp_ds = np.array([float(p)*ds for p in sp.fp])
     prob_accuracy = sp.prob_accuracy
     ones = np.ones(sens_param.n)
     p_k = np.array([float(p) for p in b0.po])
 
     if not obs.detections:
-        p_nu_k = fn_ds
+        p_nu_k = fn
         p_nu_k_not = ones - fp_ds
         p_nu = p_nu_k * p_k + p_nu_k_not * (ones - p_k)
 
@@ -108,9 +106,12 @@ def observation_model(b0: Belief, obs: Observations,
         p_d_k_not = np.zeros(n)
         for det in obs.detections:
             d = float(det.d_mean)
-            p_acc_dd_dd = np.array([0.0 if d < a_acc[i] or d > b_acc[i] else p_acc[i]*abs(list_d[i] + 0.5*ds - d) for i in range(n)])
-            p_d_k += (ones - fn_ds) * p_acc_dd_dd + fp_ds + np.sum((ones - fn_ds) * p_acc_dd_dd * p_k)
-            p_d_k_not += fp_ds + np.sum((ones - fn_ds) * p_acc_dd_dd * p_k)
+            p_acc_dd_dd = np.array([0.0 if d < a_acc[i] or d > b_acc[i] else p_acc[i] for i in range(n)])
+            p_d_k_0 = (ones - fn) * p_acc_dd_dd + fp_ds
+            p_d_k_1 = np.array([ p_d_k_0[i] + np.sum((ones - fn) * p_acc_dd_dd * p_k) -
+                                 ((1-fn[i]) * p_acc_dd_dd[i] * p_k[i]) for i in range(n)])
+            p_d_k += p_d_k_1
+            p_d_k_not += fp_ds + np.sum((ones - fn) * p_acc_dd_dd * p_k)
 
         p_d = p_d_k * p_k + p_d_k_not * (ones - p_k)
 
@@ -118,3 +119,40 @@ def observation_model(b0: Belief, obs: Observations,
         po1 = [Decimal(p) for p in p_p_k_d]
 
     return Belief(po1)
+
+# def observation_model(b0: Belief, obs: Observations,
+#                       sp: SensingPerformance, sens_param: SensingParameters) -> Belief:
+#     ds = float(sens_param.ds)
+#     list_d = np.array([float(d) + ds for d in sens_param.list_of_ds])
+#     n = sens_param.n
+#     fn_ds = np.array([float(p)*ds for p in sp.fn])
+#     fp_ds = np.array([float(p)*ds for p in sp.fp])
+#     prob_accuracy = sp.prob_accuracy
+#     ones = np.ones(sens_param.n)
+#     p_k = np.array([float(p) for p in b0.po])
+#
+#     if not obs.detections:
+#         p_nu_k = fn_ds
+#         p_nu_k_not = ones - fp_ds
+#         p_nu = p_nu_k * p_k + p_nu_k_not * (ones - p_k)
+#
+#         p_p_k_nu = p_nu_k * p_k / p_nu
+#         po1 = [Decimal(p) for p in p_p_k_nu]
+#     else:
+#         a_acc = np.array([float(a.a) for a in prob_accuracy])
+#         b_acc = np.array([float(b.b) for b in prob_accuracy])
+#         p_acc = np.array([float(p.p) for p in prob_accuracy])
+#         p_d_k = np.zeros(n)
+#         p_d_k_not = np.zeros(n)
+#         for det in obs.detections:
+#             d = float(det.d_mean)
+#             p_acc_dd_dd = np.array([0.0 if d < a_acc[i] or d > b_acc[i] else p_acc[i]*abs(list_d[i] + 0.5*ds - d) for i in range(n)])
+#             p_d_k += (ones - fn_ds) * p_acc_dd_dd + fp_ds + np.sum((ones - fn_ds) * p_acc_dd_dd * p_k)
+#             p_d_k_not += fp_ds + np.sum((ones - fn_ds) * p_acc_dd_dd * p_k)
+#
+#         p_d = p_d_k * p_k + p_d_k_not * (ones - p_k)
+#
+#         p_p_k_d = p_d_k * p_k / p_d
+#         po1 = [Decimal(p) for p in p_p_k_d]
+#
+#     return Belief(po1)

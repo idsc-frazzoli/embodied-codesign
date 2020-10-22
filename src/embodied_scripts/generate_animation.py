@@ -89,7 +89,9 @@ def generate_animation(args):
     ad_perf = {
         "danger": danger,
         "discomfort": discomfort,
-        "speed": float(speed),
+        "speed": speed, "sensor": args.sensor, "sens_perf": sens_perf_curv_key, "dyn_perf": args.vehicle,
+        "environment": env_key,
+        "controller": cont_key,
     }
 
     with open(fn, 'w') as f:
