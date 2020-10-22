@@ -15,21 +15,25 @@ DS=0.1
 SENSE_RANGE=50.0
 PLOTSENSCURVE=OS0128_day_kde_based
 
-# parameters for curve generation and plotting
+# parameters for controller generation
 CONTROL_PARAM_FREQ=20.0 10.0 5.0 1.0 0.5
 CONTROL_PARAM_TH=0.1 0.2 0.3 0.4 0.5
 CONTROL_PARAM_DSTOP=3.0
 CONTROL_PARAM_PAMAX=0.5
 
+#parameters for environment generation
+ENV_SIM_DENSITY=1.0 5.0 10.0 25.0 50.0 100.0
+ENV_SIM_DAYNIGHT=day night
+
 # parameters for single fixed simulation
 NSIMS=100
 DT=0.01
 ROADLENGTH=500.0
-DOANIMATION=True
+DOANIMATION=--do_animation
 SEEDSIM=0
 SENSOR=Ace13gm
 VEHICLE=sedan_s
-ENVIRONMENTSIM=10day_env
+ENVIRONMENTSIM=env_d_5.0_day
 ENVDENSITY=7
 ENVDAYNIGHT=day
 ALGORITHM=faster_rcnn1
@@ -48,7 +52,7 @@ ENVIRONMENT_KEY=none
 CONTROL_KEY=none
 ALG_KEY=none
 SPEED_LIST=none
-DOANIMATION_CAT=False
+DOANIMATION_CAT=--do_not_animation
 NPROCESSES=4
 
 all:
@@ -83,9 +87,14 @@ generate_control_param:
 	--control_treshold $(CONTROL_PARAM_TH) --control_d_stop $(CONTROL_PARAM_DSTOP) --control_percentage_amax $(CONTROL_PARAM_PAMAX)
 
 
+generate_sim_environment:
+	PYTHONPATH=src python src/embodied_scripts/generate_sim_environment.py --env_density $(ENV_SIM_DENSITY) \
+	--env_scen_day_night $(ENV_SIM_DAYNIGHT)
+
+
 generate_animation:
 	PYTHONPATH=src python src/embodied_scripts/generate_animation.py --nsims $(NSIMS) --dt $(DT) --road_length $(ROADLENGTH) \
-	--do_animation $(DOANIMATION) --seed $(SEEDSIM) --sensor $(SENSOR) --vehicle $(VEHICLE) --environment $(ENVIRONMENTSIM) \
+	$(DOANIMATION) --seed $(SEEDSIM) --sensor $(SENSOR) --vehicle $(VEHICLE) --environment $(ENVIRONMENTSIM) \
 	--env_density $(ENVDENSITY) --env_day_night $(ENVDAYNIGHT) --algorithm $(ALGORITHM) --speed $(SPEED) --control_freq $(CONTROLFREQ) \
 	--control_treshold $(CONTROLTHRESHOLD) --controller $(CONTROLLER) --basedir $(BASEDIR) --add_object_at $(ADDOBJECTAT) \
 	--control_d_stop $(CONTROL_PARAM_DSTOP) --control_percentage_amax $(CONTROL_PARAM_PAMAX)
@@ -93,7 +102,7 @@ generate_animation:
 create_catalogue:
 	PYTHONPATH=src python src/embodied_scripts/create_catalogue.py $(ALL) --sensor_key $(SENSOR_KEY) \
 	--vehicle_key $(VEHICLE_KEY) --environment_key $(ENVIRONMENT_KEY) --control_key $(CONTROL_KEY) \
-	 --alg_key $(ALG_KEY) --speed_list $(SPEED_LIST) --do_animation $(DOANIMATION_CAT) --seed $(SEEDSIM) \
+	 --alg_key $(ALG_KEY) --speed_list $(SPEED_LIST) $(DOANIMATION_CAT) --seed $(SEEDSIM) \
 	 --nsims $(NSIMS) --dt $(DT) --road_length $(ROADLENGTH) --basedir $(BASEDIR) --nprocesses $(NPROCESSES)
 
 

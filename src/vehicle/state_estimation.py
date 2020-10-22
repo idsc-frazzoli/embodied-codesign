@@ -29,7 +29,7 @@ def toss_biased_coin(p_success: Decimal) -> bool:
     return random.uniform(0, 1) < p_success
 
 
-def compute_observations(sp: SensingPerformance, sparam: SensingParameters, prior: Prior,
+def compute_observations(sp: SensingPerformance, sparam: SensingParameters,
                          state: State) -> Observations:
     """ From the state, compute the detections """
 
@@ -39,16 +39,16 @@ def compute_observations(sp: SensingPerformance, sparam: SensingParameters, prio
             continue
 
         false_negatives = sp.false_negative_at(o.d)
-        p_detect = 1 - false_negatives
+        p_detect = 1 - false_negatives*sparam.ds
         if toss_biased_coin(p_detect):
-            stdev = sp.lsd_at(o.d)
+            prob_acc = sp.prob_acc_at(o.d)
 
-            d_detect = random.gauss(float(o.d), float(stdev))
+            d_detect = np.random.uniform(float(prob_acc.a), float(prob_acc.b))
 
             if d_detect < 0:
                 d_detect = -1 * d_detect
 
-            detection = Detection(Decimal(d_detect), stdev)
+            detection = Detection(Decimal(d_detect))
             detections.append(detection)
 
     for i in range(sp.n):
@@ -56,14 +56,9 @@ def compute_observations(sp: SensingPerformance, sparam: SensingParameters, prio
         d = sparam.list_of_ds[i]
         p_false_positives = sp.fp[i] * sp.ds
         if toss_biased_coin(p_false_positives):
-            stdev = sp.lsd_at(d)
+            d_detect = np.random.uniform(float(d), float(d + sp.ds))
 
-            d_detect = random.gauss(float(d), float(stdev))
-
-            if d_detect < 0:
-                d_detect = -1 * d_detect
-
-            detection = Detection(Decimal(d_detect), stdev)
+            detection = Detection(Decimal(d_detect))
             detections.append(detection)
 
     return Observations(detections)
@@ -75,36 +70,51 @@ class Belief:
     po: List[Decimal]  # of length n
 
 
-def prediction_model(b0: Belief, delta_idx: int, delta: Decimal, prior: Prior) -> Belief:
-    density = prior.density * delta
-    pp_delta = density * Decimal(np.exp(-float(density)))
+def prediction_model(b0: Belief, delta_idx: int, prior: Decimal) -> Belief:
     if delta_idx != 0:
-        po_delta = [Decimal(pp_delta / delta_idx) for _ in range(delta_idx)]
+        po0 = b0.po[delta_idx:]
+        po1_new = [prior for _ in range(delta_idx)]
+        po1 = po0 + po1_new
     else:
-        po_delta = []
+        po1 = b0.po
 
-    po1 = b0.po[delta_idx:] + po_delta
-    norm = Decimal(1 / sum(po1))
-    po1 = norm * np.array(po1)
-
-    return Belief(list(po1))
+    return Belief(po1)
 
 
-def observation_model(b0: Belief, obs: Observations, list_of_ds: List[Decimal], sp: SensingPerformance) -> Belief:
-    like = np.zeros(len(list_of_ds))
 
-    ds_list_f = np.array([float(ds) for ds in list_of_ds])
-    for detection in obs.detections:
-        gauss_dist = scipy.stats.norm(float(detection.d_mean), float(detection.d_std))
-        prob = gauss_dist.pdf(ds_list_f)
-        like += prob
+def observation_model(b0: Belief, obs: Observations,
+                      sp: SensingPerformance, sens_param: SensingParameters) -> Belief:
+    ds = float(sens_param.ds)
+    list_d = np.array([float(d) + ds for d in sens_param.list_of_ds])
+    n = sens_param.n
+    fn_ds = np.array([float(p)*ds for p in sp.fn])
+    fp_ds = np.array([float(p)*ds for p in sp.fp])
+    prob_accuracy = sp.prob_accuracy
+    ones = np.ones(sens_param.n)
+    p_k = np.array([float(p) for p in b0.po])
 
-    like += np.asarray(sp.fn, dtype=float)
-    po1 = np.asarray(b0.po, dtype=float) * like
+    if not obs.detections:
+        p_nu_k = fn_ds
+        p_nu_k_not = ones - fp_ds
+        p_nu = p_nu_k * p_k + p_nu_k_not * (ones - p_k)
 
-    norm = 1 / np.sum(po1)
-    po1 = norm * po1
+        p_p_k_nu = p_nu_k * p_k / p_nu
+        po1 = [Decimal(p) for p in p_p_k_nu]
+    else:
+        a_acc = np.array([float(a.a) for a in prob_accuracy])
+        b_acc = np.array([float(b.b) for b in prob_accuracy])
+        p_acc = np.array([float(p.p) for p in prob_accuracy])
+        p_d_k = np.zeros(n)
+        p_d_k_not = np.zeros(n)
+        for det in obs.detections:
+            d = float(det.d_mean)
+            p_acc_dd_dd = np.array([0.0 if d < a_acc[i] or d > b_acc[i] else p_acc[i]*abs(list_d[i] + 0.5*ds - d) for i in range(n)])
+            p_d_k += (ones - fn_ds) * p_acc_dd_dd + fp_ds + np.sum((ones - fn_ds) * p_acc_dd_dd * p_k)
+            p_d_k_not += fp_ds + np.sum((ones - fn_ds) * p_acc_dd_dd * p_k)
 
-    po1 = [Decimal(p) for p in po1]
+        p_d = p_d_k * p_k + p_d_k_not * (ones - p_k)
 
-    return Belief(list(po1))
+        p_p_k_d = p_d_k * p_k / p_d
+        po1 = [Decimal(p) for p in p_p_k_d]
+
+    return Belief(po1)

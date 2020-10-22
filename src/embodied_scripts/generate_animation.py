@@ -58,8 +58,13 @@ def generate_animation(args):
         controller = control_param[args.controller]
         cont_key = args.controller
 
+    if args.do_animation:
+        do_animation = True
+    else:
+        do_animation = False
+
     sp = SimParameters(nsims=args.nsims, road_length=Decimal(args.road_length), dt=Decimal(args.dt),
-                       seed=args.seed, do_animation=args.do_animation, add_object_at=args.add_object_at)
+                       seed=args.seed, do_animation=do_animation, add_object_at=args.add_object_at)
     experiment_key = f'{args.vehicle}-{env_key}-{args.sensor}-{sens_perf_curv_key}-{str(speed)}-{cont_key}'
     fn = os.path.join(args.basedir, str(args.vehicle), str(env_key), str(args.sensor),
                       str(sens_perf_curv_key), str(speed), str(cont_key), f'{experiment_key}.experiment.yaml')
@@ -97,11 +102,12 @@ if __name__ == '__main__':
     parser.add_argument('--nsims', type=int, default=10, help='Number of simulations per parameter set.')
     parser.add_argument('--dt', type=str, default='0.01', help='Simulation sampling time in seconds.')
     parser.add_argument('--road_length', type=str, default='500.0', help='Road length in meters.')
-    parser.add_argument('--do_animation', type=bool, default=True, help='Flag for crating an animation.')
+    parser.add_argument('--do_animation', default=False, action="store_true", help='Flag for creating an animation.')
+    parser.add_argument('--do_not_animation', default=True, action="store_true", help='Flag for creating an animation.')
     parser.add_argument('--seed', type=int, default=0, help='Seed for simulation.')
     parser.add_argument('--sensor', type=str, default='Ace13gm', help='Sensor name from sensor.yaml file.')
     parser.add_argument('--vehicle', type=str, default='sedan_s', help='Dynamic performance of the vehicle from dyn_perf.yaml file.')
-    parser.add_argument('--environment', type=str, default='10day_env', help='Environment from environment.yaml file.')
+    parser.add_argument('--environment', type=str, default='env_d_5.0_day', help='Environment from environment.yaml file.')
     parser.add_argument('--env_density', type=str, default='7', help='Environment density in pedestrian per kilometer.')
     parser.add_argument('--env_day_night', type=str, default='day', help='Environment day or night.')
     parser.add_argument('--algorithm', type=str, default='faster_rcnn1', help='Algorithm for object detection '

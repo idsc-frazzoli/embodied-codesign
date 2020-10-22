@@ -1,4 +1,4 @@
-import time
+# import time
 from decimal import Decimal
 
 import numpy as np
@@ -19,7 +19,7 @@ class UpdateDist(object):
         self.vline, = ax1.plot([], [], linestyle='--', color='red')
 
         self.ax1.set_xlim(0, 50)
-        # self.ax1.set_ylim(0, 1)
+        self.ax1.set_ylim(0, 1)
         self.ax1.set(xlabel='distance [m]', ylabel='Belief')
         self.ax1.grid(True)
 

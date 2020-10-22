@@ -1,0 +1,552 @@
+Ace13gm:
+  type: camera
+  cost_chf: 530.0
+  frequency_hz: 13.0
+  latency_s: 0.012
+  focal_length_m: 0.012
+  mass_g: 105.0
+  power_w: 3.1
+  resolution_pxl:
+  - 3840
+  - 2160
+  algorithm:
+    day:
+    - day_faster_rcnn1
+    - day_faster_rcnn3
+    night:
+    - night_faster_rcnn1
+    - night_faster_rcnn3
+  chip_size_m:
+  - 0.0077
+  - 0.0043
+Ace15um:
+  type: camera
+  cost_chf: 2630.0
+  frequency_hz: 15.0
+  latency_s: 0.015
+  focal_length_m: 0.012
+  mass_g: 90.0
+  power_w: 3.6
+  resolution_pxl:
+  - 5328
+  - 4608
+  algorithm:
+    day:
+    - day_faster_rcnn1
+    - day_faster_rcnn3
+    night:
+    - night_faster_rcnn1
+    - night_faster_rcnn3
+  chip_size_m:
+  - 0.0146
+  - 0.0126
+Ace2160um:
+  type: camera
+  cost_chf: 550.0
+  frequency_hz: 160.0
+  latency_s: 0.019
+  focal_length_m: 0.012
+  mass_g: 90.0
+  power_w: 4.3
+  resolution_pxl:
+  - 1920
+  - 1200
+  algorithm:
+    day:
+    - day_faster_rcnn1
+    - day_faster_rcnn3
+    night:
+    - night_faster_rcnn1
+    - night_faster_rcnn3
+  chip_size_m:
+  - 0.0066
+  - 0.0041
+Ace222gm:
+  type: camera
+  cost_chf: 500.0
+  frequency_hz: 22.0
+  latency_s: 0.01
+  focal_length_m: 0.012
+  mass_g: 105.0
+  power_w: 3.1
+  resolution_pxl:
+  - 2592
+  - 1944
+  algorithm:
+    day:
+    - day_faster_rcnn1
+    - day_faster_rcnn3
+    night:
+    - night_faster_rcnn1
+    - night_faster_rcnn3
+  chip_size_m:
+  - 0.0052
+  - 0.0039
+Ace251gm:
+  type: camera
+  cost_chf: 550.0
+  frequency_hz: 51.0
+  latency_s: 0.019
+  focal_length_m: 0.012
+  mass_g: 105.0
+  power_w: 3.8
+  resolution_pxl:
+  - 1920
+  - 1200
+  algorithm:
+    day:
+    - day_faster_rcnn1
+    - day_faster_rcnn3
+    night:
+    - night_faster_rcnn1
+    - night_faster_rcnn3
+  chip_size_m:
+  - 0.0066
+  - 0.0041
+Ace5gm:
+  type: camera
+  cost_chf: 2220.0
+  frequency_hz: 5.0
+  latency_s: 0.016
+  focal_length_m: 0.012
+  mass_g: 105.0
+  power_w: 3.6
+  resolution_pxl:
+  - 4504
+  - 4504
+  algorithm:
+    day:
+    - day_faster_rcnn1
+    - day_faster_rcnn3
+    night:
+    - night_faster_rcnn1
+    - night_faster_rcnn3
+  chip_size_m:
+  - 0.0123
+  - 0.0123
+Ace7gm:
+  type: camera
+  cost_chf: 1800.0
+  frequency_hz: 7.0
+  latency_s: 0.016
+  focal_length_m: 0.012
+  mass_g: 105.0
+  power_w: 3.6
+  resolution_pxl:
+  - 5320
+  - 3032
+  algorithm:
+    day:
+    - day_faster_rcnn1
+    - day_faster_rcnn3
+    night:
+    - night_faster_rcnn1
+    - night_faster_rcnn3
+  chip_size_m:
+  - 0.0146
+  - 0.0083
+Pointgrey:
+  type: camera
+  cost_chf: 350.0
+  frequency_hz: 15.0
+  latency_s: 0.02
+  focal_length_m: 0.008
+  mass_g: 58.0
+  power_w: 2.5
+  resolution_pxl:
+  - 1384
+  - 1032
+  algorithm:
+    day:
+    - day_faster_rcnn1
+    - day_faster_rcnn3
+    night:
+    - night_faster_rcnn1
+    - night_faster_rcnn3
+  chip_size_m:
+  - 0.0076
+  - 0.0062
+OS0128:
+  type: lidar
+  accuracy_m:
+  - -0.02
+  - 0.02
+  channels: 128
+  cost_chf: 11800.0
+  frequency_hz: 10.0
+  latency_s: 0.02
+  mass_g: 445.0
+  power_w: 20.0
+  range_m: 55.0
+  resolution_degree:
+  - 0.2
+  - 0.7
+  algorithm:
+    day:
+    - day_kde_based
+    - day_stm_kde
+    - day_stm_rbnn
+    night:
+    - night_kde_based
+    - night_stm_kde
+    - night_stm_rbnn
+OS032:
+  type: lidar
+  accuracy_m:
+  - -0.02
+  - 0.02
+  channels: 32
+  cost_chf: 6000.0
+  frequency_hz: 10.0
+  latency_s: 0.01
+  mass_g: 445.0
+  power_w: 20.0
+  range_m: 55.0
+  resolution_degree:
+  - 0.2
+  - 0.7
+  algorithm:
+    day:
+    - day_kde_based
+    - day_stm_kde
+    - day_stm_rbnn
+    night:
+    - night_kde_based
+    - night_stm_kde
+    - night_stm_rbnn
+OS064:
+  type: lidar
+  accuracy_m:
+  - -0.02
+  - 0.02
+  channels: 64
+  cost_chf: 7900.0
+  frequency_hz: 10.0
+  latency_s: 0.01
+  mass_g: 445.0
+  power_w: 20.0
+  range_m: 55.0
+  resolution_degree:
+  - 0.2
+  - 0.7
+  algorithm:
+    day:
+    - day_kde_based
+    - day_stm_kde
+    - day_stm_rbnn
+    night:
+    - night_kde_based
+    - night_stm_kde
+    - night_stm_rbnn
+OS1128:
+  type: lidar
+  accuracy_m:
+  - -0.02
+  - 0.02
+  channels: 128
+  cost_chf: 17600.0
+  frequency_hz: 10.0
+  latency_s: 0.01
+  mass_g: 445.0
+  power_w: 20.0
+  range_m: 120.0
+  resolution_degree:
+  - 0.2
+  - 0.35
+  algorithm:
+    day:
+    - day_kde_based
+    - day_stm_kde
+    - day_stm_rbnn
+    night:
+    - night_kde_based
+    - night_stm_kde
+    - night_stm_rbnn
+OS132:
+  type: lidar
+  accuracy_m:
+    - -0.02
+    - 0.02
+  channels: 32
+  cost_chf: 8000.0
+  frequency_hz: 10.0
+  latency_s: 0.01
+  mass_g: 445.0
+  power_w: 20.0
+  range_m: 120.0
+  resolution_degree:
+  - 0.2
+  - 0.35
+  algorithm:
+    day:
+    - day_kde_based
+    - day_stm_kde
+    - day_stm_rbnn
+    night:
+    - night_kde_based
+    - night_stm_kde
+    - night_stm_rbnn
+OS164:
+  type: lidar
+  accuracy_m:
+    - -0.02
+    - 0.02
+  channels: 64
+  cost_chf: 11800.0
+  frequency_hz: 10.0
+  latency_s: 0.01
+  mass_g: 445.0
+  power_w: 20.0
+  range_m: 120.0
+  resolution_degree:
+  - 0.2
+  - 0.35
+  algorithm:
+    day:
+    - day_kde_based
+    - day_stm_kde
+    - day_stm_rbnn
+    night:
+    - night_kde_based
+    - night_stm_kde
+    - night_stm_rbnn
+OS2128:
+  type: lidar
+  accuracy_m:
+    - -0.02
+    - 0.02
+  channels: 128
+  cost_chf: 19700.0
+  frequency_hz: 10.0
+  latency_s: 0.01
+  mass_g: 93.0
+  power_w: 24.0
+  range_m: 240.0
+  resolution_degree:
+  - 0.2
+  - 0.18
+  algorithm:
+    day:
+      - day_kde_based
+      - day_stm_kde
+      - day_stm_rbnn
+    night:
+      - night_kde_based
+      - night_stm_kde
+      - night_stm_rbnn
+OS232:
+  type: lidar
+  accuracy_m:
+    - -0.02
+    - 0.02
+  channels: 32
+  cost_chf: 16000.0
+  frequency_hz: 10.0
+  latency_s: 0.01
+  mass_g: 93.0
+  power_w: 24.0
+  range_m: 240.0
+  resolution_degree:
+  - 0.2
+  - 0.18
+  algorithm:
+    day:
+      - day_kde_based
+      - day_stm_kde
+      - day_stm_rbnn
+    night:
+      - night_kde_based
+      - night_stm_kde
+      - night_stm_rbnn
+OS264:
+  type: lidar
+  accuracy_m:
+    - -0.02
+    - 0.02
+  channels: 64
+  cost_chf: 19700.0
+  frequency_hz: 10.0
+  latency_s: 0.01
+  mass_g: 93.0
+  power_w: 24.0
+  range_m: 240.0
+  resolution_degree:
+  - 0.2
+  - 0.18
+  algorithm:
+    day:
+      - day_kde_based
+      - day_stm_kde
+      - day_stm_rbnn
+    night:
+      - night_kde_based
+      - night_stm_kde
+      - night_stm_rbnn
+hdl32:
+  type: lidar
+  accuracy_m:
+    - -0.02
+    - 0.02
+  channels: 32
+  cost_chf: 30000.0
+  frequency_hz: 5.0
+  latency_s: 0.01
+  mass_g: 1300.0
+  power_w: 12.0
+  range_m: 100.0
+  resolution_degree:
+  - 0.3
+  - 1.33
+  algorithm:
+    day:
+      - day_kde_based
+      - day_stm_kde
+      - day_stm_rbnn
+    night:
+      - night_kde_based
+      - night_stm_kde
+      - night_stm_rbnn
+hdl64:
+  type: lidar
+  accuracy_m:
+    - -0.02
+    - 0.02
+  channels: 64
+  cost_chf: 75000.0
+  frequency_hz: 5.0
+  latency_s: 0.01
+  mass_g: 12700
+  power_w: 60.0
+  range_m: 120.0
+  resolution_degree:
+  - 0.2
+  - 0.4
+  algorithm:
+    day:
+      - day_kde_based
+      - day_stm_kde
+      - day_stm_rbnn
+    night:
+      - night_kde_based
+      - night_stm_kde
+      - night_stm_rbnn
+#pandar128:
+#  type: lidar
+#  accuracy_m:
+#    - -0.02
+#    - 0.02
+#  channels: 40
+#  cost_chf: 30000.0
+#  frequency_hz: 10.0
+#  latency_s: 0.01
+#  mass_g: 1630.0
+#  power_w: 25.0
+#  range_m: 200.0
+#  resolution_degree:
+#  - 0.2
+#  - 0.125
+#  algorithm:
+#    day:
+#      - day_kde_based
+#      - day_stm_kde
+#      - day_stm_rbnn
+#    night:
+#      - night_kde_based
+#      - night_stm_kde
+#      - night_stm_rbnn
+#pandar40:
+#  type: lidar
+#  accuracy_m:
+#    - -0.02
+#    - 0.02
+#  channels: 40
+#  cost_chf: 30000.0
+#  frequency_hz: 10.0
+#  latency_s: 0.01
+#  mass_g: 1430.0
+#  power_w: 15.0
+#  range_m: 200.0
+#  resolution_degree:
+#  - 3.0
+#  - 0.4
+#  algorithm:
+#    day:
+#      - day_kde_based
+#      - day_stm_kde
+#      - day_stm_rbnn
+#    night:
+#      - night_kde_based
+#      - night_stm_kde
+#      - night_stm_rbnn
+#pandar40P:
+#  type: lidar
+#  accuracy_m:
+#    - -0.02
+#    - 0.02
+#  channels: 40
+#  cost_chf: 30000.0
+#  frequency_hz: 10.0
+#  latency_s: 0.01
+#  mass_g: 1520.0
+#  power_w: 18.0
+#  range_m: 200.0
+#  resolution_degree:
+#  - 0.4
+#  - 0.4
+#  algorithm:
+#    day:
+#      - day_kde_based
+#      - day_stm_kde
+#      - day_stm_rbnn
+#    night:
+#      - night_kde_based
+#      - night_stm_kde
+#      - night_stm_rbnn
+#pandar64:
+#  type: lidar
+#  accuracy_m:
+#    - -0.02
+#    - 0.02
+#  channels: 64
+#  cost.0: 30000
+#  frequency_hz: 10.0
+#  latency_s: 0.01
+#  mass_g: 1430.0
+#  power_w: 22.0
+#  range_m: 200.0
+#  resolution_degree:
+#  - 0.4
+#  - 0.167
+#  algorithm:
+#    day:
+#      - day_kde_based
+#      - day_stm_kde
+#      - day_stm_rbnn
+#    night:
+#      - night_kde_based
+#      - night_stm_kde
+#      - night_stm_rbnn
+puck:
+  type: lidar
+  accuracy_m:
+    - -0.02
+    - 0.02
+  channels: 16
+  cost_chf: 4000.0
+  frequency_hz: 5.0
+  latency_s: 0.01
+  mass_g: 83.0
+  power_w: 8.0
+  range_m: 100.0
+  resolution_degree:
+  - 0.3
+  - 2
+  algorithm:
+    day:
+      - day_kde_based
+      - day_stm_kde
+      - day_stm_rbnn
+    night:
+      - night_kde_based
+      - night_stm_kde
+      - night_stm_rbnn

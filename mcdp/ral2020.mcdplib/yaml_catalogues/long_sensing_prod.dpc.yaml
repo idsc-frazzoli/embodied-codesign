@@ -1,15 +1,16 @@
 F:
-  - "`sen_prod"
-  - "Hz"
-  - "`timeday"
+- "`sen_prod"
+- "Hz"
+- "`timeday"
 R:
-  - "CHF"
-  - "g"
-  - "W"
-  - "us"
+- "CHF"
+- "g"
+- "W"
+- "s"
 implementations:
-  modelPuckDay1:
+  Ace13gmday_faster_rcnn1:
     f_max:
+<<<<<<< HEAD
     - "`sen_prod: puck_day_stm_kde"
     - "5.0 Hz"
     - "`timeday:day"
@@ -43,10 +44,786 @@ implementations:
     - "`sen_prod: hdl32_day_stm_kde"
     - "5.0 Hz"
     - "`timeday:night"
+=======
+    - "`sen_prod: Ace13gm_day_faster_rcnn1"
+    - "13.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "530.0 CHF"
+    - "105.0 g"
+    - "3.1 W"
+    - "0.012 s"
+  Ace15umday_faster_rcnn1:
+    f_max:
+    - "`sen_prod: Ace15um_day_faster_rcnn1"
+    - "15.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "2630.0 CHF"
+    - "90.0 g"
+    - "3.6 W"
+    - "0.015 s"
+  Ace2160umday_faster_rcnn1:
+    f_max:
+    - "`sen_prod: Ace2160um_day_faster_rcnn1"
+    - "160.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "550.0 CHF"
+    - "90.0 g"
+    - "4.3 W"
+    - "0.019 s"
+  Ace222gmday_faster_rcnn1:
+    f_max:
+    - "`sen_prod: Ace222gm_day_faster_rcnn1"
+    - "22.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "500.0 CHF"
+    - "105.0 g"
+    - "3.1 W"
+    - "0.01 s"
+  Ace251gmday_faster_rcnn1:
+    f_max:
+    - "`sen_prod: Ace251gm_day_faster_rcnn1"
+    - "51.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "550.0 CHF"
+    - "105.0 g"
+    - "3.8 W"
+    - "0.019 s"
+  Ace5gmday_faster_rcnn1:
+    f_max:
+    - "`sen_prod: Ace5gm_day_faster_rcnn1"
+    - "5.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "2220.0 CHF"
+    - "105.0 g"
+    - "3.6 W"
+    - "0.016 s"
+  Ace7gmday_faster_rcnn1:
+    f_max:
+    - "`sen_prod: Ace7gm_day_faster_rcnn1"
+    - "7.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "1800.0 CHF"
+    - "105.0 g"
+    - "3.6 W"
+    - "0.016 s"
+  Pointgreyday_faster_rcnn1:
+    f_max:
+    - "`sen_prod: Pointgrey_day_faster_rcnn1"
+    - "15.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "350.0 CHF"
+    - "58.0 g"
+    - "2.5 W"
+    - "0.02 s"
+  Ace13gmday_faster_rcnn3:
+    f_max:
+    - "`sen_prod: Ace13gm_day_faster_rcnn3"
+    - "13.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "530.0 CHF"
+    - "105.0 g"
+    - "3.1 W"
+    - "0.012 s"
+  Ace15umday_faster_rcnn3:
+    f_max:
+    - "`sen_prod: Ace15um_day_faster_rcnn3"
+    - "15.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "2630.0 CHF"
+    - "90.0 g"
+    - "3.6 W"
+    - "0.015 s"
+  Ace2160umday_faster_rcnn3:
+    f_max:
+    - "`sen_prod: Ace2160um_day_faster_rcnn3"
+    - "160.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "550.0 CHF"
+    - "90.0 g"
+    - "4.3 W"
+    - "0.019 s"
+  Ace222gmday_faster_rcnn3:
+    f_max:
+    - "`sen_prod: Ace222gm_day_faster_rcnn3"
+    - "22.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "500.0 CHF"
+    - "105.0 g"
+    - "3.1 W"
+    - "0.01 s"
+  Ace251gmday_faster_rcnn3:
+    f_max:
+    - "`sen_prod: Ace251gm_day_faster_rcnn3"
+    - "51.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "550.0 CHF"
+    - "105.0 g"
+    - "3.8 W"
+    - "0.019 s"
+  Ace5gmday_faster_rcnn3:
+    f_max:
+    - "`sen_prod: Ace5gm_day_faster_rcnn3"
+    - "5.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "2220.0 CHF"
+    - "105.0 g"
+    - "3.6 W"
+    - "0.016 s"
+  Ace7gmday_faster_rcnn3:
+    f_max:
+    - "`sen_prod: Ace7gm_day_faster_rcnn3"
+    - "7.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "1800.0 CHF"
+    - "105.0 g"
+    - "3.6 W"
+    - "0.016 s"
+  Pointgreyday_faster_rcnn3:
+    f_max:
+    - "`sen_prod: Pointgrey_day_faster_rcnn3"
+    - "15.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "350.0 CHF"
+    - "58.0 g"
+    - "2.5 W"
+    - "0.02 s"
+  Ace13gmnight_faster_rcnn1:
+    f_max:
+    - "`sen_prod: Ace13gm_night_faster_rcnn1"
+    - "13.0 Hz"
+    - "`timeday: night"
+    r_min:
+    - "530.0 CHF"
+    - "105.0 g"
+    - "3.1 W"
+    - "0.012 s"
+  Ace15umnight_faster_rcnn1:
+    f_max:
+    - "`sen_prod: Ace15um_night_faster_rcnn1"
+    - "15.0 Hz"
+    - "`timeday: night"
+    r_min:
+    - "2630.0 CHF"
+    - "90.0 g"
+    - "3.6 W"
+    - "0.015 s"
+  Ace2160umnight_faster_rcnn1:
+    f_max:
+    - "`sen_prod: Ace2160um_night_faster_rcnn1"
+    - "160.0 Hz"
+    - "`timeday: night"
+    r_min:
+    - "550.0 CHF"
+    - "90.0 g"
+    - "4.3 W"
+    - "0.019 s"
+  Ace222gmnight_faster_rcnn1:
+    f_max:
+    - "`sen_prod: Ace222gm_night_faster_rcnn1"
+    - "22.0 Hz"
+    - "`timeday: night"
+    r_min:
+    - "500.0 CHF"
+    - "105.0 g"
+    - "3.1 W"
+    - "0.01 s"
+  Ace251gmnight_faster_rcnn1:
+    f_max:
+    - "`sen_prod: Ace251gm_night_faster_rcnn1"
+    - "51.0 Hz"
+    - "`timeday: night"
+    r_min:
+    - "550.0 CHF"
+    - "105.0 g"
+    - "3.8 W"
+    - "0.019 s"
+  Ace5gmnight_faster_rcnn1:
+    f_max:
+    - "`sen_prod: Ace5gm_night_faster_rcnn1"
+    - "5.0 Hz"
+    - "`timeday: night"
+    r_min:
+    - "2220.0 CHF"
+    - "105.0 g"
+    - "3.6 W"
+    - "0.016 s"
+  Ace7gmnight_faster_rcnn1:
+    f_max:
+    - "`sen_prod: Ace7gm_night_faster_rcnn1"
+    - "7.0 Hz"
+    - "`timeday: night"
+    r_min:
+    - "1800.0 CHF"
+    - "105.0 g"
+    - "3.6 W"
+    - "0.016 s"
+  Pointgreynight_faster_rcnn1:
+    f_max:
+    - "`sen_prod: Pointgrey_night_faster_rcnn1"
+    - "15.0 Hz"
+    - "`timeday: night"
+    r_min:
+    - "350.0 CHF"
+    - "58.0 g"
+    - "2.5 W"
+    - "0.02 s"
+  Ace13gmnight_faster_rcnn3:
+    f_max:
+    - "`sen_prod: Ace13gm_night_faster_rcnn3"
+    - "13.0 Hz"
+    - "`timeday: night"
+    r_min:
+    - "530.0 CHF"
+    - "105.0 g"
+    - "3.1 W"
+    - "0.012 s"
+  Ace15umnight_faster_rcnn3:
+    f_max:
+    - "`sen_prod: Ace15um_night_faster_rcnn3"
+    - "15.0 Hz"
+    - "`timeday: night"
+    r_min:
+    - "2630.0 CHF"
+    - "90.0 g"
+    - "3.6 W"
+    - "0.015 s"
+  Ace2160umnight_faster_rcnn3:
+    f_max:
+    - "`sen_prod: Ace2160um_night_faster_rcnn3"
+    - "160.0 Hz"
+    - "`timeday: night"
+    r_min:
+    - "550.0 CHF"
+    - "90.0 g"
+    - "4.3 W"
+    - "0.019 s"
+  Ace222gmnight_faster_rcnn3:
+    f_max:
+    - "`sen_prod: Ace222gm_night_faster_rcnn3"
+    - "22.0 Hz"
+    - "`timeday: night"
+    r_min:
+    - "500.0 CHF"
+    - "105.0 g"
+    - "3.1 W"
+    - "0.01 s"
+  Ace251gmnight_faster_rcnn3:
+    f_max:
+    - "`sen_prod: Ace251gm_night_faster_rcnn3"
+    - "51.0 Hz"
+    - "`timeday: night"
+    r_min:
+    - "550.0 CHF"
+    - "105.0 g"
+    - "3.8 W"
+    - "0.019 s"
+  Ace5gmnight_faster_rcnn3:
+    f_max:
+    - "`sen_prod: Ace5gm_night_faster_rcnn3"
+    - "5.0 Hz"
+    - "`timeday: night"
+    r_min:
+    - "2220.0 CHF"
+    - "105.0 g"
+    - "3.6 W"
+    - "0.016 s"
+  Ace7gmnight_faster_rcnn3:
+    f_max:
+    - "`sen_prod: Ace7gm_night_faster_rcnn3"
+    - "7.0 Hz"
+    - "`timeday: night"
+    r_min:
+    - "1800.0 CHF"
+    - "105.0 g"
+    - "3.6 W"
+    - "0.016 s"
+  Pointgreynight_faster_rcnn3:
+    f_max:
+    - "`sen_prod: Pointgrey_night_faster_rcnn3"
+    - "15.0 Hz"
+    - "`timeday: night"
+    r_min:
+    - "350.0 CHF"
+    - "58.0 g"
+    - "2.5 W"
+    - "0.02 s"
+  OS0128day_kde_based:
+    f_max:
+    - "`sen_prod: OS0128_day_kde_based"
+    - "10.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "11800.0 CHF"
+    - "445.0 g"
+    - "20.0 W"
+    - "0.02 s"
+  OS032day_kde_based:
+    f_max:
+    - "`sen_prod: OS032_day_kde_based"
+    - "10.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "6000.0 CHF"
+    - "445.0 g"
+    - "20.0 W"
+    - "0.01 s"
+  OS064day_kde_based:
+    f_max:
+    - "`sen_prod: OS064_day_kde_based"
+    - "10.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "7900.0 CHF"
+    - "445.0 g"
+    - "20.0 W"
+    - "0.01 s"
+  OS1128day_kde_based:
+    f_max:
+    - "`sen_prod: OS1128_day_kde_based"
+    - "10.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "17600.0 CHF"
+    - "445.0 g"
+    - "20.0 W"
+    - "0.01 s"
+  OS132day_kde_based:
+    f_max:
+    - "`sen_prod: OS132_day_kde_based"
+    - "10.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "8000.0 CHF"
+    - "445.0 g"
+    - "20.0 W"
+    - "0.01 s"
+  OS164day_kde_based:
+    f_max:
+    - "`sen_prod: OS164_day_kde_based"
+    - "10.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "11800.0 CHF"
+    - "445.0 g"
+    - "20.0 W"
+    - "0.01 s"
+  OS2128day_kde_based:
+    f_max:
+    - "`sen_prod: OS2128_day_kde_based"
+    - "10.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "19700.0 CHF"
+    - "93.0 g"
+    - "24.0 W"
+    - "0.01 s"
+  OS232day_kde_based:
+    f_max:
+    - "`sen_prod: OS232_day_kde_based"
+    - "10.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "16000.0 CHF"
+    - "93.0 g"
+    - "24.0 W"
+    - "0.01 s"
+  OS264day_kde_based:
+    f_max:
+    - "`sen_prod: OS264_day_kde_based"
+    - "10.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "19700.0 CHF"
+    - "93.0 g"
+    - "24.0 W"
+    - "0.01 s"
+  hdl32day_kde_based:
+    f_max:
+    - "`sen_prod: hdl32_day_kde_based"
+    - "5.0 Hz"
+    - "`timeday: day"
     r_min:
     - "30000.0 CHF"
     - "1300.0 g"
     - "12.0 W"
+    - "0.01 s"
+  hdl64day_kde_based:
+    f_max:
+    - "`sen_prod: hdl64_day_kde_based"
+    - "5.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "75000.0 CHF"
+    - "12700 g"
+    - "60.0 W"
+    - "0.01 s"
+  puckday_kde_based:
+    f_max:
+    - "`sen_prod: puck_day_kde_based"
+    - "5.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "4000.0 CHF"
+    - "83.0 g"
+    - "8.0 W"
+    - "0.01 s"
+  OS0128day_stm_kde:
+    f_max:
+    - "`sen_prod: OS0128_day_stm_kde"
+    - "10.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "11800.0 CHF"
+    - "445.0 g"
+    - "20.0 W"
+    - "0.02 s"
+  OS032day_stm_kde:
+    f_max:
+    - "`sen_prod: OS032_day_stm_kde"
+    - "10.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "6000.0 CHF"
+    - "445.0 g"
+    - "20.0 W"
+    - "0.01 s"
+  OS064day_stm_kde:
+    f_max:
+    - "`sen_prod: OS064_day_stm_kde"
+    - "10.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "7900.0 CHF"
+    - "445.0 g"
+    - "20.0 W"
+    - "0.01 s"
+  OS1128day_stm_kde:
+    f_max:
+    - "`sen_prod: OS1128_day_stm_kde"
+    - "10.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "17600.0 CHF"
+    - "445.0 g"
+    - "20.0 W"
+    - "0.01 s"
+  OS132day_stm_kde:
+    f_max:
+    - "`sen_prod: OS132_day_stm_kde"
+    - "10.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "8000.0 CHF"
+    - "445.0 g"
+    - "20.0 W"
+    - "0.01 s"
+  OS164day_stm_kde:
+    f_max:
+    - "`sen_prod: OS164_day_stm_kde"
+    - "10.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "11800.0 CHF"
+    - "445.0 g"
+    - "20.0 W"
+    - "0.01 s"
+  OS2128day_stm_kde:
+    f_max:
+    - "`sen_prod: OS2128_day_stm_kde"
+    - "10.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "19700.0 CHF"
+    - "93.0 g"
+    - "24.0 W"
+    - "0.01 s"
+  OS232day_stm_kde:
+    f_max:
+    - "`sen_prod: OS232_day_stm_kde"
+    - "10.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "16000.0 CHF"
+    - "93.0 g"
+    - "24.0 W"
+    - "0.01 s"
+  OS264day_stm_kde:
+    f_max:
+    - "`sen_prod: OS264_day_stm_kde"
+    - "10.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "19700.0 CHF"
+    - "93.0 g"
+    - "24.0 W"
+    - "0.01 s"
+  hdl32day_stm_kde:
+    f_max:
+    - "`sen_prod: hdl32_day_stm_kde"
+    - "5.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "30000.0 CHF"
+    - "1300.0 g"
+    - "12.0 W"
+    - "0.01 s"
+  hdl64day_stm_kde:
+    f_max:
+    - "`sen_prod: hdl64_day_stm_kde"
+    - "5.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "75000.0 CHF"
+    - "12700 g"
+    - "60.0 W"
+    - "0.01 s"
+  puckday_stm_kde:
+    f_max:
+    - "`sen_prod: puck_day_stm_kde"
+    - "5.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "4000.0 CHF"
+    - "83.0 g"
+    - "8.0 W"
+    - "0.01 s"
+  OS0128day_stm_rbnn:
+    f_max:
+    - "`sen_prod: OS0128_day_stm_rbnn"
+    - "10.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "11800.0 CHF"
+    - "445.0 g"
+    - "20.0 W"
+    - "0.02 s"
+  OS032day_stm_rbnn:
+    f_max:
+    - "`sen_prod: OS032_day_stm_rbnn"
+    - "10.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "6000.0 CHF"
+    - "445.0 g"
+    - "20.0 W"
+    - "0.01 s"
+  OS064day_stm_rbnn:
+    f_max:
+    - "`sen_prod: OS064_day_stm_rbnn"
+    - "10.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "7900.0 CHF"
+    - "445.0 g"
+    - "20.0 W"
+    - "0.01 s"
+  OS1128day_stm_rbnn:
+    f_max:
+    - "`sen_prod: OS1128_day_stm_rbnn"
+    - "10.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "17600.0 CHF"
+    - "445.0 g"
+    - "20.0 W"
+    - "0.01 s"
+  OS132day_stm_rbnn:
+    f_max:
+    - "`sen_prod: OS132_day_stm_rbnn"
+    - "10.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "8000.0 CHF"
+    - "445.0 g"
+    - "20.0 W"
+    - "0.01 s"
+  OS164day_stm_rbnn:
+    f_max:
+    - "`sen_prod: OS164_day_stm_rbnn"
+    - "10.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "11800.0 CHF"
+    - "445.0 g"
+    - "20.0 W"
+    - "0.01 s"
+  OS2128day_stm_rbnn:
+    f_max:
+    - "`sen_prod: OS2128_day_stm_rbnn"
+    - "10.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "19700.0 CHF"
+    - "93.0 g"
+    - "24.0 W"
+    - "0.01 s"
+  OS232day_stm_rbnn:
+    f_max:
+    - "`sen_prod: OS232_day_stm_rbnn"
+    - "10.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "16000.0 CHF"
+    - "93.0 g"
+    - "24.0 W"
+    - "0.01 s"
+  OS264day_stm_rbnn:
+    f_max:
+    - "`sen_prod: OS264_day_stm_rbnn"
+    - "10.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "19700.0 CHF"
+    - "93.0 g"
+    - "24.0 W"
+    - "0.01 s"
+  hdl32day_stm_rbnn:
+    f_max:
+    - "`sen_prod: hdl32_day_stm_rbnn"
+    - "5.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "30000.0 CHF"
+    - "1300.0 g"
+    - "12.0 W"
+    - "0.01 s"
+  hdl64day_stm_rbnn:
+    f_max:
+    - "`sen_prod: hdl64_day_stm_rbnn"
+    - "5.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "75000.0 CHF"
+    - "12700 g"
+    - "60.0 W"
+    - "0.01 s"
+  puckday_stm_rbnn:
+    f_max:
+    - "`sen_prod: puck_day_stm_rbnn"
+    - "5.0 Hz"
+    - "`timeday: day"
+    r_min:
+    - "4000.0 CHF"
+    - "83.0 g"
+    - "8.0 W"
+    - "0.01 s"
+  OS0128night_kde_based:
+    f_max:
+    - "`sen_prod: OS0128_night_kde_based"
+    - "10.0 Hz"
+    - "`timeday: night"
+    r_min:
+    - "11800.0 CHF"
+    - "445.0 g"
+    - "20.0 W"
+    - "0.02 s"
+  OS032night_kde_based:
+    f_max:
+    - "`sen_prod: OS032_night_kde_based"
+    - "10.0 Hz"
+    - "`timeday: night"
+    r_min:
+    - "6000.0 CHF"
+    - "445.0 g"
+    - "20.0 W"
+    - "0.01 s"
+  OS064night_kde_based:
+    f_max:
+    - "`sen_prod: OS064_night_kde_based"
+    - "10.0 Hz"
+    - "`timeday: night"
+    r_min:
+    - "7900.0 CHF"
+    - "445.0 g"
+    - "20.0 W"
+    - "0.01 s"
+  OS1128night_kde_based:
+    f_max:
+    - "`sen_prod: OS1128_night_kde_based"
+    - "10.0 Hz"
+    - "`timeday: night"
+    r_min:
+    - "17600.0 CHF"
+    - "445.0 g"
+    - "20.0 W"
+    - "0.01 s"
+  OS132night_kde_based:
+    f_max:
+    - "`sen_prod: OS132_night_kde_based"
+    - "10.0 Hz"
+    - "`timeday: night"
+    r_min:
+    - "8000.0 CHF"
+    - "445.0 g"
+    - "20.0 W"
+    - "0.01 s"
+  OS164night_kde_based:
+    f_max:
+    - "`sen_prod: OS164_night_kde_based"
+    - "10.0 Hz"
+    - "`timeday: night"
+    r_min:
+    - "11800.0 CHF"
+    - "445.0 g"
+    - "20.0 W"
+    - "0.01 s"
+  OS2128night_kde_based:
+    f_max:
+    - "`sen_prod: OS2128_night_kde_based"
+    - "10.0 Hz"
+    - "`timeday: night"
+    r_min:
+    - "19700.0 CHF"
+    - "93.0 g"
+    - "24.0 W"
+    - "0.01 s"
+  OS232night_kde_based:
+    f_max:
+    - "`sen_prod: OS232_night_kde_based"
+    - "10.0 Hz"
+    - "`timeday: night"
+    r_min:
+    - "16000.0 CHF"
+    - "93.0 g"
+    - "24.0 W"
+    - "0.01 s"
+  OS264night_kde_based:
+    f_max:
+    - "`sen_prod: OS264_night_kde_based"
+    - "10.0 Hz"
+    - "`timeday: night"
+    r_min:
+    - "19700.0 CHF"
+    - "93.0 g"
+    - "24.0 W"
+    - "0.01 s"
+  hdl32night_kde_based:
+    f_max:
+    - "`sen_prod: hdl32_night_kde_based"
+    - "5.0 Hz"
+    - "`timeday: night"
+>>>>>>> dev-dejan
+    r_min:
+    - "30000.0 CHF"
+    - "1300.0 g"
+    - "12.0 W"
+<<<<<<< HEAD
     - "Bottom s"
   modelHDL64Day2:
     f_max:
@@ -71,59 +848,215 @@ implementations:
   modelOS232Day2:
     f_max:
     - "`sen_prod: OS232_day_stm_kde"
-    - "10.0 Hz"
-    - "`timeday:day"
+=======
+    - "0.01 s"
+  hdl64night_kde_based:
+    f_max:
+    - "`sen_prod: hdl64_night_kde_based"
+    - "5.0 Hz"
+    - "`timeday: night"
     r_min:
+    - "75000.0 CHF"
+    - "12700 g"
+    - "60.0 W"
+    - "0.01 s"
+  pucknight_kde_based:
+    f_max:
+    - "`sen_prod: puck_night_kde_based"
+    - "5.0 Hz"
+    - "`timeday: night"
+    r_min:
+    - "4000.0 CHF"
+    - "83.0 g"
+    - "8.0 W"
+    - "0.01 s"
+  OS0128night_stm_kde:
+    f_max:
+    - "`sen_prod: OS0128_night_stm_kde"
+>>>>>>> dev-dejan
+    - "10.0 Hz"
+    - "`timeday: night"
+    r_min:
+<<<<<<< HEAD
     - "16000.0 CHF"
     - "930.0 g"
     - "21.0 W"
     - "Bottom s"
   modelOS232Night2:
+=======
+    - "11800.0 CHF"
+    - "445.0 g"
+    - "20.0 W"
+    - "0.02 s"
+  OS032night_stm_kde:
     f_max:
-    - "`sen_prod: OS232_day_stm_kde"
+    - "`sen_prod: OS032_night_stm_kde"
     - "10.0 Hz"
-    - "`timeday:night"
+    - "`timeday: night"
     r_min:
+    - "6000.0 CHF"
+    - "445.0 g"
+    - "20.0 W"
+    - "0.01 s"
+  OS064night_stm_kde:
+>>>>>>> dev-dejan
+    f_max:
+    - "`sen_prod: OS064_night_stm_kde"
+    - "10.0 Hz"
+    - "`timeday: night"
+    r_min:
+<<<<<<< HEAD
     - "16000.0 CHF"
     - "930.0 g"
     - "21.0 W"
     - "Bottom s"
   modelOS264Day2:
+=======
+    - "7900.0 CHF"
+    - "445.0 g"
+    - "20.0 W"
+    - "0.01 s"
+  OS1128night_stm_kde:
     f_max:
-    - "`sen_prod: OS264_day_stm_kde"
+    - "`sen_prod: OS1128_night_stm_kde"
     - "10.0 Hz"
-    - "`timeday:day"
+    - "`timeday: night"
     r_min:
+    - "17600.0 CHF"
+    - "445.0 g"
+    - "20.0 W"
+    - "0.01 s"
+  OS132night_stm_kde:
+    f_max:
+    - "`sen_prod: OS132_night_stm_kde"
+    - "10.0 Hz"
+    - "`timeday: night"
+    r_min:
+    - "8000.0 CHF"
+    - "445.0 g"
+    - "20.0 W"
+    - "0.01 s"
+  OS164night_stm_kde:
+>>>>>>> dev-dejan
+    f_max:
+    - "`sen_prod: OS164_night_stm_kde"
+    - "10.0 Hz"
+    - "`timeday: night"
+    r_min:
+<<<<<<< HEAD
     - "19700.0 CHF"
     - "930.0 g"
     - "21.0 W"
     - "Bottom s"
   modelOS264Night2:
+=======
+    - "11800.0 CHF"
+    - "445.0 g"
+    - "20.0 W"
+    - "0.01 s"
+  OS2128night_stm_kde:
     f_max:
-    - "`sen_prod: OS264_day_stm_kde"
+    - "`sen_prod: OS2128_night_stm_kde"
     - "10.0 Hz"
-    - "`timeday:night"
+    - "`timeday: night"
     r_min:
     - "19700.0 CHF"
+    - "93.0 g"
+    - "24.0 W"
+    - "0.01 s"
+  OS232night_stm_kde:
+    f_max:
+    - "`sen_prod: OS232_night_stm_kde"
+    - "10.0 Hz"
+    - "`timeday: night"
+    r_min:
+    - "16000.0 CHF"
+    - "93.0 g"
+    - "24.0 W"
+    - "0.01 s"
+  OS264night_stm_kde:
+>>>>>>> dev-dejan
+    f_max:
+    - "`sen_prod: OS264_night_stm_kde"
+    - "10.0 Hz"
+    - "`timeday: night"
+    r_min:
+    - "19700.0 CHF"
+<<<<<<< HEAD
     - "930.0 g"
     - "21.0 W"
     - "Bottom s"
   modelOS2128Day2:
+=======
+    - "93.0 g"
+    - "24.0 W"
+    - "0.01 s"
+  hdl32night_stm_kde:
     f_max:
-    - "`sen_prod: OS2128_day_stm_kde"
-    - "10.0 Hz"
-    - "`timeday:day"
+    - "`sen_prod: hdl32_night_stm_kde"
+    - "5.0 Hz"
+    - "`timeday: night"
     r_min:
+    - "30000.0 CHF"
+    - "1300.0 g"
+    - "12.0 W"
+    - "0.01 s"
+  hdl64night_stm_kde:
+    f_max:
+    - "`sen_prod: hdl64_night_stm_kde"
+    - "5.0 Hz"
+    - "`timeday: night"
+    r_min:
+    - "75000.0 CHF"
+    - "12700 g"
+    - "60.0 W"
+    - "0.01 s"
+  pucknight_stm_kde:
+>>>>>>> dev-dejan
+    f_max:
+    - "`sen_prod: puck_night_stm_kde"
+    - "5.0 Hz"
+    - "`timeday: night"
+    r_min:
+<<<<<<< HEAD
     - "23700.0 CHF"
     - "930.0 g"
     - "21.0 W"
     - "Bottom s"
   modelOS2128Night2:
+=======
+    - "4000.0 CHF"
+    - "83.0 g"
+    - "8.0 W"
+    - "0.01 s"
+  OS0128night_stm_rbnn:
     f_max:
-    - "`sen_prod: OS2128_day_stm_kde"
+    - "`sen_prod: OS0128_night_stm_rbnn"
     - "10.0 Hz"
-    - "`timeday:night"
+    - "`timeday: night"
     r_min:
+    - "11800.0 CHF"
+    - "445.0 g"
+    - "20.0 W"
+    - "0.02 s"
+  OS032night_stm_rbnn:
+    f_max:
+    - "`sen_prod: OS032_night_stm_rbnn"
+    - "10.0 Hz"
+    - "`timeday: night"
+    r_min:
+    - "6000.0 CHF"
+    - "445.0 g"
+    - "20.0 W"
+    - "0.01 s"
+  OS064night_stm_rbnn:
+>>>>>>> dev-dejan
+    f_max:
+    - "`sen_prod: OS064_night_stm_rbnn"
+    - "10.0 Hz"
+    - "`timeday: night"
+    r_min:
+<<<<<<< HEAD
     - "23700.0 CHF"
     - "930.0 g"
     - "21.0 W"
@@ -209,41 +1142,113 @@ implementations:
     - "3.1 W"
     - "12 us"
   modelAce7gmDayRcnn1:
+=======
+    - "7900.0 CHF"
+    - "445.0 g"
+    - "20.0 W"
+    - "0.01 s"
+  OS1128night_stm_rbnn:
     f_max:
-    - "`sen_prod: Ace7gm_day_faster_rcnn1"
-    - "7.0 Hz"
-    - "`timeday:day"
+    - "`sen_prod: OS1128_night_stm_rbnn"
+    - "10.0 Hz"
+    - "`timeday: night"
     r_min:
+    - "17600.0 CHF"
+    - "445.0 g"
+    - "20.0 W"
+    - "0.01 s"
+  OS132night_stm_rbnn:
+>>>>>>> dev-dejan
+    f_max:
+    - "`sen_prod: OS132_night_stm_rbnn"
+    - "10.0 Hz"
+    - "`timeday: night"
+    r_min:
+<<<<<<< HEAD
     - "1800.0 CHF"
     - "105.0 g"
     - "3.6 W"
     - "16 us"
   modelAce7gmNight1:
+=======
+    - "8000.0 CHF"
+    - "445.0 g"
+    - "20.0 W"
+    - "0.01 s"
+  OS164night_stm_rbnn:
     f_max:
-    - "`sen_prod: Ace7gm_night_faster_rcnn1"
-    - "7.0 Hz"
-    - "`timeday:night"
+    - "`sen_prod: OS164_night_stm_rbnn"
+    - "10.0 Hz"
+    - "`timeday: night"
     r_min:
+    - "11800.0 CHF"
+    - "445.0 g"
+    - "20.0 W"
+    - "0.01 s"
+  OS2128night_stm_rbnn:
+>>>>>>> dev-dejan
+    f_max:
+    - "`sen_prod: OS2128_night_stm_rbnn"
+    - "10.0 Hz"
+    - "`timeday: night"
+    r_min:
+<<<<<<< HEAD
     - "1800.0 CHF"
     - "105.0 g"
     - "3.6 W"
     - "16 us"
   modelAce5gmDayRcnn1:
+=======
+    - "19700.0 CHF"
+    - "93.0 g"
+    - "24.0 W"
+    - "0.01 s"
+  OS232night_stm_rbnn:
     f_max:
-    - "`sen_prod: Ace5gm_day_faster_rcnn1"
-    - "5.0 Hz"
-    - "`timeday:day"
+    - "`sen_prod: OS232_night_stm_rbnn"
+    - "10.0 Hz"
+    - "`timeday: night"
     r_min:
+    - "16000.0 CHF"
+    - "93.0 g"
+    - "24.0 W"
+    - "0.01 s"
+  OS264night_stm_rbnn:
+>>>>>>> dev-dejan
+    f_max:
+    - "`sen_prod: OS264_night_stm_rbnn"
+    - "10.0 Hz"
+    - "`timeday: night"
+    r_min:
+<<<<<<< HEAD
     - "2220.0 CHF"
     - "105.0 g"
     - "3.6 W"
     - "16 us"
   modelAce5gmNight1:
+=======
+    - "19700.0 CHF"
+    - "93.0 g"
+    - "24.0 W"
+    - "0.01 s"
+  hdl32night_stm_rbnn:
     f_max:
-    - "`sen_prod: Ace5gm_night_faster_rcnn1"
+    - "`sen_prod: hdl32_night_stm_rbnn"
     - "5.0 Hz"
-    - "`timeday:night"
+    - "`timeday: night"
     r_min:
+    - "30000.0 CHF"
+    - "1300.0 g"
+    - "12.0 W"
+    - "0.01 s"
+  hdl64night_stm_rbnn:
+>>>>>>> dev-dejan
+    f_max:
+    - "`sen_prod: hdl64_night_stm_rbnn"
+    - "5.0 Hz"
+    - "`timeday: night"
+    r_min:
+<<<<<<< HEAD
     - "2220.0 CHF"
     - "105.0 g"
     - "3.6 W"
@@ -288,3 +1293,19 @@ implementations:
     - "58.0 g"
     - "2.5 W"
     - "20 us"
+=======
+    - "75000.0 CHF"
+    - "12700 g"
+    - "60.0 W"
+    - "0.01 s"
+  pucknight_stm_rbnn:
+    f_max:
+    - "`sen_prod: puck_night_stm_rbnn"
+    - "5.0 Hz"
+    - "`timeday: night"
+    r_min:
+    - "4000.0 CHF"
+    - "83.0 g"
+    - "8.0 W"
+    - "0.01 s"
+>>>>>>> dev-dejan

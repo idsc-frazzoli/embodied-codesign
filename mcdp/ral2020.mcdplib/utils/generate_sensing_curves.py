@@ -14,7 +14,7 @@ def get_curves(fileName):
     sensor_names = []
     all_curves = []
     with open(fileName) as f:
-        sensors_file = yaml.load(f, Loader=yaml.FullLoader)
+        sensors_file = json.load(f)
         for item, doc in sensors_file.items():
             #if "OS0" in item:
             #    print('here it is')

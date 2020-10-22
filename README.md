@@ -1,18 +1,38 @@
 # embodied-codesign
 
-## TODO
-- stopping criterium for simulation. So far only when it hits an object. Does the objects disappear when safely stopped infront of them? To the objects have a time schedule?
-- So far only simple vehicle kinematics used. Maybe we could add dynamics with additional vehicle parameters such as tires or engine.
-- Testing
-- additional controllers
-- false positive and false negative rates curve generation
-- distance standard deviation curve for object detction (so far linear increasing with distance)
-- statistics (number of false positives, false negatives, ....)
+## RUN
+Run tests:
 
-## Uncertainty
-- not sure about the observation update for the bayes filter.
-- not sure about the implementation of the false positive detections
-- does prior of the bayes filter need to be normalized?
+`$ make test`
+
+Run sensor curve generation where you can specify ds and maximum sensing range.
+The default values are already shown in the command:
+
+`$ make generate_sens_curves DS=0.05 SENSE_RANGE=500.0`
+
+To plot the curves you can use the following command which plots all curves 
+(if adding flag `PLOTSENSCURVE=Ace13gm` it plots only the specified sensor):
+
+`$ make plot_sens_curves`
+
+To generate the controller parameters you can use following command (`CONTROL_PARAM_PAMAX` is the percentage of your maximum acceleration which you want to use):
+
+`$ make generate_control_param CONTROL_PARAM_FREQ='20 10' CONTROL_PARAM_TH='0.1 0.2' CONTROL_PARAM_DSTOP=3.0 
+CONTROL_PARAM_PAMAX=0.5`
+
+To generate the enviroment use the following command:
+
+`$ make generate_sim_environment ENV_SIM_DENSITY='1 10 50' ENV_SIM_DAYNIGHT='day night'`
+
+Then to run a a fixed paramter set you can run the following command, wehre many parameters can be set (instructions will come):
+
+`$ make generate_animation`
+
+To create a whole catalogue use the following command. Important to mention here is that with the flag 
+`ALL=--all` it will run all the parameters in the yaml  files. If you want to fix some paramters then use e.g.
+`VEHICLE_KEY='sedan_s sedan_m'`. 
+
+`$ create_catalogue ALL=--all`
 
 ## Paremeters to set:
 
