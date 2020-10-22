@@ -1,26 +1,5 @@
 add_bottom poset {
 Ace13gm_day_faster_rcnn1 Ace13gm_day_faster_rcnn3 Ace13gm_night_faster_rcnn1 Ace13gm_night_faster_rcnn3 Ace15um_day_faster_rcnn1 Ace15um_day_faster_rcnn3 Ace15um_night_faster_rcnn1 Ace15um_night_faster_rcnn3 Ace2160um_day_faster_rcnn1 Ace2160um_day_faster_rcnn3 Ace2160um_night_faster_rcnn1 Ace2160um_night_faster_rcnn3 Ace222gm_day_faster_rcnn1 Ace222gm_day_faster_rcnn3 Ace222gm_night_faster_rcnn1 Ace222gm_night_faster_rcnn3 Ace251gm_day_faster_rcnn1 Ace251gm_day_faster_rcnn3 Ace251gm_night_faster_rcnn1 Ace251gm_night_faster_rcnn3 Ace5gm_day_faster_rcnn1 Ace5gm_day_faster_rcnn3 Ace5gm_night_faster_rcnn1 Ace5gm_night_faster_rcnn3 Ace7gm_day_faster_rcnn1 Ace7gm_day_faster_rcnn3 Ace7gm_night_faster_rcnn1 Ace7gm_night_faster_rcnn3 Pointgrey_day_faster_rcnn1 Pointgrey_day_faster_rcnn3 Pointgrey_night_faster_rcnn1 Pointgrey_night_faster_rcnn3 OS0128_day_kde_based OS0128_day_stm_kde OS0128_day_stm_rbnn OS0128_night_kde_based OS0128_night_stm_kde OS0128_night_stm_rbnn OS032_day_kde_based OS032_day_stm_kde OS032_day_stm_rbnn OS032_night_kde_based OS032_night_stm_kde OS032_night_stm_rbnn OS064_day_kde_based OS064_day_stm_kde OS064_day_stm_rbnn OS064_night_kde_based OS064_night_stm_kde OS064_night_stm_rbnn OS1128_day_kde_based OS1128_day_stm_kde OS1128_day_stm_rbnn OS1128_night_kde_based OS1128_night_stm_kde OS1128_night_stm_rbnn OS132_day_kde_based OS132_day_stm_kde OS132_day_stm_rbnn OS132_night_kde_based OS132_night_stm_kde OS132_night_stm_rbnn OS164_day_kde_based OS164_day_stm_kde OS164_day_stm_rbnn OS164_night_kde_based OS164_night_stm_kde OS164_night_stm_rbnn OS2128_day_kde_based OS2128_day_stm_kde OS2128_day_stm_rbnn OS2128_night_kde_based OS2128_night_stm_kde OS2128_night_stm_rbnn OS232_day_kde_based OS232_day_stm_kde OS232_day_stm_rbnn OS232_night_kde_based OS232_night_stm_kde OS232_night_stm_rbnn OS264_day_kde_based OS264_day_stm_kde OS264_day_stm_rbnn OS264_night_kde_based OS264_night_stm_kde OS264_night_stm_rbnn hdl32_day_kde_based hdl32_day_stm_kde hdl32_day_stm_rbnn hdl32_night_kde_based hdl32_night_stm_kde hdl32_night_stm_rbnn hdl64_day_kde_based hdl64_day_stm_kde hdl64_day_stm_rbnn hdl64_night_kde_based hdl64_night_stm_kde hdl64_night_stm_rbnn puck_day_kde_based puck_day_stm_kde puck_day_stm_rbnn puck_night_kde_based puck_night_stm_kde puck_night_stm_rbnn 
-<<<<<<< HEAD
-Ace13gm_day_faster_rcnn1 <= Pointgrey_day_faster_rcnn1
-Ace13gm_day_faster_rcnn1 <= Pointgrey_day_faster_rcnn3
-Ace13gm_day_faster_rcnn3 <= Pointgrey_day_faster_rcnn1
-Ace13gm_day_faster_rcnn3 <= Pointgrey_day_faster_rcnn3
-Ace13gm_night_faster_rcnn1 <= Pointgrey_day_faster_rcnn1
-Ace13gm_night_faster_rcnn1 <= Pointgrey_day_faster_rcnn3
-Ace13gm_night_faster_rcnn3 <= Ace13gm_day_faster_rcnn1
-Ace13gm_night_faster_rcnn3 <= Pointgrey_day_faster_rcnn1
-Ace13gm_night_faster_rcnn3 <= Pointgrey_day_faster_rcnn3
-Ace15um_day_faster_rcnn1 <= Ace13gm_day_faster_rcnn1
-Ace15um_day_faster_rcnn1 <= Ace222gm_day_faster_rcnn1
-Ace15um_day_faster_rcnn1 <= Ace5gm_day_faster_rcnn1
-Ace15um_day_faster_rcnn1 <= Pointgrey_day_faster_rcnn1
-Ace15um_day_faster_rcnn1 <= Pointgrey_day_faster_rcnn3
-Ace15um_day_faster_rcnn3 <= Ace13gm_day_faster_rcnn3
-Ace15um_day_faster_rcnn3 <= Ace222gm_day_faster_rcnn3
-Ace15um_day_faster_rcnn3 <= Ace5gm_day_faster_rcnn3
-Ace15um_day_faster_rcnn3 <= Pointgrey_day_faster_rcnn1
-Ace15um_day_faster_rcnn3 <= Pointgrey_day_faster_rcnn3
-=======
 Ace13gm_night_faster_rcnn3 <= Ace13gm_day_faster_rcnn1
 Ace15um_day_faster_rcnn1 <= Ace13gm_day_faster_rcnn1
 Ace15um_day_faster_rcnn1 <= Ace222gm_day_faster_rcnn1
@@ -28,17 +7,11 @@ Ace15um_day_faster_rcnn1 <= Ace5gm_day_faster_rcnn1
 Ace15um_day_faster_rcnn3 <= Ace13gm_day_faster_rcnn3
 Ace15um_day_faster_rcnn3 <= Ace222gm_day_faster_rcnn3
 Ace15um_day_faster_rcnn3 <= Ace5gm_day_faster_rcnn3
->>>>>>> dev-dejan
 Ace15um_night_faster_rcnn1 <= Ace13gm_day_faster_rcnn1
 Ace15um_night_faster_rcnn1 <= Ace13gm_night_faster_rcnn1
 Ace15um_night_faster_rcnn1 <= Ace222gm_day_faster_rcnn1
 Ace15um_night_faster_rcnn1 <= Ace222gm_night_faster_rcnn1
 Ace15um_night_faster_rcnn1 <= Ace5gm_night_faster_rcnn1
-<<<<<<< HEAD
-Ace15um_night_faster_rcnn1 <= Pointgrey_day_faster_rcnn1
-Ace15um_night_faster_rcnn1 <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 Ace15um_night_faster_rcnn3 <= Ace13gm_day_faster_rcnn1
 Ace15um_night_faster_rcnn3 <= Ace13gm_day_faster_rcnn3
 Ace15um_night_faster_rcnn3 <= Ace13gm_night_faster_rcnn3
@@ -48,33 +21,18 @@ Ace15um_night_faster_rcnn3 <= Ace222gm_day_faster_rcnn3
 Ace15um_night_faster_rcnn3 <= Ace222gm_night_faster_rcnn3
 Ace15um_night_faster_rcnn3 <= Ace5gm_day_faster_rcnn1
 Ace15um_night_faster_rcnn3 <= Ace5gm_night_faster_rcnn3
-<<<<<<< HEAD
-Ace15um_night_faster_rcnn3 <= Pointgrey_day_faster_rcnn1
-Ace15um_night_faster_rcnn3 <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 Ace2160um_day_faster_rcnn1 <= Ace13gm_day_faster_rcnn1
 Ace2160um_day_faster_rcnn1 <= Ace15um_day_faster_rcnn1
 Ace2160um_day_faster_rcnn1 <= Ace222gm_day_faster_rcnn1
 Ace2160um_day_faster_rcnn1 <= Ace251gm_day_faster_rcnn1
 Ace2160um_day_faster_rcnn1 <= Ace5gm_day_faster_rcnn1
 Ace2160um_day_faster_rcnn1 <= Ace7gm_day_faster_rcnn1
-<<<<<<< HEAD
-Ace2160um_day_faster_rcnn1 <= Pointgrey_day_faster_rcnn1
-Ace2160um_day_faster_rcnn1 <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 Ace2160um_day_faster_rcnn3 <= Ace13gm_day_faster_rcnn3
 Ace2160um_day_faster_rcnn3 <= Ace15um_day_faster_rcnn3
 Ace2160um_day_faster_rcnn3 <= Ace222gm_day_faster_rcnn3
 Ace2160um_day_faster_rcnn3 <= Ace251gm_day_faster_rcnn3
 Ace2160um_day_faster_rcnn3 <= Ace5gm_day_faster_rcnn3
 Ace2160um_day_faster_rcnn3 <= Ace7gm_day_faster_rcnn3
-<<<<<<< HEAD
-Ace2160um_day_faster_rcnn3 <= Pointgrey_day_faster_rcnn1
-Ace2160um_day_faster_rcnn3 <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 Ace2160um_night_faster_rcnn1 <= Ace13gm_day_faster_rcnn1
 Ace2160um_night_faster_rcnn1 <= Ace13gm_night_faster_rcnn1
 Ace2160um_night_faster_rcnn1 <= Ace15um_day_faster_rcnn1
@@ -86,11 +44,6 @@ Ace2160um_night_faster_rcnn1 <= Ace5gm_day_faster_rcnn1
 Ace2160um_night_faster_rcnn1 <= Ace5gm_night_faster_rcnn1
 Ace2160um_night_faster_rcnn1 <= Ace7gm_day_faster_rcnn1
 Ace2160um_night_faster_rcnn1 <= Ace7gm_night_faster_rcnn1
-<<<<<<< HEAD
-Ace2160um_night_faster_rcnn1 <= Pointgrey_day_faster_rcnn1
-Ace2160um_night_faster_rcnn1 <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 Ace2160um_night_faster_rcnn3 <= Ace13gm_day_faster_rcnn1
 Ace2160um_night_faster_rcnn3 <= Ace13gm_day_faster_rcnn3
 Ace2160um_night_faster_rcnn3 <= Ace13gm_night_faster_rcnn3
@@ -106,53 +59,24 @@ Ace2160um_night_faster_rcnn3 <= Ace5gm_day_faster_rcnn1
 Ace2160um_night_faster_rcnn3 <= Ace5gm_night_faster_rcnn3
 Ace2160um_night_faster_rcnn3 <= Ace7gm_day_faster_rcnn1
 Ace2160um_night_faster_rcnn3 <= Ace7gm_night_faster_rcnn3
-<<<<<<< HEAD
-Ace2160um_night_faster_rcnn3 <= Pointgrey_day_faster_rcnn1
-Ace2160um_night_faster_rcnn3 <= Pointgrey_day_faster_rcnn3
-Ace222gm_day_faster_rcnn1 <= Ace13gm_day_faster_rcnn1
-Ace222gm_day_faster_rcnn1 <= Pointgrey_day_faster_rcnn1
-Ace222gm_day_faster_rcnn1 <= Pointgrey_day_faster_rcnn3
-Ace222gm_day_faster_rcnn3 <= Ace13gm_day_faster_rcnn3
-Ace222gm_day_faster_rcnn3 <= Pointgrey_day_faster_rcnn1
-Ace222gm_day_faster_rcnn3 <= Pointgrey_day_faster_rcnn3
-Ace222gm_night_faster_rcnn1 <= Ace13gm_night_faster_rcnn1
-Ace222gm_night_faster_rcnn1 <= Pointgrey_day_faster_rcnn1
-Ace222gm_night_faster_rcnn1 <= Pointgrey_day_faster_rcnn3
-Ace222gm_night_faster_rcnn3 <= Ace13gm_day_faster_rcnn1
-Ace222gm_night_faster_rcnn3 <= Ace13gm_night_faster_rcnn3
-Ace222gm_night_faster_rcnn3 <= Ace222gm_day_faster_rcnn1
-Ace222gm_night_faster_rcnn3 <= Pointgrey_day_faster_rcnn1
-Ace222gm_night_faster_rcnn3 <= Pointgrey_day_faster_rcnn3
-=======
 Ace222gm_day_faster_rcnn1 <= Ace13gm_day_faster_rcnn1
 Ace222gm_day_faster_rcnn3 <= Ace13gm_day_faster_rcnn3
 Ace222gm_night_faster_rcnn1 <= Ace13gm_night_faster_rcnn1
 Ace222gm_night_faster_rcnn3 <= Ace13gm_day_faster_rcnn1
 Ace222gm_night_faster_rcnn3 <= Ace13gm_night_faster_rcnn3
 Ace222gm_night_faster_rcnn3 <= Ace222gm_day_faster_rcnn1
->>>>>>> dev-dejan
 Ace251gm_day_faster_rcnn1 <= Ace13gm_day_faster_rcnn1
 Ace251gm_day_faster_rcnn1 <= Ace15um_day_faster_rcnn1
 Ace251gm_day_faster_rcnn1 <= Ace2160um_day_faster_rcnn1
 Ace251gm_day_faster_rcnn1 <= Ace222gm_day_faster_rcnn1
 Ace251gm_day_faster_rcnn1 <= Ace5gm_day_faster_rcnn1
 Ace251gm_day_faster_rcnn1 <= Ace7gm_day_faster_rcnn1
-<<<<<<< HEAD
-Ace251gm_day_faster_rcnn1 <= Pointgrey_day_faster_rcnn1
-Ace251gm_day_faster_rcnn1 <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 Ace251gm_day_faster_rcnn3 <= Ace13gm_day_faster_rcnn3
 Ace251gm_day_faster_rcnn3 <= Ace15um_day_faster_rcnn3
 Ace251gm_day_faster_rcnn3 <= Ace2160um_day_faster_rcnn3
 Ace251gm_day_faster_rcnn3 <= Ace222gm_day_faster_rcnn3
 Ace251gm_day_faster_rcnn3 <= Ace5gm_day_faster_rcnn3
 Ace251gm_day_faster_rcnn3 <= Ace7gm_day_faster_rcnn3
-<<<<<<< HEAD
-Ace251gm_day_faster_rcnn3 <= Pointgrey_day_faster_rcnn1
-Ace251gm_day_faster_rcnn3 <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 Ace251gm_night_faster_rcnn1 <= Ace13gm_day_faster_rcnn1
 Ace251gm_night_faster_rcnn1 <= Ace13gm_night_faster_rcnn1
 Ace251gm_night_faster_rcnn1 <= Ace15um_day_faster_rcnn1
@@ -164,11 +88,6 @@ Ace251gm_night_faster_rcnn1 <= Ace5gm_day_faster_rcnn1
 Ace251gm_night_faster_rcnn1 <= Ace5gm_night_faster_rcnn1
 Ace251gm_night_faster_rcnn1 <= Ace7gm_day_faster_rcnn1
 Ace251gm_night_faster_rcnn1 <= Ace7gm_night_faster_rcnn1
-<<<<<<< HEAD
-Ace251gm_night_faster_rcnn1 <= Pointgrey_day_faster_rcnn1
-Ace251gm_night_faster_rcnn1 <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 Ace251gm_night_faster_rcnn3 <= Ace13gm_day_faster_rcnn1
 Ace251gm_night_faster_rcnn3 <= Ace13gm_day_faster_rcnn3
 Ace251gm_night_faster_rcnn3 <= Ace13gm_night_faster_rcnn3
@@ -184,32 +103,14 @@ Ace251gm_night_faster_rcnn3 <= Ace5gm_day_faster_rcnn1
 Ace251gm_night_faster_rcnn3 <= Ace5gm_night_faster_rcnn3
 Ace251gm_night_faster_rcnn3 <= Ace7gm_day_faster_rcnn1
 Ace251gm_night_faster_rcnn3 <= Ace7gm_night_faster_rcnn3
-<<<<<<< HEAD
-Ace251gm_night_faster_rcnn3 <= Pointgrey_day_faster_rcnn1
-Ace251gm_night_faster_rcnn3 <= Pointgrey_day_faster_rcnn3
-Ace5gm_day_faster_rcnn1 <= Ace13gm_day_faster_rcnn1
-Ace5gm_day_faster_rcnn1 <= Ace222gm_day_faster_rcnn1
-Ace5gm_day_faster_rcnn1 <= Pointgrey_day_faster_rcnn1
-Ace5gm_day_faster_rcnn1 <= Pointgrey_day_faster_rcnn3
-Ace5gm_day_faster_rcnn3 <= Ace13gm_day_faster_rcnn3
-Ace5gm_day_faster_rcnn3 <= Ace222gm_day_faster_rcnn3
-Ace5gm_day_faster_rcnn3 <= Pointgrey_day_faster_rcnn1
-Ace5gm_day_faster_rcnn3 <= Pointgrey_day_faster_rcnn3
-=======
 Ace5gm_day_faster_rcnn1 <= Ace13gm_day_faster_rcnn1
 Ace5gm_day_faster_rcnn1 <= Ace222gm_day_faster_rcnn1
 Ace5gm_day_faster_rcnn3 <= Ace13gm_day_faster_rcnn3
 Ace5gm_day_faster_rcnn3 <= Ace222gm_day_faster_rcnn3
->>>>>>> dev-dejan
 Ace5gm_night_faster_rcnn1 <= Ace13gm_day_faster_rcnn1
 Ace5gm_night_faster_rcnn1 <= Ace13gm_night_faster_rcnn1
 Ace5gm_night_faster_rcnn1 <= Ace222gm_day_faster_rcnn1
 Ace5gm_night_faster_rcnn1 <= Ace222gm_night_faster_rcnn1
-<<<<<<< HEAD
-Ace5gm_night_faster_rcnn1 <= Pointgrey_day_faster_rcnn1
-Ace5gm_night_faster_rcnn1 <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 Ace5gm_night_faster_rcnn3 <= Ace13gm_day_faster_rcnn1
 Ace5gm_night_faster_rcnn3 <= Ace13gm_day_faster_rcnn3
 Ace5gm_night_faster_rcnn3 <= Ace13gm_night_faster_rcnn3
@@ -217,40 +118,20 @@ Ace5gm_night_faster_rcnn3 <= Ace222gm_day_faster_rcnn1
 Ace5gm_night_faster_rcnn3 <= Ace222gm_day_faster_rcnn3
 Ace5gm_night_faster_rcnn3 <= Ace222gm_night_faster_rcnn3
 Ace5gm_night_faster_rcnn3 <= Ace5gm_day_faster_rcnn1
-<<<<<<< HEAD
-Ace5gm_night_faster_rcnn3 <= Pointgrey_day_faster_rcnn1
-Ace5gm_night_faster_rcnn3 <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 Ace7gm_day_faster_rcnn1 <= Ace13gm_day_faster_rcnn1
 Ace7gm_day_faster_rcnn1 <= Ace15um_day_faster_rcnn1
 Ace7gm_day_faster_rcnn1 <= Ace222gm_day_faster_rcnn1
 Ace7gm_day_faster_rcnn1 <= Ace5gm_day_faster_rcnn1
-<<<<<<< HEAD
-Ace7gm_day_faster_rcnn1 <= Pointgrey_day_faster_rcnn1
-Ace7gm_day_faster_rcnn1 <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 Ace7gm_day_faster_rcnn3 <= Ace13gm_day_faster_rcnn3
 Ace7gm_day_faster_rcnn3 <= Ace15um_day_faster_rcnn3
 Ace7gm_day_faster_rcnn3 <= Ace222gm_day_faster_rcnn3
 Ace7gm_day_faster_rcnn3 <= Ace5gm_day_faster_rcnn3
-<<<<<<< HEAD
-Ace7gm_day_faster_rcnn3 <= Pointgrey_day_faster_rcnn1
-Ace7gm_day_faster_rcnn3 <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 Ace7gm_night_faster_rcnn1 <= Ace13gm_day_faster_rcnn1
 Ace7gm_night_faster_rcnn1 <= Ace13gm_night_faster_rcnn1
 Ace7gm_night_faster_rcnn1 <= Ace15um_night_faster_rcnn1
 Ace7gm_night_faster_rcnn1 <= Ace222gm_day_faster_rcnn1
 Ace7gm_night_faster_rcnn1 <= Ace222gm_night_faster_rcnn1
 Ace7gm_night_faster_rcnn1 <= Ace5gm_night_faster_rcnn1
-<<<<<<< HEAD
-Ace7gm_night_faster_rcnn1 <= Pointgrey_day_faster_rcnn1
-Ace7gm_night_faster_rcnn1 <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 Ace7gm_night_faster_rcnn3 <= Ace13gm_day_faster_rcnn1
 Ace7gm_night_faster_rcnn3 <= Ace13gm_day_faster_rcnn3
 Ace7gm_night_faster_rcnn3 <= Ace13gm_night_faster_rcnn3
@@ -262,19 +143,6 @@ Ace7gm_night_faster_rcnn3 <= Ace222gm_night_faster_rcnn3
 Ace7gm_night_faster_rcnn3 <= Ace5gm_day_faster_rcnn1
 Ace7gm_night_faster_rcnn3 <= Ace5gm_night_faster_rcnn3
 Ace7gm_night_faster_rcnn3 <= Ace7gm_day_faster_rcnn1
-<<<<<<< HEAD
-Ace7gm_night_faster_rcnn3 <= Pointgrey_day_faster_rcnn1
-Ace7gm_night_faster_rcnn3 <= Pointgrey_day_faster_rcnn3
-Pointgrey_day_faster_rcnn1 <= Pointgrey_day_faster_rcnn3
-Pointgrey_day_faster_rcnn3 <= Pointgrey_day_faster_rcnn1
-Pointgrey_night_faster_rcnn1 <= Pointgrey_day_faster_rcnn1
-Pointgrey_night_faster_rcnn1 <= Pointgrey_day_faster_rcnn3
-Pointgrey_night_faster_rcnn3 <= Pointgrey_day_faster_rcnn1
-Pointgrey_night_faster_rcnn3 <= Pointgrey_day_faster_rcnn3
-Pointgrey_night_faster_rcnn3 <= Pointgrey_night_faster_rcnn1
-OS0128_day_kde_based <= Pointgrey_day_faster_rcnn1
-OS0128_day_kde_based <= Pointgrey_day_faster_rcnn3
-=======
 Pointgrey_day_faster_rcnn1 <= Ace13gm_day_faster_rcnn1
 Pointgrey_day_faster_rcnn1 <= Ace13gm_day_faster_rcnn3
 Pointgrey_day_faster_rcnn1 <= Ace13gm_night_faster_rcnn3
@@ -343,7 +211,6 @@ Pointgrey_night_faster_rcnn3 <= Ace7gm_day_faster_rcnn3
 Pointgrey_night_faster_rcnn3 <= Ace7gm_night_faster_rcnn1
 Pointgrey_night_faster_rcnn3 <= Ace7gm_night_faster_rcnn3
 Pointgrey_night_faster_rcnn3 <= Pointgrey_day_faster_rcnn1
->>>>>>> dev-dejan
 OS0128_day_kde_based <= OS0128_day_stm_kde
 OS0128_day_kde_based <= OS0128_night_kde_based
 OS0128_day_kde_based <= OS0128_night_stm_kde
@@ -355,21 +222,11 @@ OS0128_day_kde_based <= OS2128_day_kde_based
 OS0128_day_kde_based <= OS2128_day_stm_kde
 OS0128_day_kde_based <= OS2128_night_kde_based
 OS0128_day_kde_based <= OS2128_night_stm_kde
-<<<<<<< HEAD
-OS0128_day_stm_kde <= Pointgrey_day_faster_rcnn1
-OS0128_day_stm_kde <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 OS0128_day_stm_kde <= OS0128_night_stm_kde
 OS0128_day_stm_kde <= OS1128_day_stm_kde
 OS0128_day_stm_kde <= OS1128_night_stm_kde
 OS0128_day_stm_kde <= OS2128_day_stm_kde
 OS0128_day_stm_kde <= OS2128_night_stm_kde
-<<<<<<< HEAD
-OS0128_day_stm_rbnn <= Pointgrey_day_faster_rcnn1
-OS0128_day_stm_rbnn <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 OS0128_day_stm_rbnn <= OS0128_day_stm_kde
 OS0128_day_stm_rbnn <= OS0128_night_stm_kde
 OS0128_day_stm_rbnn <= OS0128_night_stm_rbnn
@@ -393,11 +250,6 @@ OS0128_day_stm_rbnn <= OS264_night_kde_based
 OS0128_day_stm_rbnn <= OS264_night_stm_kde
 OS0128_day_stm_rbnn <= hdl64_day_stm_kde
 OS0128_day_stm_rbnn <= hdl64_night_stm_kde
-<<<<<<< HEAD
-OS0128_night_kde_based <= Pointgrey_day_faster_rcnn1
-OS0128_night_kde_based <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 OS0128_night_kde_based <= OS0128_day_kde_based
 OS0128_night_kde_based <= OS0128_day_stm_kde
 OS0128_night_kde_based <= OS0128_night_stm_kde
@@ -409,21 +261,11 @@ OS0128_night_kde_based <= OS2128_day_kde_based
 OS0128_night_kde_based <= OS2128_day_stm_kde
 OS0128_night_kde_based <= OS2128_night_kde_based
 OS0128_night_kde_based <= OS2128_night_stm_kde
-<<<<<<< HEAD
-OS0128_night_stm_kde <= Pointgrey_day_faster_rcnn1
-OS0128_night_stm_kde <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 OS0128_night_stm_kde <= OS0128_day_stm_kde
 OS0128_night_stm_kde <= OS1128_day_stm_kde
 OS0128_night_stm_kde <= OS1128_night_stm_kde
 OS0128_night_stm_kde <= OS2128_day_stm_kde
 OS0128_night_stm_kde <= OS2128_night_stm_kde
-<<<<<<< HEAD
-OS0128_night_stm_rbnn <= Pointgrey_day_faster_rcnn1
-OS0128_night_stm_rbnn <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 OS0128_night_stm_rbnn <= OS0128_day_stm_kde
 OS0128_night_stm_rbnn <= OS0128_day_stm_rbnn
 OS0128_night_stm_rbnn <= OS0128_night_stm_kde
@@ -447,11 +289,6 @@ OS0128_night_stm_rbnn <= OS264_night_kde_based
 OS0128_night_stm_rbnn <= OS264_night_stm_kde
 OS0128_night_stm_rbnn <= hdl64_day_stm_kde
 OS0128_night_stm_rbnn <= hdl64_night_stm_kde
-<<<<<<< HEAD
-OS032_day_kde_based <= Pointgrey_day_faster_rcnn1
-OS032_day_kde_based <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 OS032_day_kde_based <= OS0128_day_kde_based
 OS032_day_kde_based <= OS0128_day_stm_kde
 OS032_day_kde_based <= OS0128_night_kde_based
@@ -491,11 +328,6 @@ OS032_day_kde_based <= hdl64_day_kde_based
 OS032_day_kde_based <= hdl64_day_stm_kde
 OS032_day_kde_based <= hdl64_night_kde_based
 OS032_day_kde_based <= hdl64_night_stm_kde
-<<<<<<< HEAD
-OS032_day_stm_kde <= Pointgrey_day_faster_rcnn1
-OS032_day_stm_kde <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 OS032_day_stm_kde <= OS0128_day_stm_kde
 OS032_day_stm_kde <= OS0128_night_stm_kde
 OS032_day_stm_kde <= OS032_night_stm_kde
@@ -519,11 +351,6 @@ OS032_day_stm_kde <= OS264_night_kde_based
 OS032_day_stm_kde <= OS264_night_stm_kde
 OS032_day_stm_kde <= hdl64_day_stm_kde
 OS032_day_stm_kde <= hdl64_night_stm_kde
-<<<<<<< HEAD
-OS032_day_stm_rbnn <= Pointgrey_day_faster_rcnn1
-OS032_day_stm_rbnn <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 OS032_day_stm_rbnn <= OS0128_day_stm_kde
 OS032_day_stm_rbnn <= OS0128_day_stm_rbnn
 OS032_day_stm_rbnn <= OS0128_night_stm_kde
@@ -567,11 +394,6 @@ OS032_day_stm_rbnn <= hdl64_day_stm_kde
 OS032_day_stm_rbnn <= hdl64_day_stm_rbnn
 OS032_day_stm_rbnn <= hdl64_night_stm_kde
 OS032_day_stm_rbnn <= hdl64_night_stm_rbnn
-<<<<<<< HEAD
-OS032_night_kde_based <= Pointgrey_day_faster_rcnn1
-OS032_night_kde_based <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 OS032_night_kde_based <= OS0128_day_kde_based
 OS032_night_kde_based <= OS0128_day_stm_kde
 OS032_night_kde_based <= OS0128_night_kde_based
@@ -611,11 +433,6 @@ OS032_night_kde_based <= hdl64_day_kde_based
 OS032_night_kde_based <= hdl64_day_stm_kde
 OS032_night_kde_based <= hdl64_night_kde_based
 OS032_night_kde_based <= hdl64_night_stm_kde
-<<<<<<< HEAD
-OS032_night_stm_kde <= Pointgrey_day_faster_rcnn1
-OS032_night_stm_kde <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 OS032_night_stm_kde <= OS0128_day_stm_kde
 OS032_night_stm_kde <= OS0128_night_stm_kde
 OS032_night_stm_kde <= OS032_day_stm_kde
@@ -639,11 +456,6 @@ OS032_night_stm_kde <= OS264_night_kde_based
 OS032_night_stm_kde <= OS264_night_stm_kde
 OS032_night_stm_kde <= hdl64_day_stm_kde
 OS032_night_stm_kde <= hdl64_night_stm_kde
-<<<<<<< HEAD
-OS032_night_stm_rbnn <= Pointgrey_day_faster_rcnn1
-OS032_night_stm_rbnn <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 OS032_night_stm_rbnn <= OS0128_day_stm_kde
 OS032_night_stm_rbnn <= OS0128_day_stm_rbnn
 OS032_night_stm_rbnn <= OS0128_night_stm_kde
@@ -687,11 +499,6 @@ OS032_night_stm_rbnn <= hdl64_day_stm_kde
 OS032_night_stm_rbnn <= hdl64_day_stm_rbnn
 OS032_night_stm_rbnn <= hdl64_night_stm_kde
 OS032_night_stm_rbnn <= hdl64_night_stm_rbnn
-<<<<<<< HEAD
-OS064_day_kde_based <= Pointgrey_day_faster_rcnn1
-OS064_day_kde_based <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 OS064_day_kde_based <= OS0128_day_kde_based
 OS064_day_kde_based <= OS0128_day_stm_kde
 OS064_day_kde_based <= OS0128_night_kde_based
@@ -719,11 +526,6 @@ OS064_day_kde_based <= hdl64_day_kde_based
 OS064_day_kde_based <= hdl64_day_stm_kde
 OS064_day_kde_based <= hdl64_night_kde_based
 OS064_day_kde_based <= hdl64_night_stm_kde
-<<<<<<< HEAD
-OS064_day_stm_kde <= Pointgrey_day_faster_rcnn1
-OS064_day_stm_kde <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 OS064_day_stm_kde <= OS0128_day_stm_kde
 OS064_day_stm_kde <= OS0128_night_stm_kde
 OS064_day_stm_kde <= OS064_night_stm_kde
@@ -739,11 +541,6 @@ OS064_day_stm_kde <= OS264_day_stm_kde
 OS064_day_stm_kde <= OS264_night_stm_kde
 OS064_day_stm_kde <= hdl64_day_stm_kde
 OS064_day_stm_kde <= hdl64_night_stm_kde
-<<<<<<< HEAD
-OS064_day_stm_rbnn <= Pointgrey_day_faster_rcnn1
-OS064_day_stm_rbnn <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 OS064_day_stm_rbnn <= OS0128_day_stm_kde
 OS064_day_stm_rbnn <= OS0128_day_stm_rbnn
 OS064_day_stm_rbnn <= OS0128_night_stm_kde
@@ -775,11 +572,6 @@ OS064_day_stm_rbnn <= hdl64_day_stm_kde
 OS064_day_stm_rbnn <= hdl64_day_stm_rbnn
 OS064_day_stm_rbnn <= hdl64_night_stm_kde
 OS064_day_stm_rbnn <= hdl64_night_stm_rbnn
-<<<<<<< HEAD
-OS064_night_kde_based <= Pointgrey_day_faster_rcnn1
-OS064_night_kde_based <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 OS064_night_kde_based <= OS0128_day_kde_based
 OS064_night_kde_based <= OS0128_day_stm_kde
 OS064_night_kde_based <= OS0128_night_kde_based
@@ -807,11 +599,6 @@ OS064_night_kde_based <= hdl64_day_kde_based
 OS064_night_kde_based <= hdl64_day_stm_kde
 OS064_night_kde_based <= hdl64_night_kde_based
 OS064_night_kde_based <= hdl64_night_stm_kde
-<<<<<<< HEAD
-OS064_night_stm_kde <= Pointgrey_day_faster_rcnn1
-OS064_night_stm_kde <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 OS064_night_stm_kde <= OS0128_day_stm_kde
 OS064_night_stm_kde <= OS0128_night_stm_kde
 OS064_night_stm_kde <= OS064_day_stm_kde
@@ -827,11 +614,6 @@ OS064_night_stm_kde <= OS264_day_stm_kde
 OS064_night_stm_kde <= OS264_night_stm_kde
 OS064_night_stm_kde <= hdl64_day_stm_kde
 OS064_night_stm_kde <= hdl64_night_stm_kde
-<<<<<<< HEAD
-OS064_night_stm_rbnn <= Pointgrey_day_faster_rcnn1
-OS064_night_stm_rbnn <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 OS064_night_stm_rbnn <= OS0128_day_stm_kde
 OS064_night_stm_rbnn <= OS0128_day_stm_rbnn
 OS064_night_stm_rbnn <= OS0128_night_stm_kde
@@ -863,11 +645,6 @@ OS064_night_stm_rbnn <= hdl64_day_stm_kde
 OS064_night_stm_rbnn <= hdl64_day_stm_rbnn
 OS064_night_stm_rbnn <= hdl64_night_stm_kde
 OS064_night_stm_rbnn <= hdl64_night_stm_rbnn
-<<<<<<< HEAD
-OS1128_day_kde_based <= Pointgrey_day_faster_rcnn1
-OS1128_day_kde_based <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 OS1128_day_kde_based <= OS1128_day_stm_kde
 OS1128_day_kde_based <= OS1128_night_kde_based
 OS1128_day_kde_based <= OS1128_night_stm_kde
@@ -875,19 +652,9 @@ OS1128_day_kde_based <= OS2128_day_kde_based
 OS1128_day_kde_based <= OS2128_day_stm_kde
 OS1128_day_kde_based <= OS2128_night_kde_based
 OS1128_day_kde_based <= OS2128_night_stm_kde
-<<<<<<< HEAD
-OS1128_day_stm_kde <= Pointgrey_day_faster_rcnn1
-OS1128_day_stm_kde <= Pointgrey_day_faster_rcnn3
 OS1128_day_stm_kde <= OS1128_night_stm_kde
 OS1128_day_stm_kde <= OS2128_day_stm_kde
 OS1128_day_stm_kde <= OS2128_night_stm_kde
-OS1128_day_stm_rbnn <= Pointgrey_day_faster_rcnn1
-OS1128_day_stm_rbnn <= Pointgrey_day_faster_rcnn3
-=======
-OS1128_day_stm_kde <= OS1128_night_stm_kde
-OS1128_day_stm_kde <= OS2128_day_stm_kde
-OS1128_day_stm_kde <= OS2128_night_stm_kde
->>>>>>> dev-dejan
 OS1128_day_stm_rbnn <= OS1128_day_stm_kde
 OS1128_day_stm_rbnn <= OS1128_night_stm_kde
 OS1128_day_stm_rbnn <= OS1128_night_stm_rbnn
@@ -899,11 +666,6 @@ OS1128_day_stm_rbnn <= OS2128_night_stm_kde
 OS1128_day_stm_rbnn <= OS2128_night_stm_rbnn
 OS1128_day_stm_rbnn <= OS264_day_stm_kde
 OS1128_day_stm_rbnn <= OS264_night_stm_kde
-<<<<<<< HEAD
-OS1128_night_kde_based <= Pointgrey_day_faster_rcnn1
-OS1128_night_kde_based <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 OS1128_night_kde_based <= OS1128_day_kde_based
 OS1128_night_kde_based <= OS1128_day_stm_kde
 OS1128_night_kde_based <= OS1128_night_stm_kde
@@ -911,19 +673,9 @@ OS1128_night_kde_based <= OS2128_day_kde_based
 OS1128_night_kde_based <= OS2128_day_stm_kde
 OS1128_night_kde_based <= OS2128_night_kde_based
 OS1128_night_kde_based <= OS2128_night_stm_kde
-<<<<<<< HEAD
-OS1128_night_stm_kde <= Pointgrey_day_faster_rcnn1
-OS1128_night_stm_kde <= Pointgrey_day_faster_rcnn3
 OS1128_night_stm_kde <= OS1128_day_stm_kde
 OS1128_night_stm_kde <= OS2128_day_stm_kde
 OS1128_night_stm_kde <= OS2128_night_stm_kde
-OS1128_night_stm_rbnn <= Pointgrey_day_faster_rcnn1
-OS1128_night_stm_rbnn <= Pointgrey_day_faster_rcnn3
-=======
-OS1128_night_stm_kde <= OS1128_day_stm_kde
-OS1128_night_stm_kde <= OS2128_day_stm_kde
-OS1128_night_stm_kde <= OS2128_night_stm_kde
->>>>>>> dev-dejan
 OS1128_night_stm_rbnn <= OS1128_day_stm_kde
 OS1128_night_stm_rbnn <= OS1128_day_stm_rbnn
 OS1128_night_stm_rbnn <= OS1128_night_stm_kde
@@ -935,11 +687,6 @@ OS1128_night_stm_rbnn <= OS2128_night_stm_kde
 OS1128_night_stm_rbnn <= OS2128_night_stm_rbnn
 OS1128_night_stm_rbnn <= OS264_day_stm_kde
 OS1128_night_stm_rbnn <= OS264_night_stm_kde
-<<<<<<< HEAD
-OS132_day_kde_based <= Pointgrey_day_faster_rcnn1
-OS132_day_kde_based <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 OS132_day_kde_based <= OS1128_day_kde_based
 OS132_day_kde_based <= OS1128_day_stm_kde
 OS132_day_kde_based <= OS1128_night_kde_based
@@ -963,11 +710,6 @@ OS132_day_kde_based <= OS264_day_kde_based
 OS132_day_kde_based <= OS264_day_stm_kde
 OS132_day_kde_based <= OS264_night_kde_based
 OS132_day_kde_based <= OS264_night_stm_kde
-<<<<<<< HEAD
-OS132_day_stm_kde <= Pointgrey_day_faster_rcnn1
-OS132_day_stm_kde <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 OS132_day_stm_kde <= OS1128_day_stm_kde
 OS132_day_stm_kde <= OS1128_night_stm_kde
 OS132_day_stm_kde <= OS132_night_stm_kde
@@ -979,11 +721,6 @@ OS132_day_stm_kde <= OS232_day_stm_kde
 OS132_day_stm_kde <= OS232_night_stm_kde
 OS132_day_stm_kde <= OS264_day_stm_kde
 OS132_day_stm_kde <= OS264_night_stm_kde
-<<<<<<< HEAD
-OS132_day_stm_rbnn <= Pointgrey_day_faster_rcnn1
-OS132_day_stm_rbnn <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 OS132_day_stm_rbnn <= OS1128_day_stm_kde
 OS132_day_stm_rbnn <= OS1128_day_stm_rbnn
 OS132_day_stm_rbnn <= OS1128_night_stm_kde
@@ -1007,11 +744,6 @@ OS132_day_stm_rbnn <= OS264_day_stm_kde
 OS132_day_stm_rbnn <= OS264_day_stm_rbnn
 OS132_day_stm_rbnn <= OS264_night_stm_kde
 OS132_day_stm_rbnn <= OS264_night_stm_rbnn
-<<<<<<< HEAD
-OS132_night_kde_based <= Pointgrey_day_faster_rcnn1
-OS132_night_kde_based <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 OS132_night_kde_based <= OS1128_day_kde_based
 OS132_night_kde_based <= OS1128_day_stm_kde
 OS132_night_kde_based <= OS1128_night_kde_based
@@ -1035,11 +767,6 @@ OS132_night_kde_based <= OS264_day_kde_based
 OS132_night_kde_based <= OS264_day_stm_kde
 OS132_night_kde_based <= OS264_night_kde_based
 OS132_night_kde_based <= OS264_night_stm_kde
-<<<<<<< HEAD
-OS132_night_stm_kde <= Pointgrey_day_faster_rcnn1
-OS132_night_stm_kde <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 OS132_night_stm_kde <= OS1128_day_stm_kde
 OS132_night_stm_kde <= OS1128_night_stm_kde
 OS132_night_stm_kde <= OS132_day_stm_kde
@@ -1051,11 +778,6 @@ OS132_night_stm_kde <= OS232_day_stm_kde
 OS132_night_stm_kde <= OS232_night_stm_kde
 OS132_night_stm_kde <= OS264_day_stm_kde
 OS132_night_stm_kde <= OS264_night_stm_kde
-<<<<<<< HEAD
-OS132_night_stm_rbnn <= Pointgrey_day_faster_rcnn1
-OS132_night_stm_rbnn <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 OS132_night_stm_rbnn <= OS1128_day_stm_kde
 OS132_night_stm_rbnn <= OS1128_day_stm_rbnn
 OS132_night_stm_rbnn <= OS1128_night_stm_kde
@@ -1079,11 +801,6 @@ OS132_night_stm_rbnn <= OS264_day_stm_kde
 OS132_night_stm_rbnn <= OS264_day_stm_rbnn
 OS132_night_stm_rbnn <= OS264_night_stm_kde
 OS132_night_stm_rbnn <= OS264_night_stm_rbnn
-<<<<<<< HEAD
-OS164_day_kde_based <= Pointgrey_day_faster_rcnn1
-OS164_day_kde_based <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 OS164_day_kde_based <= OS1128_day_kde_based
 OS164_day_kde_based <= OS1128_day_stm_kde
 OS164_day_kde_based <= OS1128_night_kde_based
@@ -1099,11 +816,6 @@ OS164_day_kde_based <= OS264_day_kde_based
 OS164_day_kde_based <= OS264_day_stm_kde
 OS164_day_kde_based <= OS264_night_kde_based
 OS164_day_kde_based <= OS264_night_stm_kde
-<<<<<<< HEAD
-OS164_day_stm_kde <= Pointgrey_day_faster_rcnn1
-OS164_day_stm_kde <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 OS164_day_stm_kde <= OS1128_day_stm_kde
 OS164_day_stm_kde <= OS1128_night_stm_kde
 OS164_day_stm_kde <= OS164_night_stm_kde
@@ -1111,11 +823,6 @@ OS164_day_stm_kde <= OS2128_day_stm_kde
 OS164_day_stm_kde <= OS2128_night_stm_kde
 OS164_day_stm_kde <= OS264_day_stm_kde
 OS164_day_stm_kde <= OS264_night_stm_kde
-<<<<<<< HEAD
-OS164_day_stm_rbnn <= Pointgrey_day_faster_rcnn1
-OS164_day_stm_rbnn <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 OS164_day_stm_rbnn <= OS1128_day_stm_kde
 OS164_day_stm_rbnn <= OS1128_day_stm_rbnn
 OS164_day_stm_rbnn <= OS1128_night_stm_kde
@@ -1131,11 +838,6 @@ OS164_day_stm_rbnn <= OS264_day_stm_kde
 OS164_day_stm_rbnn <= OS264_day_stm_rbnn
 OS164_day_stm_rbnn <= OS264_night_stm_kde
 OS164_day_stm_rbnn <= OS264_night_stm_rbnn
-<<<<<<< HEAD
-OS164_night_kde_based <= Pointgrey_day_faster_rcnn1
-OS164_night_kde_based <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 OS164_night_kde_based <= OS1128_day_kde_based
 OS164_night_kde_based <= OS1128_day_stm_kde
 OS164_night_kde_based <= OS1128_night_kde_based
@@ -1151,11 +853,6 @@ OS164_night_kde_based <= OS264_day_kde_based
 OS164_night_kde_based <= OS264_day_stm_kde
 OS164_night_kde_based <= OS264_night_kde_based
 OS164_night_kde_based <= OS264_night_stm_kde
-<<<<<<< HEAD
-OS164_night_stm_kde <= Pointgrey_day_faster_rcnn1
-OS164_night_stm_kde <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 OS164_night_stm_kde <= OS1128_day_stm_kde
 OS164_night_stm_kde <= OS1128_night_stm_kde
 OS164_night_stm_kde <= OS164_day_stm_kde
@@ -1163,11 +860,6 @@ OS164_night_stm_kde <= OS2128_day_stm_kde
 OS164_night_stm_kde <= OS2128_night_stm_kde
 OS164_night_stm_kde <= OS264_day_stm_kde
 OS164_night_stm_kde <= OS264_night_stm_kde
-<<<<<<< HEAD
-OS164_night_stm_rbnn <= Pointgrey_day_faster_rcnn1
-OS164_night_stm_rbnn <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 OS164_night_stm_rbnn <= OS1128_day_stm_kde
 OS164_night_stm_rbnn <= OS1128_day_stm_rbnn
 OS164_night_stm_rbnn <= OS1128_night_stm_kde
@@ -1183,36 +875,6 @@ OS164_night_stm_rbnn <= OS264_day_stm_kde
 OS164_night_stm_rbnn <= OS264_day_stm_rbnn
 OS164_night_stm_rbnn <= OS264_night_stm_kde
 OS164_night_stm_rbnn <= OS264_night_stm_rbnn
-<<<<<<< HEAD
-OS2128_day_kde_based <= Pointgrey_day_faster_rcnn1
-OS2128_day_kde_based <= Pointgrey_day_faster_rcnn3
-OS2128_day_kde_based <= OS2128_day_stm_kde
-OS2128_day_kde_based <= OS2128_night_kde_based
-OS2128_day_kde_based <= OS2128_night_stm_kde
-OS2128_day_stm_kde <= Pointgrey_day_faster_rcnn1
-OS2128_day_stm_kde <= Pointgrey_day_faster_rcnn3
-OS2128_day_stm_kde <= OS2128_night_stm_kde
-OS2128_day_stm_rbnn <= Pointgrey_day_faster_rcnn1
-OS2128_day_stm_rbnn <= Pointgrey_day_faster_rcnn3
-OS2128_day_stm_rbnn <= OS2128_day_stm_kde
-OS2128_day_stm_rbnn <= OS2128_night_stm_kde
-OS2128_day_stm_rbnn <= OS2128_night_stm_rbnn
-OS2128_night_kde_based <= Pointgrey_day_faster_rcnn1
-OS2128_night_kde_based <= Pointgrey_day_faster_rcnn3
-OS2128_night_kde_based <= OS2128_day_kde_based
-OS2128_night_kde_based <= OS2128_day_stm_kde
-OS2128_night_kde_based <= OS2128_night_stm_kde
-OS2128_night_stm_kde <= Pointgrey_day_faster_rcnn1
-OS2128_night_stm_kde <= Pointgrey_day_faster_rcnn3
-OS2128_night_stm_kde <= OS2128_day_stm_kde
-OS2128_night_stm_rbnn <= Pointgrey_day_faster_rcnn1
-OS2128_night_stm_rbnn <= Pointgrey_day_faster_rcnn3
-OS2128_night_stm_rbnn <= OS2128_day_stm_kde
-OS2128_night_stm_rbnn <= OS2128_day_stm_rbnn
-OS2128_night_stm_rbnn <= OS2128_night_stm_kde
-OS232_day_kde_based <= Pointgrey_day_faster_rcnn1
-OS232_day_kde_based <= Pointgrey_day_faster_rcnn3
-=======
 OS2128_day_kde_based <= OS2128_day_stm_kde
 OS2128_day_kde_based <= OS2128_night_kde_based
 OS2128_day_kde_based <= OS2128_night_stm_kde
@@ -1227,7 +889,6 @@ OS2128_night_stm_kde <= OS2128_day_stm_kde
 OS2128_night_stm_rbnn <= OS2128_day_stm_kde
 OS2128_night_stm_rbnn <= OS2128_day_stm_rbnn
 OS2128_night_stm_rbnn <= OS2128_night_stm_kde
->>>>>>> dev-dejan
 OS232_day_kde_based <= OS2128_day_kde_based
 OS232_day_kde_based <= OS2128_day_stm_kde
 OS232_day_kde_based <= OS2128_night_kde_based
@@ -1239,21 +900,11 @@ OS232_day_kde_based <= OS264_day_kde_based
 OS232_day_kde_based <= OS264_day_stm_kde
 OS232_day_kde_based <= OS264_night_kde_based
 OS232_day_kde_based <= OS264_night_stm_kde
-<<<<<<< HEAD
-OS232_day_stm_kde <= Pointgrey_day_faster_rcnn1
-OS232_day_stm_kde <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 OS232_day_stm_kde <= OS2128_day_stm_kde
 OS232_day_stm_kde <= OS2128_night_stm_kde
 OS232_day_stm_kde <= OS232_night_stm_kde
 OS232_day_stm_kde <= OS264_day_stm_kde
 OS232_day_stm_kde <= OS264_night_stm_kde
-<<<<<<< HEAD
-OS232_day_stm_rbnn <= Pointgrey_day_faster_rcnn1
-OS232_day_stm_rbnn <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 OS232_day_stm_rbnn <= OS2128_day_stm_kde
 OS232_day_stm_rbnn <= OS2128_day_stm_rbnn
 OS232_day_stm_rbnn <= OS2128_night_stm_kde
@@ -1265,11 +916,6 @@ OS232_day_stm_rbnn <= OS264_day_stm_kde
 OS232_day_stm_rbnn <= OS264_day_stm_rbnn
 OS232_day_stm_rbnn <= OS264_night_stm_kde
 OS232_day_stm_rbnn <= OS264_night_stm_rbnn
-<<<<<<< HEAD
-OS232_night_kde_based <= Pointgrey_day_faster_rcnn1
-OS232_night_kde_based <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 OS232_night_kde_based <= OS2128_day_kde_based
 OS232_night_kde_based <= OS2128_day_stm_kde
 OS232_night_kde_based <= OS2128_night_kde_based
@@ -1281,21 +927,11 @@ OS232_night_kde_based <= OS264_day_kde_based
 OS232_night_kde_based <= OS264_day_stm_kde
 OS232_night_kde_based <= OS264_night_kde_based
 OS232_night_kde_based <= OS264_night_stm_kde
-<<<<<<< HEAD
-OS232_night_stm_kde <= Pointgrey_day_faster_rcnn1
-OS232_night_stm_kde <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 OS232_night_stm_kde <= OS2128_day_stm_kde
 OS232_night_stm_kde <= OS2128_night_stm_kde
 OS232_night_stm_kde <= OS232_day_stm_kde
 OS232_night_stm_kde <= OS264_day_stm_kde
 OS232_night_stm_kde <= OS264_night_stm_kde
-<<<<<<< HEAD
-OS232_night_stm_rbnn <= Pointgrey_day_faster_rcnn1
-OS232_night_stm_rbnn <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 OS232_night_stm_rbnn <= OS2128_day_stm_kde
 OS232_night_stm_rbnn <= OS2128_day_stm_rbnn
 OS232_night_stm_rbnn <= OS2128_night_stm_kde
@@ -1307,11 +943,6 @@ OS232_night_stm_rbnn <= OS264_day_stm_kde
 OS232_night_stm_rbnn <= OS264_day_stm_rbnn
 OS232_night_stm_rbnn <= OS264_night_stm_kde
 OS232_night_stm_rbnn <= OS264_night_stm_rbnn
-<<<<<<< HEAD
-OS264_day_kde_based <= Pointgrey_day_faster_rcnn1
-OS264_day_kde_based <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 OS264_day_kde_based <= OS2128_day_kde_based
 OS264_day_kde_based <= OS2128_day_stm_kde
 OS264_day_kde_based <= OS2128_night_kde_based
@@ -1319,19 +950,9 @@ OS264_day_kde_based <= OS2128_night_stm_kde
 OS264_day_kde_based <= OS264_day_stm_kde
 OS264_day_kde_based <= OS264_night_kde_based
 OS264_day_kde_based <= OS264_night_stm_kde
-<<<<<<< HEAD
-OS264_day_stm_kde <= Pointgrey_day_faster_rcnn1
-OS264_day_stm_kde <= Pointgrey_day_faster_rcnn3
 OS264_day_stm_kde <= OS2128_day_stm_kde
 OS264_day_stm_kde <= OS2128_night_stm_kde
 OS264_day_stm_kde <= OS264_night_stm_kde
-OS264_day_stm_rbnn <= Pointgrey_day_faster_rcnn1
-OS264_day_stm_rbnn <= Pointgrey_day_faster_rcnn3
-=======
-OS264_day_stm_kde <= OS2128_day_stm_kde
-OS264_day_stm_kde <= OS2128_night_stm_kde
-OS264_day_stm_kde <= OS264_night_stm_kde
->>>>>>> dev-dejan
 OS264_day_stm_rbnn <= OS2128_day_stm_kde
 OS264_day_stm_rbnn <= OS2128_day_stm_rbnn
 OS264_day_stm_rbnn <= OS2128_night_stm_kde
@@ -1339,11 +960,6 @@ OS264_day_stm_rbnn <= OS2128_night_stm_rbnn
 OS264_day_stm_rbnn <= OS264_day_stm_kde
 OS264_day_stm_rbnn <= OS264_night_stm_kde
 OS264_day_stm_rbnn <= OS264_night_stm_rbnn
-<<<<<<< HEAD
-OS264_night_kde_based <= Pointgrey_day_faster_rcnn1
-OS264_night_kde_based <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 OS264_night_kde_based <= OS2128_day_kde_based
 OS264_night_kde_based <= OS2128_day_stm_kde
 OS264_night_kde_based <= OS2128_night_kde_based
@@ -1351,19 +967,9 @@ OS264_night_kde_based <= OS2128_night_stm_kde
 OS264_night_kde_based <= OS264_day_kde_based
 OS264_night_kde_based <= OS264_day_stm_kde
 OS264_night_kde_based <= OS264_night_stm_kde
-<<<<<<< HEAD
-OS264_night_stm_kde <= Pointgrey_day_faster_rcnn1
-OS264_night_stm_kde <= Pointgrey_day_faster_rcnn3
 OS264_night_stm_kde <= OS2128_day_stm_kde
 OS264_night_stm_kde <= OS2128_night_stm_kde
 OS264_night_stm_kde <= OS264_day_stm_kde
-OS264_night_stm_rbnn <= Pointgrey_day_faster_rcnn1
-OS264_night_stm_rbnn <= Pointgrey_day_faster_rcnn3
-=======
-OS264_night_stm_kde <= OS2128_day_stm_kde
-OS264_night_stm_kde <= OS2128_night_stm_kde
-OS264_night_stm_kde <= OS264_day_stm_kde
->>>>>>> dev-dejan
 OS264_night_stm_rbnn <= OS2128_day_stm_kde
 OS264_night_stm_rbnn <= OS2128_day_stm_rbnn
 OS264_night_stm_rbnn <= OS2128_night_stm_kde
@@ -1371,11 +977,6 @@ OS264_night_stm_rbnn <= OS2128_night_stm_rbnn
 OS264_night_stm_rbnn <= OS264_day_stm_kde
 OS264_night_stm_rbnn <= OS264_day_stm_rbnn
 OS264_night_stm_rbnn <= OS264_night_stm_kde
-<<<<<<< HEAD
-hdl32_day_kde_based <= Pointgrey_day_faster_rcnn1
-hdl32_day_kde_based <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 hdl32_day_kde_based <= OS0128_day_kde_based
 hdl32_day_kde_based <= OS0128_day_stm_kde
 hdl32_day_kde_based <= OS0128_night_kde_based
@@ -1423,11 +1024,6 @@ hdl32_day_kde_based <= hdl64_day_kde_based
 hdl32_day_kde_based <= hdl64_day_stm_kde
 hdl32_day_kde_based <= hdl64_night_kde_based
 hdl32_day_kde_based <= hdl64_night_stm_kde
-<<<<<<< HEAD
-hdl32_day_stm_kde <= Pointgrey_day_faster_rcnn1
-hdl32_day_stm_kde <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 hdl32_day_stm_kde <= OS0128_day_kde_based
 hdl32_day_stm_kde <= OS0128_day_stm_kde
 hdl32_day_stm_kde <= OS0128_night_kde_based
@@ -1463,11 +1059,6 @@ hdl32_day_stm_kde <= hdl64_day_kde_based
 hdl32_day_stm_kde <= hdl64_day_stm_kde
 hdl32_day_stm_kde <= hdl64_night_kde_based
 hdl32_day_stm_kde <= hdl64_night_stm_kde
-<<<<<<< HEAD
-hdl32_day_stm_rbnn <= Pointgrey_day_faster_rcnn1
-hdl32_day_stm_rbnn <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 hdl32_day_stm_rbnn <= OS0128_day_kde_based
 hdl32_day_stm_rbnn <= OS0128_day_stm_kde
 hdl32_day_stm_rbnn <= OS0128_day_stm_rbnn
@@ -1529,11 +1120,6 @@ hdl32_day_stm_rbnn <= hdl64_day_stm_rbnn
 hdl32_day_stm_rbnn <= hdl64_night_kde_based
 hdl32_day_stm_rbnn <= hdl64_night_stm_kde
 hdl32_day_stm_rbnn <= hdl64_night_stm_rbnn
-<<<<<<< HEAD
-hdl32_night_kde_based <= Pointgrey_day_faster_rcnn1
-hdl32_night_kde_based <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 hdl32_night_kde_based <= OS0128_day_kde_based
 hdl32_night_kde_based <= OS0128_day_stm_kde
 hdl32_night_kde_based <= OS0128_night_kde_based
@@ -1581,11 +1167,6 @@ hdl32_night_kde_based <= hdl64_day_kde_based
 hdl32_night_kde_based <= hdl64_day_stm_kde
 hdl32_night_kde_based <= hdl64_night_kde_based
 hdl32_night_kde_based <= hdl64_night_stm_kde
-<<<<<<< HEAD
-hdl32_night_stm_kde <= Pointgrey_day_faster_rcnn1
-hdl32_night_stm_kde <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 hdl32_night_stm_kde <= OS0128_day_kde_based
 hdl32_night_stm_kde <= OS0128_day_stm_kde
 hdl32_night_stm_kde <= OS0128_night_kde_based
@@ -1621,11 +1202,6 @@ hdl32_night_stm_kde <= hdl64_day_kde_based
 hdl32_night_stm_kde <= hdl64_day_stm_kde
 hdl32_night_stm_kde <= hdl64_night_kde_based
 hdl32_night_stm_kde <= hdl64_night_stm_kde
-<<<<<<< HEAD
-hdl32_night_stm_rbnn <= Pointgrey_day_faster_rcnn1
-hdl32_night_stm_rbnn <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 hdl32_night_stm_rbnn <= OS0128_day_kde_based
 hdl32_night_stm_rbnn <= OS0128_day_stm_kde
 hdl32_night_stm_rbnn <= OS0128_day_stm_rbnn
@@ -1687,11 +1263,6 @@ hdl32_night_stm_rbnn <= hdl64_day_stm_rbnn
 hdl32_night_stm_rbnn <= hdl64_night_kde_based
 hdl32_night_stm_rbnn <= hdl64_night_stm_kde
 hdl32_night_stm_rbnn <= hdl64_night_stm_rbnn
-<<<<<<< HEAD
-hdl64_day_kde_based <= Pointgrey_day_faster_rcnn1
-hdl64_day_kde_based <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 hdl64_day_kde_based <= OS1128_day_kde_based
 hdl64_day_kde_based <= OS1128_day_stm_kde
 hdl64_day_kde_based <= OS1128_night_kde_based
@@ -1711,11 +1282,6 @@ hdl64_day_kde_based <= OS264_night_stm_kde
 hdl64_day_kde_based <= hdl64_day_stm_kde
 hdl64_day_kde_based <= hdl64_night_kde_based
 hdl64_day_kde_based <= hdl64_night_stm_kde
-<<<<<<< HEAD
-hdl64_day_stm_kde <= Pointgrey_day_faster_rcnn1
-hdl64_day_stm_kde <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 hdl64_day_stm_kde <= OS1128_day_stm_kde
 hdl64_day_stm_kde <= OS1128_night_stm_kde
 hdl64_day_stm_kde <= OS164_day_stm_kde
@@ -1725,11 +1291,6 @@ hdl64_day_stm_kde <= OS2128_night_stm_kde
 hdl64_day_stm_kde <= OS264_day_stm_kde
 hdl64_day_stm_kde <= OS264_night_stm_kde
 hdl64_day_stm_kde <= hdl64_night_stm_kde
-<<<<<<< HEAD
-hdl64_day_stm_rbnn <= Pointgrey_day_faster_rcnn1
-hdl64_day_stm_rbnn <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 hdl64_day_stm_rbnn <= OS1128_day_stm_kde
 hdl64_day_stm_rbnn <= OS1128_day_stm_rbnn
 hdl64_day_stm_rbnn <= OS1128_night_stm_kde
@@ -1749,11 +1310,6 @@ hdl64_day_stm_rbnn <= OS264_night_stm_rbnn
 hdl64_day_stm_rbnn <= hdl64_day_stm_kde
 hdl64_day_stm_rbnn <= hdl64_night_stm_kde
 hdl64_day_stm_rbnn <= hdl64_night_stm_rbnn
-<<<<<<< HEAD
-hdl64_night_kde_based <= Pointgrey_day_faster_rcnn1
-hdl64_night_kde_based <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 hdl64_night_kde_based <= OS1128_day_kde_based
 hdl64_night_kde_based <= OS1128_day_stm_kde
 hdl64_night_kde_based <= OS1128_night_kde_based
@@ -1773,11 +1329,6 @@ hdl64_night_kde_based <= OS264_night_stm_kde
 hdl64_night_kde_based <= hdl64_day_kde_based
 hdl64_night_kde_based <= hdl64_day_stm_kde
 hdl64_night_kde_based <= hdl64_night_stm_kde
-<<<<<<< HEAD
-hdl64_night_stm_kde <= Pointgrey_day_faster_rcnn1
-hdl64_night_stm_kde <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 hdl64_night_stm_kde <= OS1128_day_stm_kde
 hdl64_night_stm_kde <= OS1128_night_stm_kde
 hdl64_night_stm_kde <= OS164_day_stm_kde
@@ -1787,11 +1338,6 @@ hdl64_night_stm_kde <= OS2128_night_stm_kde
 hdl64_night_stm_kde <= OS264_day_stm_kde
 hdl64_night_stm_kde <= OS264_night_stm_kde
 hdl64_night_stm_kde <= hdl64_day_stm_kde
-<<<<<<< HEAD
-hdl64_night_stm_rbnn <= Pointgrey_day_faster_rcnn1
-hdl64_night_stm_rbnn <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 hdl64_night_stm_rbnn <= OS1128_day_stm_kde
 hdl64_night_stm_rbnn <= OS1128_day_stm_rbnn
 hdl64_night_stm_rbnn <= OS1128_night_stm_kde
@@ -1811,11 +1357,6 @@ hdl64_night_stm_rbnn <= OS264_night_stm_rbnn
 hdl64_night_stm_rbnn <= hdl64_day_stm_kde
 hdl64_night_stm_rbnn <= hdl64_day_stm_rbnn
 hdl64_night_stm_rbnn <= hdl64_night_stm_kde
-<<<<<<< HEAD
-puck_day_kde_based <= Pointgrey_day_faster_rcnn1
-puck_day_kde_based <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 puck_day_kde_based <= OS0128_day_kde_based
 puck_day_kde_based <= OS0128_day_stm_kde
 puck_day_kde_based <= OS0128_day_stm_rbnn
@@ -1877,11 +1418,6 @@ puck_day_kde_based <= hdl64_night_stm_rbnn
 puck_day_kde_based <= puck_day_stm_kde
 puck_day_kde_based <= puck_night_kde_based
 puck_day_kde_based <= puck_night_stm_kde
-<<<<<<< HEAD
-puck_day_stm_kde <= Pointgrey_day_faster_rcnn1
-puck_day_stm_kde <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 puck_day_stm_kde <= OS0128_day_kde_based
 puck_day_stm_kde <= OS0128_day_stm_kde
 puck_day_stm_kde <= OS0128_day_stm_rbnn
@@ -1931,11 +1467,6 @@ puck_day_stm_kde <= hdl64_day_stm_kde
 puck_day_stm_kde <= hdl64_night_kde_based
 puck_day_stm_kde <= hdl64_night_stm_kde
 puck_day_stm_kde <= puck_night_stm_kde
-<<<<<<< HEAD
-puck_day_stm_rbnn <= Pointgrey_day_faster_rcnn1
-puck_day_stm_rbnn <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 puck_day_stm_rbnn <= OS0128_day_kde_based
 puck_day_stm_rbnn <= OS0128_day_stm_kde
 puck_day_stm_rbnn <= OS0128_day_stm_rbnn
@@ -2001,11 +1532,6 @@ puck_day_stm_rbnn <= hdl64_night_kde_based
 puck_day_stm_rbnn <= hdl64_night_stm_kde
 puck_day_stm_rbnn <= hdl64_night_stm_rbnn
 puck_day_stm_rbnn <= puck_night_stm_rbnn
-<<<<<<< HEAD
-puck_night_kde_based <= Pointgrey_day_faster_rcnn1
-puck_night_kde_based <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 puck_night_kde_based <= OS0128_day_kde_based
 puck_night_kde_based <= OS0128_day_stm_kde
 puck_night_kde_based <= OS0128_day_stm_rbnn
@@ -2067,11 +1593,6 @@ puck_night_kde_based <= hdl64_night_stm_rbnn
 puck_night_kde_based <= puck_day_kde_based
 puck_night_kde_based <= puck_day_stm_kde
 puck_night_kde_based <= puck_night_stm_kde
-<<<<<<< HEAD
-puck_night_stm_kde <= Pointgrey_day_faster_rcnn1
-puck_night_stm_kde <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 puck_night_stm_kde <= OS0128_day_kde_based
 puck_night_stm_kde <= OS0128_day_stm_kde
 puck_night_stm_kde <= OS0128_day_stm_rbnn
@@ -2121,11 +1642,6 @@ puck_night_stm_kde <= hdl64_day_stm_kde
 puck_night_stm_kde <= hdl64_night_kde_based
 puck_night_stm_kde <= hdl64_night_stm_kde
 puck_night_stm_kde <= puck_day_stm_kde
-<<<<<<< HEAD
-puck_night_stm_rbnn <= Pointgrey_day_faster_rcnn1
-puck_night_stm_rbnn <= Pointgrey_day_faster_rcnn3
-=======
->>>>>>> dev-dejan
 puck_night_stm_rbnn <= OS0128_day_kde_based
 puck_night_stm_rbnn <= OS0128_day_stm_kde
 puck_night_stm_rbnn <= OS0128_day_stm_rbnn

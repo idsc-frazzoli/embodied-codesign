@@ -1,13 +1,8 @@
-import os
-from decimal import Decimal
-from glob import glob
-
-import yaml
 import ruamel.yaml
 from ruamel.yaml.scalarstring import DoubleQuotedScalarString as dq
 
 
-def sensorsToCat(fileName):
+def sensors_to_cat(fileName):
     yaml = ruamel.yaml.YAML()
     yaml.preserve_quotes = True
     yaml.representer.ignore_aliases = lambda *data: True
@@ -80,8 +75,8 @@ def sensorsToCat(fileName):
             implementation_l6[name + algos_night[2]] = {"f_max": f_max_l6, "r_min": r_min_l}
 
     impl = [implementation_c1, implementation_c2, implementation_c3, implementation_c4,
-                                   implementation_l1, implementation_l2, implementation_l3, implementation_l4,
-                                   implementation_l5, implementation_l6]
+            implementation_l1, implementation_l2, implementation_l3, implementation_l4,
+            implementation_l5, implementation_l6]
     results = {"F": [dq("`sen_prod"), dq("Hz"), dq("`timeday")],
                "R": [dq("CHF"), dq("g"), dq("W"), dq("us")],
                "implementations": impl

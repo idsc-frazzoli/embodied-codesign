@@ -81,7 +81,6 @@ def prediction_model(b0: Belief, delta_idx: int, prior: Decimal) -> Belief:
     return Belief(po1)
 
 
-
 def observation_model(b0: Belief, obs: Observations,
                       sp: SensingPerformance, sens_param: SensingParameters) -> Belief:
     ds = float(sens_param.ds)
@@ -97,7 +96,7 @@ def observation_model(b0: Belief, obs: Observations,
         p_nu_k = fn_ds
         p_nu_k_not = ones - fp_ds
         p_nu = p_nu_k * p_k + p_nu_k_not * (ones - p_k)
-
+        assert all(p_nu <= 1) & all(p_nu >= 0) & all(p_nu_k_not <=1) & all(p_nu_k_not >= 0)
         p_p_k_nu = p_nu_k * p_k / p_nu
         po1 = [Decimal(p) for p in p_p_k_nu]
     else:
