@@ -265,10 +265,9 @@ def initialize_state(objects):
 
 
 def initialize_belief(sp: SimParameters):
-    # for Dejan: note that density is in 1/m and distance in m
     belief_density = sp.prior.density * sp.sens_param.ds
     temp_prob = np.exp(-float(belief_density))
-    pp = belief_density * Decimal(temp_prob)
+    pp = 1 - Decimal(temp_prob)
     po = [Decimal(pp) for _ in range(sp.sens_param.n)]
     initialized_belief = Belief(po)
     return initialized_belief

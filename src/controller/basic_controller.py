@@ -28,6 +28,9 @@ class BasicController(Controller):
         d_critical = self.get_critical_distance(vstate.v)
         i = round((d_critical / self.ds))
         p_obstacle_less_than_critical = sum(belief.po[:i])
+        print(f'treshold: {p_obstacle_less_than_critical}')
+        print(f'v: {vstate.v}')
+        print(f'x: {vstate.x}')
         if float(p_obstacle_less_than_critical) > float(self.prob_threshold):
             a = self.vs.a_min
         elif vstate.v < self.vs.v_nominal:
