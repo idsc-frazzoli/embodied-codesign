@@ -107,4 +107,9 @@ create_catalogue:
 	 --nsims $(NSIMS) --dt $(DT) --road_length $(ROADLENGTH) --basedir $(BASEDIR) --nprocesses $(NPROCESSES) \
 	 --simversion $(SIMULATION_VERSION)
 
+generate_mcdp_file:
+	PYTHONPATH=src python src/embodied_scripts/generate_mcdp_file.py --basedir $(BASEDIR) \
+	 --simversion $(SIMULATION_VERSION)
+
+
 
