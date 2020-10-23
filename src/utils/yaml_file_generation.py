@@ -42,7 +42,7 @@ def write_bc_dpc(basedir: str, models: str):
             a_max_string = dq(f"{a_max} m/s^2")
             a_min = veh["a_min_m_s2"]*-1
             a_min_string = dq(f"{a_min} m/s^2")
-            v_max = round(Decimal(veh["v_max_m_s"]) / Decimal(3.6), 2)
+            v_max = round(Decimal(veh["v_max_m_s"]), 2)
             v_max_string = dq(f"{v_max} m/s")
             sens_perf = d["sens_perf"]
             sens_per_string = dq(f"`sen_prod: {sens_perf}")
