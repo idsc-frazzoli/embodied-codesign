@@ -12,7 +12,7 @@ class BasicController(Controller):
     def __init__(self, prob_threshold: Decimal, vs: VehicleStats, ds: Decimal,
                  d_stop: Decimal, cont_sampl_time_s: Decimal, p_a_max: Decimal):
         self.prob_threshold = prob_threshold
-        self.prob_threshold = Decimal(1)
+        self.prob_threshold = Decimal(5)
         self.vs = vs
         self.ds = ds
         self.d_stop = d_stop

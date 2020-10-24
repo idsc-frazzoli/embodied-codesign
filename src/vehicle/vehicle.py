@@ -41,7 +41,10 @@ class DelayedStates:
         assert self.l >= 1
         assert len(self.states) == self.l
     def update(self, state: State):
-        self.states =  self.states[:-1] + [state]
+        vstate = VehicleState(x=state.vstate.x, v=state.vstate.v, x_prev=state.vstate.x_prev, v_prev=state.vstate.x_prev)
+        object_list = [Object(ob.d) for ob in state.objects]
+        new_state = State(vstate=vstate, objects=object_list)
+        self.states = self.states[1:] + [new_state]
 
 
 @dataclass
