@@ -237,7 +237,7 @@ def collided(s: State, vs: VehicleStats) -> CollisionStats:
 
 def stopped(s: State) -> bool:
     if s.objects:
-        if round(s.vstate.v, 2) == 0.0 and s.objects[0].d <= 10:
+        if round(s.vstate.v, 2) == 0.0:
             return True
 
     return False
@@ -354,13 +354,10 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
             return OneSimPerformanceMetrics(c, Decimal(average_velocity), Decimal(avg_control_effort))
 
         if is_stopped:
-            print("Vehicle stopped safely in front of obstacle.")
-            # Adjust distance between objects
+            print("Vehicle stopped.")
             state.objects = [_ for _ in state.objects if _.d > 10]
             belief = belief_init
 
-            # try this instead
-            # state.objects = [_ for _ in state.objects if _.d > 10]
 
     avg_control_effort = control_effort / t
     average_velocity = state.vstate.x / t
