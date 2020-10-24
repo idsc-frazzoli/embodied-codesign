@@ -91,12 +91,7 @@ def observation_model(b0: Belief, obs: Observations,
     p_k = np.array([float(p) for p in b0.po])
 
     if not obs.detections:
-        p_nu_k = fn
-        p_nu_k_not = ones - fp
-        p_nu = p_nu_k * p_k + p_nu_k_not * (ones - p_k)
-
-        p_p_k_nu = p_nu_k * p_k / p_nu
-        po1 = [Decimal(p) for p in p_p_k_nu]
+        po1 = b0.po
     else:
         a_acc = np.array([float(a.a) for a in prob_accuracy])
         b_acc = np.array([float(b.b) for b in prob_accuracy])
