@@ -12,6 +12,7 @@ class BasicController(Controller):
     def __init__(self, prob_threshold: Decimal, vs: VehicleStats, ds: Decimal,
                  d_stop: Decimal, cont_sampl_time_s: Decimal, p_a_max: Decimal):
         self.prob_threshold = prob_threshold
+        self.prob_threshold = Decimal(1)
         self.vs = vs
         self.ds = ds
         self.d_stop = d_stop
@@ -28,7 +29,9 @@ class BasicController(Controller):
         d_critical = self.get_critical_distance(vstate.v)
         i = round((d_critical / self.ds))
         p_obstacle_less_than_critical = sum(belief.po[:i])
-        print(f'treshold: {p_obstacle_less_than_critical}')
+        # p_obstacle_less_than_critical = belief.po[i]
+        print(f'd_critical: {d_critical}')
+        print(f'p_obstacle_less_than_critical: {p_obstacle_less_than_critical}')
         print(f'v: {vstate.v}')
         print(f'x: {vstate.x}')
         if float(p_obstacle_less_than_critical) > float(self.prob_threshold):

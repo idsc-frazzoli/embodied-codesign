@@ -79,12 +79,13 @@ class SensingPerformance:
 
 
 def calc_unit_dist_a_b_prob(d: Decimal, ds: Decimal,  std: Decimal) -> ProbAccuracy:
-    mean = d + Decimal('0.5')*ds
+    mean = d + Decimal('0.5') * ds
     a = mean - Decimal(str(math.sqrt(3))) * std
-    if std == Decimal('0.0'):
-        a = a - Decimal('0.5')*ds
-    a = Decimal('0.0') if a < Decimal('0.0') else a
     b = mean + Decimal(str(math.sqrt(3))) * std
+    if std == Decimal('0.0'):
+        a = mean - Decimal('0.5')*ds
+        b = mean + Decimal('0.5')*ds
+    a = Decimal('0.0') if a < Decimal('0.0') else a
     prob = 1 / (b - a)
 
     return ProbAccuracy(Decimal(a), Decimal(b), Decimal(prob))

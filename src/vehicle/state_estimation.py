@@ -84,20 +84,19 @@ def prediction_model(b0: Belief, delta_idx: int, prior: Decimal) -> Belief:
 def observation_model(b0: Belief, obs: Observations,
                       sp: SensingPerformance, sens_param: SensingParameters, prior_poisson) -> Belief:
     n = sens_param.n
-    fn = np.array([float(sp.fn[n - 1]) if i == n - 1 else 0.5 * float(sp.fn[i] - sp.fn[i + 1]) for i in range(n)])
-    fp = np.array([float(sp.fp[n - 1]) if i == n - 1 else 0.5 * float(sp.fp[i] - sp.fp[i + 1]) for i in range(n)])
+    fn = np.array([float(sp.fn[n - 1]) if i == n - 1 else 0.5 * float(sp.fn[i] + sp.fn[i + 1]) for i in range(n)])
+    fp = np.array([float(sp.fp[n - 1]) if i == n - 1 else 0.5 * float(sp.fp[i] + sp.fp[i + 1]) for i in range(n)])
     prob_accuracy = sp.prob_accuracy
     ones = np.ones(sens_param.n)
     p_k = np.array([float(p) for p in b0.po])
 
     if not obs.detections:
-        # p_nu_k = fn
-        # p_nu_k_not = ones - fp
-        # p_nu = p_nu_k * p_k + p_nu_k_not * (ones - p_k)
-        #
-        # p_p_k_nu = p_nu_k * p_k / p_nu
-        # po1 = [Decimal(p) for p in p_p_k_nu]
-        po1 = [Decimal(prior_poisson) for _ in range(n)]
+        p_nu_k = fn
+        p_nu_k_not = ones - fp
+        p_nu = p_nu_k * p_k + p_nu_k_not * (ones - p_k)
+
+        p_p_k_nu = p_nu_k * p_k / p_nu
+        po1 = [Decimal(p) for p in p_p_k_nu]
     else:
         a_acc = np.array([float(a.a) for a in prob_accuracy])
         b_acc = np.array([float(b.b) for b in prob_accuracy])
@@ -106,8 +105,10 @@ def observation_model(b0: Belief, obs: Observations,
         p_d_k_not = np.ones(n)
         p_flake_star_d_matrix = np.zeros((n, n))
         p_flake_star_b = ones - fn
-        p_flake_star_c = p_k
-        p_flake_star_e = ones - p_flake_star_c
+        p_flake_star_c_matirx = np.zeros((n, n))
+        p_flake_star_e_matirx = np.zeros((n, n))
+        p_flake_star_c_dot_matirx = np.zeros((n, n))
+        p_flake_star_e_dot_matirx = np.zeros((n, n))
         p_flake_star = np.zeros((n, n))
         p_kross_dot = np.zeros((n, n))
         p_kross_dot_f_matrix = np.zeros((n, n))
@@ -115,14 +116,26 @@ def observation_model(b0: Belief, obs: Observations,
         for i in range(n):
             p_flake_star_d_matrix[:, i] = fp
             p_flake_star_d_matrix[i, i] = 0.0
-            p_flake_star[:, i] = p_flake_star_b * p_flake_star_c + p_flake_star_d_matrix[:, i] * p_flake_star_e
+            p_flake_star_c_matirx[:, i] = p_k
+            p_flake_star_c_matirx[i, i] = 1.0
+            p_flake_star_e_matirx[:, i] = ones - p_k
+            p_flake_star_e_matirx[i, i] = 0.0
+            p_flake_star_c_dot_matirx[:, i] = p_k
+            p_flake_star_c_dot_matirx[i, i] = 0.0
+            p_flake_star_e_dot_matirx[:, i] = ones - p_k
+            p_flake_star_e_dot_matirx[i, i] = 1.0
+            p_flake_star[:, i] = p_flake_star_b * p_flake_star_c_matirx[:, i] + p_flake_star_d_matrix[:, i] * p_flake_star_e_matirx[:, i]
             p_kross_dot_f_matrix[:, i] = p_flake_star_b
             p_kross_dot_f_matrix[i, i] = 0.0
-            p_kross_dot[:, i] = p_kross_dot_f_matrix[:, i] * p_flake_star_c + p_kross_dot_g * p_flake_star_e
+            p_kross_dot[:, i] = p_kross_dot_f_matrix[:, i] * p_flake_star_c_dot_matirx[:, i] + p_kross_dot_g * p_flake_star_e_dot_matirx[:, i]
 
         for det in obs.detections:
             d = float(det.d_mean)
             p_flake_a = np.array([0.0 if d < a_acc[i] or d > b_acc[i] else p_acc[i] for i in range(n)])
+            # prod = p_flake_a * p_flake_star[:, 0]
+            # print(prod)
+            # p_flake_nosum = np.array([p_flake_a * p_flake_star[:, k] for k in range(n)])
+            # p_flake = np.array([np.sum(p_flake_nosum[:, k]) for k in range(n)])
             p_flake = np.array([np.sum(p_flake_a * p_flake_star[:, k]) for k in range(n)])
             p_d_k *= p_flake
             p_kross = np.array([np.sum(p_flake_a * p_kross_dot[:, k]) for k in range(n)])

@@ -281,8 +281,9 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
     objects = generate_objects(sp)
     state = initialize_state(objects)
 
-    belief = initialize_belief(sp)
-    prior_belief_prob_cell = belief.po[0]
+    belief_init = initialize_belief(sp)
+    prior_belief_prob_cell = belief_init.po[0]
+    belief = belief_init
     action = Action(accel=Decimal('0'))
 
     logger.info(f'Sampling time controller (inverse frequency) {sp.controller.cont_sampl_time_s} dt {sp.dt}')
@@ -356,6 +357,7 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
             print("Vehicle stopped safely in front of obstacle.")
             # Adjust distance between objects
             state.objects = [_ for _ in state.objects if _.d > 10]
+            belief = belief_init
 
             # try this instead
             # state.objects = [_ for _ in state.objects if _.d > 10]
