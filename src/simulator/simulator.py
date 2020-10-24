@@ -322,7 +322,7 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
         if observations is None:
             belief = belief1
         else:
-            belief = observation_model(belief1, observations, sp.sens_perf, sp.sens_param)
+            belief = observation_model(belief1, observations, sp.sens_perf, sp.sens_param, prior_belief_prob_cell)
 
         if i % control_interval == 0:
             action = sp.controller.get_action(state.vstate, belief)
@@ -355,12 +355,7 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
         if is_stopped:
             print("Vehicle stopped safely in front of obstacle.")
             # Adjust distance between objects
-            i = 0
-            for obj in state.objects:
-                if obj.d < 10:
-                    i += 1
-
-            state.objects = state.objects[i:]
+            state.objects = [_ for _ in state.objects if _.d > 10]
 
             # try this instead
             # state.objects = [_ for _ in state.objects if _.d > 10]
