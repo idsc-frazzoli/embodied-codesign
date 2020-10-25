@@ -30,7 +30,7 @@ def write_bc_dpc(basedir: str, models: str):
         with open(fn) as f:
             data = yaml.load(f.read())
         for data_key, d in data.items():
-            speed = round(Decimal(d["speed"]) / Decimal(3.6), 2)
+            speed = round(Decimal(d["speed"]), 2)
             speed_string = dq(f"{speed} m/s")
             env = environment[d["environment"]]["scenario_day_night"]
             env = dq(f"`timeday: {env}")
