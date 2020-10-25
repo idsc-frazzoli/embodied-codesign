@@ -1,4 +1,6 @@
 from decimal import Decimal
+from typing import List
+
 import numpy as np
 
 from controller.controller import Controller
@@ -24,10 +26,15 @@ class BasicController(Controller):
 
         return d_critical
 
-    def get_action(self, vstate: VehicleState, belief: Belief) -> Action:
+    def get_action(self, vstate: VehicleState, alpha: List[Decimal]) -> Action:
         d_critical = self.get_critical_distance(vstate.v)
         i = round((d_critical / self.ds))
-        p_obstacle_less_than_critical = sum(belief.po[:i])
+        # psi = [a*self.ds for a in alpha[:i]]
+        psi = alpha[i]*d_critical
+        p_obstacle_less_than_critical = psi
+        print(f'p_obstacle_less_than_critical: {p_obstacle_less_than_critical}')
+        print(f'v : {vstate.v}')
+        print(f'x : {vstate.x}')
         if float(p_obstacle_less_than_critical) > float(self.prob_threshold):
             a = self.vs.a_min
         elif vstate.v < self.vs.v_nominal:

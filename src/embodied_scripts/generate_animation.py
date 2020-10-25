@@ -117,7 +117,7 @@ if __name__ == '__main__':
     parser.add_argument('--speed', type=str, default='10.0', help='Cruise speed in meter per seconds.')
     parser.add_argument('--control_freq', type=str, default='20.0', help='Controller frequency in Hz.')
     parser.add_argument('--control_treshold', type=str, default='0.1', help='Treshohld for controller.')
-    parser.add_argument('--controller', type=str, default='cont_th_0.4_ds_3.0_f_20.0_pamx_0.5', help='Controller name.')
+    parser.add_argument('--controller', type=str, default='cont_th_5.0_ds_3.0_f_20.0_pamx_0.5', help='Controller name.')
     parser.add_argument('--basedir', type=str, default='DB', help='Controller name.')
     parser.add_argument('--add_object_at', type=str, default='20.0', help='Add additional object at a specif '
                                                                           'distance for testing. If no additional write none.')

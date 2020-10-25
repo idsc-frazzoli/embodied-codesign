@@ -19,7 +19,7 @@ class UpdateDist(object):
         self.vline, = ax1.plot([], [], linestyle='--', color='red')
 
         self.ax1.set_xlim(0, 50)
-        self.ax1.set_ylim(0, 1)
+        self.ax1.set_ylim(0, 3)
         self.ax1.set(xlabel='distance [m]', ylabel='Belief')
         self.ax1.grid(True)
 
@@ -32,7 +32,7 @@ class UpdateDist(object):
         # Set up plot parameters
         self.ax2.set_xlim(0, 500)
         self.ax2.set_xlim(0, 500)
-        self.ax2.set_ylim(0, 1)
+        self.ax2.set_ylim(0, 3)
         self.ax2.set(xlabel='state [m]', ylabel='Belief')
         self.ax2.grid(True)
         for obj in object_list[0]:
@@ -51,7 +51,7 @@ class UpdateDist(object):
         return self.line1, self.car, self.vline, self.line2
 
     def __call__(self, i):
-        y = self.belief_list[i].po
+        y = self.belief_list[i].psi_cell
         objects = self.object_list[i]
         self.line1.set_data(self.x, y)
         for d in objects:

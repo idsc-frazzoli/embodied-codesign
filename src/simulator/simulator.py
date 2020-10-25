@@ -9,13 +9,14 @@ import numpy as np
 import yaml
 #import scipy.stats
 import scipy
+import matplotlib.pyplot as plt
 
 from controller.basic_controller import BasicController
 from controller.controller import Action, Controller
 from sensing.sensing_performance import SensingParameters, SensingPerformance, calc_unit_dist_a_b_prob
 from simulator.create_animation import create_animation
 from simulator.performance import CollisionStats, OneSimPerformanceMetrics, PerformanceMetrics, Statistics
-from vehicle.state_estimation import Belief, compute_observations, observation_model, prediction_model, Prior
+from vehicle.state_estimation import Belief, compute_observations, observation_model, prediction_model, Prior, Inference
 from vehicle.vehicle import DelayedStates, Object, State, VehicleState, VehicleStats
 
 from . import logger
@@ -285,6 +286,9 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
     prior_belief_prob_cell = belief_init.po[0]
     belief = belief_init
     action = Action(accel=Decimal('0'))
+    psi = [sp.prior.density*sp.sens_param.ds for _ in range(sp.sens_param.n)]
+    alpha = [sp.prior.density for _ in range(sp.sens_param.n)]
+    inference = Inference(alpha=alpha, psi_cell=psi)
 
     logger.info(f'Sampling time controller (inverse frequency) {sp.controller.cont_sampl_time_s} dt {sp.dt}')
     control_interval = int(np.ceil(sp.controller.cont_sampl_time_s/sp.dt))
@@ -307,6 +311,9 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
     logger.info(f'Sampling time sensor (inverse frequency) {sp.sens_param.sens_sampl_time_s} dt {sp.dt} sensing_interval {sensing_interval}')
     logger.info("Simulation running...")
 
+    beta = Decimal('0.98')
+    gamma = Decimal('0.02')
+
     while state.vstate.x <= sp.road_length:
         i += 1
         t = i * sp.dt
@@ -325,8 +332,27 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
         else:
             belief = observation_model(belief1, observations, sp.sens_perf, sp.sens_param, prior_belief_prob_cell)
 
+        if delta_idx != 0:
+            psi_cell_0 = inference.psi_cell[delta_idx:]
+            psi_cell_new = [sp.prior.density*sp.sens_param.ds for _ in range(delta_idx)]
+            psi_cell_1 = psi_cell_0 + psi_cell_new
+        else:
+            psi_cell_1 = inference.psi_cell
+
+
+        inference.psi_cell = [(psi_cell_1[i]*beta + gamma*belief.po[i]) for i in range(sp.sens_param.n)]
+        inference.alpha[0] = Decimal('0.0')
+        for k in range(1, sp.sens_param.n):
+            inference.alpha[k] = (inference.psi_cell[k] + sp.sens_param.list_of_ds[k] * inference.alpha[k-1]) / \
+                                 sp.sens_param.list_of_ds[k]
+
+        if i % 100 == 0:
+            plt.plot(sp.sens_param.list_of_ds, inference.psi_cell)
+            plt.plot(sp.sens_param.list_of_ds, inference.alpha)
+            plt.show()
+
         if i % control_interval == 0:
-            action = sp.controller.get_action(state.vstate, belief)
+            action = sp.controller.get_action(state.vstate, inference.psi_cell)
         else:
             action = action
 
@@ -341,7 +367,7 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
         if sp.do_animation:
             if i % animation_interval == 0.0:
                 vstates_list.append(state.vstate)
-                belief_list.append(belief)
+                belief_list.append(inference)
                 obj_a = [ob.d for ob in state.objects]
                 object_list.append(obj_a)
 
@@ -357,6 +383,8 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
             print("Vehicle stopped.")
             state.objects = [_ for _ in state.objects if _.d > 10]
             belief = belief_init
+            inference.alpha = alpha
+            inference.psi_cell = psi
 
 
     avg_control_effort = control_effort / t

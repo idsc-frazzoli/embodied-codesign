@@ -69,6 +69,12 @@ class Belief:
     """ probability of obstacle at distance d """
     po: List[Decimal]  # of length n
 
+@dataclass
+class Inference:
+    """ Inference per cell where alpha obstacle/m """
+    alpha: List[Decimal]  # of length n
+    psi_cell: List[Decimal]
+
 
 def prediction_model(b0: Belief, delta_idx: int, prior: Decimal) -> Belief:
     if delta_idx != 0:
