@@ -39,10 +39,11 @@ ENVDAYNIGHT=day
 ALGORITHM=faster_rcnn1
 SPEED=10.0
 CONTROLFREQ=20.0
-CONTROLTHRESHOLD=0.1
+CONTROLTHRESHOLD=5.0
 CONTROLLER=none
 BASEDIR=DB
 ADDOBJECTAT=none
+STOPTIME=400.0
 
 # create catalogue parameters
 ALL=--not_all
@@ -98,14 +99,14 @@ generate_animation:
 	$(DOANIMATION) --seed $(SEEDSIM) --sensor $(SENSOR) --vehicle $(VEHICLE) --environment $(ENVIRONMENTSIM) \
 	--env_density $(ENVDENSITY) --env_day_night $(ENVDAYNIGHT) --algorithm $(ALGORITHM) --speed $(SPEED) --control_freq $(CONTROLFREQ) \
 	--control_treshold $(CONTROLTHRESHOLD) --controller $(CONTROLLER) --basedir $(BASEDIR) --add_object_at $(ADDOBJECTAT) \
-	--control_d_stop $(CONTROL_PARAM_DSTOP) --control_percentage_amax $(CONTROL_PARAM_PAMAX)
+	--control_d_stop $(CONTROL_PARAM_DSTOP) --control_percentage_amax $(CONTROL_PARAM_PAMAX) --stop_time $(STOPTIME)
 
 create_catalogue:
 	PYTHONPATH=src python src/embodied_scripts/create_catalogue.py $(ALL) --sensor_key $(SENSOR_KEY) \
 	--vehicle_key $(VEHICLE_KEY) --environment_key $(ENVIRONMENT_KEY) --control_key $(CONTROL_KEY) \
 	 --alg_key $(ALG_KEY) --speed_list $(SPEED_LIST) $(DOANIMATION_CAT) --seed $(SEEDSIM) \
 	 --nsims $(NSIMS) --dt $(DT) --road_length $(ROADLENGTH) --basedir $(BASEDIR) --nprocesses $(NPROCESSES) \
-	 --simversion $(SIMULATION_VERSION)
+	 --simversion $(SIMULATION_VERSION) --stop_time $(STOPTIME)
 
 generate_mcdp_file:
 	PYTHONPATH=src python src/embodied_scripts/generate_mcdp_file.py --basedir $(BASEDIR) \

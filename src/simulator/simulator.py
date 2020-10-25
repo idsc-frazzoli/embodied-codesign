@@ -51,14 +51,17 @@ class SimParameters:
     seed: int
     do_animation: bool
     add_object_at: str
+    stop_time: Decimal
 
-    def __init__(self, nsims: int, road_length: Decimal, dt: Decimal, seed: int, do_animation: bool, add_object_at: str) -> None:
+    def __init__(self, nsims: int, road_length: Decimal, dt: Decimal, seed: int, do_animation: bool,
+                 add_object_at: str, stop_time: Decimal) -> None:
         self.nsims = nsims
         self.road_length = road_length
         self.dt = dt
         self.seed = seed
         self.do_animation = do_animation
         self.add_object_at = add_object_at
+        self.stop_time = stop_time
 
 
 def initialize_metrics(sp: SimParameters):
@@ -177,6 +180,7 @@ def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s
     sp.prior = prior
     sp.controller = controller
     sp.sens_perf = sens_perf
+    stopped_too_slow = False
     for i in range(sp.nsims):
         fn = os.path.join(file_directory,'single_experiments', f'{experiment_key}.experiment.{i}.yaml')
         if not os.path.exists(fn):
@@ -196,7 +200,8 @@ def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s
 
             data = {'collided': str(momentum),
                     'average_velocity': str(pm.average_velocity),
-                    'control_effort': str(pm.control_effort)}
+                    'control_effort': str(pm.control_effort),
+                    'stopped_too_slow': pm.stopped_too_slow}
             with open(fn, 'w') as f:
                 yaml.dump(data, f)
 
@@ -217,13 +222,19 @@ def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s
         discomfort[i] = cont_eff
         average_velocity[i] = av_vel
 
+        if data['stopped_too_slow']:
+            stopped_too_slow = True
+            break
+
+
     discomfort_stat = get_stats(discomfort, cl=0.95, df=sp.nsims)
     p_collision = np.mean(collision)
     danger = average_collision_momentum * p_collision
     danger_stat = get_stats(danger, cl=0.95, df=sp.nsims)
     average_velocity_stat = get_stats(average_velocity, cl=0.95, df=sp.nsims)
 
-    return PerformanceMetrics(danger=danger_stat, discomfort=discomfort_stat, average_velocity=average_velocity_stat)
+    return PerformanceMetrics(danger=danger_stat, discomfort=discomfort_stat, average_velocity=average_velocity_stat,
+                              stopped_too_slow=stopped_too_slow)
 
 
 def collided(s: State, vs: VehicleStats) -> CollisionStats:
@@ -351,16 +362,22 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
             average_velocity = state.vstate.x / t
             if sp.do_animation:
                 create_animation(vstates_list, belief_list, object_list, sp.sens_param.list_of_ds)
-            return OneSimPerformanceMetrics(c, Decimal(average_velocity), Decimal(avg_control_effort))
+            return OneSimPerformanceMetrics(c, Decimal(average_velocity), Decimal(avg_control_effort), False)
 
         if is_stopped:
             print("Vehicle stopped.")
             state.objects = [_ for _ in state.objects if _.d > 10]
             belief = belief_init
 
+        if t >= sp.stop_time:
+            avg_control_effort = control_effort / t
+            average_velocity = state.vstate.x / t
+            return OneSimPerformanceMetrics(c, Decimal(average_velocity), Decimal(avg_control_effort), True)
+
+
 
     avg_control_effort = control_effort / t
     average_velocity = state.vstate.x / t
     if sp.do_animation:
         create_animation(vstates_list, belief_list, object_list, sp.sens_param.list_of_ds)
-    return OneSimPerformanceMetrics(None, Decimal(average_velocity), Decimal(avg_control_effort))
+    return OneSimPerformanceMetrics(None, Decimal(average_velocity), Decimal(avg_control_effort), False)

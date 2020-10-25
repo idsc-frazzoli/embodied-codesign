@@ -71,8 +71,11 @@ def read_results(basedir: str, result: str):
     filenames = [path for path in Path(basedir).rglob('*.experiment.yaml')]
     results = {}
     for fn in filenames:
+        print(fn)
         with open(fn) as f:
             data = yaml.load(f.read(), Loader=yaml.FullLoader)
+        if data["stopped_too_slow"]:
+            continue
         experiment_key = os.path.basename(fn).replace('.experiment.yaml', '')
         results[experiment_key] = data
     with open(result, 'w') as f:

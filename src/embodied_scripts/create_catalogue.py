@@ -63,7 +63,7 @@ def generate_all(args):
     speed = cruise_speeds["speeds"]
 
     sp = SimParameters(nsims=args.nsims, road_length=Decimal(args.road_length), dt=Decimal(args.dt),
-                       seed=args.seed, do_animation=False, add_object_at="none")
+                       seed=args.seed, do_animation=False, add_object_at="none", stop_time=Decimal(args.stop_time))
 
     logger.info(f'nsims = {args.nsims}')
 
@@ -149,6 +149,7 @@ def simulate_and_write(params):
         "speed": s, "sensor": sens_key, "sens_perf": s_perf_key, "dyn_perf": veh_key,
         "environment": env_key,
         "controller": cont_key,
+        "stopped_too_slow": performance.stopped_too_slow,
     }
     with open(fn, 'w') as f:
         yaml.dump(ad_perf, f, default_flow_style=False)
@@ -181,7 +182,7 @@ def generate_specifc(args):
     speed = cruise_speeds["speeds"]
 
     sp = SimParameters(nsims=args.nsims, road_length=Decimal(args.road_length), dt=Decimal(args.dt),
-                       seed=args.seed, do_animation=False, add_object_at="none")
+                       seed=args.seed, do_animation=False, add_object_at="none", stop_time=Decimal(args.stop_time))
 
     logger.info(f'nsims = {args.nsims}')
 
@@ -312,6 +313,7 @@ if __name__ == '__main__':
     parser.add_argument('--control_key', nargs='+', type=str, default=["none"], help='Controller keys.')
     parser.add_argument('--alg_key', nargs='+', type=str, default=["none"], help='Algorithm keys.')
     parser.add_argument('--speed_list', nargs='+', type=str, default=["none"], help='Speed list.')
+    parser.add_argument('--stop_time', type=str, default='400.0', help='Stop time of simulation if running too long.')
     args = parser.parse_args()
 
     if args.all:
@@ -326,7 +328,7 @@ if __name__ == '__main__':
         os.makedirs(dn)
 
     if not os.path.exists(fn_results):
-        read_results(args.basedir, fn_results)
+        read_results(os.path.join(args.basedir, args.simversion), fn_results)
         print(f'Finished results file of {args.simversion}.')
 
     fn_dpc_models = os.path.join(args.basedir, args.simversion, 'catalogue', f'{args.simversion}.brake_control_models.yaml')

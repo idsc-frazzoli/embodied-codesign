@@ -64,7 +64,7 @@ def generate_animation(args):
         do_animation = False
 
     sp = SimParameters(nsims=args.nsims, road_length=Decimal(args.road_length), dt=Decimal(args.dt),
-                       seed=args.seed, do_animation=do_animation, add_object_at=args.add_object_at)
+                       seed=args.seed, do_animation=do_animation, add_object_at=args.add_object_at, stop_time=Decimal(args.stop_time))
     experiment_key = f'{args.vehicle}-{env_key}-{args.sensor}-{sens_perf_curv_key}-{str(speed)}-{cont_key}'
     fn = os.path.join(args.basedir, str(args.vehicle), str(env_key), str(args.sensor),
                       str(sens_perf_curv_key), str(speed), str(cont_key), f'{experiment_key}.experiment.yaml')
@@ -92,6 +92,7 @@ def generate_animation(args):
         "speed": speed, "sensor": args.sensor, "sens_perf": sens_perf_curv_key, "dyn_perf": args.vehicle,
         "environment": env_key,
         "controller": cont_key,
+        "stopped_too_slow": performance.stopped_too_slow,
     }
 
     with open(fn, 'w') as f:
@@ -124,6 +125,7 @@ if __name__ == '__main__':
     parser.add_argument('--control_d_stop', type=float, default=3.0, help='Additional distance to stop in front of object.')
     parser.add_argument('--control_percentage_amax', type=float, default=0.5,
                         help='The procentage of a_max usage.')
+    parser.add_argument('--stop_time', type=str, default='400.0', help='Stop time of simulation if running too long.')
     args = parser.parse_args()
 
     generate_animation(args)

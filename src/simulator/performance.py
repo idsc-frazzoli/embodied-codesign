@@ -16,6 +16,7 @@ class PerformanceMetrics:
     danger: Statistics
     discomfort: Statistics
     average_velocity: Statistics
+    stopped_too_slow: bool
 
 
 @dataclass
@@ -28,3 +29,4 @@ class OneSimPerformanceMetrics:
     collided: Optional[CollisionStats]
     average_velocity: Decimal
     control_effort: Decimal
+    stopped_too_slow: bool
