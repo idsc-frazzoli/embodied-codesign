@@ -243,13 +243,14 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
         x = round(random.uniform(0.0, float(sp.road_length)), 1)
         obj = Object(Decimal(str(x)))
         objects.append(obj)
+    objects.append(Object(Decimal('20')))
     objects.sort(key=lambda o: o.d, reverse=False)  # sorting objects
 
     vstate0 = VehicleState(Decimal('0.0'), Decimal('0.0'), Decimal('0.0'), Decimal('0.0'))
 
     state = State(vstate0, objects)
     logger.info('State initialization.')
-    density_belief = sp.prior.density * sp.sens_param.max_distance
+    density_belief = sp.prior.density * sp.sens_param.ds
     pp = density_belief * Decimal(np.exp(-float(density_belief)))
     po = [pp for _ in range(n)]
     alpha0 = po

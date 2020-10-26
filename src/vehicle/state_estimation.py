@@ -100,13 +100,15 @@ def observation_model(inf0: Inference, obs: Observations, sens_param: SensingPar
         print("NAN")
         raise ValueError("NaN Value, invalid input")
 
-    p_d_nan_giv_p = fn*ds
-    p_d_nan_giv_n = (ones - fp_ds*ds)
-    p_z_nan = (p_d_nan_giv_p*p_p + p_d_nan_giv_n*(ones - p_p))
-    p_z_p_tot = p_d_nan_giv_p
-    p_z_tot = p_z_nan
+    # p_d_nan_giv_p = fn*ds
+    # p_d_nan_giv_n = (ones - fp_ds*ds)
+    # p_z_nan = (p_d_nan_giv_p*p_p + p_d_nan_giv_n*(ones - p_p))
+    # p_z_p_tot = p_d_nan_giv_p
+    # p_z_tot = p_z_nan
     # p_p_z = (p_d_nan_giv_p*p_p) / p_z_nan
 
+    p_z_tot = np.zeros(n)
+    p_z_p_tot = np.zeros(n)
     if np.isnan(p_p).any():
         print(np.argwhere(np.isnan(p_p)))
         print("NAN")
@@ -123,13 +125,13 @@ def observation_model(inf0: Inference, obs: Observations, sens_param: SensingPar
             p_acc_det_giv_d_n = np.array([0.0 if float(det.d_mean) < a_acc[i] or float(det.d_mean) > b_acc[i] else p_acc[i] for i in range(n)])
             sum_p_dk_giv_cp = np.array([(1 - fn[i]) * p_acc_det_giv_d_n[i] * p_p[i] * ds for i in range(n)])
             sum_p_dk = np.zeros(n)
-            # for i in range(n):
-            #     if i == 0:
-            #         sum_p_dk[i] = np.sum(sum_p_dk_giv_cp[1:])
-            #     elif i == n-1:
-            #         sum_p_dk[i] = np.sum(sum_p_dk_giv_cp[:n-2])
-            #     else:
-            #         sum_p_dk[i] = np.sum(sum_p_dk_giv_cp[:(i-1)]) + np.sum(sum_p_dk_giv_cp[(i+1):])
+            for i in range(n):
+                if i == 0:
+                    sum_p_dk[i] = np.sum(sum_p_dk_giv_cp[1:])
+                elif i == n-1:
+                    sum_p_dk[i] = np.sum(sum_p_dk_giv_cp[:n-2])
+                else:
+                    sum_p_dk[i] = np.sum(sum_p_dk_giv_cp[:(i-1)]) + np.sum(sum_p_dk_giv_cp[(i+1):])
             p_dn_giv_cp = (ones - fn*ds)*p_acc_det_giv_d_n
             # p_dd_giv_cp = (1 -fn[det_idx])*scipy.stats.norm(float(list_d[det_idx]), float(sp.lsd_at(Decimal(list_d[det_idx])))).pdf(float(det.d_mean))
             p_dd_giv_cp = (1 - fn[det_idx]*ds) + fp[det_idx]*ds + sum_p_dk[det_idx]
@@ -142,8 +144,16 @@ def observation_model(inf0: Inference, obs: Observations, sens_param: SensingPar
             p_z = p_z_giv_cp * p_p + p_z_giv_cn * (ones-p_p)
             p_z_tot += p_z
             p_z_p_tot += p_z_giv_cp
+    else:
+        p_d_nan_giv_p = fn * ds
+        p_d_nan_giv_n = (ones - fp_ds * ds)
+        p_z_nan = (p_d_nan_giv_p * p_p + p_d_nan_giv_n * (ones - p_p))
+        p_z_p_tot = p_d_nan_giv_p
+        p_z_tot = p_z_nan
+        # p_p_z = (p_d_nan_giv_p*p_p) / p_z_nan
 
-    p_p_z = p_z_p_tot * p_p / p_z_tot + prior
+
+    p_p_z = p_z_p_tot * p_p / p_z_tot
 
     alpha = [Decimal(str(min(1, a))) for a in p_p_z]
 
