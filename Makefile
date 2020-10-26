@@ -112,5 +112,9 @@ generate_mcdp_file:
 	PYTHONPATH=src python src/embodied_scripts/generate_mcdp_file.py --basedir $(BASEDIR) \
 	 --simversion $(SIMULATION_VERSION)
 
+combine_mcdp_files:
+	PYTHONPATH=src python src/embodied_scripts/combine_mcdp_files.py --basedir $(BASEDIR) \
+	 --simversion $(SIMULATION_VERSION)
+
 
 

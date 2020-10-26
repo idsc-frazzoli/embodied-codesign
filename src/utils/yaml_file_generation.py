@@ -2,7 +2,7 @@ import os
 from decimal import Decimal
 from glob import glob
 from pathlib import Path
-
+import re
 import yaml
 import ruamel.yaml
 from ruamel.yaml.scalarstring import DoubleQuotedScalarString as dq
@@ -71,7 +71,6 @@ def read_results(basedir: str, result: str):
     filenames = [path for path in Path(basedir).rglob('*.experiment.yaml')]
     results = {}
     for fn in filenames:
-        print(fn)
         with open(fn) as f:
             data = yaml.load(f.read(), Loader=yaml.FullLoader)
         if data["stopped_too_slow"]:
@@ -79,4 +78,30 @@ def read_results(basedir: str, result: str):
         experiment_key = os.path.basename(fn).replace('.experiment.yaml', '')
         results[experiment_key] = data
     with open(result, 'w') as f:
+        yaml.dump(results, f)
+
+    
+def combine_mcdp(basedir: str, models: str):
+    yaml = ruamel.yaml.YAML()
+    yaml.preserve_quotes = True
+    filenames = list(glob(os.path.join(basedir, '*.brake_control_models.yaml'), recursive=True))
+    implementations_new = {}
+    results = {}
+    i = 1
+    for fn in filenames:
+        with open(fn) as f:
+            data = yaml.load(f)
+        implementations = data["implementations"]
+        for imp_key, imp in implementations.items():
+            speed = imp["f_max"][0]
+            speed_float = re.findall("\d+\.\d+", speed)
+            speed_float_corr = round(Decimal('3.6')*Decimal(speed_float[0]),2)
+            speed_string = dq(f"{speed_float_corr} m/s")
+            f_max = [speed_string, imp["f_max"][1], imp["f_max"][2], imp["f_max"][3]]
+            imp["f_max"] = f_max
+            implementations_new["model" + str(i)] = imp
+            i += 1
+
+        results = {"implementations": implementations_new}
+    with open(models, 'w') as f:
         yaml.dump(results, f)
