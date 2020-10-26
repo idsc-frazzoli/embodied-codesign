@@ -370,6 +370,7 @@ def simulate_one(sp: SimParameters) -> OneSimPerformanceMetrics:
             belief = belief_init
 
         if t >= sp.stop_time:
+            logger.info("Vehicle too slow! Stopped experiment.")
             avg_control_effort = control_effort / t
             average_velocity = state.vstate.x / t
             return OneSimPerformanceMetrics(c, Decimal(average_velocity), Decimal(avg_control_effort), True)

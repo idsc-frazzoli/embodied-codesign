@@ -1,4 +1,5 @@
 import random
+
 from dataclasses import dataclass
 from decimal import Decimal
 from typing import List
@@ -98,40 +99,32 @@ def observation_model(b0: Belief, obs: Observations,
         p_acc = np.array([float(p.p) for p in prob_accuracy])
         p_d_k = np.ones(n)
         p_d_k_not = np.ones(n)
-        p_flake_star_d_matrix = np.zeros((n, n))
-        p_flake_star_b = ones - fn
-        p_flake_star_c_matirx = np.zeros((n, n))
-        p_flake_star_e_matirx = np.zeros((n, n))
-        p_flake_star_c_dot_matirx = np.zeros((n, n))
-        p_flake_star_e_dot_matirx = np.zeros((n, n))
-        p_flake_star = np.zeros((n, n))
-        p_kross_dot = np.zeros((n, n))
-        p_kross_dot_f_matrix = np.zeros((n, n))
-        p_kross_dot_g = fp
-        for i in range(n):
-            p_flake_star_d_matrix[:, i] = fp
-            p_flake_star_d_matrix[i, i] = 0.0
-            p_flake_star_c_matirx[:, i] = p_k
-            p_flake_star_c_matirx[i, i] = 1.0
-            p_flake_star_e_matirx[:, i] = ones - p_k
-            p_flake_star_e_matirx[i, i] = 0.0
-            p_flake_star_c_dot_matirx[:, i] = p_k
-            p_flake_star_c_dot_matirx[i, i] = 0.0
-            p_flake_star_e_dot_matirx[:, i] = ones - p_k
-            p_flake_star_e_dot_matirx[i, i] = 1.0
-            p_flake_star[:, i] = p_flake_star_b * p_flake_star_c_matirx[:, i] + p_flake_star_d_matrix[:, i] * p_flake_star_e_matirx[:, i]
-            p_kross_dot_f_matrix[:, i] = p_flake_star_b
-            p_kross_dot_f_matrix[i, i] = 0.0
-            p_kross_dot[:, i] = p_kross_dot_f_matrix[:, i] * p_flake_star_c_dot_matirx[:, i] + p_kross_dot_g * p_flake_star_e_dot_matirx[:, i]
-
+        p_flake_star_d_matrix = np.zeros((n, n)) + fp
+        np.fill_diagonal(p_flake_star_d_matrix, 0.0)
+        p_flake_star_b_matrix = np.zeros((n,n)) + ones - fn
+        p_flake_star_c_matirx = np.zeros((n, n)) + p_k
+        np.fill_diagonal(p_flake_star_c_matirx, 1.0)
+        p_flake_star_e_matirx = np.zeros((n, n)) + ones - p_k
+        np.fill_diagonal(p_flake_star_e_matirx, 0.0)
+        p_flake_star_c_dot_matirx = np.zeros((n, n)) + p_k
+        np.fill_diagonal(p_flake_star_c_dot_matirx, 0.0)
+        p_flake_star_e_dot_matirx = np.zeros((n, n)) + ones - p_k
+        np.fill_diagonal(p_flake_star_e_dot_matirx, 1.0)
+        p_kross_dot_f_matrix = np.zeros((n, n)) + ones - fn
+        np.fill_diagonal(p_kross_dot_f_matrix, 0.0)
+        p_kross_dot_g_matrix = np.zeros((n,n)) + fp
+        p_flake_star = p_flake_star_b_matrix * p_flake_star_c_matirx + p_flake_star_d_matrix * p_flake_star_e_matirx
+        p_kross_dot = p_kross_dot_f_matrix * p_flake_star_c_dot_matirx + p_kross_dot_g_matrix * p_flake_star_e_dot_matirx
         for det in obs.detections:
             d = float(det.d_mean)
             p_flake_a = np.array([0.0 if d < a_acc[i] or d > b_acc[i] else p_acc[i] for i in range(n)])
-            p_flake = np.array([np.sum(p_flake_a * p_flake_star[:, k]) for k in range(n)])
+            p_flake_a_matrix = np.zeros((n,n)) + p_flake_a
+            p_flake_matrix = p_flake_a_matrix * p_flake_star
+            p_flake = np.sum(p_flake_matrix, axis=1)
             p_d_k *= p_flake
-            p_kross = np.array([np.sum(p_flake_a * p_kross_dot[:, k]) for k in range(n)])
+            p_kross_matrix = p_flake_a_matrix * p_kross_dot
+            p_kross = np.sum(p_kross_matrix, axis=1)
             p_d_k_not *= p_kross
-
         p_d = p_d_k * p_k + p_d_k_not * (ones - p_k)
         p_p_k_d = p_d_k * p_k / p_d
         po1 = [Decimal(p) for p in p_p_k_d]
