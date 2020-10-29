@@ -54,7 +54,7 @@ CONTROL_KEY=none
 ALG_KEY=none
 SPEED_LIST=none
 DOANIMATION_CAT=--do_not_animation
-NPROCESSES=4
+NPROCESSES=30
 SIMULATION_VERSION=simulation_v.1.0
 
 all:

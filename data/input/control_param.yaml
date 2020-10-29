@@ -1,16 +1,16 @@
-cont_th_1.0_ds_3.0_f_0.5_pamx_0.5:
-  d_stop_m: 3.0
-  frequency_hz: 0.5
-  percentage_amax: 0.5
-  prob_threshold: 1.0
-cont_th_1.0_ds_3.0_f_1.0_pamx_0.5:
-  d_stop_m: 3.0
-  frequency_hz: 1.0
-  percentage_amax: 0.5
-  prob_threshold: 1.0
 cont_th_1.0_ds_3.0_f_10.0_pamx_0.5:
   d_stop_m: 3.0
   frequency_hz: 10.0
+  percentage_amax: 0.5
+  prob_threshold: 1.0
+cont_th_1.0_ds_3.0_f_15.0_pamx_0.5:
+  d_stop_m: 3.0
+  frequency_hz: 15.0
+  percentage_amax: 0.5
+  prob_threshold: 1.0
+cont_th_1.0_ds_3.0_f_2.5_pamx_0.5:
+  d_stop_m: 3.0
+  frequency_hz: 2.5
   percentage_amax: 0.5
   prob_threshold: 1.0
 cont_th_1.0_ds_3.0_f_20.0_pamx_0.5:
@@ -18,24 +18,34 @@ cont_th_1.0_ds_3.0_f_20.0_pamx_0.5:
   frequency_hz: 20.0
   percentage_amax: 0.5
   prob_threshold: 1.0
+cont_th_1.0_ds_3.0_f_30.0_pamx_0.5:
+  d_stop_m: 3.0
+  frequency_hz: 30.0
+  percentage_amax: 0.5
+  prob_threshold: 1.0
 cont_th_1.0_ds_3.0_f_5.0_pamx_0.5:
   d_stop_m: 3.0
   frequency_hz: 5.0
   percentage_amax: 0.5
   prob_threshold: 1.0
-cont_th_2.0_ds_3.0_f_0.5_pamx_0.5:
+cont_th_1.0_ds_3.0_f_50.0_pamx_0.5:
   d_stop_m: 3.0
-  frequency_hz: 0.5
+  frequency_hz: 50.0
   percentage_amax: 0.5
-  prob_threshold: 2.0
-cont_th_2.0_ds_3.0_f_1.0_pamx_0.5:
-  d_stop_m: 3.0
-  frequency_hz: 1.0
-  percentage_amax: 0.5
-  prob_threshold: 2.0
+  prob_threshold: 1.0
 cont_th_2.0_ds_3.0_f_10.0_pamx_0.5:
   d_stop_m: 3.0
   frequency_hz: 10.0
+  percentage_amax: 0.5
+  prob_threshold: 2.0
+cont_th_2.0_ds_3.0_f_15.0_pamx_0.5:
+  d_stop_m: 3.0
+  frequency_hz: 15.0
+  percentage_amax: 0.5
+  prob_threshold: 2.0
+cont_th_2.0_ds_3.0_f_2.5_pamx_0.5:
+  d_stop_m: 3.0
+  frequency_hz: 2.5
   percentage_amax: 0.5
   prob_threshold: 2.0
 cont_th_2.0_ds_3.0_f_20.0_pamx_0.5:
@@ -43,24 +53,34 @@ cont_th_2.0_ds_3.0_f_20.0_pamx_0.5:
   frequency_hz: 20.0
   percentage_amax: 0.5
   prob_threshold: 2.0
+cont_th_2.0_ds_3.0_f_30.0_pamx_0.5:
+  d_stop_m: 3.0
+  frequency_hz: 30.0
+  percentage_amax: 0.5
+  prob_threshold: 2.0
 cont_th_2.0_ds_3.0_f_5.0_pamx_0.5:
   d_stop_m: 3.0
   frequency_hz: 5.0
   percentage_amax: 0.5
   prob_threshold: 2.0
-cont_th_5.0_ds_3.0_f_0.5_pamx_0.5:
+cont_th_2.0_ds_3.0_f_50.0_pamx_0.5:
   d_stop_m: 3.0
-  frequency_hz: 0.5
+  frequency_hz: 50.0
   percentage_amax: 0.5
-  prob_threshold: 5.0
-cont_th_5.0_ds_3.0_f_1.0_pamx_0.5:
-  d_stop_m: 3.0
-  frequency_hz: 1.0
-  percentage_amax: 0.5
-  prob_threshold: 5.0
+  prob_threshold: 2.0
 cont_th_5.0_ds_3.0_f_10.0_pamx_0.5:
   d_stop_m: 3.0
   frequency_hz: 10.0
+  percentage_amax: 0.5
+  prob_threshold: 5.0
+cont_th_5.0_ds_3.0_f_15.0_pamx_0.5:
+  d_stop_m: 3.0
+  frequency_hz: 15.0
+  percentage_amax: 0.5
+  prob_threshold: 5.0
+cont_th_5.0_ds_3.0_f_2.5_pamx_0.5:
+  d_stop_m: 3.0
+  frequency_hz: 2.5
   percentage_amax: 0.5
   prob_threshold: 5.0
 cont_th_5.0_ds_3.0_f_20.0_pamx_0.5:
@@ -68,24 +88,34 @@ cont_th_5.0_ds_3.0_f_20.0_pamx_0.5:
   frequency_hz: 20.0
   percentage_amax: 0.5
   prob_threshold: 5.0
+cont_th_5.0_ds_3.0_f_30.0_pamx_0.5:
+  d_stop_m: 3.0
+  frequency_hz: 30.0
+  percentage_amax: 0.5
+  prob_threshold: 5.0
 cont_th_5.0_ds_3.0_f_5.0_pamx_0.5:
   d_stop_m: 3.0
   frequency_hz: 5.0
   percentage_amax: 0.5
   prob_threshold: 5.0
-cont_th_7.0_ds_3.0_f_0.5_pamx_0.5:
+cont_th_5.0_ds_3.0_f_50.0_pamx_0.5:
   d_stop_m: 3.0
-  frequency_hz: 0.5
+  frequency_hz: 50.0
   percentage_amax: 0.5
-  prob_threshold: 7.0
-cont_th_7.0_ds_3.0_f_1.0_pamx_0.5:
-  d_stop_m: 3.0
-  frequency_hz: 1.0
-  percentage_amax: 0.5
-  prob_threshold: 7.0
+  prob_threshold: 5.0
 cont_th_7.0_ds_3.0_f_10.0_pamx_0.5:
   d_stop_m: 3.0
   frequency_hz: 10.0
+  percentage_amax: 0.5
+  prob_threshold: 7.0
+cont_th_7.0_ds_3.0_f_15.0_pamx_0.5:
+  d_stop_m: 3.0
+  frequency_hz: 15.0
+  percentage_amax: 0.5
+  prob_threshold: 7.0
+cont_th_7.0_ds_3.0_f_2.5_pamx_0.5:
+  d_stop_m: 3.0
+  frequency_hz: 2.5
   percentage_amax: 0.5
   prob_threshold: 7.0
 cont_th_7.0_ds_3.0_f_20.0_pamx_0.5:
@@ -93,8 +123,18 @@ cont_th_7.0_ds_3.0_f_20.0_pamx_0.5:
   frequency_hz: 20.0
   percentage_amax: 0.5
   prob_threshold: 7.0
+cont_th_7.0_ds_3.0_f_30.0_pamx_0.5:
+  d_stop_m: 3.0
+  frequency_hz: 30.0
+  percentage_amax: 0.5
+  prob_threshold: 7.0
 cont_th_7.0_ds_3.0_f_5.0_pamx_0.5:
   d_stop_m: 3.0
   frequency_hz: 5.0
+  percentage_amax: 0.5
+  prob_threshold: 7.0
+cont_th_7.0_ds_3.0_f_50.0_pamx_0.5:
+  d_stop_m: 3.0
+  frequency_hz: 50.0
   percentage_amax: 0.5
   prob_threshold: 7.0

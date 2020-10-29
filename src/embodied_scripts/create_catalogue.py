@@ -304,7 +304,7 @@ if __name__ == '__main__':
     parser.add_argument('--seed', type=int, default=0, help='Seed for simulation.')
     parser.add_argument('--basedir', type=str, default='DB', help='Controller name.')
     parser.add_argument('--simversion', type=str, default='simulation_v.1.0', help='Controller name.')
-    parser.add_argument('--nprocesses', type=int, default=4, help='Number of paralles processes.')
+    parser.add_argument('--nprocesses', type=int, default=30, help='Number of paralles processes.')
     parser.add_argument("--all", default=False, action="store_true", help="Flag to simulate all parameters.")
     parser.add_argument("--not_all", default=False, action="store_true", help="Flag to simulate all parameters.")
     parser.add_argument('--sensor_key', nargs='+', type=str, default=["none"], help='Sensor keys.')
