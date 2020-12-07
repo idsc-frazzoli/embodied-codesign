@@ -30,13 +30,13 @@ make create_catalogue ENVIRONMENT_KEY=env_d_5.0_day NSIMS=50 CONTROL_KEY='cont_t
 
 
 # 1
-make create_catalogue ENVIRONMENT_KEY=env_d_5.0_day NSIMS=50 CONTROL_KEY='cont_th_7.0_ds_3.0_f_30.0_pamx_0.5' SPEED_LIST='13.41 17.88 22.35' VEHICLE_KEY='sedan_s' ALG_KEY='day_faster_rcnn1 day_stm_kde' NPROCESSES=5 SIMULATION_VERSION=simulation_v.1.2_sensors_nsims_50
+make create_catalogue ENVIRONMENT_KEY=env_d_5.0_day NSIMS=50 CONTROL_KEY='cont_th_7.0_ds_3.0_f_22.5_pamx_0.5 cont_th_7.0_ds_3.0_f_17.5_pamx_0.5 cont_th_7.0_ds_3.0_f_12.5_pamx_0.5' SPEED_LIST='8.93 13.41 17.88 22.35' VEHICLE_KEY='sedan_s' ALG_KEY='day_faster_rcnn1 day_stm_kde' NPROCESSES=30 SIMULATION_VERSION=simulation_v.1.2_sensors_nsims_50
 
 # 2
-make create_catalogue ENVIRONMENT_KEY=env_d_5.0_day NSIMS=50 CONTROL_KEY='cont_th_7.0_ds_3.0_f_15.0_pamx_0.5' SPEED_LIST='8.93 13.41 17.88 22.35' VEHICLE_KEY='sedan_s' ALG_KEY='day_faster_rcnn1 day_stm_kde' NPROCESSES=20 SIMULATION_VERSION=simulation_v.1.2_sensors_nsims_50
 
 # 3
-make create_catalogue ENVIRONMENT_KEY=env_d_5.0_day NSIMS=50 CONTROL_KEY='cont_th_7.0_ds_3.0_f_20.0_pamx_0.5 cont_th_7.0_ds_3.0_f_10.0_pamx_0.5 cont_th_7.0_ds_3.0_f_5.0_pamx_0.5' SPEED_LIST='8.93 13.41 17.88' VEHICLE_KEY='bev' ALG_KEY='day_faster_rcnn1 day_stm_kde' NPROCESSES=5 SIMULATION_VERSION=simulation_v.1.2_sensors_nsims_50
+
+# 4
 
 
-make generate_control_param CONTROL_PARAM_FREQ='50.0 30.0 20.0 15.0 10.0 5.0 2.5'
+make generate_control_param CONTROL_PARAM_FREQ='50.0 30.0 22.5 20.0 17.5 15.0 12.5 10.0 7.5 5.0 2.5'
