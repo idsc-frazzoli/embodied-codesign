@@ -64,7 +64,9 @@ def generate_animation(args):
         do_animation = False
 
     sp = SimParameters(nsims=args.nsims, road_length=Decimal(args.road_length), dt=Decimal(args.dt),
-                       seed=args.seed, do_animation=do_animation, add_object_at=args.add_object_at, stop_time=Decimal(args.stop_time))
+                       seed=args.seed, do_animation=do_animation, add_object_at=args.add_object_at,
+                       stop_time=Decimal(args.stop_time), discomfort_penalty=Decimal(args.discomfort_penalty))
+
     experiment_key = f'{args.vehicle}-{env_key}-{args.sensor}-{sens_perf_curv_key}-{str(speed)}-{cont_key}'
     fn = os.path.join(args.basedir, str(args.vehicle), str(env_key), str(args.sensor),
                       str(sens_perf_curv_key), str(speed), str(cont_key), f'{experiment_key}.experiment.yaml')
@@ -86,9 +88,14 @@ def generate_animation(args):
         "mean": str(round(performance.discomfort.mean, 2)), "var": str(round(performance.discomfort.var, 2)),
         "u95": str(round(performance.discomfort.u95, 2)), "l95": str(round(performance.discomfort.l95, 2))
     }
+    control_effort = {
+        "mean": str(round(performance.control_effort.mean, 2)), "var": str(round(performance.control_effort.var, 2)),
+        "u95": str(round(performance.control_effort.u95, 2)), "l95": str(round(performance.control_effort.l95, 2))
+    }
     ad_perf = {
         "danger": danger,
         "discomfort": discomfort,
+        "control_effort": control_effort,
         "speed": speed, "sensor": args.sensor, "sens_perf": sens_perf_curv_key, "dyn_perf": args.vehicle,
         "environment": env_key,
         "controller": cont_key,
@@ -126,6 +133,7 @@ if __name__ == '__main__':
     parser.add_argument('--control_percentage_amax', type=float, default=0.5,
                         help='The procentage of a_max usage.')
     parser.add_argument('--stop_time', type=str, default='400.0', help='Stop time of simulation if running too long.')
+    parser.add_argument('--discomfort_penalty', type=str, default='5.0', help='The discomfort penalty when collided.')
     args = parser.parse_args()
 
     generate_animation(args)

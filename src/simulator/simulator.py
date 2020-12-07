@@ -54,7 +54,7 @@ class SimParameters:
     stop_time: Decimal
 
     def __init__(self, nsims: int, road_length: Decimal, dt: Decimal, seed: int, do_animation: bool,
-                 add_object_at: str, stop_time: Decimal) -> None:
+                 add_object_at: str, stop_time: Decimal, discomfort_penalty: Decimal) -> None:
         self.nsims = nsims
         self.road_length = road_length
         self.dt = dt
@@ -62,14 +62,16 @@ class SimParameters:
         self.do_animation = do_animation
         self.add_object_at = add_object_at
         self.stop_time = stop_time
+        self.discomfort_penalty = discomfort_penalty
 
 
 def initialize_metrics(sp: SimParameters):
     discomfort = np.zeros(sp.nsims)
+    control_effort = np.zeros(sp.nsims)
     average_velocity = np.zeros(sp.nsims)
     average_collision_momentum = np.zeros(sp.nsims)
     collision = np.zeros(sp.nsims)
-    return discomfort, average_velocity, average_collision_momentum, collision
+    return discomfort, control_effort, average_velocity, average_collision_momentum, collision
 
 
 def initialize_veh_stats(s: Decimal, dyn_perf: Dict):
@@ -164,7 +166,7 @@ def get_stats(performance_list, cl:float, df:int) -> Statistics:
 def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s: Decimal,
              env: Dict, cont: Dict, experiment_key: str, file_directory: str) -> PerformanceMetrics:
     # Initializing metrics
-    discomfort, average_velocity, average_collision_momentum, collision = initialize_metrics(sp=sp)
+    discomfort, control_effort, average_velocity, average_collision_momentum, collision = initialize_metrics(sp=sp)
     # Initializing sensing parameters
     sens_param = initialize_sensing_parameters(sens_curves=sens_curves, sens=sens, sp=sp)
     # Initializing controller
@@ -219,7 +221,13 @@ def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s
         if collided_mom is not None:
             collision[i] = 1
             average_collision_momentum[i] = collided_mom
-        discomfort[i] = cont_eff
+
+        if collided_mom is not None:
+            discomfort[i] = cont_eff + sp.discomfort_penalty
+        else:
+            discomfort[i] = cont_eff
+
+        control_effort[i] = cont_eff
         average_velocity[i] = av_vel
 
         if data['stopped_too_slow']:
@@ -228,12 +236,14 @@ def simulate(sp: SimParameters, dyn_perf: Dict, sens: Dict, sens_curves: Dict, s
 
 
     discomfort_stat = get_stats(discomfort, cl=0.95, df=sp.nsims)
+    control_effort_stats = get_stats(control_effort, cl=0.95, df=sp.nsims)
     p_collision = np.mean(collision)
     danger = average_collision_momentum * p_collision
     danger_stat = get_stats(danger, cl=0.95, df=sp.nsims)
     average_velocity_stat = get_stats(average_velocity, cl=0.95, df=sp.nsims)
 
-    return PerformanceMetrics(danger=danger_stat, discomfort=discomfort_stat, average_velocity=average_velocity_stat,
+    return PerformanceMetrics(danger=danger_stat, discomfort=discomfort_stat, control_effort=control_effort_stats,
+                              average_velocity=average_velocity_stat,
                               stopped_too_slow=stopped_too_slow)
 
 

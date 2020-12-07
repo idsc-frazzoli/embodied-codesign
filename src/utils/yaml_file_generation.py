@@ -127,7 +127,7 @@ def read_results_from_single_exp(basedir: str, result: str, sp: SimParameters):
         if len(filenames_single) != sp.nsims:
             raise ValueError
         # Initializing metrics
-        discomfort, average_velocity, average_collision_momentum, collision = initialize_metrics(sp=sp)
+        discomfort, control_effort, average_velocity, average_collision_momentum, collision = initialize_metrics(sp=sp)
         i = 0
         stopped_too_slow = False
         for fns in filenames_single:
@@ -147,10 +147,10 @@ def read_results_from_single_exp(basedir: str, result: str, sp: SimParameters):
                 average_collision_momentum[i] = collided_mom
 
             if collided_mom is not None:
-                discomfort[i] = cont_eff + Decimal('5.0')
+                discomfort[i] = cont_eff + sp.discomfort_penalty
             else:
                 discomfort[i] = cont_eff
-
+            control_effort[i] = cont_eff
             average_velocity[i] = av_vel
 
             if data['stopped_too_slow']:
@@ -158,26 +158,33 @@ def read_results_from_single_exp(basedir: str, result: str, sp: SimParameters):
                 break
             i += 1
         discomfort_stat = get_stats(discomfort, cl=0.95, df=sp.nsims)
+        control_effort_stats = get_stats(control_effort, cl=0.95, df=sp.nsims)
         p_collision = np.mean(collision)
         danger = average_collision_momentum * p_collision
         danger_stat = get_stats(danger, cl=0.95, df=sp.nsims)
         average_velocity_stat = get_stats(average_velocity, cl=0.95, df=sp.nsims)
-        pm = PerformanceMetrics(danger=danger_stat, discomfort=discomfort_stat, average_velocity=average_velocity_stat,
-                              stopped_too_slow=stopped_too_slow)
+        pm = PerformanceMetrics(danger=danger_stat, discomfort=discomfort_stat, control_effort=control_effort_stats,
+                                average_velocity=average_velocity_stat, stopped_too_slow=stopped_too_slow)
 
         danger = {
-            "mean": str(round(pm.danger.mean, 5)), "var": str(round(pm.danger.var, 5)),
+            "mean": str(round(pm.danger.mean, 5)), "var": str(round(pm.danger.var, 2)),
             "u95": str(round(pm.danger.u95, 5)),
             "l95": str(round(pm.danger.l95, 5))
         }
         discomfort = {
-            "mean": str(round(pm.discomfort.mean, 5)), "var": str(round(pm.discomfort.var, 5)),
-            "u95": str(round(pm.discomfort.u95, 5)), "l95": str(round(pm.discomfort.l95, 5))
+            "mean": str(round(pm.discomfort.mean, 5)), "var": str(round(pm.discomfort.var, 2)),
+            "u95": str(round(pm.discomfort.u95, 5)), "l95": str(round(pm.discomfort.l95, 2))
+        }
+        control_effort = {
+            "mean": str(round(pm.control_effort.mean, 2)),
+            "var": str(round(pm.control_effort.var, 2)),
+            "u95": str(round(pm.control_effort.u95, 2)), "l95": str(round(pm.control_effort.l95, 2))
         }
 
 
         data["danger"] = danger
         data["discomfort"] = discomfort
+        data["control_effort"] = control_effort
         with open(fn, 'w') as f:
             yaml.dump(data, f, default_flow_style=False)
 
