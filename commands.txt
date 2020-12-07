@@ -18,31 +18,6 @@ cont_th_7.0_ds_3.0_f_20.0_pamx_0.5,
 cont_th_2.0_ds_3.0_f_20.0_pamx_0.5
 
 
-<<<<<<< HEAD
-make create_catalogue ENVIRONMENT_KEY=env_d_5.0_day NSIMS=50 CONTROL_KEY='cont_th_7.0_ds_3.0_f_5.0_pamx_0.5 cont_th_7.0_ds_3.0_f_10.0_pamx_0.5' SPEED_LIST='8.93 13.41 17.88 22.35' VEHICLE_KEY='sedan_s' ALG_KEY='day_faster_rcnn1 day_stm_kde' NPROCESSES=20 SIMULATION_VERSION=simulation_v.1.2_sensors_nsims_50
-
-make create_catalogue ENVIRONMENT_KEY=env_d_5.0_day NSIMS=50 CONTROL_KEY='cont_th_7.0_ds_3.0_f_5.0_pamx_0.5 cont_th_7.0_ds_3.0_f_10.0_pamx_0.5' SPEED_LIST='8.93 13.41 17.88 22.35' VEHICLE_KEY='sedan_s' ALG_KEY='day_faster_rcnn1 day_stm_kde' NPROCESSES=1 SIMULATION_VERSION=simulation_v.1.2_sensors_nsims_50
-
-make create_catalogue ENVIRONMENT_KEY=env_d_5.0_day NSIMS=50 CONTROL_KEY='cont_th_7.0_ds_3.0_f_20.0_pamx_0.5' SPEED_LIST='13.41' VEHICLE_KEY='minivan' ALG_KEY='day_faster_rcnn1 day_stm_kde' NPROCESSES=5 SIMULATION_VERSION=simulation_v.1.2_sensors_nsims_50
-
-make create_catalogue ENVIRONMENT_KEY=env_d_5.0_day NSIMS=50 CONTROL_KEY='cont_th_7.0_ds_3.0_f_20.0_pamx_0.5 cont_th_7.0_ds_3.0_f_10.0_pamx_0.5 cont_th_7.0_ds_3.0_f_5.0_pamx_0.5' SPEED_LIST='8.93 13.41 17.88' VEHICLE_KEY='bev' ALG_KEY='day_faster_rcnn1 day_stm_kde' NPROCESSES=5 SIMULATION_VERSION=simulation_v.1.2_sensors_nsims_50
-
-make create_catalogue ENVIRONMENT_KEY=env_d_5.0_day NSIMS=50 CONTROL_KEY='cont_th_7.0_ds_3.0_f_10.0_pamx_0.5 cont_th_7.0_ds_3.0_f_5.0_pamx_0.5' SPEED_LIST='22.35' VEHICLE_KEY='bev' ALG_KEY='day_faster_rcnn1 day_stm_kde' NPROCESSES=2 SIMULATION_VERSION=simulation_v.1.2_sensors_nsims_50
-
-
-# 1
-make create_catalogue ENVIRONMENT_KEY=env_d_5.0_day NSIMS=50 CONTROL_KEY='cont_th_7.0_ds_3.0_f_30.0_pamx_0.5' SPEED_LIST='13.41 17.88 22.35' VEHICLE_KEY='sedan_s' ALG_KEY='day_faster_rcnn1 day_stm_kde' NPROCESSES=5 SIMULATION_VERSION=simulation_v.1.2_sensors_nsims_50
-
-# 2
-make create_catalogue ENVIRONMENT_KEY=env_d_5.0_day NSIMS=50 CONTROL_KEY='cont_th_7.0_ds_3.0_f_15.0_pamx_0.5' SPEED_LIST='8.93 13.41 17.88 22.35' VEHICLE_KEY='sedan_s' ALG_KEY='day_faster_rcnn1 day_stm_kde' NPROCESSES=20 SIMULATION_VERSION=simulation_v.1.2_sensors_nsims_50
-
-# 3
-make create_catalogue ENVIRONMENT_KEY=env_d_5.0_day NSIMS=50 CONTROL_KEY='cont_th_7.0_ds_3.0_f_20.0_pamx_0.5 cont_th_7.0_ds_3.0_f_10.0_pamx_0.5 cont_th_7.0_ds_3.0_f_5.0_pamx_0.5' SPEED_LIST='8.93 13.41 17.88' VEHICLE_KEY='bev' ALG_KEY='day_faster_rcnn1 day_stm_kde' NPROCESSES=5 SIMULATION_VERSION=simulation_v.1.2_sensors_nsims_50
-
-
-make generate_control_param CONTROL_PARAM_FREQ='50.0 30.0 20.0 15.0 10.0 5.0 2.5'
-=======
 make create_catalogue ENVIRONMENT_KEY=env_d_5.0_day NSIMS=50 CONTROL_KEY='cont_th_7.0_ds_3.0_f_15.0_pamx_0.5' ALG_KEY='day_faster_rcnn1 day_stm_kde' SPEED_LIST='17.88 22.35' VEHICLE_KEY=sedan_s NPROCESSES=5 SIMULATION_VERSION=simulation_v.1.2_sensors_nsims_50
 
 'Ace13gm_day_faster_rcnn1 Ace15um_day_faster_rcnn1 Ace222gm_day_faster_rcnn1 Ace251gm_day_faster_rcnn1 Ace5gm_day_faster_rcnn1 Ace7gm_day_faster_rcnn1 Pointgrey_day_faster_rcnn1 OS0128_day_stm_kde OS032_day_stm_kde OS064_day_stm_kde OS2128_day_stm_kde OS232_day_stm_kde OS264_day_stm_kde hdl32_day_stm_kde hdl64_day_stm_kde puck_day_stm_kde'
->>>>>>> e90373ba5ddeaccf8eb5e15b03777b5c4c2bb161
