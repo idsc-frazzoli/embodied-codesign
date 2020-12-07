@@ -63,7 +63,8 @@ def generate_all(args):
     speed = cruise_speeds["speeds"]
 
     sp = SimParameters(nsims=args.nsims, road_length=Decimal(args.road_length), dt=Decimal(args.dt),
-                       seed=args.seed, do_animation=False, add_object_at="none", stop_time=Decimal(args.stop_time))
+                       seed=args.seed, do_animation=False, add_object_at="none", stop_time=Decimal(args.stop_time),
+                       discomfort_penalty=Decimal(args.discomfort_penalty))
 
     logger.info(f'nsims = {args.nsims}')
 
@@ -143,9 +144,14 @@ def simulate_and_write(params):
         "mean": str(round(performance.discomfort.mean, 2)), "var": str(round(performance.discomfort.var, 2)),
         "u95": str(round(performance.discomfort.u95, 2)), "l95": str(round(performance.discomfort.l95, 2))
     }
+    control_effort = {
+        "mean": str(round(performance.control_effort.mean, 2)), "var": str(round(performance.control_effort.var, 2)),
+        "u95": str(round(performance.control_effort.u95, 2)), "l95": str(round(performance.control_effort.l95, 2))
+    }
     ad_perf = {
         "danger": danger,
         "discomfort": discomfort,
+        "control_effort": control_effort,
         "speed": s, "sensor": sens_key, "sens_perf": s_perf_key, "dyn_perf": veh_key,
         "environment": env_key,
         "controller": cont_key,
@@ -182,7 +188,8 @@ def generate_specifc(args):
     speed = cruise_speeds["speeds"]
 
     sp = SimParameters(nsims=args.nsims, road_length=Decimal(args.road_length), dt=Decimal(args.dt),
-                       seed=args.seed, do_animation=False, add_object_at="none", stop_time=Decimal(args.stop_time))
+                       seed=args.seed, do_animation=False, add_object_at="none", stop_time=Decimal(args.stop_time),
+                       discomfort_penalty=Decimal(args.discomfort_penalty))
 
     logger.info(f'nsims = {args.nsims}')
 
@@ -314,6 +321,7 @@ if __name__ == '__main__':
     parser.add_argument('--alg_key', nargs='+', type=str, default=["none"], help='Algorithm keys.')
     parser.add_argument('--speed_list', nargs='+', type=str, default=["none"], help='Speed list.')
     parser.add_argument('--stop_time', type=str, default='400.0', help='Stop time of simulation if running too long.')
+    parser.add_argument('--discomfort_penalty', type=str, default='5.0', help='The discomfort penalty when collided.')
     args = parser.parse_args()
 
     if args.all:

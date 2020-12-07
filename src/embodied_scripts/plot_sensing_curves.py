@@ -1,6 +1,8 @@
 import argparse
 import json
 from decimal import Decimal
+from typing import List
+
 import matplotlib.pyplot as plt
 
 
@@ -51,49 +53,54 @@ def plot_all():
     plt.savefig('data/output/fp.png')
     plt.close()
 
-def plot_one(name: str):
+def plot_one(list_names: List[str]):
     with open('data/input/sensing_performance_curves.json') as file:
         curves = json.load(file)
 
-    curve = curves[name]
-    ds = Decimal(curve["ds"])
-    max_distance = Decimal(curve["max_distance"])
+    ds = Decimal(curves["Ace13gm_day_faster_rcnn1"]["ds"])
+    max_distance = Decimal(curves["Ace13gm_day_faster_rcnn1"]["max_distance"])
     n = int(round(max_distance / ds))
     list_of_ds = [ds * Decimal(i) for i in range(n)]
 
-    data = curve["fn"]
-    data = [Decimal(s) for s in data]
-    plt.plot(list_of_ds, data, label=name)
-    plt.ylabel('FNR')
-    plt.xlabel('d in [m]')
-    plt.legend(loc="upper left")
-    plt.savefig(f'data/output/fn-{name}.png')
+    for name in list_names:
+        curve = curves[name]
+        data = curve["fn"]
+        data = [Decimal(s) for s in data]
+        plt.plot(list_of_ds, data, label=name)
+        plt.ylabel('FNR')
+        plt.xlabel('d in [m]')
+        plt.legend(loc="upper left")
+    plt.savefig(f'data/output/fn.png')
     plt.show()
     plt.close()
 
-    data = curve["fp"]
-    data = [Decimal(s) for s in data]
-    plt.plot(list_of_ds, data, label=name)
-    plt.ylabel('FPR')
-    plt.xlabel('d in [m]')
-    plt.legend(loc="upper left")
-    plt.savefig(f'data/output/fp-{name}.png')
+    for name in list_names:
+        curve = curves[name]
+        data = curve["fp"]
+        data = [Decimal(s) for s in data]
+        plt.plot(list_of_ds, data, label=name)
+        plt.ylabel('FPR')
+        plt.xlabel('d in [m]')
+        plt.legend(loc="upper left")
+    plt.savefig(f'data/output/fp.png')
     plt.show()
     plt.close()
 
-    data = curve["accuracy"]
-    data = [Decimal(s) for s in data]
-    plt.plot(list_of_ds, data, label=name)
-    plt.ylabel('accuracy')
-    plt.xlabel('d in [m]')
-    plt.legend(loc="upper left")
-    plt.savefig(f'data/output/accuracy-{name}.png')
+    for name in list_names:
+        curve = curves[name]
+        data = curve["accuracy"]
+        data = [Decimal(s) for s in data]
+        plt.plot(list_of_ds, data, label=name)
+        plt.ylabel('accuracy')
+        plt.xlabel('d in [m]')
+        plt.legend(loc="upper left")
+    plt.savefig(f'data/output/accuracy.png')
     plt.show()
     plt.close()
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Plotting sensing curves.')
-    parser.add_argument('--sens_alg', type=str, default='Ace13gm_day_faster_rcnn1', help='The discretization of space in meters.')
+    parser.add_argument('--sens_alg', nargs='+', type=str, default=['Ace13gm_day_faster_rcnn1'], help='The discretization of space in meters.')
     args = parser.parse_args()
     if args.sens_alg == "all":
         plot_all()

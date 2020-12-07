@@ -15,6 +15,7 @@ class Statistics:
 class PerformanceMetrics:
     danger: Statistics
     discomfort: Statistics
+    control_effort: Statistics
     average_velocity: Statistics
     stopped_too_slow: bool
 
